@@ -1,0 +1,15 @@
+rules:
+  - id: potential-code-execution
+    pattern: exec.Command(...)
+    fix: Use libraries instead
+    message: |-
+      Potentially unsafe command execution
+    languages: [go]
+    severity: WARNING
+  - id: potential integer overlfow
+    pattern: strconv.Atoi(...)
+    fix: strconv.ParseInt or strconv.ParseUint with bitSize arg
+    message: |-
+      When parsing strings into fixed-width integer types, use strconv.ParseInt or strconv.ParseUint with appropriate bitSize argument instead of strconv.Atoi.
+    languages: [go]
+    severity: WARNING
