@@ -1,6 +1,6 @@
 #!/bin/bash
 
-python -m pip install semgrep
+python -m pip3 install semgrep
 
 repos=`cat enabled`
 
@@ -9,5 +9,5 @@ do
 	outfile="results-$repo.json"
 	git_repo="git@slack-github.com:slack/$repo.git"
 	git clone $git_repo
-	semgrep --config=golang/semgrep.yaml --json -o $outfile $repo
+	semgrep --config=golang/semgrep.yaml --json -o artifacts/$outfile $repo
 done
