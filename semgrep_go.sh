@@ -1,5 +1,4 @@
 #!/bin/bash
-set -xe
 
 version=0.27.0
 digest="8ed62d34b6149f9d08fcce55b27d21f850e3a87e21f10aeb5bfb00e0a0faa0ef"
@@ -14,6 +13,7 @@ fi
 results="results"
 
 function run_semgrep {
+	set -xe
 	echo "[+] Clearing results from previous run"
 	rm -rf $WORKSPACE/snow/$results
 	mkdir $WORKSPACE/snow/$results
@@ -29,9 +29,10 @@ function run_semgrep {
 		fi
 		docker run --rm -v "${WORKSPACE}/snow:/src" \
 			returntocorp/semgrep:0.27.0 \
-			--config=/src/golang/semgrep.yaml --json -o /src/$results/$outfile $repo
+			--config=/src/golang/semgrep.yaml --json -o /src/$results/$outfile --error $repo
 	done
 
+	set +xe
 	status=$? 
 	exit $status
 }
