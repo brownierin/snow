@@ -13,13 +13,14 @@ fi
 results="results"
 
 function run_semgrep {
-	set -xe
+	set -x
 	echo "[+] Clearing results from previous run"
 	rm -rf $WORKSPACE/snow/$results
 	mkdir $WORKSPACE/snow/$results
 	chmod o+w $WORKSPACE/snow/$results
 
 	repos=`cat $WORKSPACE/snow/enabled`
+	exit_codes=()
 
 	for repo in $repos; do
 		outfile="results-$repo.json"
@@ -30,11 +31,19 @@ function run_semgrep {
 		docker run --rm -v "${WORKSPACE}/snow:/src" \
 			returntocorp/semgrep:0.27.0 \
 			--config=/src/golang/semgrep.yaml --json -o /src/$results/$outfile --error $repo
+		code=$?
+		exit_codes+=$code
+		exit_codes+=' '
 	done
 
-	set +xe
-	status=$? 
-	exit $status
+	set +x
+	echo "[+] Exit codes for each semgrep run are: $exit_codes"
+
+	for code in $exit_codes; do
+		if [ $code -ne 0 ]; then
+			exit $code
+		fi
+	done
 }
 
 function run_semgrep_locally {
