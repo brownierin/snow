@@ -1,7 +1,15 @@
 #!/bin/bash
 set -xe
 
-docker pull returntocorp/semgrep:0.27.0
+version=0.27.0
+digest="8ed62d34b6149f9d08fcce55b27d21f850e3a87e21f10aeb5bfb00e0a0faa0ef"
+docker pull returntocorp/semgrep:$version
+docker inspect --format='{{.RepoDigests}}' returntocorp/semgrep:$version | grep -qF $digest
+
+if [ $? -eq 1 ]; then
+	echo "[!!] Error: Docker image digests don't match"
+	exit 1
+fi
 
 results="results"
 
