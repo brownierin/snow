@@ -1,0 +1,21 @@
+{
+  "checkpoint": {
+    "notifications": {
+      "channels": [
+        {
+          "comments": false,
+          "name": "#proj-static-analysis-non-webapp",
+          "prs": true
+        }
+      ],
+      "dm": true
+    },
+    "reports": {
+      "channels": [
+        {
+          "name": "#proj-static-analysis-non-webapp"
+        }
+      ]
+    }
+  }
+}
