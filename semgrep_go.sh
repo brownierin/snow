@@ -23,14 +23,17 @@ function run_semgrep {
 	exit_codes=()
 
 	for repo in $repos; do
+		cd repositories
 		outfile="results-$repo.json"
 		git_repo="git@slack-github.com:slack/$repo.git"
 		if [ ! -d $repo ]; then
 			git clone --quiet $git_repo
+			git pull
 		fi
+		cd $WORKSPACE/snow
 		docker run --rm -v "${WORKSPACE}/snow:/src" \
 			returntocorp/semgrep:0.27.0 \
-			--config=/src/golang/semgrep.yaml --json -o /src/$results/$outfile --error $repo
+			--config=/src/golang/semgrep.yaml --json -o /src/$results/$outfile --error repositories/$repo
 		code=$?
 		exit_codes+=$code
 		exit_codes+=' '
@@ -47,9 +50,9 @@ function run_semgrep {
 }
 
 function run_semgrep_locally {
-	# for local dev, set WORKSPACE to be one dir above your SNOW repo
-	echo "[!!] Set WORKSPACE before running!"
-	export WORKSPACE=~/src
+	#Set WORKSPACE to be one dir above your SNOW repo!
+	echo "[!!] Run this script from your SNOW repo!"
+	export WORKSPACE="$(dirname `pwd`)"
 	echo "[+] WORKSPACE is set to ${WORKSPACE}"
 	run_semgrep
 }
