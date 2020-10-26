@@ -21,14 +21,18 @@ function run_semgrep {
 
 	repos=`cat $WORKSPACE/snow/enabled`
 	exit_codes=()
+	mkdir -p repositories
 
 	for repo in $repos; do
-		cd repositories
 		outfile="results-$repo.json"
 		git_repo="git@slack-github.com:slack/$repo.git"
+		cd repositories
 		if [ ! -d $repo ]; then
 			git clone --quiet $git_repo
-			git pull
+		else
+			cd $repo
+			git pull --no-rebase
+			cd ..
 		fi
 		cd $WORKSPACE/snow
 		docker run --rm -v "${WORKSPACE}/snow:/src" \
