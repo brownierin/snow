@@ -39,6 +39,7 @@ results="results"
 
 
 function run_semgrep {
+  language=$1
 	set -x
 	echo "[+] Clearing results from previous run"
 	exit_codes=()
@@ -47,23 +48,18 @@ function run_semgrep {
 	chmod o+w $WORKSPACE/snow/$results
 	repos=`cat $WORKSPACE/snow/enabled`
 	mkdir -p repositories
-  array=(languages/*/)
 
-  for dir in "${array[@]}"; do
-
-    if [ $(basename "$dir") == "golang" ]; then
-       repos=`cat $WORKSPACE/snow/languages/golang/enabled`
-       scanLanguage "golang" $repos
-    elif [ $(basename "$dir") == "javascript" ]; then
-        repos=`cat $WORKSPACE/snow/languages/javascript/enabled`
-        scanLanguage "javascript" $repos
-    elif [ $(basename "$dir") == "typescript" ]; then
-        repos=`cat $WORKSPACE/snow/languages/typescript/enabled`
-    elif [ $(basename "$dir") == "java" ]; then
-        repos=`cat $WORKSPACE/snow/languages/java/enabled`
-    fi
-
-   done
+  if [ $language == "golang" ]; then
+     repos=`cat $WORKSPACE/snow/languages/golang/enabled`
+     scanLanguage "golang" $repos
+  elif [ $language == "javascript" ]; then
+      repos=`cat $WORKSPACE/snow/languages/javascript/enabled`
+      scanLanguage "javascript" $repos
+  elif [ $language == "typescript" ]; then
+      repos=`cat $WORKSPACE/snow/languages/typescript/enabled`
+  elif [ $language == "java" ]; then
+      repos=`cat $WORKSPACE/snow/languages/java/enabled`
+  fi
 
 	set +x
 	echo "[+] Exit codes for each semgrep run are: $exit_codes"
