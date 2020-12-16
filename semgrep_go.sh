@@ -41,10 +41,10 @@ results="results"
 function run_semgrep {
 	set -x
 	echo "[+] Clearing results from previous run"
+	exit_codes=()
 	rm -rf $WORKSPACE/snow/$results
 	mkdir $WORKSPACE/snow/$results
 	chmod o+w $WORKSPACE/snow/$results
-  exit_codes=()
 	repos=`cat $WORKSPACE/snow/enabled`
 	mkdir -p repositories
   array=(languages/*/)
