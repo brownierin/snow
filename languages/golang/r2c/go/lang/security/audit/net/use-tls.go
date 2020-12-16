@@ -2,7 +2,7 @@ package main
 
 import (
     "net/http"
-    "fmt"
+	"fmt"
 )
 
 func Handler(w http.ResponseWriter, r *http.Request) {

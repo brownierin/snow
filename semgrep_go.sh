@@ -12,20 +12,13 @@ fi
 
 results="results"
 
-function run_semgrep {
-	set -x
-	echo "[+] Clearing results from previous run"
-	rm -rf $WORKSPACE/snow/$results
-	mkdir $WORKSPACE/snow/$results
-	chmod o+w $WORKSPACE/snow/$results
-
-	repos=`cat $WORKSPACE/snow/enabled`
-	exit_codes=()
-	mkdir -p repositories
-
-	for repo in $repos; do
-		outfile="results-$repo.json"
+ scanLanguage() {
+  language=$1
+  repos=$2
+  for repo in $repos; do
+    outfile="results-$language-$repo.json"
 		git_repo="git@slack-github.com:slack/$repo.git"
+
 		cd repositories
 		if [ ! -d $repo ]; then
 			git clone --quiet $git_repo
@@ -37,11 +30,40 @@ function run_semgrep {
 		cd $WORKSPACE/snow
 		docker run --rm -v "${WORKSPACE}/snow:/src" \
 			returntocorp/semgrep:0.27.0 \
-			--config=/src/golang/semgrep.yaml --json -o /src/$results/$outfile --error repositories/$repo
+			--config=/src/languages/$language/semgrep.yaml --json -o /src/$results/$outfile --error repositories/$repo
 		code=$?
 		exit_codes+=$code
 		exit_codes+=' '
 	done
+ }
+
+
+function run_semgrep {
+	set -x
+	echo "[+] Clearing results from previous run"
+	rm -rf $WORKSPACE/snow/$results
+	mkdir $WORKSPACE/snow/$results
+	chmod o+w $WORKSPACE/snow/$results
+  exit_codes=()
+	repos=`cat $WORKSPACE/snow/enabled`
+	mkdir -p repositories
+  array=(languages/*/)
+
+  for dir in "${array[@]}"; do
+
+    if [ $(basename "$dir") == "golang" ]; then
+       repos=`cat $WORKSPACE/snow/languages/golang/enabled`
+       scanLanguage "golang" $repos
+    elif [ $(basename "$dir") == "javascript" ]; then
+        repos=`cat $WORKSPACE/snow/languages/javascript/enabled`
+        scanLanguage "javascript" $repos
+    elif [ $(basename "$dir") == "typescript" ]; then
+        repos=`cat $WORKSPACE/snow/languages/typescript/enabled`
+    elif [ $(basename "$dir") == "java" ]; then
+        repos=`cat $WORKSPACE/snow/languages/java/enabled`
+    fi
+
+   done
 
 	set +x
 	echo "[+] Exit codes for each semgrep run are: $exit_codes"

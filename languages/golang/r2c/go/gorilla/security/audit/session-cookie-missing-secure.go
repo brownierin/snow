@@ -3,11 +3,11 @@
 package session
 
 import (
-	"log"
 	"fmt"
-	"net/http"
-	"govwa/util/config"
 	"github.com/gorilla/sessions"
+	"govwa/util/config"
+	"log"
+	"net/http"
 )
 
 type Self struct{}
@@ -25,12 +25,12 @@ func (self *Self) SetSession(w http.ResponseWriter, r *http.Request, data map[st
 		log.Println(err.Error())
 	}
 
-    // ruleid: session-cookie-missing-httponly
+    // ruleid: session-cookie-missing-secure
 	session.Options = &sessions.Options{
 		Path:     "/",
 		MaxAge:   3600,
 		HttpOnly: false, //set to false for xss :)
-        Secure: true,
+        Secure: false,
 	}
 
 	session.Values["govwa_session"] = true
@@ -66,7 +66,7 @@ func (self *Self) DeleteSession(w http.ResponseWriter, r *http.Request) {
 		log.Println(err.Error())
 	}
 
-    // ruleid: session-cookie-missing-httponly
+    // ruleid: session-cookie-missing-secure
 	session.Options = &sessions.Options{
 		MaxAge:   -1,
 		HttpOnly: false, //set to false for xss :)
