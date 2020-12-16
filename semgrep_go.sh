@@ -1,7 +1,7 @@
 #!/bin/bash
 
-version=0.27.0
-digest="8ed62d34b6149f9d08fcce55b27d21f850e3a87e21f10aeb5bfb00e0a0faa0ef"
+version=0.34.0
+digest="95d7e8ad79e140552331443aa473b56d6d06e8d878077d9039c36407de184427"
 docker pull returntocorp/semgrep:$version
 docker inspect --format='{{.RepoDigests}}' returntocorp/semgrep:$version | grep -qF $digest
 
