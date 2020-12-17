@@ -10,6 +10,7 @@ if [ $? -eq 1 ]; then
 	exit 1
 fi
 
+LANGUAGE=$2
 results="results"
 
  scanLanguage() {
@@ -39,7 +40,6 @@ results="results"
 
 
 function run_semgrep {
-  language=$1
 	set -x
 	echo "[+] Clearing results from previous run"
 	exit_codes=()
@@ -48,15 +48,15 @@ function run_semgrep {
 	chmod o+w $WORKSPACE/snow/$results
 	mkdir -p repositories
 
-  if [ $language == "golang" ]; then
+  if [ $LANGUAGE == "golang" ]; then
      repos=`cat $WORKSPACE/snow/languages/golang/enabled`
      scanLanguage "golang" $repos
-  elif [ $language == "javascript" ]; then
+  elif [ $LANGUAGE  == "javascript" ]; then
       repos=`cat $WORKSPACE/snow/languages/javascript/enabled`
       scanLanguage "javascript" $repos
-  elif [ $language == "typescript" ]; then
+  elif [ $LANGUAGE  == "typescript" ]; then
       repos=`cat $WORKSPACE/snow/languages/typescript/enabled`
-  elif [ $language == "java" ]; then
+  elif [ $LANGUAGE  == "java" ]; then
       repos=`cat $WORKSPACE/snow/languages/java/enabled`
   fi
 
