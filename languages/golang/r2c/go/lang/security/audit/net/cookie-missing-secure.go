@@ -1,6 +1,6 @@
 // cf. https://github.com/0c34/govwa/blob/139693e56406b5684d2a6ae22c0af90717e149b8/util/cookie.go
 
-package util
+package main
 
 import (
 	"net/http"
@@ -31,7 +31,7 @@ func CheckLevel(r *http.Request) bool {
 /* cookie setter getter */
 
 func SetCookie(w http.ResponseWriter, name, value string){
-    // ruleid: cookie-missing-httponly
+    // ruleid: cookie-missing-secure
 	cookie := http.Cookie{
 		Name: name,
 		Value: value,
@@ -40,7 +40,7 @@ func SetCookie(w http.ResponseWriter, name, value string){
 }
 
 func SetSecureCookie(w http.ResponseWriter, name, value string){
-    // ok: cookie-missing-httponly
+    // ok: cookie-missing-secure
 	cookie := http.Cookie{
         Secure: true,
         HttpOnly: true,
@@ -57,7 +57,7 @@ func GetCookie(r *http.Request, name string)string{
 
 func DeleteCookie(w http.ResponseWriter, cookies []string){
 	for _,name := range cookies{
-        // ruleid: cookie-missing-httponly
+        // ruleid: cookie-missing-secure
 		cookie := &http.Cookie{
 			Name:     name,
 			Value:    "",

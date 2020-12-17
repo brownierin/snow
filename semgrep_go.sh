@@ -1,7 +1,7 @@
 #!/bin/bash
 
-version=0.27.0
-digest="8ed62d34b6149f9d08fcce55b27d21f850e3a87e21f10aeb5bfb00e0a0faa0ef"
+version=0.34.0
+digest="95d7e8ad79e140552331443aa473b56d6d06e8d878077d9039c36407de184427"
 docker pull returntocorp/semgrep:$version
 docker inspect --format='{{.RepoDigests}}' returntocorp/semgrep:$version | grep -qF $digest
 
@@ -12,20 +12,13 @@ fi
 
 results="results"
 
-function run_semgrep {
-	set -x
-	echo "[+] Clearing results from previous run"
-	rm -rf $WORKSPACE/snow/$results
-	mkdir $WORKSPACE/snow/$results
-	chmod o+w $WORKSPACE/snow/$results
-
-	repos=`cat $WORKSPACE/snow/enabled`
-	exit_codes=()
-	mkdir -p repositories
-
-	for repo in $repos; do
-		outfile="results-$repo.json"
+ scanLanguage() {
+  language=$1
+  repos=$2
+  for repo in $repos; do
+    outfile="results-$language-$repo.json"
 		git_repo="git@slack-github.com:slack/$repo.git"
+
 		cd repositories
 		if [ ! -d $repo ]; then
 			git clone --quiet $git_repo
@@ -37,11 +30,36 @@ function run_semgrep {
 		cd $WORKSPACE/snow
 		docker run --rm -v "${WORKSPACE}/snow:/src" \
 			returntocorp/semgrep:0.27.0 \
-			--config=/src/golang/semgrep.yaml --json -o /src/$results/$outfile --error repositories/$repo
+			--config=/src/languages/$language/semgrep.yaml --json -o /src/$results/$outfile --error repositories/$repo
 		code=$?
 		exit_codes+=$code
 		exit_codes+=' '
 	done
+ }
+
+
+function run_semgrep {
+  language=$1
+	set -x
+	echo "[+] Clearing results from previous run"
+	exit_codes=()
+	rm -rf $WORKSPACE/snow/$results
+	mkdir $WORKSPACE/snow/$results
+	chmod o+w $WORKSPACE/snow/$results
+	repos=`cat $WORKSPACE/snow/enabled`
+	mkdir -p repositories
+
+  if [ $language == "golang" ]; then
+     repos=`cat $WORKSPACE/snow/languages/golang/enabled`
+     scanLanguage "golang" $repos
+  elif [ $language == "javascript" ]; then
+      repos=`cat $WORKSPACE/snow/languages/javascript/enabled`
+      scanLanguage "javascript" $repos
+  elif [ $language == "typescript" ]; then
+      repos=`cat $WORKSPACE/snow/languages/typescript/enabled`
+  elif [ $language == "java" ]; then
+      repos=`cat $WORKSPACE/snow/languages/java/enabled`
+  fi
 
 	set +x
 	echo "[+] Exit codes for each semgrep run are: $exit_codes"
