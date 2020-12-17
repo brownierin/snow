@@ -16,7 +16,9 @@ results="results"
  scanLanguage() {
   language=$1
   repos=$2
+
   for repo in $repos; do
+    echo on this repo: $repo
     outfile="results-$language-$repo.json"
 		git_repo="git@slack-github.com:slack/$repo.git"
 
@@ -30,7 +32,7 @@ results="results"
 		fi
 		cd $WORKSPACE/snow
 		docker run --rm -v "${WORKSPACE}/snow:/src" \
-			returntocorp/semgrep:0.27.0 \
+			returntocorp/semgrep:$version \
 			--config=/src/languages/$language/semgrep.yaml --json -o /src/$results/$outfile --error repositories/$repo
 		code=$?
 		exit_codes+=$code
@@ -50,14 +52,15 @@ function run_semgrep {
 
   if [ $LANGUAGE == "golang" ]; then
      repos=`cat $WORKSPACE/snow/languages/golang/enabled`
-     scanLanguage "golang" $repos
+     scanLanguage "golang" "$repos"
   elif [ $LANGUAGE  == "javascript" ]; then
       repos=`cat $WORKSPACE/snow/languages/javascript/enabled`
-      scanLanguage "javascript" $repos
+      scanLanguage "javascript" "$repos"
   elif [ $LANGUAGE  == "typescript" ]; then
       repos=`cat $WORKSPACE/snow/languages/typescript/enabled`
   elif [ $LANGUAGE  == "java" ]; then
       repos=`cat $WORKSPACE/snow/languages/java/enabled`
+      scanLanguage "java" "$repos"
   fi
 
 	set +x
