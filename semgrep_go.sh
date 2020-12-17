@@ -46,7 +46,6 @@ function run_semgrep {
 	rm -rf $WORKSPACE/snow/$results
 	mkdir $WORKSPACE/snow/$results
 	chmod o+w $WORKSPACE/snow/$results
-	repos=`cat $WORKSPACE/snow/enabled`
 	mkdir -p repositories
 
   if [ $language == "golang" ]; then
