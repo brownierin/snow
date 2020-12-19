@@ -1,15 +1,20 @@
 rules:
   - id: potential-code-execution
     pattern: exec.Command(...)
-    fix: Use libraries instead
+    fix: Avoid use of exec.Command() if at all possible.  If this function is necessary to application functionality, ensure that any arguments passed to this method are first escaped using a library such as shellescape (https://github.com/alessio/shellescape).
     message: |-
-      Potentially unsafe command execution
+      A security scan detected use of a potentially unsafe method to execute a command.  If user controlled input is passed to the exec.Command() function, an attacker may be able to inject code that will execute in the underlying server's system shell, resulting in total compromise of the application and possibly other applications running in the same environment.
+    metadata:
+      cwe: 'CWE-94: Improper Control of Generation of Code ("Code Injection")'
+      owasp: 'A1: Injection'
     languages: [go]
     severity: WARNING
-  - id: potential integer overlfow
+  - id: potential-integer-overflow
     pattern: strconv.Atoi(...)
-    fix: strconv.ParseInt or strconv.ParseUint with bitSize arg
+    fix: Replace use of strconv.Atoi() with strconv.ParseInt() or strconv.ParseUint() for bit sized unsigned integers.
     message: |-
       When parsing strings into fixed-width integer types, use strconv.ParseInt or strconv.ParseUint with appropriate bitSize argument instead of strconv.Atoi.
+    metadata: 
+      cwe: 'CWE-190: Integer overflow or wraparound'
     languages: [go]
     severity: WARNING
