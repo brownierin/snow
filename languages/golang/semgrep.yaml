@@ -1,5 +1,5 @@
 rules:
-  - id: potential-code-execution
+  - id: potential-code-execution-1
     pattern: exec.Command(...)
     fix: Avoid use of exec.Command() if at all possible.  If this function is necessary to application functionality, ensure that any arguments passed to this method are first escaped using a library such as shellescape (https://github.com/alessio/shellescape).
     message: |-
@@ -9,12 +9,50 @@ rules:
       owasp: 'A1: Injection'
     languages: [go]
     severity: WARNING
+    - id: potential-code-execution-2
+    pattern: exec.CommandContext(...)
+    fix: Avoid use of exec.CommandContext() if at all possible.  If this function is necessary to application functionality, ensure that any arguments passed to this method are first escaped using a library such as shellescape (https://github.com/alessio/shellescape).
+    message: |-
+      A security scan detected use of a potentially unsafe method to execute a command.  If user controlled input is passed to the exec.CommandContext() function, an attacker may be able to inject code that will execute in the underlying server's system shell, resulting in total compromise of the application and possibly other applications running in the same environment.
+    metadata:
+      cwe: 'CWE-94: Improper Control of Generation of Code ("Code Injection")'
+      owasp: 'A1: Injection'
+    languages: [go]
+    severity: WARNING
+    - id: potential-code-execution-3
+    pattern: syscall.Exec(...)
+    fix: Avoid use of syscall.exec() if at all possible.  If this function is necessary to application functionality, ensure that any arguments passed to this method are first escaped using a library such as shellescape (https://github.com/alessio/shellescape).
+    message: |-
+      A security scan detected use of a potentially unsafe method to execute a command.  If user controlled input is passed to the syscall.exec() function, an attacker may be able to inject code that will execute in the underlying server's system shell, resulting in total compromise of the application and possibly other applications running in the same environment.
+    metadata:
+      cwe: 'CWE-94: Improper Control of Generation of Code ("Code Injection")'
+      owasp: 'A1: Injection'
+    languages: [go]
+    severity: WARNING
   - id: potential-integer-overflow
     pattern: strconv.Atoi(...)
     fix: Replace use of strconv.Atoi() with strconv.ParseInt() or strconv.ParseUint() for bit sized unsigned integers.
     message: |-
-      When parsing strings into fixed-width integer types, use strconv.ParseInt or strconv.ParseUint with appropriate bitSize argument instead of strconv.Atoi.
+      The size of int in Go is dependent on the system architecture.  The int, uint, and uintptr types are usually 32 bits wide on 32-bit systems and 64 bits wide on 64-bit systems.  On a 64 bit system, if the value passed to the strconv.Atoi() function is bigger (or smaller if negative) than what can be stored in an int32, an integer overflow may occur.
     metadata: 
       cwe: 'CWE-190: Integer overflow or wraparound'
+    languages: [go]
+    severity: WARNING
+  - id: potential-xml-integrity-issue-1
+    pattern: xml.Decoder(...)
+    fix: If possible, avoid using the golang encoding/xml parser, particularly if using it for a SAML implementation. The Go security team has advised at this time, there is no fix available to adequately patch these vulnerabilities.  Round-trip stability is not a supported security property of encoding/xml.  If the encoding/xml parser is necessary to application functionality, the github.com/mattermost/xml-roundtrip-validator module can detect unstable constructs in an XML document, including unstable element namespace prefixes. Invoking the validator on all untrusted markup and failing early if it returns an error can prevent these types of issue from being exploited in an otherwise affected application.
+    message: |-
+      If an application processes XML and, while processing it, parses markup that is the output of at least one preceding round of parsing and serialization, there is no guarantee that the output of the parsing matches the output from the preceding round. Passing XML through Go’s decoder and encoder doesn’t preserve its semantics.  Because of these vulnerabilities, Go-based SAML implementations are in many cases open to tampering by an attacker: by injecting malicious markup to a correctly signed SAML message, it’s possible to make it still appear correctly signed, but change its semantics to convey a different identity than the original document.
+    metadata:
+      cve: 'CVE-2020-29509: XML attribute instability in Go’s encoding/xml, CVE-2020-29510: XML directive instability in Go’s encoding/xml, CVE-2020-29511: XML element instability in Go’s encoding/xml'
+    languages: [go]
+    severity: WARNING
+    - id: potential-xml-integrity-issue-2
+    pattern: xml.Encoder(...)
+    fix: If possible, avoid using the golang encoding/xml parser, particularly if using it for a SAML implementation. The Go security team has advised at this time, there is no fix available to adequately patch these vulnerabilities.  Round-trip stability is not a supported security property of encoding/xml.  If the encoding/xml parser is necessary to application functionality, the github.com/mattermost/xml-roundtrip-validator module can detect unstable constructs in an XML document, including unstable element namespace prefixes. Invoking the validator on all untrusted markup and failing early if it returns an error can prevent these types of issues from being exploited in an application.
+    message: |-
+      If an application processes XML and, while processing it, parses markup that is the output of at least one preceding round of parsing and serialization, there is no guarantee that the output of the parsing matches the output from the preceding round. Passing XML through Go’s decoder and encoder doesn’t preserve its semantics.  Because of these vulnerabilities, Go-based SAML implementations are in many cases open to tampering by an attacker: by injecting malicious markup to a correctly signed SAML message, it’s possible to make it still appear correctly signed, but change its semantics to convey a different identity than the original document.
+    metadata:
+      cve: 'CVE-2020-29509: XML attribute instability in Go’s encoding/xml, CVE-2020-29510: XML directive instability in Go’s encoding/xml, CVE-2020-29511: XML element instability in Go’s encoding/xml'
     languages: [go]
     severity: WARNING
