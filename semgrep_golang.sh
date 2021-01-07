@@ -20,7 +20,7 @@ function run_semgrep {
 	chmod o+w $WORKSPACE/snow/$results
 	mkdir -p repositories
   repos=`cat $WORKSPACE/snow/languages/golang/enabled`
-  scanLanguage "$repos"
+
   for repo in $repos; do
     echo on this repo: $repo
     outfile="results-golang-$repo.json"
@@ -37,7 +37,7 @@ function run_semgrep {
 		cd $WORKSPACE/snow
 		docker run --rm -v "${WORKSPACE}/snow:/src" \
 			returntocorp/semgrep:$version \
-			--config=/src/languages/golang/ --json -o /src/$results/$outfile --error repositories/$repo
+			--config=/src/languages/golang/ --verbose --json -o /src/$results/$outfile --error repositories/$repo
 		code=$?
 		exit_codes+=$code
 		exit_codes+=' '
