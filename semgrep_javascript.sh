@@ -20,7 +20,7 @@ function run_semgrep {
 	chmod o+w $WORKSPACE/snow/$results
 	mkdir -p repositories
   repos=`cat $WORKSPACE/snow/languages/javascript/enabled`
-  scanLanguage "$repos"
+
   for repo in $repos; do
     echo on this repo: $repo
     outfile="results-javascript-$repo.json"
