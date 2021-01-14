@@ -1,0 +1,15 @@
+- id: contrib.nodejsscan.xss_templates.handlebars_noescape
+  patterns:
+  - pattern: |
+      $X.compile(..., {noEscape: true}, ...)
+  message: >-
+    Disabling Escaping in Handlebars is not a secure behaviour. This can
+    introduce XSS vulnerabilties.
+  languages:
+  - javascript
+  severity: ERROR
+  metadata:
+    owasp: 'A1: Injection'
+    cwe: >-
+      CWE-80: Improper Neutralization of Script-Related HTML Tags in a Web
+      Page (Basic XSS)

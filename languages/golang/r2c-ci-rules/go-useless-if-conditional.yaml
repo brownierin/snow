@@ -1,0 +1,13 @@
+- id: go.lang.maintainability.useless-ifelse.useless-if-conditional
+  patterns:
+  - pattern-either:
+    - pattern: |-
+        if ($X) {
+            ...
+        } else if ($X) {
+            ...
+        }
+  message: |
+    Detected an if block that checks for the same condition on both branches (`$X`)
+  languages: [go]
+  severity: WARNING
