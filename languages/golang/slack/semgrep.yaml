@@ -9,7 +9,7 @@ rules:
       owasp: 'A1: Injection'
     languages: [go]
     severity: WARNING
-    - id: potential-code-execution-2
+  - id: potential-code-execution-2
     pattern: exec.CommandContext(...)
     fix: Avoid use of exec.CommandContext() if at all possible.  If this function is necessary to application functionality, ensure that any arguments passed to this method are first escaped using a library such as shellescape (https://github.com/alessio/shellescape).
     message: |-
@@ -19,7 +19,7 @@ rules:
       owasp: 'A1: Injection'
     languages: [go]
     severity: WARNING
-    - id: potential-code-execution-3
+  - id: potential-code-execution-3
     pattern: syscall.Exec(...)
     fix: Avoid use of syscall.exec() if at all possible.  If this function is necessary to application functionality, ensure that any arguments passed to this method are first escaped using a library such as shellescape (https://github.com/alessio/shellescape).
     message: |-
@@ -34,7 +34,7 @@ rules:
     fix: Replace use of strconv.Atoi() with strconv.ParseInt() or strconv.ParseUint() for bit sized unsigned integers.
     message: |-
       The size of int in Go is dependent on the system architecture.  The int, uint, and uintptr types are usually 32 bits wide on 32-bit systems and 64 bits wide on 64-bit systems.  On a 64 bit system, if the value passed to the strconv.Atoi() function is bigger (or smaller if negative) than what can be stored in an int32, an integer overflow may occur.
-    metadata: 
+    metadata:
       cwe: 'CWE-190: Integer overflow or wraparound'
     languages: [go]
     severity: WARNING
@@ -47,7 +47,7 @@ rules:
       cve: 'CVE-2020-29509: XML attribute instability in Go’s encoding/xml, CVE-2020-29510: XML directive instability in Go’s encoding/xml, CVE-2020-29511: XML element instability in Go’s encoding/xml'
     languages: [go]
     severity: WARNING
-    - id: potential-xml-integrity-issue-2
+  - id: potential-xml-integrity-issue-2
     pattern: xml.Encoder(...)
     fix: If possible, avoid using the golang encoding/xml parser, particularly if using it for a SAML implementation. The Go security team has advised at this time, there is no fix available to adequately patch these vulnerabilities.  Round-trip stability is not a supported security property of encoding/xml.  If the encoding/xml parser is necessary to application functionality, the github.com/mattermost/xml-roundtrip-validator module can detect unstable constructs in an XML document, including unstable element namespace prefixes. Invoking the validator on all untrusted markup and failing early if it returns an error can prevent these types of issues from being exploited in an application.
     message: |-

@@ -1,7 +1,6 @@
 #!/bin/bash
 
-version=0.34.0
-digest="95d7e8ad79e140552331443aa473b56d6d06e8d878077d9039c36407de184427"
+source semgrep_config.sh
 docker pull returntocorp/semgrep:$version
 docker inspect --format='{{.RepoDigests}}' returntocorp/semgrep:$version | grep -qF $digest
 
@@ -10,16 +9,21 @@ if [ $? -eq 1 ]; then
 	exit 1
 fi
 
-LANGUAGE=$2
 results="results"
 
- scanLanguage() {
-  language=$1
-  repos=$2
+function run_semgrep {
+	set -x
+	echo "[+] Clearing results from previous run"
+	exit_codes=()
+	rm -rf $WORKSPACE/snow/$results
+	mkdir $WORKSPACE/snow/$results
+	chmod o+w $WORKSPACE/snow/$results
+	mkdir -p repositories
+  repos=`cat $WORKSPACE/snow/languages/java/enabled`
 
   for repo in $repos; do
     echo on this repo: $repo
-    outfile="results-$language-$repo.json"
+    outfile="results-java-$repo.json"
 		git_repo="git@slack-github.com:slack/$repo.git"
 
 		cd repositories
@@ -33,35 +37,11 @@ results="results"
 		cd $WORKSPACE/snow
 		docker run --rm -v "${WORKSPACE}/snow:/src" \
 			returntocorp/semgrep:$version \
-			--config=/src/languages/$language/semgrep.yaml --json -o /src/$results/$outfile --error repositories/$repo
+			--config=/src/languages/java/ --json -o /src/$results/$outfile --error repositories/$repo
 		code=$?
 		exit_codes+=$code
 		exit_codes+=' '
 	done
- }
-
-
-function run_semgrep {
-	set -x
-	echo "[+] Clearing results from previous run"
-	exit_codes=()
-	rm -rf $WORKSPACE/snow/$results
-	mkdir $WORKSPACE/snow/$results
-	chmod o+w $WORKSPACE/snow/$results
-	mkdir -p repositories
-
-  if [ $LANGUAGE == "golang" ]; then
-     repos=`cat $WORKSPACE/snow/languages/golang/enabled`
-     scanLanguage "golang" "$repos"
-  elif [ $LANGUAGE  == "javascript" ]; then
-      repos=`cat $WORKSPACE/snow/languages/javascript/enabled`
-      scanLanguage "javascript" "$repos"
-  elif [ $LANGUAGE  == "typescript" ]; then
-      repos=`cat $WORKSPACE/snow/languages/typescript/enabled`
-  elif [ $LANGUAGE  == "java" ]; then
-      repos=`cat $WORKSPACE/snow/languages/java/enabled`
-      scanLanguage "java" "$repos"
-  fi
 
 	set +x
 	echo "[+] Exit codes for each semgrep run are: $exit_codes"
