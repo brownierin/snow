@@ -2,6 +2,9 @@
 import json
 import hashlib
 
+# How to run:
+# docker run --rm -v "${PWD}:/src" --entrypoint "python" returntocorp/semgrep /src/hash.py
+
 # Grab source codes. Also include one line above and one line below the issue location
 def read_line(issue_file, line):
     with open(issue_file) as f:
