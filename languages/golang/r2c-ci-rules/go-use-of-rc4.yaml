@@ -1,3 +1,4 @@
+rules:
 - id: go.lang.security.audit.crypto.use_of_weak_crypto.use-of-rc4
   message: |
     Detected RC4 cipher algorithm which is insecure. The algorithm has many

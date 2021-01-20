@@ -1,3 +1,4 @@
+rules:
 - id: go.grpc.security.grpc-server-insecure-connection.grpc-server-insecure-connection
   metadata:
     owasp: 'A8: Insecure Deserialization'

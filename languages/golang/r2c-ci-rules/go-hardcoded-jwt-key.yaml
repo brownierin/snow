@@ -1,3 +1,4 @@
+rules:
 - id: go.jwt-go.security.jwt.hardcoded-jwt-key
   metadata:
     cwe: 'CWE-798: Use of Hard-coded Credentials'

@@ -1,3 +1,4 @@
+rules:
 - id: java.lang.security.audit.crypto.weak-hash.use-of-md5
   message: |
     Detected MD5 hash algorithm which is considered insecure. MD5 is not

@@ -1,3 +1,4 @@
+rules:
 - id: go.lang.correctness.useless-eqeq.hardcoded-eq-true-or-false
   patterns:
   - pattern-either:

@@ -1,3 +1,4 @@
+rules:
 - id: go.lang.security.zip.path-traversal-inside-zip-extraction
   message: File traversal when extracting zip archive
   metadata:

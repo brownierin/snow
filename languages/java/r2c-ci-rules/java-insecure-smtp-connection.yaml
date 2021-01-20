@@ -1,3 +1,4 @@
+rules:
 - id: java.lang.security.audit.insecure-smtp-connection.insecure-smtp-connection
   metadata:
     cwe: 'CWE-297: Improper Validation of Certificate with Host Mismatch'

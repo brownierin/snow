@@ -1,3 +1,4 @@
+rules:
 - id: contrib.nodejsscan.security_electronjs.electron_disable_websecurity
   patterns:
   - pattern-either:

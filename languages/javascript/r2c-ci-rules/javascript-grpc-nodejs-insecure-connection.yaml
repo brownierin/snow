@@ -1,3 +1,4 @@
+rules:
 - id: javascript.grpc.security.grpc-nodejs-insecure-connection.grpc-nodejs-insecure-connection
   message: |
     Found an insecure gRPC connection. This creates a connection without encryption to a gRPC client/server. A malicious attacker

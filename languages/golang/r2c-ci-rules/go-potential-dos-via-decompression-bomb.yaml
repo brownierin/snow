@@ -1,3 +1,4 @@
+rules:
 - id: go.lang.security.decompression_bomb.potential-dos-via-decompression-bomb
   message: >-
     Detected a possible denial-of-service via a zip bomb attack. By limiting the max

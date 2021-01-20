@@ -1,3 +1,4 @@
+rules:
 - id: go.lang.maintainability.useless-ifelse.useless-if-body
   patterns:
   - pattern: |-

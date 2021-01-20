@@ -1,3 +1,4 @@
+rules:
 - id: contrib.nodejsscan.xss_templates.squirrelly_autoescape
   pattern: $X.autoEscaping(false)
   message: >-

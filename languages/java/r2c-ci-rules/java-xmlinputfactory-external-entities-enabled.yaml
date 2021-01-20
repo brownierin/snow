@@ -1,3 +1,4 @@
+rules:
 - id: java.lang.security.xmlinputfactory-external-entities-enabled.xmlinputfactory-external-entities-enabled
   severity: ERROR
   metadata:

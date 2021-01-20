@@ -1,3 +1,4 @@
+rules:
 - id: contrib.nodejsscan.xss_templates.handlebars_noescape
   patterns:
   - pattern: |

@@ -1,3 +1,4 @@
+rules:
 - id: javascript.jsonwebtoken.security.jwt-none-alg.jwt-none-alg
   message: |
     Detected use of the 'none' algorithm in a JWT token.

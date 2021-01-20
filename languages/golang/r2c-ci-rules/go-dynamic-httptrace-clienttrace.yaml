@@ -1,3 +1,4 @@
+rules:
 - id: go.lang.security.audit.net.dynamic-httptrace-clienttrace.dynamic-httptrace-clienttrace
   message: |
     Detected a potentially dynamic ClientTrace. This occurred because semgrep could not

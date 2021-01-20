@@ -1,3 +1,4 @@
+rules:
 - id: java.lang.security.audit.permissive-cors.permissive-cors
   message: |
     https://find-sec-bugs.github.io/bugs.htm#PERMISSIVE_CORS

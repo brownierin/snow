@@ -1,3 +1,4 @@
+rules:
 - id: java.lang.security.audit.weak-ssl-context.weak-ssl-context
   metadata:
     cwe: 'CWE-326: Inadequate Encryption Strength'

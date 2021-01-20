@@ -1,3 +1,4 @@
+rules:
 - id: go.lang.security.audit.crypto.ssl.ssl-v3-is-insecure
   message: |
     SSLv3 is insecure because it has known vulnerabilities.

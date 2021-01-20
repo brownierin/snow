@@ -1,3 +1,4 @@
+rules:
 - id: java.lang.security.audit.crypto.no-static-initialization-vector.no-static-initialization-vector
   message: |
     Initialization Vectors (IVs) for block ciphers should be randomly generated

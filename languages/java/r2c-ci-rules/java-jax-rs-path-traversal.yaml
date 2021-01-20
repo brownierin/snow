@@ -1,3 +1,4 @@
+rules:
 - id: java.jax-rs.security.jax-rs-path-traversal.jax-rs-path-traversal
   metadata:
     owasp: 'A1: Injection'

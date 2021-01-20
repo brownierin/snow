@@ -1,3 +1,4 @@
+rules:
 - id: java.lang.security.audit.crypto.no-null-cipher.no-null-cipher
   pattern: new NullCipher(...);
   metadata:

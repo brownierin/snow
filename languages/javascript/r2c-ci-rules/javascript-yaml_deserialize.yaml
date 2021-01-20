@@ -1,3 +1,4 @@
+rules:
 - id id: contrib.nodejsscan.eval_yaml_deserialize.yaml_deserialize
   patterns:
   - pattern-inside: |

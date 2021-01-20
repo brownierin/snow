@@ -1,3 +1,4 @@
+rules:
 - id: java.lang.security.servletresponse-writer-xss.servletresponse-writer-xss
   message: |
     Cross-site scripting detected in HttpServletResponse writer with variable '$VAR'. User

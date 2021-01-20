@@ -1,3 +1,4 @@
+rules:
 - id: go.lang.security.audit.crypto.bad_imports.insecure-module-used
   message: >-
     Detected use of an insecure cryptographic hashing method. This method is known

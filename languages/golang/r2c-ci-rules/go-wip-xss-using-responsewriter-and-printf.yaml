@@ -1,3 +1,4 @@
+rules:
 - id: go.lang.security.audit.net.wip-xss-using-responsewriter-and-printf.wip-xss-using-responsewriter-and-printf
   patterns:
   - pattern-inside: |

@@ -1,3 +1,4 @@
+rules:
 - id: java.lang.correctness.no-string-eqeq.no-string-eqeq
   languages: [java]
   equivalences:

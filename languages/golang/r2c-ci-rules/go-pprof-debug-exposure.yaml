@@ -1,3 +1,4 @@
+rules:
 - id: go.lang.security.audit.net.pprof.pprof-debug-exposure
   metadata:
     cwe: 'CWE-489: Active Debug Code'

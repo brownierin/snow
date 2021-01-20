@@ -1,3 +1,4 @@
+rules:
 - id: java.rmi.security.server-dangerous-object-deserialization.server-dangerous-object-deserialization
   severity: ERROR
   metadata:

@@ -1,3 +1,4 @@
+rules:
 - id: go.lang.security.audit.crypto.use_of_weak_crypto.use-of-DES
   message: |
     Detected DES cipher algorithm which is insecure. The algorithm is

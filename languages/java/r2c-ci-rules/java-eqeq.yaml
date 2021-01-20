@@ -1,3 +1,4 @@
+rules:
 - id: java.lang.correctness.eqeq.eqeq
   patterns:
   - pattern-not-inside: assert $X;

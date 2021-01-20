@@ -1,3 +1,4 @@
+rules:
 - id: go.lang.security.audit.crypto.use_of_weak_crypto.use-of-md5
   message: |
     Detected MD5 hash algorithm which is considered insecure. MD5 is not
