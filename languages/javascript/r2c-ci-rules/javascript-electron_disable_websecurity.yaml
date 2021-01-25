@@ -1,0 +1,17 @@
+rules:
+- id: contrib.nodejsscan.security_electronjs.electron_disable_websecurity
+  patterns:
+  - pattern-either:
+    - pattern: |
+        new BrowserWindow({webPreferences: {webSecurity: false}});
+    - pattern: |
+        var $X = {webPreferences: {webSecurity: false}};
+  message: >-
+    Disabling webSecurity will disable the same-origin policy and allows the
+    execution of insecure code from any domain.
+  languages:
+  - javascript
+  severity: ERROR
+  metadata:
+    owasp: 'A6: Security Misconfiguration'
+    cwe: 'CWE-346: Origin Validation Error'

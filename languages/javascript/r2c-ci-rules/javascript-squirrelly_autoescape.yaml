@@ -1,0 +1,14 @@
+rules:
+- id: contrib.nodejsscan.xss_templates.squirrelly_autoescape
+  pattern: $X.autoEscaping(false)
+  message: >-
+    Handlebars SafeString will not escape the data passed through it.
+    Untrusted user input passing through SafeString can cause XSS.
+  languages:
+  - javascript
+  severity: ERROR
+  metadata:
+    owasp: 'A1: Injection'
+    cwe: >-
+      CWE-79: Improper Neutralization of Input During Web Page Generation
+      ('Cross-site Scripting')
