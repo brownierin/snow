@@ -41,6 +41,15 @@ After running the semgrep script, you should receive an output of JSON to your t
 
 Right now SNOW runs daily scans in Jenkins and sends alerts about failing tests to #alerts-snow.  The prodsec team is in the process of fine tuning how and when scans will run, and how to resolve any alerts that come up.  For now failing tests should be non-blocking, but this may change in the future - more details to come on this subject.
 
+Current links to the daily scans:
+
+https://jenkins.tinyspeck.com/job/security-semgrep-prodsec-golang/
+https://jenkins.tinyspeck.com/job/security-semgrep-prodsec-test/
+https://jenkins.tinyspeck.com/job/security-semgrep-prodsec-java/
+https://jenkins.tinyspeck.com/job/security-semgrep-prodsec-typescript/
+https://jenkins.tinyspeck.com/job/security-semgrep-prodsec-javascript/
+https://jenkins.tinyspeck.com/job/security-semgrep-prodsec-php/
+
 ## Help and Feedback
 
 The ProdSec team wants Slack's static analysis tooling to help, not hinder, developers with writing secure code.  If you have suggestions for improving the process of receiving and addressing SNOW findings, please feel free to reach out to us in #triage-prodsec or #proj-static-analysis-non-webapp.
