@@ -37,7 +37,7 @@ function run_semgrep {
 		cd $WORKSPACE/snow
 		docker run --rm -v "${WORKSPACE}/snow:/src" \
 			returntocorp/semgrep:$version \
-			--config=/src/languages/typescript/ --json -o /src/$results/$outfile --error repositories/$repo
+			--config=/src/languages/typescript/ --config=/src/languages/javascript --json -o /src/$results/$outfile --error repositories/$repo
 		code=$?
 		exit_codes+=$code
 		exit_codes+=' '
