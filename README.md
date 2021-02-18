@@ -32,12 +32,9 @@ Right now SNOW runs daily scans in Jenkins and sends alerts about failing tests 
 
 Current links to the daily scans:
 
-* https://jenkins.tinyspeck.com/job/security-semgrep-prodsec-golang/
+* https://jenkins.tinyspeck.com/job/security-semgrep-prodsec
 * https://jenkins.tinyspeck.com/job/security-semgrep-prodsec-test/
-* https://jenkins.tinyspeck.com/job/security-semgrep-prodsec-java/
-* https://jenkins.tinyspeck.com/job/security-semgrep-prodsec-typescript/
-* https://jenkins.tinyspeck.com/job/security-semgrep-prodsec-javascript/
-* https://jenkins.tinyspeck.com/job/security-semgrep-prodsec-php/
+
 
 ## Help and Feedback
 
