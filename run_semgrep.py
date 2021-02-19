@@ -44,9 +44,13 @@ def download_repos():
                 content = f.read().splitlines()
             for repo in content:
                 print("Cloning Repo "+repo)
-                git_repo = "git@slack-github.com:slack/"+repo+".git "
-                subprocess.run("git -C "+REPOSITORIES_DIR+" clone --quiet "+git_repo, shell=True, check=True, stdout=subprocess.PIPE)
-                scan_repo(repo,CONFIG[language]['language'])
+                git_repo = "git@slack-github.com:slack/"+repo+".git"
+                process = subprocess.run("git -C "+REPOSITORIES_DIR+" clone --quiet "+git_repo, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                #If we fail to donwload from Enterprise, try tinyspeck
+                if process.returncode == 128:
+                    git_repo = "https://github.com/tinyspeck/"+repo+".git"
+                    subprocess.run("git -C " + REPOSITORIES_DIR + " clone --quiet " + git_repo, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                scan_repo(repo, CONFIG[language]['language'])
 
 def scan_repo(repo, language):
     print('Scanning Repo '+repo)
