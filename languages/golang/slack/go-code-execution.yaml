@@ -1,0 +1,17 @@
+rules:
+- id: potential-code-execution-1
+  pattern-either:
+  - pattern: |
+      exec.Command(...)
+  - pattern: |
+      exec.CommandContext(...)
+  - pattern: |
+      syscall.Exec(...)
+  fix: Avoid use of exec.Command() if at all possible.  If this function is necessary to application functionality, ensure that any arguments passed to this method are first escaped using a library such as shellescape (https://github.com/alessio/shellescape).
+  message: |-
+    A security scan detected use of a potentially unsafe method to execute a command.  If user controlled input is passed to the exec.Command() function, an attacker may be able to inject code that will execute in the underlying server's system shell, resulting in total compromise of the application and possibly other applications running in the same environment.
+  metadata:
+    cwe: 'CWE-94: Improper Control of Generation of Code ("Code Injection")'
+    owasp: 'A1: Injection'
+  languages: [go]
+  severity: WARNING

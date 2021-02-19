@@ -1,0 +1,12 @@
+rules:
+- id: golang-vendor-directory-detected
+  message: "TODO"
+  languages: [go]
+  severity: WARNING
+  patterns:
+  - pattern-regex: |-
+      "^.*"
+  fix: "TODO"
+  paths:
+    include:
+      - "vendor/"
