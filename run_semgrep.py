@@ -50,16 +50,16 @@ def download_repos():
                 if process.returncode == 128:
                     git_repo = "https://github.com/tinyspeck/"+repo+".git"
                     subprocess.run("git -C " + REPOSITORIES_DIR + " clone --quiet " + git_repo, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                scan_repo(repo, CONFIG[language]['language'])
+                scan_repo(repo, CONFIG[language]['language'], language)
 
-def scan_repo(repo, language):
+def scan_repo(repo, language, configlanguage):
     print('Scanning Repo '+repo)
     config_dir = "/src/languages/"+language
     output_file = language+"-"+repo+".json"
     print("docker run --rm -v "+SNOW_ROOT+":/src returntocorp/semgrep:"+CONFIG['general']['version'] + " --config="+config_dir+" --json -o /src" + CONFIG['general']['results']+output_file + " --error repositories/"+repo)
     #Purposely do not check shell exit code as vulnerabilities returns a 1
-    process = subprocess.run("docker run --rm -v "+SNOW_ROOT+":/src returntocorp/semgrep:"+CONFIG['general']['version'] + " --config="+config_dir+" --json -o /src" + CONFIG['general']['results']+output_file + " --error repositories/"+repo+" --dangerously-allow-arbitrary-code-execution-from-rules", shell=True, stdout=subprocess.PIPE)
-    #Results here should be sent to a new function for us to work with!
+    process = subprocess.run("docker run --rm -v "+SNOW_ROOT+":/src returntocorp/semgrep:"+CONFIG['general']['version'] + " " + CONFIG[configlanguage]['config']+" " + CONFIG[configlanguage]['exclude']+" --json -o /src" + CONFIG['general']['results']+output_file + " --error repositories/"+repo+" --dangerously-allow-arbitrary-code-execution-from-rules", shell=True, stdout=subprocess.PIPE)
+    #Results here should be sent toa new function for us to work with!
     print(process.stdout.decode("utf-8"))
 
 if __name__ == '__main__':
