@@ -60,7 +60,7 @@ def scan_repo(repo, language, configlanguage):
     print(semgrep_command)
     #Purposely do not check shell exit code as vulnerabilities returns a 1
     process = subprocess.run(semgrep_command, shell=True, stdout=subprocess.PIPE)
-    #Results here should be sent toa new function for us to work with!
+    #Results here should be sent to a new function for us to work with!
     print(process.stdout.decode("utf-8"))
 
 if __name__ == '__main__':
