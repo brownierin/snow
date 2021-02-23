@@ -13,22 +13,11 @@ Under the hood, SNOW uses a fabulous open source tool called [semgrep](https://g
 ### Executing program
 
 * Clone this repository to your local machine
-* Right now, each language that SNOW/semgrep supports has its own bash script.  This should change in the near future as we are converting these to a single python script.  For now, you can run SNOW locally using one of the following commands depending on what language you would like to check.  Make sure you are running the scripts from the SNOW repository. 
+* Run semgrep locally by modifying the config.cfg, 'run_local_semgrep' to your desired workspace. 
+* Semgrep will run against any language in the config file with the syntax <language-xxxx>. The language directory is determined by 'language' variable. 
 
 ```
-./semgrep_golang.sh run_semgrep_locally
-```
-```
-./semgrep_java.sh run_semgrep_locally
-```
-```
-./semgrep_javascript.sh run_semgrep_locally
-```
-```
-./semgrep_php.sh run_semgrep_locally
-```
-```
-./semgrep_typescript.sh run_semgrep_locally
+./run_semgrep.py
 ```
 
 After running the semgrep script, you should receive an output of JSON to your terminal with a list of rule violations similar to this:
@@ -43,12 +32,9 @@ Right now SNOW runs daily scans in Jenkins and sends alerts about failing tests 
 
 Current links to the daily scans:
 
-* https://jenkins.tinyspeck.com/job/security-semgrep-prodsec-golang/
+* https://jenkins.tinyspeck.com/job/security-semgrep-prodsec
 * https://jenkins.tinyspeck.com/job/security-semgrep-prodsec-test/
-* https://jenkins.tinyspeck.com/job/security-semgrep-prodsec-java/
-* https://jenkins.tinyspeck.com/job/security-semgrep-prodsec-typescript/
-* https://jenkins.tinyspeck.com/job/security-semgrep-prodsec-javascript/
-* https://jenkins.tinyspeck.com/job/security-semgrep-prodsec-php/
+
 
 ## Help and Feedback
 
