@@ -18,14 +18,10 @@ REPOSITORIES_DIR = SNOW_ROOT + CONFIG['general']['repositories']
 
 def cleanup_workspace():
     print('Begin Cleanup Workspace')
-    print(RESULTS_DIR)
     process = subprocess.run("whoami", shell=True, check=True, stdout=subprocess.PIPE)
-    print((process.stdout).decode("utf-8"))
-    mode = int('757', base=8)
-    out = shutil.rmtree(RESULTS_DIR, ignore_errors=True)
-    print(out)
+    mode = int('775', base=8)
+    shutil.rmtree(RESULTS_DIR, ignore_errors=True)
     out = os.makedirs(RESULTS_DIR, mode=mode, exist_ok=True)
-    print(out)
     shutil.rmtree(REPOSITORIES_DIR, ignore_errors=True)
     os.makedirs(REPOSITORIES_DIR, mode=mode, exist_ok=True)
     print('End Cleanup Workspace')
@@ -62,7 +58,7 @@ def scan_repo(repo, language, configlanguage):
     print('Scanning Repo '+repo)
     config_dir = "/src/languages/"+language
     output_file = language+"-"+repo+".json"
-    semgrep_command = "docker run --user \"$(id -u):$(id -g)\" --rm -v "+SNOW_ROOT+":/src returntocorp/semgrep:"+CONFIG['general']['version'] + " " + CONFIG[configlanguage]['config']+" " + CONFIG[configlanguage]['exclude']+" --json -o /src/results/" +output_file + " --error repositories/"+repo+" --dangerously-allow-arbitrary-code-execution-from-rules"
+    semgrep_command = "docker run --user \"$(id -u):$(id -g)\" --rm -v "+SNOW_ROOT+":/src returntocorp/semgrep:"+CONFIG['general']['version'] + " " + CONFIG[configlanguage]['config']+" " + CONFIG[configlanguage]['exclude']+" --json -o -o /src" + CONFIG['general']['results']+output_file + " --error repositories/"+repo+" --dangerously-allow-arbitrary-code-execution-from-rules"
     print(semgrep_command)
     #Purposely do not check shell exit code as vulnerabilities returns a 1
     process = subprocess.run(semgrep_command, shell=True, stdout=subprocess.PIPE)
