@@ -62,7 +62,7 @@ def scan_repo(repo, language, configlanguage):
     print('Scanning Repo '+repo)
     config_dir = "/src/languages/"+language
     output_file = language+"-"+repo+".json"
-    semgrep_command = "docker run --rm -v "+SNOW_ROOT+":/src returntocorp/semgrep:"+CONFIG['general']['version'] + " " + CONFIG[configlanguage]['config']+" " + CONFIG[configlanguage]['exclude']+" --json -o " +output_file + " --error repositories/"+repo+" --dangerously-allow-arbitrary-code-execution-from-rules"
+    semgrep_command = "docker run --rm -v "+SNOW_ROOT+":/src returntocorp/semgrep:"+CONFIG['general']['version'] + " " + CONFIG[configlanguage]['config']+" " + CONFIG[configlanguage]['exclude']+" --json -o /src/results/" +output_file + " --error repositories/"+repo+" --dangerously-allow-arbitrary-code-execution-from-rules"
     print(semgrep_command)
     #Purposely do not check shell exit code as vulnerabilities returns a 1
     process = subprocess.run(semgrep_command, shell=True, stdout=subprocess.PIPE)
