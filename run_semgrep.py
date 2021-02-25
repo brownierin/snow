@@ -9,10 +9,9 @@ CONFIG = configparser.ConfigParser()
 CONFIG.read('config.cfg')
 
 # Global Variables
-WORKSPACE = os.getenv('PWD')
+SNOW_ROOT = os.getenv('PWD')
 if CONFIG['general']['run_local_semgrep'] != "False":
-    WORKSPACE = CONFIG['general']['run_local_semgrep']
-SNOW_ROOT = WORKSPACE + CONFIG['general']['snow_root']
+    SNOW_ROOT = CONFIG['general']['run_local_semgrep']
 LANGUAGES_DIR = SNOW_ROOT + CONFIG['general']['languages_dir']
 RESULTS_DIR = SNOW_ROOT + CONFIG['general']['results']
 REPOSITORIES_DIR = SNOW_ROOT + CONFIG['general']['repositories']
