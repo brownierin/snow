@@ -18,6 +18,7 @@ REPOSITORIES_DIR = SNOW_ROOT + CONFIG['general']['repositories']
 
 def cleanup_workspace():
     print('Begin Cleanup Workspace')
+    print(RESULTS_DIR)
     mode = int('774', base=8)
     out = shutil.rmtree(RESULTS_DIR, ignore_errors=True)
     print(out)
