@@ -17,11 +17,15 @@ RESULTS_DIR = SNOW_ROOT + CONFIG['general']['results']
 REPOSITORIES_DIR = SNOW_ROOT + CONFIG['general']['repositories']
 
 def cleanup_workspace():
+    print('Begin Cleanup Workspace')
     mode = int('774', base=8)
-    shutil.rmtree(RESULTS_DIR, ignore_errors=True)
-    os.makedirs(RESULTS_DIR, mode=mode, exist_ok=True)
+    out = shutil.rmtree(RESULTS_DIR, ignore_errors=True)
+    print(out)
+    out = os.makedirs(RESULTS_DIR, mode=mode, exist_ok=True)
+    print(out)
     shutil.rmtree(REPOSITORIES_DIR, ignore_errors=True)
     os.makedirs(REPOSITORIES_DIR, mode=mode, exist_ok=True)
+    print('End Cleanup Workspace')
 
 def get_docker_image():
     version = CONFIG['general']['version']
