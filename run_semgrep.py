@@ -11,20 +11,22 @@ CONFIG = configparser.ConfigParser()
 CONFIG.read('config.cfg')
 
 # Global Variables
-WORKSPACE = os.getenv('WORKSPACE')
+SNOW_ROOT = os.getenv('PWD')
 if CONFIG['general']['run_local_semgrep'] != "False":
-    WORKSPACE = CONFIG['general']['run_local_semgrep']
-SNOW_ROOT = WORKSPACE + CONFIG['general']['snow_root']
+    SNOW_ROOT = CONFIG['general']['run_local_semgrep']
 LANGUAGES_DIR = SNOW_ROOT + CONFIG['general']['languages_dir']
 RESULTS_DIR = SNOW_ROOT + CONFIG['general']['results']
 REPOSITORIES_DIR = SNOW_ROOT + CONFIG['general']['repositories']
 
 def cleanup_workspace():
-    mode = int('774', base=8)
+    print('Begin Cleanup Workspace')
+    process = subprocess.run("whoami", shell=True, check=True, stdout=subprocess.PIPE)
+    mode = int('775', base=8)
     shutil.rmtree(RESULTS_DIR, ignore_errors=True)
-    os.makedirs(RESULTS_DIR, mode=mode, exist_ok=True)
+    out = os.makedirs(RESULTS_DIR, mode=mode, exist_ok=True)
     shutil.rmtree(REPOSITORIES_DIR, ignore_errors=True)
     os.makedirs(REPOSITORIES_DIR, mode=mode, exist_ok=True)
+    print('End Cleanup Workspace')
 
 def get_docker_image():
     version = CONFIG['general']['version']
@@ -58,7 +60,7 @@ def scan_repo(repo, language, configlanguage):
     print('Scanning Repo '+repo)
     config_dir = "/src/languages/"+language
     output_file = language+"-"+repo+".json"
-    semgrep_command = "docker run --rm -v "+SNOW_ROOT+":/src returntocorp/semgrep:"+CONFIG['general']['version'] + " " + CONFIG[configlanguage]['config']+" " + CONFIG[configlanguage]['exclude']+" --json -o /src" + CONFIG['general']['results']+output_file + " --error repositories/"+repo+" --dangerously-allow-arbitrary-code-execution-from-rules"
+    semgrep_command = "docker run --user \"$(id -u):$(id -g)\" --rm -v "+SNOW_ROOT+":/src returntocorp/semgrep:"+CONFIG['general']['version'] + " " + CONFIG[configlanguage]['config']+" " + CONFIG[configlanguage]['exclude']+" --json -o /src" + CONFIG['general']['results']+output_file + " --error repositories/"+repo+" --dangerously-allow-arbitrary-code-execution-from-rules"
     print(semgrep_command)
     #Purposely do not check shell exit code as vulnerabilities returns a 1
     process = subprocess.run(semgrep_command, shell=True, stdout=subprocess.PIPE)
