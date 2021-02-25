@@ -21,7 +21,7 @@ def cleanup_workspace():
     print(RESULTS_DIR)
     process = subprocess.run("whoami", shell=True, check=True, stdout=subprocess.PIPE)
     print((process.stdout).decode("utf-8"))
-    mode = int('776', base=8)
+    mode = int('775', base=8)
     out = shutil.rmtree(RESULTS_DIR, ignore_errors=True)
     print(out)
     out = os.makedirs(RESULTS_DIR, mode=mode, exist_ok=True)
