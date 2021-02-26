@@ -150,7 +150,7 @@ if __name__ == "__main__":
         help="remove false positives from scan results",
     )
     args = parser.parse_args()
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level=logging.WARN)
     if args.remove_false_positives and (
         args.fp_filename is None
         or args.json_filename is None
@@ -166,4 +166,4 @@ if __name__ == "__main__":
     ):
         parser.error("-c requires -io, -in, and -od.")
     elif args.compare:
-        compare_to_last_run(args.input_new, args.input_old, args.output_diff)
+        compare_to_last_run(args.input_old, args.input_new, args.output_diff)
