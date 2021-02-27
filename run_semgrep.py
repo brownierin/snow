@@ -5,6 +5,16 @@ import os
 import shutil
 import json
 import hashlib
+import time
+
+# Put any check_id here to trigger high priority rule classification.
+high_priority_rules_check_id = {
+    "languages.golang.slack.potential-code-execution-1": True,
+}
+# Put any strings you want trigger high priority rule classification. Substrings are OK.
+high_priority_rules_message = [
+    "exec",
+]
 
 # Get config file and read.
 CONFIG = configparser.ConfigParser()
@@ -20,10 +30,9 @@ REPOSITORIES_DIR = SNOW_ROOT + CONFIG['general']['repositories']
 
 def cleanup_workspace():
     print('Begin Cleanup Workspace')
-    process = subprocess.run("whoami", shell=True, check=True, stdout=subprocess.PIPE)
     mode = int('775', base=8)
     shutil.rmtree(RESULTS_DIR, ignore_errors=True)
-    out = os.makedirs(RESULTS_DIR, mode=mode, exist_ok=True)
+    os.makedirs(RESULTS_DIR, mode=mode, exist_ok=True)
     shutil.rmtree(REPOSITORIES_DIR, ignore_errors=True)
     os.makedirs(REPOSITORIES_DIR, mode=mode, exist_ok=True)
     print('End Cleanup Workspace')
@@ -41,35 +50,49 @@ def get_docker_image():
 
 def download_repos():
     for language in CONFIG.sections():
+        git_repo_url = "https://slack-github.com/"
         if language.find('language-') != -1:
-            print("Downloading "+str(CONFIG[language])+" repos")
-            filename = LANGUAGES_DIR+CONFIG[language]['language']+'/enabled'
+            print("Downloading " + str(CONFIG[language]) + " repos")
+            filename = LANGUAGES_DIR + CONFIG[language]['language'] + '/enabled'
             with open(filename) as f:
                 content = f.read().splitlines()
             for repo in content:
-                print("Cloning Repo "+repo)
-                git_repo = "git@slack-github.com:slack/"+repo+".git"
-                process = subprocess.run("git -C "+REPOSITORIES_DIR+" clone --quiet "+git_repo, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                #If we fail to donwload from Enterprise, try tinyspeck
+                print("Cloning Repo " + repo)
+                git_repo = "git@slack-github.com:slack/" + repo + ".git"
+                process = subprocess.run("git -C " + REPOSITORIES_DIR + " clone --quiet " + git_repo, shell=True,
+                                         stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                # If we fail to download from Enterprise, try tinyspeck
                 if process.returncode == 128:
-                    git_repo = "https://github.com/tinyspeck/"+repo+".git"
-                    subprocess.run("git -C " + REPOSITORIES_DIR + " clone --quiet " + git_repo, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                scan_repo(repo, CONFIG[language]['language'], language)
+                    git_repo_url = "https://github.com/tinyspeck"
+                    git_repo = "https://github.com/tinyspeck/" + repo + ".git"
+                    subprocess.run("git -C " + REPOSITORIES_DIR + " clone --quiet " + git_repo, shell=True, check=True,
+                                   stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                scan_repo(repo, CONFIG[language]['language'], language, git_repo_url)
 
-def scan_repo(repo, language, configlanguage):
-    print('Scanning Repo '+repo)
-    config_dir = "/src/languages/"+language
-    output_file = language+"-"+repo+".json"
-    semgrep_command = "docker run --user \"$(id -u):$(id -g)\" --rm -v "+SNOW_ROOT+":/src returntocorp/semgrep:"+CONFIG['general']['version'] + " " + CONFIG[configlanguage]['config']+" " + CONFIG[configlanguage]['exclude']+" --json -o /src" + CONFIG['general']['results']+output_file + " --error repositories/"+repo+" --dangerously-allow-arbitrary-code-execution-from-rules"
+def scan_repo(repo, language, configlanguage, git_repo_url):
+    print('Scanning Repo ' + repo)
+    output_file = language + "-" + repo + ".json"
+    semgrep_command = "docker run --user \"$(id -u):$(id -g)\" --rm -v " + SNOW_ROOT + ":/src returntocorp/semgrep:" + \
+                      CONFIG['general']['version'] + " " + CONFIG[configlanguage]['config'] + " " + \
+                      CONFIG[configlanguage]['exclude'] + " --json -o /src" + CONFIG['general'][
+                          'results'] + output_file + " --error repositories/" + repo + " --dangerously-allow-arbitrary-code-execution-from-rules"
     print(semgrep_command)
-    #Purposely do not check shell exit code as vulnerabilities returns a 1
+    # Purposely do not check shell exit code as vulnerabilities returns a 1
     process = subprocess.run(semgrep_command, shell=True, stdout=subprocess.PIPE)
-    #Results here should be sent to a new function for us to work with!
+    # Results here should be sent to a new function for us to work with!
     print(process.stdout.decode("utf-8"))
-
-    #Add hash identifier to the json result
-    if os.path.exists(RESULTS_DIR+output_file):
-        add_hash_id(RESULTS_DIR+output_file)
+    # We want to capture where these results came from. GitHub, and Branch in the file
+    print("OPENING " + SNOW_ROOT + CONFIG['general']['results'] + output_file)
+    # Read The Json Data
+    with open(SNOW_ROOT + CONFIG['general']['results'] + output_file, ) as file:
+        git_repo_branch = "master"
+        data = json.load(file)
+        data.update({"metadata": {"GitHubRepo": git_repo_url, "branch": git_repo_branch, "repoName": repo}})
+        print(data)
+    # Write to the same file
+    with open(SNOW_ROOT + CONFIG['general']['results'] + output_file, 'w') as file:
+        json.dump(data, file, sort_keys=True, indent=4)
+        file.close()
 
 # Grab source codes. Also include one line above and one line below the issue location
 def read_line(issue_file, line):    
@@ -120,10 +143,102 @@ def add_hash_id(jsonFile):
     jsonFile.write(json.dumps(data))
     jsonFile.close()
 
+# Alert Channel iterates through the /results directory. Reads the JSON files, and outputs the alerts to SLACK per CONFIG file.
+# Alerts utilize the 'slack' command on servers, which allows messages to be sent. Careful with backticks.
+# Alerts will not fire unless on a server 'slack'. Command is different on local env.
+def alert_channel():
+    semgrep_output_files = os.listdir(RESULTS_DIR)
+    semgrep_errors = False
+    alert_json, error_json = {}, {}
+    high, normal, total_vulns = 0, 0, 0
+    # Iterate through the /results file
+    for semgrep_output_file in semgrep_output_files:
+        print("Reading JSON Output File " + semgrep_output_file)
+        # Parse the json file and collect any results present
+        with open(RESULTS_DIR + semgrep_output_file) as file:
+            data = json.load(file)
+            results = data["results"]
+            errors = data["errors"]
+            repo_name = data["metadata"]["repoName"]
+            alert_json.update({repo_name: {"normal": [], "high": []}})
+            github_url = data["metadata"]["GitHubRepo"]
+            if github_url == "https://slack-github.com/":
+                github_url = github_url+"slack/"
+            elif github_url == "https://github.com/":
+                github_url = github_url + "tinyspeck/"
+            github_branch = data["metadata"]["branch"]
+            # Check if there are results or errors.
+            if results:
+                for result in results:
+                    check_id = result["check_id"]
+                    # path always gives us /repositories/<repo>/dir/filename.py
+                    # We do not want /repositories/ or <repo> as this is not valid for a GitHub url
+                    code_path = result["path"].split('/', 2)[2:][0]
+                    line_start = result["start"]["line"]
+                    message = result["extra"]["message"]
+                    # Because a single line JavaScript file exists we truncate...
+                    code_lines = result["extra"]["lines"][:300]
+                    code_url = github_url + repo_name + "/blob/" + github_branch + "/" + code_path + "#L" + str(line_start)
+                    priority = "normal"
+
+                    result_builder = "*Security Vulnerability Detected in "+repo_name+"*\n:exclamation:*Rule ID:* " + check_id + "\n:speech_balloon: *Message:* " + message + "\n:link:*Link*: "+code_url+"\n:coding_horror: *Code:*\n\`\`\`" + code_lines + "\`\`\`"
+
+                    total_vulns = total_vulns+1
+                    # Check if rule should be treated as a high priority alert.
+                    if check_id in high_priority_rules_check_id:
+                        high = high+1
+                        priority = "high"
+                    else:
+                        for high_priority_string in high_priority_rules_message:
+                            if high_priority_string in message:
+                                high = high+1
+                                priority = "high"
+                    alert_json[repo_name][priority].append(result_builder)
+            # If any errors, mark them. This is where we would add additional logic to output errors into a errors_builder.
+            # Currently making errors pretty are out scope.
+            if errors:
+                semgrep_errors = True
+                error_json.update({repo_name: errors})
+    normal = total_vulns - high
+    #########################################################################
+    # !!!!!!Subprocess Slack Alerts, Will Only Work On SLACK Servers!!!!!!!!!
+    #########################################################################
+
+    # Semgrep Daily Run Banner + vulnerability count of total, high, normal.
+    subprocess.run("echo \":snowflake:*Daily :block-s: :block-e: :block-m: :block-g: :block-r: :block-e: :block-p: Scan Report*:snowflake: \n :blob-throw-snow-left:*Rules Triggered*:blob-throw-snow-right:\n---High:"+str(high)+"\n---Normal:"+str(normal)+" \" | slack --channel=snowalerttest --cat --user=SNOW ",shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    if total_vulns > 0:
+        #Fire High Banner
+        subprocess.run("echo \":fire: :fire: :fire: :fire: :fire: :fire:\n:fire::block-h: :block-i: :block-g: :block-h:  :fire:\n:fire: :fire: :fire: :fire: :fire: :fire:\" | slack --channel=snowalerttest --cat --user=SNOW ", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        for repo in alert_json:
+            for vuln in alert_json[repo]['high']:
+                subprocess.run("echo \"" + vuln + "\" | slack --channel=snowalerttest --cat --user=SNOW ", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                time.sleep(1)
+        #Snowflake Normal Banner
+        subprocess.run("echo \":snowflake::snowflake::snowflake::snowflake::snowflake::snowflake::snowflake::snowflake::snowflake:\n:snowflake: :block-n: :block-o: :block-r: :block-m: :block-a: :block-l: :snowflake:\n:snowflake::snowflake::snowflake::snowflake::snowflake::snowflake::snowflake::snowflake::snowflake: \" | slack --channel=snowalerttest --cat --user=SNOW ",shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        for repo in alert_json:
+            for vuln in alert_json[repo]['normal']:
+                subprocess.run("echo \"" + vuln + "\" | slack --channel=snowalerttest --cat --user=SNOW ", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                time.sleep(1)
+
+    elif not error_json:
+        # ALL HAIL THE GLORIOUS NO VULNS BANNER
+        text = """:black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square:\n:black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::black_square::sun-turtle::sun-turtle::black_square::black_square::black_square::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::black_square::sun-turtle::sun-turtle::sun-turtle::black_square:\n:black_square::sun-turtle::sun-turtle::black_square::black_square::sun-turtle::black_square::sun-turtle::black_square::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::sun-turtle::black_square::black_square::sun-turtle::black_square::sun-turtle::black_square::black_square::black_square::black_square:\n:black_square::sun-turtle::black_square::sun-turtle::black_square::sun-turtle::black_square::sun-turtle::black_square::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::sun-turtle::black_square::sun-turtle::black_square::black_square::sun-turtle::sun-turtle::black_square::black_square:\n:black_square::sun-turtle::black_square::black_square::sun-turtle::sun-turtle::black_square::sun-turtle::black_square::black_square::sun-turtle::black_square::black_square::black_square::black_square::sun-turtle::black_square::sun-turtle::black_square::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::black_square::sun-turtle::sun-turtle::black_square::black_square::black_square::black_square::sun-turtle::black_square:\n:black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::black_square::sun-turtle::sun-turtle::black_square::black_square::black_square::black_square::black_square::black_square::sun-turtle::black_square::black_square::black_square::black_square::sun-turtle::sun-turtle::sun-turtle::black_square::black_square::sun-turtle::sun-turtle::sun-turtle::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::sun-turtle::sun-turtle::sun-turtle::black_square::black_square:\n:black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square:"""
+        subprocess.run("echo \"" + text + "\" | slack --channel=snowalerttest --cat --user=SNOW ", shell=True,
+                       stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    if semgrep_errors:
+        # Right now I am purposely not outputting errors. There are a lot and its noise. To Do: Make a pretty output once cleaned.
+        subprocess.run("echo \":test-error: There were errors this run. Check Jenkins https://jenkins.tinyspeck.com/job/security-semgrep-prodsec \" | slack --channel=snowalerttest --cat --user=SNOW ",
+            shell=True,
+            stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+
 if __name__ == '__main__':
     # Delete all directories that would have old repos, or results from the last run as the build boxes may persist from previous runs.
     cleanup_workspace()
     # Get Semgrep Docker image, check against a known good hash
     get_docker_image()
-    #Download the repos in the language enabled list and run
+    # Download the repos in the language enabled list and run
     download_repos()
+    # Compare PR to Master for PR scans. Compare Master to the previous version of Master for daily scans.
+    # method_to_be_created()
+    # Output Alerts to channel
+    alert_channel()
