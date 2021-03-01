@@ -23,7 +23,7 @@ def open_json(filename):
 
 def write_json(filename, json_output):
     with open(filename, "w") as file:
-        data = json.dumps(json_output)
+        data = json.dumps(json_output, indent=4)
         file.write(data)
         file.close()
 
