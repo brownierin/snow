@@ -32,12 +32,9 @@ def open_false_positives(filename):
     with open(filename) as file:
         read_in = file.readlines()
         file.close()
-    false_positives = {}
+    false_positives = set()
     for line in read_in:
-        try:
-            false_positives[line[:3]].append(line)
-        except:
-            false_positives[line[:3]] = [line]
+        false_positives.add(line)
     return false_positives
 
 
@@ -51,22 +48,16 @@ def remove_false_positives(json_filename, fp_filename, parsed_filename):
     fp = open_false_positives(fp_filename)
     for issue in data["results"]:
         hash_id = issue["hash_id"]
-        if fp[hash_id[:3]]:
-            for fp_hash_id in fp[hash_id[:3]]:
-                if fp_hash_id == hash_id:
-                    data["results"].remove(issue)
+        if hash_id in fp:
+            data["results"].remove(issue)
     write_json(parsed_filename, data)
     return data
 
 
 def get_hash_ids(data):
-    hash_ids = {}
+    hash_ids = set()
     for issue in data["results"]:
-        hash_id = issue["hash_id"]
-        try:
-            hash_ids[hash_id[:3]].append(hash_id)
-        except:
-            hash_ids[hash_id[:3]] = [hash_id]
+        hash_ids.add(issue["hash_id"])
     return hash_ids
 
 
@@ -88,21 +79,16 @@ def compare_to_last_run(old_output, new_output, output_filename):
         write_json(output_filename, new)
         return new
 
-    for hashes in new_hashes.values():
-        for new_issue_hash in hashes:
-            logging.info(f"current hash: {new_issue_hash}")
-            try:
-                bucket = old_hashes[new_issue_hash[:3]]
-                for old_hash in bucket:
-                    if old_hash == new_issue_hash:
-                        [
-                            new["results"].remove(issue)
-                            for issue in new["results"]
-                            if issue["hash_id"] == new_issue_hash
-                        ]
-                        logging.info(f"removing issue {new_issue_hash}")
-            except:
-                continue
+    for new_issue_hash in new_hashes:
+        logging.info(f"current hash: {new_issue_hash}")
+        # old_hash = old_hashes[new_issue_hash]
+        if new_issue_hash in old_hashes:
+            [
+                new["results"].remove(issue)
+                for issue in new["results"]
+                if issue["hash_id"] == new_issue_hash
+            ]
+            logging.info(f"removing issue {new_issue_hash}")
     write_json(output_filename, new)
     return new
 
