@@ -213,6 +213,7 @@ def alert_channel():
             for vuln in alert_json[repo]['high']:
                 subprocess.run("echo \"" + vuln + "\" | slack --channel=snowalerttest --cat --user=SNOW ", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                 time.sleep(1)
+
         #Snowflake Normal Banner
         subprocess.run("echo \":snowflake::snowflake::snowflake::snowflake::snowflake::snowflake::snowflake::snowflake::snowflake:\n:snowflake: :block-n: :block-o: :block-r: :block-m: :block-a: :block-l: :snowflake:\n:snowflake::snowflake::snowflake::snowflake::snowflake::snowflake::snowflake::snowflake::snowflake: \" | slack --channel=snowalerttest --cat --user=SNOW ",shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         for repo in alert_json:
@@ -233,12 +234,14 @@ def alert_channel():
 
 if __name__ == '__main__':
     # Delete all directories that would have old repos, or results from the last run as the build boxes may persist from previous runs.
-    cleanup_workspace()
+    #cleanup_workspace()
     # Get Semgrep Docker image, check against a known good hash
-    get_docker_image()
+    #get_docker_image()
     # Download the repos in the language enabled list and run
-    download_repos()
+    #download_repos()
     # Compare PR to Master for PR scans. Compare Master to the previous version of Master for daily scans.
     # method_to_be_created()
     # Output Alerts to channel
-    alert_channel()
+    subprocess.run("echo \"" + "spikey" + "\" | slack --channel=snowalerttest --cat --user=SNOW ", shell=True,
+                   stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    #alert_channel()
