@@ -180,9 +180,7 @@ def alert_channel():
                     code_lines = result["extra"]["lines"][:300]
                     code_url = github_url + repo_name + "/blob/" + github_branch + "/" + code_path + "#L" + str(line_start)
                     priority = "normal"
-
                     result_builder = "*Security Vulnerability Detected in "+repo_name+"*\n:exclamation:*Rule ID:* " + check_id + "\n:speech_balloon: *Message:* " + message + "\n:link:*Link*: "+code_url+"\n:coding_horror: *Code:*\n\`\`\`" + code_lines + "\`\`\`"
-
                     total_vulns = total_vulns+1
                     # Check if rule should be treated as a high priority alert.
                     if check_id in high_priority_rules_check_id:
@@ -234,14 +232,10 @@ def alert_channel():
 
 if __name__ == '__main__':
     # Delete all directories that would have old repos, or results from the last run as the build boxes may persist from previous runs.
-    #cleanup_workspace()
+    cleanup_workspace()
     # Get Semgrep Docker image, check against a known good hash
-    #get_docker_image()
+    get_docker_image()
     # Download the repos in the language enabled list and run
-    #download_repos()
-    # Compare PR to Master for PR scans. Compare Master to the previous version of Master for daily scans.
-    # method_to_be_created()
+    download_repos()
     # Output Alerts to channel
-    subprocess.run("echo \"" + "spikey" + "\" | slack --channel=snowalerttest --cat --user=SNOW ", shell=True,
-                   stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    #alert_channel()
+    alert_channel()
