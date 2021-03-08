@@ -29,12 +29,10 @@ def write_json(filename, json_output):
 
 
 def open_false_positives(filename):
-    with open(filename) as file:
-        read_in = file.readlines()
-        file.close()
+    data = open_json(filename)
     false_positives = set()
-    for line in read_in:
-        false_positives.add(line)
+    for fp in data:
+        false_positives.add(fp)
     return false_positives
 
 
