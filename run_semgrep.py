@@ -149,10 +149,9 @@ def alert_channel():
     alert_json, error_json = {}, {}
     high, normal, total_vulns = 0, 0, 0
     #Get the high priority config
-    with open('high_priority_cfg.json') as f:
-        high_priority_cfg = json.load(f)
-        high_priority_rules_check_id = high_priority_cfg["high-priority"]["high_priority_rules_check_id"]
-        high_priority_rules_message = high_priority_cfg["high-priority"]["high_priority_rules_message"]
+
+    high_priority_rules_check_id = CONFIG['high-priority']['high_priority_rules_check_id'].split('\n')
+    high_priority_rules_message = CONFIG['high-priority']['high_priority_rules_message'].split('\n')
 
     # Iterate through the /results file
     for semgrep_output_file in semgrep_output_files:
