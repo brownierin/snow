@@ -6,6 +6,7 @@ import shutil
 import json
 import hashlib
 import time
+import process_hash_ids as comparison
 
 # Get config file and read.
 CONFIG = configparser.ConfigParser()
@@ -87,9 +88,20 @@ def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
         json.dump(data, file, sort_keys=True, indent=4)
         file.close()
 
-    #Add hash identifier to the json result
+    # fprm stands for false positives removed
+    fp_diff_outfile = f"{language}-{repo}-fprm.json"
+    fp_file = f"{language}/{false_positives}/{repo}.json"
+
+    # Add hash identifier to the json result
+    # and remove false positives from the output file
     if os.path.exists(RESULTS_DIR+output_file):
         add_hash_id(RESULTS_DIR+output_file)
+        comparison.remove_false_positives(
+                                            RESULTS_DIR+output_file,
+                                            fp_file,
+                                            fp_diff_outfile
+                                        )
+
 
 # Grab source codes. Also include one line above and one line below the issue location
 def read_line(issue_file, line):    
@@ -232,6 +244,12 @@ def alert_channel():
             shell=True,
             stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
+
+def compare_runs():
+    for file in RESULTS_DIR:
+        process_hash_ids.compare(inputold, inputnew, output)
+
+
 if __name__ == '__main__':
     # Delete all directories that would have old repos, or results from the last run as the build boxes may persist from previous runs.
     cleanup_workspace()
@@ -241,3 +259,4 @@ if __name__ == '__main__':
     download_repos()
     # Output Alerts to channel
     alert_channel()
+    compare_runs()
