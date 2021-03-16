@@ -245,9 +245,9 @@ def alert_channel():
             stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
 
-def compare_runs():
-    for file in RESULTS_DIR:
-        process_hash_ids.compare(inputold, inputnew, output)
+# def compare_runs():
+#     for file in RESULTS_DIR:
+#         process_hash_ids.compare(inputold, inputnew, output)
 
 
 if __name__ == '__main__':
@@ -259,4 +259,4 @@ if __name__ == '__main__':
     download_repos()
     # Output Alerts to channel
     alert_channel()
-    compare_runs()
+    # compare_runs()
