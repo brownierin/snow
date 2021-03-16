@@ -90,7 +90,7 @@ def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
 
     # fprm stands for false positives removed
     fp_diff_outfile = f"{language}-{repo}-fprm.json"
-    fp_file = f"{language}/{false_positives}/{repo}.json"
+    fp_file = f"languages/{language}/{false_positives}/{repo}.json"
 
     # Add hash identifier to the json result
     # and remove false positives from the output file
