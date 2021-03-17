@@ -15,6 +15,7 @@ This script has two purposes:
 
 
 def open_json(filename):
+    data = {}
     with open(filename, "r") as file:
         data = json.load(file)
         file.close()
