@@ -62,7 +62,7 @@ def download_repos():
                                    stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                 print(process.stdout.decode("utf-8"))
                 get_sha_process = subprocess.run("git -C " + REPOSITORIES_DIR +"/"+repo +" rev-parse HEAD", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                git_sha = get_sha_process.stdout.decode("utf-8")
+                git_sha = get_sha_process.stdout.decode("utf-8").replace("\n", "")
                 scan_repo(repo, CONFIG[language]['language'], language, git_repo_url, git_sha)
 
 def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
@@ -358,8 +358,3 @@ if __name__ == '__main__':
         run_semgrep_daily()
     elif args.mode == "pr":
         run_semgrep_pr(args.repo, args.git)
-
-
-
-
-
