@@ -43,13 +43,14 @@ def remove_false_positives(json_filename, fp_filename, parsed_filename):
     This helps keep lookups fast since we can just check for existence of the key.
     """
     data = open_json(json_filename)
+    parsed = open_json(json_filename)
     fp = open_false_positives(fp_filename)
     for issue in data["results"]:
         hash_id = issue["hash_id"]
         if hash_id in fp:
-            data["results"].remove(issue)
-    write_json(parsed_filename, data)
-    return data
+            parsed["results"].remove(issue)
+    write_json(parsed_filename, parsed)
+    return parsed
 
 
 def get_hash_ids(data):
