@@ -1,6 +1,6 @@
 import json
 import argparse
-import logging
+#import logging
 
 """
 How to run
@@ -69,8 +69,8 @@ def compare_to_last_run(old_output, new_output, output_filename):
     new = open_json(new_output)
     old_hashes = get_hash_ids(old)
     new_hashes = get_hash_ids(new)
-    logging.info(f"old hashes: \n {old_hashes}")
-    logging.info(f"new hashes: \n {new_hashes}")
+    #logging.info(f"old hashes: \n {old_hashes}")
+    #logging.info(f"new hashes: \n {new_hashes}")
     if old_hashes == new_hashes:
         new["results"].clear()
         new["results"] = "No new findings"
@@ -78,7 +78,7 @@ def compare_to_last_run(old_output, new_output, output_filename):
         return new
 
     for new_issue_hash in new_hashes:
-        logging.info(f"current hash: {new_issue_hash}")
+        #(f"current hash: {new_issue_hash}")
         # old_hash = old_hashes[new_issue_hash]
         if new_issue_hash in old_hashes:
             [
@@ -86,7 +86,7 @@ def compare_to_last_run(old_output, new_output, output_filename):
                 for issue in new["results"]
                 if issue["hash_id"] == new_issue_hash
             ]
-            logging.info(f"removing issue {new_issue_hash}")
+            #logging.info(f"removing issue {new_issue_hash}")
     write_json(output_filename, new)
     return new
 
@@ -134,7 +134,7 @@ if __name__ == "__main__":
         help="remove false positives from scan results",
     )
     args = parser.parse_args()
-    logging.basicConfig(level=logging.WARN)
+    #logging.basicConfig(level=logging.WARN)
     if args.remove_false_positives and (
         args.fp_filename is None
         or args.json_filename is None
