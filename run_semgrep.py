@@ -7,6 +7,8 @@ import json
 import hashlib
 import time
 import process_hash_ids as comparison
+from pathlib import Path
+import git #package gitpython
 
 # Get config file and read.
 CONFIG = configparser.ConfigParser()
@@ -23,7 +25,7 @@ REPOSITORIES_DIR = SNOW_ROOT + CONFIG['general']['repositories']
 def cleanup_workspace():
     print('Begin Cleanup Workspace')
     mode = int('775', base=8)
-    shutil.rmtree(RESULTS_DIR, ignore_errors=True)
+    # shutil.rmtree(RESULTS_DIR, ignore_errors=True)
     os.makedirs(RESULTS_DIR, mode=mode, exist_ok=True)
     shutil.rmtree(REPOSITORIES_DIR, ignore_errors=True)
     os.makedirs(REPOSITORIES_DIR, mode=mode, exist_ok=True)
@@ -65,8 +67,9 @@ def download_repos():
                 scan_repo(repo, CONFIG[language]['language'], language, git_repo_url, git_sha)
 
 def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
+    git_sha = git_sha.rstrip()
     print('Scanning Repo ' + repo)
-    output_file = language + "-" + repo + ".json"
+    output_file = f"{language}-{repo}-{git_sha[:7]}.json"
     semgrep_command = "docker run --user \"$(id -u):$(id -g)\" --rm -v " + SNOW_ROOT + ":/src returntocorp/semgrep:" + \
                       CONFIG['general']['version'] + " " + CONFIG[configlanguage]['config'] + " " + \
                       CONFIG[configlanguage]['exclude'] + " --json -o /src" + CONFIG['general'][
@@ -89,8 +92,8 @@ def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
         file.close()
 
     # fprm stands for false positives removed
-    fp_diff_outfile = f"{language}-{repo}-fprm.json"
-    fp_file = f"languages/{language}/{false_positives}/{repo}.json"
+    fp_diff_outfile = f"{language}-{repo}-{git_sha[:7]}-fprm.json"
+    fp_file = f"{SNOW_ROOT}/languages/{language}/false_positives/{repo}_false_positives.json"
 
     # Add hash identifier to the json result
     # and remove false positives from the output file
@@ -99,9 +102,30 @@ def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
         comparison.remove_false_positives(
                                             RESULTS_DIR+output_file,
                                             fp_file,
-                                            fp_diff_outfile
+                                            RESULTS_DIR+fp_diff_outfile
                                         )
+    git_repo = git.Repo(f"{REPOSITORIES_DIR}{repo}")
+    branch = git_repo.active_branch
+    branch = str(branch)
+    print(f"branch is: {branch}")
+    if branch == "master":
+        # sorts files by most recent
+        paths = sorted(Path(RESULTS_DIR).iterdir(), key=os.path.getmtime)
+        selected_paths = [x for x in paths if f"{language}-{repo}" in str(x)]
+        comparison_result = f"{RESULTS_DIR}{fp_diff_outfile.split('-fprm')[0]}-comparison.json"
+        print(f"[+] Comparison result is stored at: {comparison_result}")
 
+        # get the second most recent result with fprm in it
+        if len(selected_paths) > 2:
+            for file in selected_paths[-5:-2]:
+                if "fprm" in str(file):
+                    old = file
+                    print(f"[+] Old file is: {old}")
+                    print(f"[+] Comparing {old} and {fp_diff_outfile}")
+                    comparison.compare_to_last_run(old, RESULTS_DIR+fp_diff_outfile, comparison_result)
+        else:
+            print("[!!] Not enough runs for comparison")
+        
 
 # Grab source codes. Also include one line above and one line below the issue location
 def read_line(issue_file, line):    
@@ -245,11 +269,6 @@ def alert_channel():
             stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
 
-# def compare_runs():
-#     for file in RESULTS_DIR:
-#         process_hash_ids.compare(inputold, inputnew, output)
-
-
 if __name__ == '__main__':
     # Delete all directories that would have old repos, or results from the last run as the build boxes may persist from previous runs.
     cleanup_workspace()
@@ -259,4 +278,3 @@ if __name__ == '__main__':
     download_repos()
     # Output Alerts to channel
     alert_channel()
-    # compare_runs()
