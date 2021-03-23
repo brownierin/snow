@@ -24,11 +24,37 @@ REPOSITORIES_DIR = SNOW_ROOT + CONFIG['general']['repositories']
 def cleanup_workspace():
     print('Begin Cleanup Workspace')
     mode = int('775', base=8)
-    # shutil.rmtree(RESULTS_DIR, ignore_errors=True)
+    clean_results_dir()
     os.makedirs(RESULTS_DIR, mode=mode, exist_ok=True)
     shutil.rmtree(REPOSITORIES_DIR, ignore_errors=True)
     os.makedirs(REPOSITORIES_DIR, mode=mode, exist_ok=True)
     print('End Cleanup Workspace')
+
+
+def clean_results_dir():
+    """
+    Removes all result files but the most recent 3
+    """
+    paths = sorted(Path(RESULTS_DIR).iterdir(), key=os.path.getmtime)
+    repos = get_repo_list()
+    for repo in repos:
+        selected_paths = [x for x in paths if f"{repo}" in str(x)]
+        for file in selected_paths[:-3]:
+            os.remove(file)
+
+
+def get_repo_list():
+    """
+    Grabs all enabled repository names across all languages
+    """
+    repos = []
+    for language in CONFIG.sections():
+        if language.find('language-') != -1:
+            filename = LANGUAGES_DIR + CONFIG[language]['language'] + '/enabled'
+            with open(filename) as f:
+                enabled = f.read().splitlines()
+            repos = repos + [repo for repo in enabled]
+    return repos
 
 
 def get_docker_image():
