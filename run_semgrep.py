@@ -8,7 +8,6 @@ import hashlib
 import time
 import process_hash_ids as comparison
 from pathlib import Path
-import git #package gitpython
 
 # Get config file and read.
 CONFIG = configparser.ConfigParser()
@@ -30,6 +29,7 @@ def cleanup_workspace():
     shutil.rmtree(REPOSITORIES_DIR, ignore_errors=True)
     os.makedirs(REPOSITORIES_DIR, mode=mode, exist_ok=True)
     print('End Cleanup Workspace')
+
 
 def get_docker_image():
     version = CONFIG['general']['version']
@@ -104,9 +104,10 @@ def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
                                             fp_file,
                                             RESULTS_DIR+fp_diff_outfile
                                         )
-    git_repo = git.Repo(f"{REPOSITORIES_DIR}{repo}")
-    branch = git_repo.active_branch
-    branch = str(branch)
+
+    git_branch_cmd = f"cd {REPOSITORIES_DIR}/{repo}; git branch --show-current; cd {SNOW_ROOT}"
+    process = subprocess.run(git_branch_cmd, shell=True, stdout=subprocess.PIPE)
+    branch = process.stdout.decode('utf-8').rstrip()
     print(f"branch is: {branch}")
     if branch == "master":
         # sorts files by most recent
