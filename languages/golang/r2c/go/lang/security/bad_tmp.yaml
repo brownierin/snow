@@ -1,6 +1,6 @@
 rules:
 - id: bad-tmp-file-creation
-  message: File creation in shared tmp directory without using ioutil.Tempfile
+  message: Detected file creation in shared tmp directory without using ioutil.Tempfile.  The ioutil.Tempfile function creates filenames by adding a random string to the end, to avoid both accidental and maliciously crafted filename collisions.  Change ioutil.WriteFile() or os.Create() functions to ioutil.Tempfile() when creating a file in the /tmp directory.
   languages: [go]
   severity: WARNING
   metadata:

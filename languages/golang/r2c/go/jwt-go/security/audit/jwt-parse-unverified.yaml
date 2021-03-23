@@ -2,12 +2,13 @@ rules:
 - id: jwt-go-parse-unverified
   message: |
     Detected the decoding of a JWT token without a verify step.
-    Don't use `ParseUnverified` unless you know what you're doing
-    This method parses the token but doesn't validate the signature. It's only ever useful in cases where you know the signature is valid (because it has been checked previously in the stack) and you want to extract values from it.
+    The ParseUnverified() method parses the token but doesn't validate the signature. This method should only be used to extract values from a JWT whose signature has already been validated, and should usually be avoided altogether.  To fix, replace use of the ParseUnverified() function with the Parse() function.  The Parse() function will parse, validate, and return the token.
   metadata:
     cwe: 'CWE-345: Insufficient Verification of Data Authenticity'
     owasp: 'A2: Broken Authentication'
     source-rule-url: https://r2c.dev/blog/2020/hardcoded-secrets-unverified-tokens-and-other-common-jwt-mistakes/
+    references: 
+      - https://auth0.com/blog/critical-vulnerabilities-in-json-web-token-libraries/
   languages: [go]
   severity: WARNING
   patterns:
