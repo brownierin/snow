@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import pprint
 import subprocess
 import configparser
 import os
@@ -62,7 +63,7 @@ def download_repos():
                                    stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                 print(process.stdout.decode("utf-8"))
                 get_sha_process = subprocess.run("git -C " + REPOSITORIES_DIR +"/"+repo +" rev-parse HEAD", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                git_sha = get_sha_process.stdout.decode("utf-8").replace("\n", "")
+                git_sha = get_sha_process.stdout.decode("utf-8").rstrip()
                 scan_repo(repo, CONFIG[language]['language'], language, git_repo_url, git_sha)
 
 def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
@@ -266,14 +267,14 @@ def run_semgrep_pr(repo, git):
     for language in os.listdir("languages"):
         with open("languages/" + language + "/enabled") as file:
             for line in file:
-                line = line.replace("\n", "")
+                line = line.rstrip()
                 if line == repo:
                     repo_language = language
                     # Right now this script only supports one language at a time, but we can add more here in the future.
                     print(repo + " is of language " + language)
             file.close()
     if repo_language == "":
-        raise Exception('No language found in snow for repo ' + repo + "check with #triage-prodsec!")
+        raise Exception(f"No language found in snow for repo {repo} check with #triage-prodsec!")
     config_language = "language-" + repo_language
 
     # We really only support ghe right now, as tinyspeck doesn't really hook up with Checkpoint at this time.
@@ -286,22 +287,26 @@ def run_semgrep_pr(repo, git):
 
     # As HEAD is on the current branch, it will retrieve the branch sha.
     get_sha_process = subprocess.run("git -C " + REPOSITORIES_DIR + repo + " rev-parse HEAD", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    git_sha_branch = get_sha_process.stdout.decode("utf-8").replace("\n", "")
+    git_sha_branch = get_sha_process.stdout.decode("utf-8").rstrip()
     scan_repo(repo, repo_language, config_language, git_repo_url, git_sha_branch)
     print(git_sha_branch + " sha branch")
 
     # Now get the origin/master sha.
-    get_sha_process = subprocess.run("git -C " + REPOSITORIES_DIR + repo + " rev-parse origin/master", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    git_sha_master = get_sha_process.stdout.decode("utf-8").replace("\n", "")
+    get_sha_process = subprocess.run("git -C " + REPOSITORIES_DIR + repo + " rev-parse master", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    git_sha_master = get_sha_process.stdout.decode("utf-8").rstrip()
     print(git_sha_master + " sha master")
 
     # Switch repo to master, so we scan that.
-    subprocess.run("git -C " + REPOSITORIES_DIR + repo + " checkout -f origin/master", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    subprocess.run("git -C " + REPOSITORIES_DIR + repo + " checkout -f master", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     scan_repo(repo, repo_language, config_language, git_repo_url, git_sha_master)
 
     # Pass in the branch and master to compare for new vulnerabilities. Output file in format language-repo-sha_master-sha_branch.json
     # IE: golang-rains-6466c2e6e900cdd9e8a501a695a3fc1025402d9a-2e29dd81fe30efca60694aa999f5b444fd5b829c.json
-    process_hash_ids.compare_to_last_run(RESULTS_DIR + repo_language+"-"+repo+"-"+git_sha_master+".json", RESULTS_DIR + repo_language+"-"+repo+"-"+git_sha_branch+".json", RESULTS_DIR + repo_language+"-"+repo+"-"+git_sha_master+"-"+git_sha_branch +".json" )
+
+    old_output = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master}.json"
+    new_output = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_branch}.json"
+    output_filename = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master}-{git_sha_branch}.json"
+    process_hash_ids.compare_to_last_run(old_output, new_output, output_filename)
 
     # Read the created json output, report on any new vulnerabilities.
     with open(RESULTS_DIR + repo_language+"-"+repo+"-"+git_sha_master+"-"+git_sha_branch + ".json") as file:
@@ -309,25 +314,30 @@ def run_semgrep_pr(repo, git):
         file.close()
         if data['results'] == "No new findings":
             print("No new vulnerabilities detected!")
+            exit(0)
         else:
             # If there any vulnerabilities detected, remove the false positives.
             # Note: False positives would rarely be removed because it would most likely be caught in the above diff check
             # Save as a new filename appending -parsed.json to the end.
             # IE: golang-rains-6466c2e6e900cdd9e8a501a695a3fc1025402d9a-2e29dd81fe30efca60694aa999f5b444fd5b829c-parsed.json
-            process_hash_ids.remove_false_positives(RESULTS_DIR + repo_language + "-" + repo + "-" + git_sha_master + "-" + git_sha_branch + ".json", "false_positives.json", RESULTS_DIR + repo_language + "-" + repo + "-" + git_sha_master + "-" + git_sha_branch + "-parsed.json")
-            with open(RESULTS_DIR + repo_language + "-" + repo + "-" + git_sha_master + "-" + git_sha_branch + "-parsed.json") as fileParsed:
+            json_filename = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master}-{git_sha_branch}.json"
+            parsed_filename = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master}-{git_sha_branch}-parsed.json"
+            process_hash_ids.remove_false_positives(json_filename, "false_positives.json", parsed_filename)
+            with open(parsed_filename) as fileParsed:
                 data = json.load(fileParsed)
                 file.close()
                 # No vulnerabilities would be checking for an empty array.
                 if not data['results']:
                     print("No new vulnerabilities detected!")
+                    exit(0)
                 else:
                     # Print the results to console so DEV can review.
                     print('=======================================================')
                     print('=============New vulnerabilities Detected.=============')
                     print('=======================================================')
                     print('Please review the following output. Reach out to #triage-prodsec with questions.')
-                    print(data['results'])
+                    pp = pprint.PrettyPrinter(indent=4)
+                    pp.pprint(data['results'])
                     # Exit with status code 1, which should flag the test as failed in Checkpoint/GitHub.
                     exit(1)
 
