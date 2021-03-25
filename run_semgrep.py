@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import pprint
 import subprocess
 import configparser
 import os
@@ -6,6 +7,8 @@ import shutil
 import json
 import hashlib
 import time
+import argparse
+import process_hash_ids
 
 # Get config file and read.
 CONFIG = configparser.ConfigParser()
@@ -60,16 +63,16 @@ def download_repos():
                                    stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                 print(process.stdout.decode("utf-8"))
                 get_sha_process = subprocess.run("git -C " + REPOSITORIES_DIR +"/"+repo +" rev-parse HEAD", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                git_sha = get_sha_process.stdout.decode("utf-8")
+                git_sha = get_sha_process.stdout.decode("utf-8").rstrip()
                 scan_repo(repo, CONFIG[language]['language'], language, git_repo_url, git_sha)
 
 def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
     print('Scanning Repo ' + repo)
-    output_file = language + "-" + repo + ".json"
+    output_file = language + "-" + repo + "-" + git_sha + ".json"
     semgrep_command = "docker run --user \"$(id -u):$(id -g)\" --rm -v " + SNOW_ROOT + ":/src returntocorp/semgrep:" + \
                       CONFIG['general']['version'] + " " + CONFIG[configlanguage]['config'] + " " + \
                       CONFIG[configlanguage]['exclude'] + " --json -o /src" + CONFIG['general'][
-                          'results'] + output_file + " --error repositories/" + repo + " --dangerously-allow-arbitrary-code-execution-from-rules"
+                          'results'] + output_file + " --error " + CONFIG['general']['repositories'][1:] + repo + " --dangerously-allow-arbitrary-code-execution-from-rules"
     print(semgrep_command)
     # Purposely do not check shell exit code as vulnerabilities returns a 1
     process = subprocess.run(semgrep_command, shell=True, stdout=subprocess.PIPE)
@@ -92,7 +95,7 @@ def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
         add_hash_id(RESULTS_DIR+output_file)
 
 # Grab source codes. Also include one line above and one line below the issue location
-def read_line(issue_file, line):    
+def read_line(issue_file, line):
     with open(issue_file) as f:
         content = f.readlines()
         # check lines
@@ -232,7 +235,8 @@ def alert_channel():
             shell=True,
             stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
-if __name__ == '__main__':
+
+def run_semgrep_daily():
     # Delete all directories that would have old repos, or results from the last run as the build boxes may persist from previous runs.
     cleanup_workspace()
     # Get Semgrep Docker image, check against a known good hash
@@ -241,3 +245,125 @@ if __name__ == '__main__':
     download_repos()
     # Output Alerts to channel
     alert_channel()
+
+
+def run_semgrep_pr(repo, git):
+    # Delete all directories that would have old repos, or results from the last run as the build boxes may persist from previous runs.
+    cleanup_workspace()
+    mode = int('775', base=8)
+    os.makedirs(REPOSITORIES_DIR + repo, mode=mode, exist_ok=True)
+    # Grab the PR code, move it to the repository with it's own directory
+    # We do this as it mimics the same environment configuration as the daily scan so we can re-use the code.
+    # Move everything into 'SNOW/repositories/'. run_semgrep.py scans by looking for the repo name in the repositories/ directory.
+    subprocess.run("mv ../* ../.* " +REPOSITORIES_DIR + repo, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+
+    # Get Semgrep Docker image, check against a known good hash
+    get_docker_image()
+
+    # Every repo in SNOW is tied to a language in the enabled file. The repo name has to be exactly the same as
+    # what is shown on GitHub (rains, agenda, missions, etc). We will loop through the enabled files until we find the
+    # associated language to the repo.
+    repo_language = ""
+    for language in os.listdir("languages"):
+        with open("languages/" + language + "/enabled") as file:
+            for line in file:
+                line = line.rstrip()
+                if line == repo:
+                    repo_language = language
+                    # Right now this script only supports one language at a time, but we can add more here in the future.
+                    print(repo + " is of language " + language)
+            file.close()
+    if repo_language == "":
+        raise Exception(f"No language found in snow for repo {repo} check with #triage-prodsec!")
+    config_language = "language-" + repo_language
+
+    # We really only support ghe right now, as tinyspeck doesn't really hook up with Checkpoint at this time.
+    if git == "ghe":
+        git_repo_url = ""
+    elif git == "ts":
+        git_repo_url = ""
+    else:
+        raise Exception("No supported git url supplied.")
+
+    # As HEAD is on the current branch, it will retrieve the branch sha.
+    get_sha_process = subprocess.run("git -C " + REPOSITORIES_DIR + repo + " rev-parse HEAD", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    git_sha_branch = get_sha_process.stdout.decode("utf-8").rstrip()
+    scan_repo(repo, repo_language, config_language, git_repo_url, git_sha_branch)
+    print(git_sha_branch + " sha branch")
+
+    # Now get the origin/master sha.
+    get_sha_process = subprocess.run("git -C " + REPOSITORIES_DIR + repo + " rev-parse master", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    git_sha_master = get_sha_process.stdout.decode("utf-8").rstrip()
+    print(git_sha_master + " sha master")
+
+    # Switch repo to master, so we scan that.
+    subprocess.run("git -C " + REPOSITORIES_DIR + repo + " checkout -f master", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    scan_repo(repo, repo_language, config_language, git_repo_url, git_sha_master)
+
+    # Pass in the branch and master to compare for new vulnerabilities. Output file in format language-repo-sha_master-sha_branch.json
+    # IE: golang-rains-6466c2e6e900cdd9e8a501a695a3fc1025402d9a-2e29dd81fe30efca60694aa999f5b444fd5b829c.json
+
+    old_output = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master}.json"
+    new_output = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_branch}.json"
+    output_filename = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master}-{git_sha_branch}.json"
+    process_hash_ids.compare_to_last_run(old_output, new_output, output_filename)
+
+    # Read the created json output, report on any new vulnerabilities.
+    with open(RESULTS_DIR + repo_language+"-"+repo+"-"+git_sha_master+"-"+git_sha_branch + ".json") as file:
+        data = json.load(file)
+        file.close()
+        if data['results'] == "No new findings":
+            print("No new vulnerabilities detected!")
+            exit(0)
+        else:
+            # If there any vulnerabilities detected, remove the false positives.
+            # Note: False positives would rarely be removed because it would most likely be caught in the above diff check
+            # Save as a new filename appending -parsed.json to the end.
+            # IE: golang-rains-6466c2e6e900cdd9e8a501a695a3fc1025402d9a-2e29dd81fe30efca60694aa999f5b444fd5b829c-parsed.json
+            json_filename = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master}-{git_sha_branch}.json"
+            parsed_filename = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master}-{git_sha_branch}-parsed.json"
+            process_hash_ids.remove_false_positives(json_filename, "false_positives.json", parsed_filename)
+            with open(parsed_filename) as fileParsed:
+                data = json.load(fileParsed)
+                file.close()
+                # No vulnerabilities would be checking for an empty array.
+                if not data['results']:
+                    print("No new vulnerabilities detected!")
+                    exit(0)
+                else:
+                    # Print the results to console so DEV can review.
+                    print('=======================================================')
+                    print('=============New vulnerabilities Detected.=============')
+                    print('=======================================================')
+                    print('Please review the following output. Reach out to #triage-prodsec with questions.')
+                    json.dump(data['results'], file, sort_keys=True, indent=4)
+                    # Exit with status code 1, which should flag the test as failed in Checkpoint/GitHub.
+                    exit(1)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(
+        description="Runs Semgrep, either in daily scan or pull request mode."
+    )
+    parser.add_argument(
+        "-m",
+        "--mode",
+        help="the mode you wish to run semgrep, daily or pr. ",
+    )
+    parser.add_argument(
+        "-r",
+        "--repo",
+        help="the name of the git repo",
+    )
+    parser.add_argument(
+        "-g",
+        "--git",
+        help="the github url you wish to scan, supported options ghe (github enterprise) and ts (tinyspeck)",
+    )
+
+    args = parser.parse_args()
+
+    if args.mode == "daily":
+        run_semgrep_daily()
+    elif args.mode == "pr":
+        run_semgrep_pr(args.repo, args.git)
