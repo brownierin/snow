@@ -131,7 +131,7 @@ def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
                                             RESULTS_DIR+fp_diff_outfile
                                         )
 
-    git_branch_cmd = f"cd {REPOSITORIES_DIR}/{repo}; git branch --show-current; cd {SNOW_ROOT}"
+    git_branch_cmd = f"git -C {REPOSITORIES_DIR}/{repo} branch --show-current"
     process = subprocess.run(git_branch_cmd, shell=True, stdout=subprocess.PIPE)
     branch = process.stdout.decode('utf-8').rstrip()
     print(f"branch is: {branch}")
