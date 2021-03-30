@@ -6,5 +6,6 @@ rules:
   metadata:
     cwe: 'CWE-242: Use of Inherently Dangerous Function'
     source_rule_url: https://github.com/securego/gosec/blob/master/rules/unsafe.go
+    refernces: 'https://golang.org/doc/go1compat'
   patterns:
   - pattern: unsafe.$FUNC(...)
