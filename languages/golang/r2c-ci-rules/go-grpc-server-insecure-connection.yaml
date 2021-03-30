@@ -1,7 +1,7 @@
 rules:
 - id: go.grpc.security.grpc-server-insecure-connection.grpc-server-insecure-connection
   metadata:
-    owasp: 'A8: Insecure Deserialization'
+    owasp: 'A3: Sensitive Data Exposure'
     cwe: 'CWE-300: Channel Accessible by Non-Endpoint'
     references:
     - https://blog.gopheracademy.com/advent-2019/go-grps-and-tls/#connection-without-encryption

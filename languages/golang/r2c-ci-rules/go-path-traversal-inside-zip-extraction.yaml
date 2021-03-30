@@ -1,6 +1,6 @@
 rules:
 - id: go.lang.security.zip.path-traversal-inside-zip-extraction
-  message: File traversal when extracting zip archive
+  message: Detected the use of external input to construct a pathname that is intended to identify a file or directory when extracting a zip file.  Many file operations are intended to take place within a restricted directory. By using special elements such as ".." and "/" separators, attackers can escape outside of the restricted location to access files or directories that are elsewhere on the system.  The filenames within a zip file may contain special characters that allow a malicious actor to add files to unintended areas within the filesystem.  To mitigate this issue, ensure file names passed by the user are valid and do not contain reserved characters.  Strip the filename of any extensions and append the intended filename extension before adding to the filesystem. In many cases, it is preferable to generate a random filename or add a random string to the filename rather than relying on user-provided filenames.
   metadata:
     cwe: |
       CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')

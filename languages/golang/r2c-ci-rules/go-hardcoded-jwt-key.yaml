@@ -2,7 +2,7 @@ rules:
 - id: go.jwt-go.security.jwt.hardcoded-jwt-key
   metadata:
     cwe: 'CWE-798: Use of Hard-coded Credentials'
-    owasp: 'A2: Broken Authentication'
+    owasp: 'A3: Sensitive Data Exposure'
   pattern-either:
   - pattern: |
       $X = []byte("...")
@@ -10,6 +10,6 @@ rules:
       $Y := $TOKEN.SignedString($X)
   - pattern: |
       $TOKEN.SignedString([]byte("..."))
-  message: JWT token is hardcoded
+  message: Detected use of a hardcoded JWT signing token.  Secrets stored in source code will be broadly exposed to developers with access to the source code repository, and also could potentially be exposed to unauthorized persons if the source code is leaked.  Once a secret has been committed to a distributed source code repository it should be considered compromised and rotated.  All secrets should be moved to a separate, secure secrets management location such as Vault.
   languages: [go]
   severity: WARNING
