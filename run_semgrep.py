@@ -7,8 +7,10 @@ import shutil
 import json
 import hashlib
 import time
+import process_hash_ids as comparison
+from pathlib import Path
 import argparse
-import process_hash_ids
+
 
 # Get config file and read.
 CONFIG = configparser.ConfigParser()
@@ -25,11 +27,38 @@ REPOSITORIES_DIR = SNOW_ROOT + CONFIG['general']['repositories']
 def cleanup_workspace():
     print('Begin Cleanup Workspace')
     mode = int('775', base=8)
-    shutil.rmtree(RESULTS_DIR, ignore_errors=True)
+    clean_results_dir()
     os.makedirs(RESULTS_DIR, mode=mode, exist_ok=True)
     shutil.rmtree(REPOSITORIES_DIR, ignore_errors=True)
     os.makedirs(REPOSITORIES_DIR, mode=mode, exist_ok=True)
     print('End Cleanup Workspace')
+
+
+def clean_results_dir():
+    """
+    Removes all result files but the most recent 3
+    """
+    paths = sorted(Path(RESULTS_DIR).iterdir(), key=os.path.getmtime)
+    repos = get_repo_list()
+    for repo in repos:
+        selected_paths = [x for x in paths if f"{repo}" in str(x)]
+        for file in selected_paths[:-3]:
+            os.remove(file)
+
+
+def get_repo_list():
+    """
+    Grabs all enabled repository names across all languages
+    """
+    repos = []
+    for language in CONFIG.sections():
+        if language.find('language-') != -1:
+            filename = LANGUAGES_DIR + CONFIG[language]['language'] + '/enabled'
+            with open(filename) as f:
+                enabled = f.read().splitlines()
+            repos = repos + [repo for repo in enabled]
+    return repos
+
 
 def get_docker_image():
     version = CONFIG['general']['version']
@@ -67,8 +96,9 @@ def download_repos():
                 scan_repo(repo, CONFIG[language]['language'], language, git_repo_url, git_sha)
 
 def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
+    git_sha = git_sha.rstrip()
     print('Scanning Repo ' + repo)
-    output_file = language + "-" + repo + "-" + git_sha + ".json"
+    output_file = f"{language}-{repo}-{git_sha[:7]}.json"
     semgrep_command = "docker run --user \"$(id -u):$(id -g)\" --rm -v " + SNOW_ROOT + ":/src returntocorp/semgrep:" + \
                       CONFIG['general']['version'] + " " + CONFIG[configlanguage]['config'] + " " + \
                       CONFIG[configlanguage]['exclude'] + " --json -o /src" + CONFIG['general'][
@@ -90,9 +120,42 @@ def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
         json.dump(data, file, sort_keys=True, indent=4)
         file.close()
 
-    #Add hash identifier to the json result
+    # fprm stands for false positives removed
+    fp_diff_outfile = f"{language}-{repo}-{git_sha[:7]}-fprm.json"
+    fp_file = f"{SNOW_ROOT}/languages/{language}/false_positives/{repo}_false_positives.json"
+
+    # Add hash identifier to the json result
+    # and remove false positives from the output file
     if os.path.exists(RESULTS_DIR+output_file):
         add_hash_id(RESULTS_DIR+output_file)
+        comparison.remove_false_positives(
+                                            RESULTS_DIR+output_file,
+                                            fp_file,
+                                            RESULTS_DIR+fp_diff_outfile
+                                        )
+
+    git_branch_cmd = f"git -C {REPOSITORIES_DIR}/{repo} branch --show-current"
+    process = subprocess.run(git_branch_cmd, shell=True, stdout=subprocess.PIPE)
+    branch = process.stdout.decode('utf-8').rstrip()
+    print(f"branch is: {branch}")
+    if branch == "master":
+        # sorts files by most recent
+        paths = sorted(Path(RESULTS_DIR).iterdir(), key=os.path.getmtime)
+        selected_paths = [x for x in paths if f"{language}-{repo}" in str(x)]
+        comparison_result = f"{RESULTS_DIR}{fp_diff_outfile.split('-fprm')[0]}-comparison.json"
+        print(f"[+] Comparison result is stored at: {comparison_result}")
+
+        # get the second most recent result with fprm in it
+        if len(selected_paths) > 2:
+            for file in selected_paths[-5:-2]:
+                if "fprm" in str(file):
+                    old = file
+                    print(f"[+] Old file is: {old}")
+                    print(f"[+] Comparing {old} and {fp_diff_outfile}")
+                    comparison.compare_to_last_run(old, RESULTS_DIR+fp_diff_outfile, comparison_result)
+        else:
+            print("[!!] Not enough runs for comparison")
+        
 
 # Grab source codes. Also include one line above and one line below the issue location
 def read_line(issue_file, line):
@@ -306,7 +369,7 @@ def run_semgrep_pr(repo, git):
     old_output = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master}.json"
     new_output = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_branch}.json"
     output_filename = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master}-{git_sha_branch}.json"
-    process_hash_ids.compare_to_last_run(old_output, new_output, output_filename)
+    comparison.compare_to_last_run(old_output, new_output, output_filename)
 
     # Read the created json output, report on any new vulnerabilities.
     with open(RESULTS_DIR + repo_language+"-"+repo+"-"+git_sha_master+"-"+git_sha_branch + ".json") as file:
@@ -322,7 +385,7 @@ def run_semgrep_pr(repo, git):
             # IE: golang-rains-6466c2e6e900cdd9e8a501a695a3fc1025402d9a-2e29dd81fe30efca60694aa999f5b444fd5b829c-parsed.json
             json_filename = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master}-{git_sha_branch}.json"
             parsed_filename = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master}-{git_sha_branch}-parsed.json"
-            process_hash_ids.remove_false_positives(json_filename, "false_positives.json", parsed_filename)
+            comparison.remove_false_positives(json_filename, "false_positives.json", parsed_filename)
             with open(parsed_filename) as fileParsed:
                 data = json.load(fileParsed)
                 file.close()
