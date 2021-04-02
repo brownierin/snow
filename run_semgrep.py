@@ -78,6 +78,7 @@ def get_docker_image():
         raise Exception("Digest semgrep mismatch!")
     print("Semgrep downloaded and verified")
 
+
 def download_repos():
     for language in CONFIG.sections():
         git_repo_url = "https://slack-github.com/"
