@@ -47,7 +47,6 @@ def clean_results_dir():
     repos = get_repo_list()
     for repo in repos:
         selected_paths = [x for x in paths if f"{repo}" in str(x)]
-        print(selected_paths)
         if len(selected_paths) > 3:
             for file in selected_paths[:-3]:
                 os.remove(file)
