@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set +x
+
 pip3 install virtualenv
 [ ! -d "env" ] && python3 -m virtualenv env
 source env/bin/activate
