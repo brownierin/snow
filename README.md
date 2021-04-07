@@ -39,3 +39,92 @@ Current links to the daily scans:
 ## Help and Feedback
 
 The ProdSec team wants Slack's static analysis tooling to help, not hinder, developers with writing secure code.  If you have suggestions for improving the process of receiving and addressing SNOW findings, please feel free to reach out to us in #triage-prodsec or #proj-static-analysis-non-webapp.
+
+
+## Alerting
+
+All alerts go to #alerts-snow. Alerts are broken into, Semgrep Alerts and Data Thereom Alerts. 
+
+
+### Semgrep Alerts
+Every day at ~9:00 AM Semgrep will kick off it's daily scan. When every repo is scanned and the results are output, Semgrep will alert out. Semgrep alerts are broken into four sections. 
+
+* Summary
+* High 
+* Normal 
+* Errors
+
+#### Summary
+
+A daily summary of the run's results. 
+
+#### High
+
+Alerts are flagged as high if in the `config.cfg` if the rule triggered matches a rule id within `high_priority_rules_check_id` or if a rule's message matches a string within `high_priority_rules_message`. The following is an example. 
+```
+[high-priority]
+high_priority_rules_check_id =
+    languages.golang.slack.potential-code-execution-1
+
+high_priority_rules_message =
+    exec
+```
+
+#### Normal
+
+All alerts not high, are normal.
+
+#### Errors
+
+Some rules in Semgrep timeout or have another syntax error. If any errors are present the following message will be presented to investigate. 
+```
+There were errors this run. Check Jenkins https://jenkins.tinyspeck.com/job/security-semgrep-prodsec
+```
+
+#### The Anatomy of A Semgrep Alert
+
+An individual alert is broken into the following sections.
+
+* Rule ID - The Semgrep Rule ID
+* Message - A description of the vulnerability 
+* Link - A direct link to the vulnerability in GitHub
+* Code - A brief view of the code. Note that arbitrarily long code (like single line JavaScript libraries) are purposely trimmed. 
+
+*Example*
+```
+Security Vulnerability Detected in goslackgo
+Rule ID: languages.golang.slack.potential-integer-overflow
+Message: The size of int in Go is dependent on the system architecture.  The int, uint, and uintptr types are usually 32 bits wide on 32-bit systems and 64 bits wide on 64-bit systems.  On a 64 bit system, if the value passed to the strconv.Atoi() function is bigger (or smaller if negative) than what can be stored in an int32, an integer overflow may occur.
+Link: https://slack-github.com/slack/goslackgo/blob/3e910116aa366ed49d23fee5590d7aa9750483d6/wot/slo_calc.go#L101
+Code:
+    window, err := strconv.Atoi(bucket.Slo.Window)
+```  
+  
+### Other Notes
+
+* There are no Semgrep pull request alerts.
+* Only new vulnerabilities are alerted on. 
+* Vulnerability data is kept for the duration of how long we keep Jenkins build server console logs. 
+* Vulnerabilities use the server `slack` command to send messages to Slack channels. 
+
+### Data Theorem Alerts
+
+Data Theorem Alerts has 2 integrations which are sent to #alerts-snow
+
+* *Slack Alerts for Mobile Apps*: Real-time Alerts for your Mobile Apps via Slack/Microsoft Teams.
+* *Slack Alerts for API/Cloud/Web Apps*: Real-time Alerts for your API/Cloud/Web Apps via Slack.
+
+#### Alert Types
+
+* *Daily/Weekly/Monthly Summaries*: Post a summary each day/week/month depending on volume.
+
+* *Priority Alerts*: Real-time alerts on P1 Issues & App/Play Store blockers.
+
+* *real-time alert* will be sent whenever the following happens:
+  * When a user adds a comment to a policy violation.
+  * When a user closes a policy violation as “won’t fix“.
+  * When one or multiple urgent violations were opened by the Data Theorem analyzer.
+
+*Periodic Summaries*
+This summary includes total number of assets, number of violations discovered and number of scans completed.
+
