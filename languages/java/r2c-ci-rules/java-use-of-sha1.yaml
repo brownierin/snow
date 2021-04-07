@@ -3,7 +3,9 @@ rules:
   message: |
     Detected SHA1 hash algorithm which is considered insecure. SHA1 is not
     collision resistant and is therefore not suitable as a cryptographic
-    signature. Use SHA256 or SHA3 instead.
+    signature.
+
+    See https://app.getguru.com/card/cBEbyLBi/Application-Security-Cryptographic-Guidelines-for-Development for more information.
   languages: [java]
   severity: WARNING
   metadata:

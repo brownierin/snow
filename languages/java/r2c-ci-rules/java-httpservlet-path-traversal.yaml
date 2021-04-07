@@ -11,9 +11,11 @@ rules:
     Detected a potential path traversal. A malicious actor
     could control the location of this file, to include going backwards
     in the directory with '../'. To address this, ensure that user-controlled
-    variables in file paths are sanitized. You may aslso consider using a utility
+    variables in file paths are sanitized. You may also consider using a utility
     method such as org.apache.commons.io.FilenameUtils.getName(...) to only
-    retrieve the file name from the path.
+    retrieve the file name from the path. You may also consider validating that the 
+    canonical path (returned by "getCanonicalPath") of the File object starts with 
+    the intented directory.
   patterns:
   - pattern-inside: |
       $RETURNTYPE $FUNC (..., HttpServletRequest $REQ, ...) {

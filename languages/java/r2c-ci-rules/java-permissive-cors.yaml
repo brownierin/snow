@@ -1,8 +1,12 @@
 rules:
 - id: java.lang.security.audit.permissive-cors.permissive-cors
   message: |
-    https://find-sec-bugs.github.io/bugs.htm#PERMISSIVE_CORS
-    Permissive CORS policy will allow a malicious application to communicate with the victim application in an inappropriate way, leading to spoofing, data theft, relay and other attacks.
+    Permissive CORS policy will allow a malicious application to communicate with the victim application in an 
+    inappropriate way, leading to spoofing, data theft, relay and other attacks. This header should be configured 
+    to contain only domains that are allowed to access the data that this application is exposing.
+
+    See this for more information : https://find-sec-bugs.github.io/bugs.htm#PERMISSIVE_CORS and 
+    https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
   severity: WARNING
   languages: [java]
   pattern-either:
