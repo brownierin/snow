@@ -27,8 +27,8 @@ REPOSITORIES_DIR = SNOW_ROOT + CONFIG['general']['repositories']
 def cleanup_workspace():
     print('Begin Cleanup Workspace')
     mode = int('775', base=8)
-    clean_results_dir()
     os.makedirs(RESULTS_DIR, mode=mode, exist_ok=True)
+    clean_results_dir()
     shutil.rmtree(REPOSITORIES_DIR, ignore_errors=True)
     os.makedirs(REPOSITORIES_DIR, mode=mode, exist_ok=True)
     print('End Cleanup Workspace')
@@ -342,9 +342,9 @@ def run_semgrep_pr(repo, git):
 
     # We really only support ghe right now, as tinyspeck doesn't really hook up with Checkpoint at this time.
     if git == "ghe":
-        git_repo_url = ""
+        git_repo_url = "https://slack-github.com/"
     elif git == "ts":
-        git_repo_url = ""
+        git_repo_url = "https://github.com/tinyspeck"
     else:
         raise Exception("No supported git url supplied.")
 
