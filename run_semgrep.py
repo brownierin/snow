@@ -357,7 +357,7 @@ def run_semgrep_pr(repo, git):
     print(git_sha_branch + " sha branch")
 
     # Now get the origin/master sha.
-    get_sha_process = subprocess.run("git -C " + REPOSITORIES_DIR + repo + " rev-parse master", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    get_sha_process = subprocess.run("git -C " + REPOSITORIES_DIR + repo + " rev-parse origin/master", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     git_sha_master = get_sha_process.stdout.decode("utf-8").rstrip()
     git_sha_master_short = git_sha_master[:7]
     print(git_sha_master + " sha master")
