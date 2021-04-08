@@ -349,11 +349,12 @@ def run_semgrep_pr(repo, git):
         raise Exception("No supported git url supplied.")
 
     # As HEAD is on the current branch, it will retrieve the branch sha.
+    exit(0)
     get_sha_process = subprocess.run("git -C " + REPOSITORIES_DIR + repo + " rev-parse HEAD", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     git_sha_branch = get_sha_process.stdout.decode("utf-8").rstrip()
     git_sha_branch_short = git_sha_branch[:7]
     scan_repo(repo, repo_language, config_language, git_repo_url, git_sha_branch_short)
-    print(git_sha_branch_short + " sha branch")
+    print(git_sha_branch + " sha branch")
 
     # Now get the origin/master sha.
     get_sha_process = subprocess.run("git -C " + REPOSITORIES_DIR + repo + " rev-parse master", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
