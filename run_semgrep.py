@@ -349,18 +349,20 @@ def run_semgrep_pr(repo, git):
         raise Exception("No supported git url supplied.")
 
     # As HEAD is on the current branch, it will retrieve the branch sha.
-
-    get_sha_process = subprocess.run("git -C " + REPOSITORIES_DIR + repo + " rev-parse HEAD", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    get_sha_process = subprocess.run("echo $CIBOT_COMMIT_HEAD", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     git_sha_branch = get_sha_process.stdout.decode("utf-8").rstrip()
     git_sha_branch_short = git_sha_branch[:7]
     scan_repo(repo, repo_language, config_language, git_repo_url, git_sha_branch_short)
     print(git_sha_branch + " sha branch")
 
-    # Now get the origin/master sha.
-    get_sha_process = subprocess.run("git -C " + REPOSITORIES_DIR + repo + " rev-parse origin/master", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    # Now get the master sha.
+    get_sha_process = subprocess.run("echo $CIBOT_COMMIT_MASTER", shell=True, check=True, stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
     git_sha_master = get_sha_process.stdout.decode("utf-8").rstrip()
     git_sha_master_short = git_sha_master[:7]
     print(git_sha_master + " sha master")
+
+    if git_sha_branch == git_sha_master:
+        raise Exception("Master and HEAD are equal. Need to compare against two different SHAs!")
 
     # Switch repo to master, so we scan that.
     subprocess.run("git -C " + REPOSITORIES_DIR + repo + " checkout -f master", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
