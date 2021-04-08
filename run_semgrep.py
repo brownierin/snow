@@ -116,10 +116,8 @@ def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
         data = json.load(file)
         data.update({"metadata": {"GitHubRepo": git_repo_url, "branch": git_repo_branch, "repoName": repo}})
     # Write to the same file
-    print("PRINTING TO: "+SNOW_ROOT + CONFIG['general']['results'] + output_file)
     with open(SNOW_ROOT + CONFIG['general']['results'] + output_file, 'w') as file:
         json.dump(data, file, sort_keys=True, indent=4)
-        exit(0)
         file.close()
 
     # fprm stands for false positives removed
