@@ -427,6 +427,9 @@ if __name__ == '__main__':
     )
 
     args = parser.parse_args()
+    file1 = open("./test.txt", "w")
+    file1.write("file information")
+    file1.close()
 
     if args.mode == "daily":
         run_semgrep_daily()
