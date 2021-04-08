@@ -364,15 +364,15 @@ def run_semgrep_pr(repo, git):
     scan_repo(repo, repo_language, config_language, git_repo_url, git_sha_master)
 
     # Pass in the branch and master to compare for new vulnerabilities. Output file in format language-repo-sha_master-sha_branch.json
-    # IE: golang-rains-6466c2e6e900cdd9e8a501a695a3fc1025402d9a-2e29dd81fe30efca60694aa999f5b444fd5b829c.json
-
-    old_output = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master}.json"
-    new_output = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_branch}.json"
+    # IE: golang-rains-6466c2.json
+    # The sha is reduced in the scan_repo to make it more readable.
+    old_output = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master[:7]}.json"
+    new_output = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_branch[:7]}.json"
     output_filename = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master}-{git_sha_branch}.json"
     comparison.compare_to_last_run(old_output, new_output, output_filename)
 
     # Read the created json output, report on any new vulnerabilities.
-    with open(RESULTS_DIR + repo_language+"-"+repo+"-"+git_sha_master+"-"+git_sha_branch + ".json") as file:
+    with open(RESULTS_DIR + repo_language+"-"+repo+"-"+git_sha_master[:7]+"-"+git_sha_branch[:7] + ".json") as file:
         data = json.load(file)
         file.close()
         if data['results'] == "No new findings":
@@ -383,8 +383,8 @@ def run_semgrep_pr(repo, git):
             # Note: False positives would rarely be removed because it would most likely be caught in the above diff check
             # Save as a new filename appending -parsed.json to the end.
             # IE: golang-rains-6466c2e6e900cdd9e8a501a695a3fc1025402d9a-2e29dd81fe30efca60694aa999f5b444fd5b829c-parsed.json
-            json_filename = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master}-{git_sha_branch}.json"
-            parsed_filename = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master}-{git_sha_branch}-parsed.json"
+            json_filename = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master[:7]}-{git_sha_branch[:7]}.json"
+            parsed_filename = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master[:7]}-{git_sha_branch[:7]}-parsed.json"
             comparison.remove_false_positives(json_filename, "false_positives.json", parsed_filename)
             with open(parsed_filename) as fileParsed:
                 data = json.load(fileParsed)
