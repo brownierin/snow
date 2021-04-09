@@ -8,7 +8,7 @@
 rm -rf ./snow
 
 #Use the CIBOT_REPO to retrive the repo name. IE from: https://slack-github.com/tfaraci/rains.git
-REPO_NAME=`echo $CIBOT_REPO | awk -F[/.] '{print tolower($5)}'`
+REPO_NAME=`echo $CIBOT_REPO | awk -F[/.] '{print tolower($6)}'`
 
 # If in staging, grab, change the awk grab for the repo. 
 SUB='staging.slack-github'
