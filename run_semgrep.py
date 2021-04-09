@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# -*- coding: future_fstrings -*-
+
 import pprint
 import subprocess
 import configparser
@@ -38,12 +40,16 @@ def clean_results_dir():
     """
     Removes all result files but the most recent 3
     """
-    paths = sorted(Path(RESULTS_DIR).iterdir(), key=os.path.getmtime)
+    paths = []
+    for path in Path(RESULTS_DIR).iterdir():
+        paths.append(RESULTS_DIR + path.name)
+    paths = sorted(paths, key=os.path.getmtime)
     repos = get_repo_list()
     for repo in repos:
         selected_paths = [x for x in paths if f"{repo}" in str(x)]
-        for file in selected_paths[:-3]:
-            os.remove(file)
+        if len(selected_paths) > 3:
+            for file in selected_paths[:-3]:
+                os.remove(file)
 
 
 def get_repo_list():
@@ -70,6 +76,7 @@ def get_docker_image():
     if digest.find((process.stdout).decode("utf-8")) != -1:
         raise Exception("Digest semgrep mismatch!")
     print("Semgrep downloaded and verified")
+
 
 def download_repos():
     for language in CONFIG.sections():
@@ -140,7 +147,10 @@ def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
     print(f"branch is: {branch}")
     if branch == "master":
         # sorts files by most recent
-        paths = sorted(Path(RESULTS_DIR).iterdir(), key=os.path.getmtime)
+        paths = []
+        for path in Path(RESULTS_DIR).iterdir():
+            paths.append(RESULTS_DIR + path.name)
+        paths = sorted(paths, key=os.path.getmtime)
         selected_paths = [x for x in paths if f"{language}-{repo}" in str(x)]
         comparison_result = f"{RESULTS_DIR}{fp_diff_outfile.split('-fprm')[0]}-comparison.json"
         print(f"[+] Comparison result is stored at: {comparison_result}")

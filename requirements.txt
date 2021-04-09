@@ -1,0 +1,2 @@
+future-fstrings==1.2.0
+tokenize-rt==3.2.0
