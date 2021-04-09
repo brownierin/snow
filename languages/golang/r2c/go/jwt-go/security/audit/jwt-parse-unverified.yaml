@@ -8,7 +8,8 @@ rules:
     owasp: 'A2: Broken Authentication'
     source-rule-url: https://r2c.dev/blog/2020/hardcoded-secrets-unverified-tokens-and-other-common-jwt-mistakes/
     references: 
-      - https://auth0.com/blog/critical-vulnerabilities-in-json-web-token-libraries/
+      - https://www.rfc-editor.org/rfc/rfc8725.html
+      - https://developer.okta.com/docs/guides/validate-access-tokens/go/overview/
   languages: [go]
   severity: WARNING
   patterns:

@@ -1,7 +1,7 @@
 rules:
 - id: avoid-ssh-insecure-ignore-host-key
   message: |
-    Use of ssh library with disabled host key verification detected. This may permit an attacker to completely subvert encryption and gain access to encrypted contents, including passwords. A successful attacker will be able to inject commands into a terminal session, to modify data in transit, or to steal data.  To implement host key verification, use the 'golang.org/x/crypto/ssh/knownhosts' package.
+    Host key verification is disabled in the SSH library. This may permit an attacker to completely subvert encryption and gain access to encrypted contents, including passwords. A successful attacker will be able to inject commands into a terminal session, to modify data in transit, or to steal data.  To implement host key verification, use the 'golang.org/x/crypto/ssh/knownhosts' package.
   metadata:
     cwe: 'CWE-322: Key Exchange without Entity Authentication'
     owasp: 'A3: Sensitive Data Exposure'

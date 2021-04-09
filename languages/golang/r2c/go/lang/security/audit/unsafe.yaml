@@ -1,6 +1,6 @@
 rules:
 - id: use-of-unsafe-block
-  message: Using the unsafe package in Go gives you low-level memory management and many of the strengths of the C language but also gives flexibility to the attacker of your application.  Use of the unsafe package can lead to data leakage, memory corruption, or potentially even remote code execution.  Moreover, packages that import unsafe may be non-portable and are not protected by the Go 1 compatibility guidelines.
+  message: Using the unsafe package in Go gives you low-level memory management and many of the strengths of the C language but also provides flexibility to an attacker.  Use of the unsafe package can lead to data leakage, memory corruption, or potentially even remote code execution.  Moreover, packages that import unsafe may be non-portable and are not protected by the Go 1 compatibility guidelines.
   languages: [go]
   severity: WARNING
   metadata:

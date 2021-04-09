@@ -1,6 +1,6 @@
 rules:
 - id: avoid-bind-to-all-interfaces
-  message: Listening on 0.0.0.0 or empty string could unexpectedly expose the server publicly as it binds to all available interfaces.  If possible, restrict listening to a list of specific, necessary network interfaces following the principle of least privilege.
+  message: Listening on 0.0.0.0 or setting the address to an empty string could could unexpectedly expose the server publicly as it binds to all available interfaces.  If possible, restrict listening to a list of specific, necessary network interfaces following the principle of least privilege.
   languages: [go]
   severity: WARNING
   metadata:

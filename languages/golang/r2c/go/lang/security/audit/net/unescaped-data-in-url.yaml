@@ -3,7 +3,7 @@ rules:
   message: |
     Found a formatted template string passed to 'template.URL()'.
     'template.URL()' does not escape contents and any data passed to 'template.URL()' could become vulnerable to a Reflected Cross-Site Scripting (XSS) attack. Be absolutely sure
-    there is no user-controlled data in this template.  Do not pass user-controlled input to template URLs unless absolutely necessary.  Any input passed to template.URL() should be properly encoded, sanitized and/or escaped for the context.
+    there is no user-controlled data in this template.  Do not pass user-controlled input to template URLs.
   metadata:
     cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
     owasp: 'A7: Cross-Site Scripting (XSS)'

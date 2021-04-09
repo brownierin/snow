@@ -7,7 +7,7 @@ rules:
     references:
     - https://golang.org/pkg/net/http/#ListenAndServeTLS
   message: |-
-    Found an HTTP server without TLS. Without TLS, any requests sent to and from the server will be sent in plaintext and can be read by anyone in a network position to observe traffic.  sUse http.ListenAndServeTLS to encrypt all traffic to and from the server in question.
+    Found an HTTP server without TLS. Without TLS, any requests sent to and from the server will be sent in plaintext and can be read by anyone in a network position to observe traffic.  Use http.ListenAndServeTLS to encrypt all traffic to and from the server in question.
     See https://golang.org/pkg/net/http/#ListenAndServeTLS for more information.
   languages: [go]
   severity: WARNING
