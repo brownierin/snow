@@ -27,8 +27,8 @@ REPOSITORIES_DIR = SNOW_ROOT + CONFIG['general']['repositories']
 def cleanup_workspace():
     print('Begin Cleanup Workspace')
     mode = int('775', base=8)
-    clean_results_dir()
     os.makedirs(RESULTS_DIR, mode=mode, exist_ok=True)
+    clean_results_dir()
     shutil.rmtree(REPOSITORIES_DIR, ignore_errors=True)
     os.makedirs(REPOSITORIES_DIR, mode=mode, exist_ok=True)
     print('End Cleanup Workspace')
@@ -342,37 +342,42 @@ def run_semgrep_pr(repo, git):
 
     # We really only support ghe right now, as tinyspeck doesn't really hook up with Checkpoint at this time.
     if git == "ghe":
-        git_repo_url = ""
+        git_repo_url = "https://slack-github.com/"
     elif git == "ts":
-        git_repo_url = ""
+        git_repo_url = "https://github.com/tinyspeck"
     else:
         raise Exception("No supported git url supplied.")
 
     # As HEAD is on the current branch, it will retrieve the branch sha.
-    get_sha_process = subprocess.run("git -C " + REPOSITORIES_DIR + repo + " rev-parse HEAD", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    get_sha_process = subprocess.run("echo $CIBOT_COMMIT_HEAD", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     git_sha_branch = get_sha_process.stdout.decode("utf-8").rstrip()
-    scan_repo(repo, repo_language, config_language, git_repo_url, git_sha_branch)
+    git_sha_branch_short = git_sha_branch[:7]
+    scan_repo(repo, repo_language, config_language, git_repo_url, git_sha_branch_short)
     print(git_sha_branch + " sha branch")
 
-    # Now get the origin/master sha.
-    get_sha_process = subprocess.run("git -C " + REPOSITORIES_DIR + repo + " rev-parse master", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    # Now get the master sha.
+    get_sha_process = subprocess.run("echo $CIBOT_COMMIT_MASTER", shell=True, check=True, stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
     git_sha_master = get_sha_process.stdout.decode("utf-8").rstrip()
+    git_sha_master_short = git_sha_master[:7]
     print(git_sha_master + " sha master")
+
+    if git_sha_branch == git_sha_master:
+        raise Exception("Master and HEAD are equal. Need to compare against two different SHAs!")
 
     # Switch repo to master, so we scan that.
     subprocess.run("git -C " + REPOSITORIES_DIR + repo + " checkout -f master", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    scan_repo(repo, repo_language, config_language, git_repo_url, git_sha_master)
+    scan_repo(repo, repo_language, config_language, git_repo_url, git_sha_master_short)
 
     # Pass in the branch and master to compare for new vulnerabilities. Output file in format language-repo-sha_master-sha_branch.json
     # IE: golang-rains-6466c2e6e900cdd9e8a501a695a3fc1025402d9a-2e29dd81fe30efca60694aa999f5b444fd5b829c.json
 
-    old_output = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master}.json"
-    new_output = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_branch}.json"
-    output_filename = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master}-{git_sha_branch}.json"
+    old_output = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master_short}.json"
+    new_output = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_branch_short}.json"
+    output_filename = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master_short}-{git_sha_branch_short}.json"
     comparison.compare_to_last_run(old_output, new_output, output_filename)
 
     # Read the created json output, report on any new vulnerabilities.
-    with open(RESULTS_DIR + repo_language+"-"+repo+"-"+git_sha_master+"-"+git_sha_branch + ".json") as file:
+    with open(RESULTS_DIR + repo_language+"-"+repo+"-"+git_sha_master_short+"-"+git_sha_branch_short + ".json") as file:
         data = json.load(file)
         file.close()
         if data['results'] == "No new findings":
@@ -383,8 +388,8 @@ def run_semgrep_pr(repo, git):
             # Note: False positives would rarely be removed because it would most likely be caught in the above diff check
             # Save as a new filename appending -parsed.json to the end.
             # IE: golang-rains-6466c2e6e900cdd9e8a501a695a3fc1025402d9a-2e29dd81fe30efca60694aa999f5b444fd5b829c-parsed.json
-            json_filename = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master}-{git_sha_branch}.json"
-            parsed_filename = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master}-{git_sha_branch}-parsed.json"
+            json_filename = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master_short}-{git_sha_branch_short}.json"
+            parsed_filename = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master_short}-{git_sha_branch_short}-parsed.json"
             comparison.remove_false_positives(json_filename, "false_positives.json", parsed_filename)
             with open(parsed_filename) as fileParsed:
                 data = json.load(fileParsed)
