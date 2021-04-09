@@ -4,6 +4,9 @@
 #This test resides within SNOW but is kicked off from Checkpoint here...
 #https://slack-github.com/slack/checkpoint/blob/master/src/config/ProdConf.hack
 
+#Run pre-install.sh as we need f-strings to work
+./pre-install.sh 
+
 #Cleanup old version of SNOW
 rm -rf ./snow
 
