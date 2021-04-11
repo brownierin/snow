@@ -246,7 +246,7 @@ def alert_channel():
                 github_url = github_url + "tinyspeck/"
             github_branch = data["metadata"]["branch"]
             # Check if there are results or errors.
-            if results:
+            if type(results) is type({}):
                 for result in results:
                     check_id = result["check_id"]
                     # path always gives us /repositories/<repo>/dir/filename.py
