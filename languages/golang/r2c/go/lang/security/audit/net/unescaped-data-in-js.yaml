@@ -3,10 +3,10 @@ rules:
   message: |
     Found a formatted template string passed to 'template.JS()'.
     'template.JS()' does not escape contents. Be absolutely sure
-    there is no user-controlled data in this template.
+    there is no user-controlled data in this template.  JS is intended to encapsulate a known safe JavaScript expression.  Passing untrusted input to JS() can lead to Cross-Site Scripting (XSS) vulnerabilities.  Do not pass user controlled input to front end templates that will render as JavaScript.
   metadata:
     cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
-    owasp: 'A1: Injection'
+    owasp: 'A7: Cross-Site Scripting (XSS)'
     references:
     - https://golang.org/pkg/html/template/#JS
   languages: [go]

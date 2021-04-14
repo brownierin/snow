@@ -1,10 +1,11 @@
 rules:
 - id: go.lang.security.audit.net.dynamic-httptrace-clienttrace.dynamic-httptrace-clienttrace
   message: |
-    Detected a potentially dynamic ClientTrace. This occurred because semgrep could not
-    find a static definition for '$TRACE'. Dynamic ClientTraces are dangerous because
-    they deserialize function code to run when certain Request events occur, which could lead
-    to code being run without your knowledge. Ensure that your ClientTrace is statically defined.
+    Detected a potentially dynamic ClientTrace. This occurred because semgrep detected use of
+    ClientTrace without a static definition for '$TRACE'. Dynamic ClientTraces are dangerous because
+    they deserialize function code to run when certain request events occur.  The function
+    WithClientTrace in net/http/httptrace eventually creates arbitrary functions via reflect's MakeFunc
+    This means a dynamic trace could define arbitrary functions and then call them.
   metadata:
     cwe: 'CWE-913: Improper Control of Dynamically-Managed Code Resources'
     owasp: 'A8: Insecure Deserialization'

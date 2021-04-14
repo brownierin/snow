@@ -47,8 +47,7 @@ rules:
         $W.Write([]byte(fmt.$PRINTF(..., $DATA, ...)))
   message: |
     Found data going from url query parameters into formatted data written to ResponseWriter.
-    This could be XSS and should not be done. If you must do this, ensure your data is
-    sanitized or escaped.
+    This could lead to cross-site scripting (XSS) vulnerabilities if the URL query parameters are not properly escaped, sanitized, or output encoded for the appropriate context.  Avoid passing query parameters to ResponseWriter as these parameters are subject to user tampering.  If this use case requires passing query parameters to ResponseWriter, ensure the parameters are escaped, encoded, and/or sanitized appropriately for the context.
   metadata:
     cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site\
       \ Scripting')"

@@ -1,6 +1,6 @@
 rules:
 - id: use-of-weak-rsa-key
-  message: RSA keys should be at least 2048 bits
+  message: Weak RSA keys may be susceptible to brute force attacks given enough time and computing power.  Current guidance indicates that RSA keys should be 2048 bits or longer to render brute force attacks impractical.
   languages: [go]
   severity: WARNING
   metadata:
@@ -9,6 +9,7 @@ rules:
     source-rule-url: https://github.com/securego/gosec/blob/master/rules/rsa.go
     references:
     - https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html#algorithms
+    - https://en.wikipedia.org/wiki/Key_size
   patterns:
   - pattern-either:
     - pattern: |

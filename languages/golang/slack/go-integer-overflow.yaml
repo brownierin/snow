@@ -1,0 +1,10 @@
+rules:
+- id: potential-integer-overflow
+  pattern: strconv.Atoi(...)
+  fix: Replace use of strconv.Atoi() with strconv.ParseInt() or strconv.ParseUint() for bit sized unsigned integers.
+  message: |-
+    The size of int in Go is dependent on the system architecture.  The int, uint, and uintptr types are usually 32 bits wide on 32-bit systems and 64 bits wide on 64-bit systems.  On a 64 bit system, if the value passed to the strconv.Atoi() function is bigger (or smaller if negative) than what can be stored in an int32, an integer overflow may occur.
+  metadata:
+    cwe: 'CWE-190: Integer overflow or wraparound'
+  languages: [go]
+  severity: WARNING
