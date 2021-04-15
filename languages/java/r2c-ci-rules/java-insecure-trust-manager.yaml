@@ -10,7 +10,13 @@ rules:
     Detected empty trust manager implementations. This is dangerous because it accepts any
     certificate, enabling man-in-the-middle attacks. Consider using a KeyStore
     and TrustManagerFactory instead.
-    See this guru card : TODO for more information.
+    
+    To avoid this anti-pattern while working with self-signed certificate 
+    or certificate signed by a custom certificate authority, it's 
+    recommended that you manually add the public key of the self-signed 
+    certificate or the public key of the certificate authority to the JKS
+    used by Java. This will remove any SSL verification error from occuring
+    while making sure SSL veritification isn't disabled.
   severity: WARNING
   languages: [java]
   patterns:

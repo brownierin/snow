@@ -3,9 +3,14 @@ rules:
   message: |
     Insecure HostnameVerifier implementation detected. This will accept
     any SSL certificate with any hostname, which creates the possibility
-    for man-in-the-middle attacks.
-
-    See this Guru card for more information : TODO
+    for man-in-the-middle attacks. 
+    
+    To avoid this anti-pattern while working with self-signed certificate 
+    or certificate signed by a custom certificate authority, it's 
+    recommended that you manually add the public key of the self-signed 
+    certificate or the public key of the certificate authority to the JKS
+    used by Java. This will remove any SSL verification error from occuring
+    while making sure SSL veritification isn't disabled.
   metadata:
     cwe: 'CWE-295: Improper Certificate Validation'
     owasp: 'A6: Security Misconfiguration'
