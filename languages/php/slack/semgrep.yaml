@@ -1,0 +1,80 @@
+rules:
+# Serialization 
+- id: slack.php.unserialize
+  patterns: 
+    pattern-inside: |-
+      $VALUE = $_GET[...];
+      ...
+    pattern-inside: |-
+      $VALUE = $_POST[...];
+      ...
+    pattern-inside: |-
+      $VALUE = $_COOKIE[...];
+      ...
+    pattern-either:
+      pattern: unserialize($VALUE)
+      pattern: unserialize($_GET[...])
+      pattern: unserialize($_POST[...])
+      pattern: unserialize($_COOKIE[...])
+  fix: Avoid using PHP serialization with untrusted data. Consider using another format such as JSON to serialize/deserialize your data.
+  message: |-
+    The security scan detected a potential deserialization vulnerability at this location. This could allow an attacker to execute arbitrary code.
+  metadata:
+    cwe: 'CWE-502: Deserialization of Untrusted Data'
+    owasp: 'A8: Insecure Deserialization'
+  languages: [php]
+  severity: WARNING
+
+# Path traversal
+- id: slack.php.path-traversal
+  patterns: 
+    pattern-inside: |-
+      $VALUE = $_GET[...];
+      ...
+    pattern-inside: |-
+      $VALUE1 = $_GET[...];
+      ...
+      $VALUE = <... "..." . $VALUE1 ...>
+    pattern-inside: |-
+      $VALUE = $_POST[...];
+      ...
+    pattern-inside: |-
+      $VALUE1 = $_POST[...];
+      ...
+      $VALUE = <... "..." . $VALUE1 ...>
+    pattern-inside: |-
+      $VALUE = $_COOKIE[...];
+      ...
+    pattern-inside: |-
+      $VALUE1 = $_COOKIE[...];
+      ...
+      $VALUE = <... "..." . $VALUE1 ...>
+    pattern-either: 
+      pattern: file_get_contents($VALUE, ...)
+      pattern: fopen($VALUE, ...)
+      pattern: file($VALUE, ...)
+      pattern: file_put_contents($VALUE, ...)
+      pattern: readfile($VALUE, ...)
+  fix: You shoud consider sanitizing the user input before passing it to the identified I/O function. Function such as 'basename' or 'pathinfo' can be used to extract the filename of a path. 
+  message: |-
+    The security scan detected a potential path traversal vulnerability. This could allow an attacker to read or write arbitrary files.
+  metadata:
+    cwe: 'CWE-23: Relative Path Traversal'
+  languages: [php]
+  severity: WARNING
+
+# Weak cryptography
+- id: slack.php.weak-crypto
+  patterns: 
+    pattern-inside: openssl_encrypt(...)
+    pattern-inside: openssl_decrypt(...)
+    pattern-not-regexp: "(aes-128-gcm|aes-256-gcm)"
+  message: |-
+    Detected usage of weak crypto function. 
+    
+    See this page for the recommended algorithm to use : https://app.getguru.com/card/cBEbyLBi/Application-Security-Cryptographic-Guidelines-for-Development
+  metadata:
+    cwe: 'CWE-502: Deserialization of Untrusted Data'
+    owasp: 'A8: Insecure Deserialization'
+  languages: [php]
+  severity: WARNING

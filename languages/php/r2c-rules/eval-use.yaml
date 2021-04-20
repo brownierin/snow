@@ -4,7 +4,7 @@ rules:
   - pattern: eval(...);
   - pattern-not: eval('...');
   message: |
-    Evaluating non-constant commands. This can lead to command injection.
+    Evaluating non-constant value. This can lead to code injection.
   metadata:
     references:
     - https://www.php.net/manual/en/function.eval
