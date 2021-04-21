@@ -2,7 +2,7 @@ rules:
 - id: java.lang.security.audit.permissive-cors.permissive-cors
   message: |
     A permissive CORS policy will allow a malicious application to communicate with the victim application in an 
-    inappropriate way, leading to spoofing, data theft, relay and other attacks. This header should be configured 
+    inappropriate way, leading to spoofing, data theft and other attacks. This header should be configured 
     to contain only domains that are allowed to access the data that this application is exposing.
 
     See this for more information : https://find-sec-bugs.github.io/bugs.htm#PERMISSIVE_CORS and 

@@ -258,4 +258,3 @@ rules:
       owasp: 'A4: XML External Entities'
     languages: [java]
     severity: WARNING
-    
