@@ -14,16 +14,16 @@ CONFIG.read('config.cfg')
 SNOW_ROOT = os.getenv('PWD')
 
 def scan_folder(folder, configlanguage, output_file):
-    semgrep_command = "docker run --user \"$(id -u):$(id -g)\" --rm " + \
-        "-v " + SNOW_ROOT + ":/src " + \
-        "returntocorp/semgrep:" + CONFIG['general']['version'] + " " + \
-        CONFIG[configlanguage]['config'] + " " + \
-        CONFIG[configlanguage]['exclude'] + \
-        " --json" + \
-        " -o /src" + CONFIG['general']['results'] + output_file + \
-        " --error " + \
-        CONFIG['general']['tests_repositories'][1:] + folder + \
-        " --dangerously-allow-arbitrary-code-execution-from-rules"
+    semgrep_command =  "docker run --user \"$(id -u):$(id -g)\" --rm "
+    semgrep_command += "-v " + SNOW_ROOT + ":/src "
+    semgrep_command += "returntocorp/semgrep:" + CONFIG['general']['version'] + " "
+    semgrep_command += CONFIG[configlanguage]['config'] + " "
+    semgrep_command += CONFIG[configlanguage]['exclude']
+    semgrep_command += " --json"
+    semgrep_command += " -o /src" + CONFIG['general']['results'] + output_file
+    semgrep_command += " --error "
+    semgrep_command += CONFIG['general']['tests_repositories'][1:] + folder
+    semgrep_command += " --dangerously-allow-arbitrary-code-execution-from-rules"
 
     subprocess.run(semgrep_command, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 

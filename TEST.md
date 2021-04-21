@@ -8,7 +8,7 @@ To run the tests, move to the root of the SNOW project and run the following com
 
 The tests are structured in the following way : 
 
- - Each test cases is a folder that follows this naming convention : `tests/{languageName}/{testCaseName}/`. 
+ - Each test case is in a folder that follows this naming convention : `tests/{languageName}/{testCaseName}/`. 
  - Inside each test case folder we have the following items :
     - `test.json` - Contains the information about this test case.
     - `src/` - Folder that contains the source code to test with the existing rule.
@@ -16,5 +16,5 @@ The tests are structured in the following way :
     - `expected-result-count` - The number of expected detected vulnerability.
     - `expected-match` - An array of the expected rule that should be triggered.
 
-Note : If the rule you are adding is intended not to trigger in some cases, it's highly recommended that your test case includes code that shouldn't trigger.
+Note: If the rule you are adding is intended not to trigger in some cases, it's highly recommended that your test case includes code that shouldn't trigger.
 
