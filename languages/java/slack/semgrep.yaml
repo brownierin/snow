@@ -7,7 +7,7 @@ rules:
       $INPUT = new ObjectInputStream($BARRAY);
       ...
       $INPUT.readObject();
-    fix: Avoid using Java deserialization with potentially untrusted data. When working with untrusted data, it's better to use safe serialization such as ObjectMapper from the Jackson library.
+    fix: Avoid using Java deserialization with potentially untrusted data. When working with user supplied data, it's better to use safe serialization such as ObjectMapper from the Jackson library.
     message: |-
       A security scan detected use of a potentially unsafe deserialization.  If user controlled input is passed to the ByteArrayInputStream, it could lead to remote code execution.
     metadata:
@@ -52,7 +52,7 @@ rules:
       - pattern: $VALUE.indexOf(...)
     fix: Avoid using getRequestURI to do any form of validation. Prefer using getContextPath(), getPathInfo() and getServletPath() to do path validation.
     message: |-
-      A security scan detected a condition that could potentially be bypassed. The value returned by getRequestURI() can contain arbitrary content that is controlled by the attacker. When the URL "https://domain.com/path/here;jsessionid=ATTACKER_CONTROLLED" is queried, getRequestURI() returns "/path/here;jsessionid=ATTACKER_CONTROLLED". 
+      A security scan detected a conditional that could potentially be bypassed. The value returned by getRequestURI() can contain arbitrary content that is controlled by the attacker. When the URL "https://domain.com/path/here;jsessionid=ATTACKER_CONTROLLED" is queried, getRequestURI() returns "/path/here;jsessionid=ATTACKER_CONTROLLED". 
     metadata:
       cwe: 'CWE-20: Improper Input Validation'
     languages: [java]
@@ -75,7 +75,7 @@ rules:
       - pattern: $VALUE.indexOf(...)
     fix: Avoid using the Host header to do security validation as this header can be controlled by an attacker. If you are looking to test whether the application is running a development environment, you should use environment variable or local file configuration.
     message: |-
-      A security scan detected a condition that could potentially be bypassed. The value returned by getHeader("Host") and getServerName() can contain arbitrary content that is controlled by the attacker.  
+      A security scan detected a conditional that could potentially be bypassed. The value returned by getHeader("Host") and getServerName() can contain arbitrary content that is controlled by the attacker.  
     metadata:
       cwe: 'CWE-20: Improper Input Validation'
     languages: [java]
@@ -98,7 +98,7 @@ rules:
       - pattern: $VALUE.indexOf(...)
     fix: Avoid using the Host header to do security validation as this header can be controlled by an attacker. If you are looking to test whether the application is running a development environment, you should use environment variable or local file configuration.
     message: |-
-      A security scan detected a condition that could potentially be bypassed. The value returned by getHeader("Host") and getServerName() can contain arbitrary content that is controlled by the attacker.  
+      A security scan detected a conditional that could potentially be bypassed. The value returned by getHeader("Host") and getServerName() can contain arbitrary content that is controlled by the attacker.  
     metadata:
       cwe: 'CWE-20: Improper Input Validation'
     languages: [java]
@@ -144,7 +144,7 @@ rules:
           ...
           $DBF.setFeature($CONFIG_DISALLOW_DTD, true);
           ...
-    fix: DocumentBuilderFactory should be configured to disable doctype by configuring the feature "http://apache.org/xml/features/disallow-doctype-decl" to true.
+    fix: DocumentBuilderFactory should be configured to disable doctype by setting disallowDoctypeDecl to true.
     message: |-
       A security scan detected a potentially misconfigured XML parser. If user controlled input is passed to the XML parser, the application could be vulnerable to an XXE attack.
     metadata:
@@ -169,7 +169,7 @@ rules:
           ...
           $SPF.setFeature($CONFIG_DISALLOW_DTD, true);
           ...
-    fix: SAXParserFactory should be configured to disable doctype by configuring the feature "http://apache.org/xml/features/disallow-doctype-decl" to true.
+    fix: SAXParserFactory should be configured to disable doctype by setting disallowDoctypeDecl to true.
     message: |-
       A security scan detected a potentially misconfigured XML parser. If user controlled input is passed to the XML parser, the application could be vulnerable to an XXE attack.
     metadata:
@@ -192,7 +192,7 @@ rules:
           ...
           $READER.setFeature($CONFIG_DISALLOW_DTD, true);
           ...
-    fix: SAXReader should be configured to disable doctype by configuring the feature "http://apache.org/xml/features/disallow-doctype-decl" to true.
+    fix: SAXReader should be configured to disable doctype by setting disallowDoctypeDecl to true.
     message: |-
       A security scan detected a potentially misconfigured XML parser. If user controlled input is passed to the XML parser, the application could be vulnerable to an XXE attack.
     metadata:
@@ -227,7 +227,7 @@ rules:
           ...
           $READER.setFeature($CONFIG_DISALLOW_DTD, true);
           ...
-    fix: XMLReader or SAXParserFactory should be configured to disable doctype by configuring the feature "http://apache.org/xml/features/disallow-doctype-decl" to true.
+    fix: XMLReader or SAXParserFactory should be configured to disable doctype by setting disallowDoctypeDecl to true.
     message: |-
       A security scan detected a potentially misconfigured XML parser. If user controlled input is passed to the XML parser, the application could be vulnerable to an XXE attack.
     metadata:
@@ -250,7 +250,7 @@ rules:
           ...
           $READER.setFeature($CONFIG_DISALLOW_DTD, true);
           ...
-    fix: SAXBuilder should be configured to disable doctype by configuring the feature "http://apache.org/xml/features/disallow-doctype-decl" to true.
+    fix: SAXBuilder should be configured to disable doctype by setting disallowDoctypeDecl to true.
     message: |-
       A security scan detected a potentially misconfigured XML parser. If user controlled input is passed to the XML parser, the application could be vulnerable to an XXE attack.
     metadata:

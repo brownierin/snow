@@ -6,6 +6,7 @@ import configparser
 import os
 import glob
 import json
+import sys
 
 CONFIG = configparser.ConfigParser()
 CONFIG.read('config.cfg')
@@ -30,9 +31,7 @@ local_test_directory = SNOW_ROOT + CONFIG['general']['tests_repositories']
 local_results_directory = SNOW_ROOT + CONFIG['general']['results']
 
 is_all_test_success = True
-test_ran = 0
-test_ran_success = 0
-test_ran_fail = 0
+test_ran, test_ran_success, test_ran_fail = 0, 0, 0
 
 for test_config_path in glob.glob(local_test_directory + "/*/*/test.json"):
     try:
@@ -44,13 +43,12 @@ for test_config_path in glob.glob(local_test_directory + "/*/*/test.json"):
         with open(test_config_path) as f:
             test_config = json.load(f)
 
-        output_file = "test-%s-%s.json" % (language, test_case_name)
-        language_config = "language-%s" % (language)
-        relative_path = "%s/%s" % (language, test_case_name)
+        output_file = "test-{}-{}.json".format(language, test_case_name)
+        language_config = "language-{}".format(language)
+        relative_path = "{}/{}".format(language, test_case_name)
 
         scan_folder(relative_path, language_config, output_file)
 
-        scan_result = {}
         with open(local_results_directory + output_file) as f:
             scan_result = json.load(f)
 
@@ -61,7 +59,7 @@ for test_config_path in glob.glob(local_test_directory + "/*/*/test.json"):
         result_count = len(scan_result["results"])
         expected_count = test_config["expected-result-count"]
         if not result_count == expected_count:
-            print("[ERR] Expected %d results from test case '%s', but got %d." % (expected_count, test_case_name, result_count))
+            print("[ERR] Expected {} results from test case '{}', but got {}.".format(expected_count, test_case_name, result_count))
             is_success = False
 
         # Check if the correct rule got triggered
@@ -69,7 +67,7 @@ for test_config_path in glob.glob(local_test_directory + "/*/*/test.json"):
         found_rule = []
         for item in scan_result["results"]:
             if not item["check_id"] in expected_rule_match:
-                print("[ERR] Test returned an unexpected rule match '%s'." % (item["check_id"]))
+                print("[ERR] Test returned an unexpected rule match '{}'.".format(item["check_id"]))
                 is_success = False
             else:
                 found_rule.append(item["check_id"])
@@ -77,11 +75,11 @@ for test_config_path in glob.glob(local_test_directory + "/*/*/test.json"):
         # Check if all the rule got matched
         for rule in expected_rule_match:
             if not rule in found_rule:
-                print("[ERR] The rule '%s' was not matched." % (rule))
+                print("[ERR] The rule '{}' was not matched.".format(rule))
                 is_success = False
 
     except Exception as e:
-        print("[ERR] An unexpected error occured while running the test case '%s' (%s)." % (test_case_name, str(e)))
+        print("[ERR] An unexpected error occured while running the test case '{}' ({}).".format(test_case_name, str(e)))
         is_success = False
 
     test_ran += 1
@@ -92,9 +90,10 @@ for test_config_path in glob.glob(local_test_directory + "/*/*/test.json"):
         is_all_test_success = False
         test_ran_fail += 1
 
-print("[INFO] %d test executed. Passed :  %d Fail : %d." % (test_ran, test_ran_success, test_ran_fail))
+print("[INFO] {} test executed. Passed :  {} Fail : {}.".format(test_ran, test_ran_success, test_ran_fail))
 
 if is_all_test_success:
     print("[OK] All test passed !")
 else:
     print("[ERR] Some test fail. See the logs for more information.")
+    sys.exit(0)
