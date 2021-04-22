@@ -95,5 +95,5 @@ print("[INFO] {} test executed. Passed :  {} Fail : {}.".format(test_ran, test_r
 if is_all_test_success:
     print("[OK] All test passed !")
 else:
-    print("[ERR] Some test fail. See the logs for more information.")
-    sys.exit(0)
+    print("[ERR] Some test failed. See the logs for more information.")
+    sys.exit(1)
