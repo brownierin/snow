@@ -18,6 +18,7 @@ rules:
     used by Java. This will prevent SSL verification errors from occurring 
     and will keep SSL certificate verification, an important security feature, 
     enabled.
+  severity: WARNING
   languages: [java]
   patterns:
   - pattern-either:
