@@ -362,6 +362,9 @@ def run_semgrep_pr(repo, git):
     get_sha_process = subprocess.run("echo $CIBOT_COMMIT_HEAD", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     git_sha_branch = get_sha_process.stdout.decode("utf-8").rstrip()
     git_sha_branch_short = git_sha_branch[:7]
+    # Make sure you are on the branch to scan by switching to it.
+    process = subprocess.run("git -C " + REPOSITORIES_DIR + repo + " checkout -f " + git_sha_branch, shell=True, check=True,stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    print("Branch Checkout: " + process.stdout.decode("utf-8"))
     scan_repo(repo, repo_language, config_language, git_repo_url, git_sha_branch_short)
     print(git_sha_branch + " sha branch")
 
