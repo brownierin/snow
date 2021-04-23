@@ -378,7 +378,7 @@ def run_semgrep_pr(repo, git):
         raise Exception("Master and HEAD are equal. Need to compare against two different SHAs!")
 
     # Switch repo to master, so we scan that.
-    process = subprocess.run("git -C " + REPOSITORIES_DIR + repo + " checkout -f master", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    process = subprocess.run("git -C " + REPOSITORIES_DIR + repo + " checkout -f "+ get_sha_process, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     print("Master Checkout: " + process.stdout.decode("utf-8"))
     scan_repo(repo, repo_language, config_language, git_repo_url, git_sha_master_short)
 
