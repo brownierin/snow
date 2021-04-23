@@ -417,7 +417,7 @@ def run_semgrep_pr(repo, git):
                     print('=============New vulnerabilities Detected.=============')
                     print('=======================================================')
                     print('Please review the following output. Reach out to #triage-prodsec with questions.')
-                    json.dump(data['results'], file, sort_keys=True, indent=4)
+                    print(data['results'])
                     file.close()
                     # Exit with status code 1, which should flag the test as failed in Checkpoint/GitHub.
                     exit(1)
