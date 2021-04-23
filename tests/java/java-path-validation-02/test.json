@@ -1,0 +1,4 @@
+{
+    "expected-result-count" : 3,
+    "expected-match" : ["languages.java.slack.java.lang.path-validation-02", "languages.java.slack.java.lang.path-validation-03", "languages.java.slack.java.lang.path-validation-04"]
+}

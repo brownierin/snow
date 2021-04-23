@@ -1,0 +1,260 @@
+rules:
+  # Java deserialization
+  - id: java.lang.insecure-deserialization-01
+    pattern: |-
+      $BARRAY = new ByteArrayInputStream(...);
+      ...
+      $INPUT = new ObjectInputStream($BARRAY);
+      ...
+      $INPUT.readObject();
+    fix: Avoid using Java deserialization with potentially untrusted data. When working with user supplied data, it's better to use safe serialization such as ObjectMapper from the Jackson library.
+    message: |-
+      A security scan detected use of a potentially unsafe deserialization.  If user controlled input is passed to the ByteArrayInputStream, it could lead to remote code execution.
+    metadata:
+      cwe: 'CWE-502: Deserialization of Untrusted Data'
+      owasp: 'A8: Insecure Deserialization'
+    languages: [java]
+    severity: WARNING
+
+  # ObjectMapper deserialization insecure configuration
+  - id: java.lang.insecure-deserialization-02
+    pattern: |-
+      $OM.enableDefaultTyping(...);
+    fix: Avoid using enableDefaultTyping option with ObjectMapper. If you need to handle deserialization of polymorphic type, configure them with the @JsonTypeInfo annotation.
+    message: |-
+      A security scan detected use of a potentially unsafe deserialization.  If user controlled input is passed to the ObjectMapper, it could lead to remote code execution as it isn't securely configured.
+    metadata:
+      cwe: 'CWE-502: Deserialization of Untrusted Data'
+      owasp: 'A8: Insecure Deserialization'
+    languages: [java]
+    severity: WARNING
+
+  # Predictable PRNG
+  - id: java.lang.predictable-prng-01
+    pattern: |-
+      new Random(...)
+    fix: Avoid using Random as it is a predictable number generator. You can use SecureRandom to avoid this issue.
+    message: |-
+      A security scan detected use of a potentially weak PRNG. An attacker could predict the random value generated here.
+    metadata:
+      cwe: 'CWE-338: Use of Cryptographically Weak Pseudo'
+    languages: [java]
+    severity: WARNING
+
+  # Common bad validation that are done with attacker controllable values
+  - id: java.lang.path-validation-01
+    patterns: 
+    - pattern-inside: $VALUE = $SERVLET.getRequestURI(); ...
+    - pattern-either:
+      - pattern: $VALUE.contains(...)
+      - pattern: $VALUE.startsWith(...)
+      - pattern: $VALUE.endsWith(...)
+      - pattern: $VALUE.indexOf(...)
+    fix: Avoid using getRequestURI to do any form of validation. Prefer using getContextPath(), getPathInfo() and getServletPath() to do path validation.
+    message: |-
+      A security scan detected a conditional that could potentially be bypassed. The value returned by getRequestURI() can contain arbitrary content that is controlled by the attacker. When the URL "https://domain.com/path/here;jsessionid=ATTACKER_CONTROLLED" is queried, getRequestURI() returns "/path/here;jsessionid=ATTACKER_CONTROLLED". 
+    metadata:
+      cwe: 'CWE-20: Improper Input Validation'
+    languages: [java]
+    severity: WARNING
+  
+  - id: java.lang.path-validation-02
+    patterns: 
+    - pattern-inside: |-
+        $TYPE $FUNC(..., HttpServletRequest $REQ, ...) { 
+          ...
+          $VALUE = $REQ.getServerName();
+          ...
+        }
+    - pattern-either: 
+      - pattern: $VALUE.equals(...)
+      - pattern: $STRING.equals($VALUE)
+      - pattern: $VALUE.contains(...)
+      - pattern: $VALUE.startsWith(...)
+      - pattern: $VALUE.endsWith(...)
+      - pattern: $VALUE.indexOf(...)
+    fix: Avoid using the Host header to do security validation as this header can be controlled by an attacker. If you are looking to test whether the application is running a development environment, you should use environment variable or local file configuration.
+    message: |-
+      A security scan detected a conditional that could potentially be bypassed. The value returned by getHeader("Host") and getServerName() can contain arbitrary content that is controlled by the attacker.  
+    metadata:
+      cwe: 'CWE-20: Improper Input Validation'
+    languages: [java]
+    severity: WARNING
+
+  - id: java.lang.path-validation-03
+    patterns: 
+    - pattern-inside: |-
+        $TYPE $FUNC(..., HttpServletRequest $REQ, ...) { 
+          ...
+          $VALUE = $REQ.getServerName();
+          ...
+        }
+    - pattern-either: 
+      - pattern: $VALUE.equals(...)
+      - pattern: $STRING.equals($VALUE)
+      - pattern: $VALUE.contains(...)
+      - pattern: $VALUE.startsWith(...)
+      - pattern: $VALUE.endsWith(...)
+      - pattern: $VALUE.indexOf(...)
+    fix: Avoid using the Host header to do security validation as this header can be controlled by an attacker. If you are looking to test whether the application is running a development environment, you should use environment variable or local file configuration.
+    message: |-
+      A security scan detected a conditional that could potentially be bypassed. The value returned by getHeader("Host") and getServerName() can contain arbitrary content that is controlled by the attacker.  
+    metadata:
+      cwe: 'CWE-20: Improper Input Validation'
+    languages: [java]
+    severity: WARNING
+
+  - id: java.lang.path-validation-04
+    patterns: 
+    - pattern-inside: $TYPE $FUNC(..., HttpServletRequest $REQ, ...) { ... }
+    - pattern-either: 
+      - pattern: $REQ.getHeader("Host").equals(...)
+      - pattern: $STRING.equals($REQ.getHeader("Host"))
+      - pattern: $REQ.getHeader("Host").contains(...)
+      - pattern: $REQ.getHeader("Host").startsWith(...)
+      - pattern: $REQ.getHeader("Host").endsWith(...)
+      - pattern: $REQ.getHeader("Host").indexOf(...)
+      - pattern: $REQ.getServerName().equals(...)
+      - pattern: $STRING.equals($REQ.getServerName())
+      - pattern: $REQ.getServerName().contains(...)
+      - pattern: $REQ.getServerName().startsWith(...)
+      - pattern: $REQ.getServerName().endsWith(...)
+      - pattern: $REQ.getServerName().indexOf(...)
+    fix: Avoid using the Host header to do security validation as this header can be controlled by an attacker. If you are looking to test whether the application is running a development environment, you should use environment variable or local file configuration.
+    message: |-
+      A security scan detected a condition that could potentially be bypassed. The value returned by getHeader("Host") and getServerName() can contain arbitrary content that is controlled by the attacker.  
+    metadata:
+      cwe: 'CWE-20: Improper Input Validation'
+    languages: [java]
+    severity: WARNING
+
+  # XXE pattern
+  - id: java.lang.xxe-01
+    patterns: 
+      - pattern-inside: |-
+          DocumentBuilderFactory $DBF = ...;
+          ...
+      - pattern: |-
+          $DBF.newDocumentBuilder()
+      - pattern-not-inside: |-
+          $DBF.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+          ...
+      - pattern-not-inside: |-
+          $CONFIG_DISALLOW_DTD = "http://apache.org/xml/features/disallow-doctype-decl";
+          ...
+          $DBF.setFeature($CONFIG_DISALLOW_DTD, true);
+          ...
+    fix: DocumentBuilderFactory should be configured to disable doctype by setting disallowDoctypeDecl to true.
+    message: |-
+      A security scan detected a potentially misconfigured XML parser. If user controlled input is passed to the XML parser, the application could be vulnerable to an XXE attack.
+    metadata:
+      cwe: 'CWE-611: Improper Restriction of XML External Entity'
+      owasp: 'A4: XML External Entities'
+    languages: [java]
+    severity: WARNING
+
+  - id: java.lang.xxe-02
+    patterns: 
+      - pattern-inside: |-
+          SAXParserFactory $SPF = ...;
+          ...
+          $PARSER = $SPF.newSAXParser();
+          ...
+      - pattern: $PARSER.parse(...)
+      - pattern-not-inside: |-
+          $SPF.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+          ...
+      - pattern-not-inside: |-
+          $CONFIG_DISALLOW_DTD = "http://apache.org/xml/features/disallow-doctype-decl";
+          ...
+          $SPF.setFeature($CONFIG_DISALLOW_DTD, true);
+          ...
+    fix: SAXParserFactory should be configured to disable doctype by setting disallowDoctypeDecl to true.
+    message: |-
+      A security scan detected a potentially misconfigured XML parser. If user controlled input is passed to the XML parser, the application could be vulnerable to an XXE attack.
+    metadata:
+      cwe: 'CWE-611: Improper Restriction of XML External Entity'
+      owasp: 'A4: XML External Entities'
+    languages: [java]
+    severity: WARNING
+  
+  - id: java.lang.xxe-03
+    patterns: 
+      - pattern-inside: |-
+          SAXReader $READER = ...;
+          ...
+      - pattern: $READER.read(...)
+      - pattern-not-inside: |-
+          $READER.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+          ...
+      - pattern-not-inside: |-
+          $CONFIG_DISALLOW_DTD = "http://apache.org/xml/features/disallow-doctype-decl";
+          ...
+          $READER.setFeature($CONFIG_DISALLOW_DTD, true);
+          ...
+    fix: SAXReader should be configured to disable doctype by setting disallowDoctypeDecl to true.
+    message: |-
+      A security scan detected a potentially misconfigured XML parser. If user controlled input is passed to the XML parser, the application could be vulnerable to an XXE attack.
+    metadata:
+      cwe: 'CWE-611: Improper Restriction of XML External Entity'
+      owasp: 'A4: XML External Entities'
+    languages: [java]
+    severity: WARNING
+
+  - id: java.lang.xxe-04
+    patterns: 
+      - pattern-inside: |-
+          SAXParserFactory $SPF = ...;
+          ...
+          $PARSER = $SPF.newSAXParser();
+          ...
+          $READER = $PARSER.getXMLReader();
+          ...
+      - pattern: $READER.parse(...)
+      - pattern-not-inside: |-
+          $SPF.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+          ...
+      - pattern-not-inside: |-
+          $CONFIG_DISALLOW_DTD = "http://apache.org/xml/features/disallow-doctype-decl";
+          ...
+          $SPF.setFeature($CONFIG_DISALLOW_DTD, true);
+          ...
+      - pattern-not-inside: |-
+          $READER.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+          ...
+      - pattern-not-inside: |-
+          $CONFIG_DISALLOW_DTD = "http://apache.org/xml/features/disallow-doctype-decl";
+          ...
+          $READER.setFeature($CONFIG_DISALLOW_DTD, true);
+          ...
+    fix: XMLReader or SAXParserFactory should be configured to disable doctype by setting disallowDoctypeDecl to true.
+    message: |-
+      A security scan detected a potentially misconfigured XML parser. If user controlled input is passed to the XML parser, the application could be vulnerable to an XXE attack.
+    metadata:
+      cwe: 'CWE-611: Improper Restriction of XML External Entity'
+      owasp: 'A4: XML External Entities'
+    languages: [java]
+    severity: WARNING
+
+  - id: java.lang.xxe-05
+    patterns: 
+      - pattern-inside: |-
+          SAXBuilder $READER = ...;
+          ...
+      - pattern: $READER.build(...)
+      - pattern-not-inside: |-
+          $READER.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+          ...
+      - pattern-not-inside: |-
+          $CONFIG_DISALLOW_DTD = "http://apache.org/xml/features/disallow-doctype-decl";
+          ...
+          $READER.setFeature($CONFIG_DISALLOW_DTD, true);
+          ...
+    fix: SAXBuilder should be configured to disable doctype by setting disallowDoctypeDecl to true.
+    message: |-
+      A security scan detected a potentially misconfigured XML parser. If user controlled input is passed to the XML parser, the application could be vulnerable to an XXE attack.
+    metadata:
+      cwe: 'CWE-611: Improper Restriction of XML External Entity'
+      owasp: 'A4: XML External Entities'
+    languages: [java]
+    severity: WARNING

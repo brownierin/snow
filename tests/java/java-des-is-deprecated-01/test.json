@@ -1,0 +1,4 @@
+{
+    "expected-result-count" : 1,
+    "expected-match" : ["languages.java.r2c-ci-rules.java.lang.security.audit.crypto.des-is-deprecated.des-is-deprecated"]
+}
