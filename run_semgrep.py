@@ -391,7 +391,7 @@ def run_semgrep_pr(repo, git):
     comparison.compare_to_last_run(old_output, new_output, output_filename)
 
     # Read the created json output, report on any new vulnerabilities.
-    with open(RESULTS_DIR + repo_language+"-"+repo+"-"+git_sha_master_short+"-"+git_sha_branch_short + ".json") as file:
+    with open(RESULTS_DIR + repo_language+"-"+repo+"-"+git_sha_master_short+"-"+git_sha_branch_short + ".json", 'w') as file:
         data = json.load(file)
         if data['results'] == "No new findings":
             print("No new vulnerabilities detected!")
