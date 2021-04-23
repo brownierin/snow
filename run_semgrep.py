@@ -12,6 +12,7 @@ import time
 import process_hash_ids as comparison
 from pathlib import Path
 import argparse
+import sys
 
 
 # Get config file and read.
@@ -66,7 +67,7 @@ def get_repo_list():
     return repos
 
 
-def get_docker_image():
+def get_docker_image(mode=None):
     version = CONFIG['general']['version']
     digest = CONFIG['general']['digest']
 
@@ -485,3 +486,7 @@ if __name__ == '__main__':
         run_semgrep_daily()
     elif args.mode == "pr":
         run_semgrep_pr(args.repo, args.git)
+    elif args.mode == "version":
+        exit_code = get_docker_image(args.mode)
+        print(exit_code)
+        sys.exit(exit_code)
