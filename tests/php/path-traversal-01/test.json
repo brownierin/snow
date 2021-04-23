@@ -1,0 +1,4 @@
+{
+    "expected-result-count" : 5,
+    "expected-match" : ["languages.php.slack.slack.php.path-traversal-01", "languages.php.slack.slack.php.path-traversal-02"]
+}
