@@ -393,7 +393,6 @@ def run_semgrep_pr(repo, git):
     # Read the created json output, report on any new vulnerabilities.
     with open(RESULTS_DIR + repo_language+"-"+repo+"-"+git_sha_master_short+"-"+git_sha_branch_short + ".json") as file:
         data = json.load(file)
-        file.close()
         if data['results'] == "No new findings":
             print("No new vulnerabilities detected!")
             exit(0)
@@ -407,10 +406,10 @@ def run_semgrep_pr(repo, git):
             comparison.remove_false_positives(json_filename, "false_positives.json", parsed_filename)
             with open(parsed_filename) as fileParsed:
                 data = json.load(fileParsed)
-                file.close()
                 # No vulnerabilities would be checking for an empty array.
                 if not data['results']:
                     print("No new vulnerabilities detected!")
+                    file.close()
                     exit(0)
                 else:
                     # Print the results to console so DEV can review.
@@ -419,6 +418,7 @@ def run_semgrep_pr(repo, git):
                     print('=======================================================')
                     print('Please review the following output. Reach out to #triage-prodsec with questions.')
                     json.dump(data['results'], file, sort_keys=True, indent=4)
+                    file.close()
                     # Exit with status code 1, which should flag the test as failed in Checkpoint/GitHub.
                     exit(1)
 
