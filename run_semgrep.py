@@ -70,9 +70,10 @@ def get_repo_list():
 def get_docker_image(mode=None):
     version = CONFIG['general']['version']
     digest = CONFIG['general']['digest']
-    print("Downloading Semgrep")
-    command = ["docker", "pull","returntocorp/semgrep:"+version]
-    subprocess.run(command, check=True, stdout=subprocess.PIPE)
+
+    download_semgrep(version)
+    if mode == "version":
+        download_semgrep("latest")
 
     print("Verifying Semgrep")
     digest_check_scan = check_digest(digest, version)
@@ -88,6 +89,12 @@ def get_docker_image(mode=None):
         if digest_check_scan != -1:
             raise Exception("[!!] Digest mismatch!")
         print("Semgrep downloaded and verified")
+
+
+def download_semgrep(version):
+    print("Downloading Semgrep " + version)
+    command = ["docker", "pull","returntocorp/semgrep:"+version]
+    subprocess.run(command, check=True, stdout=subprocess.PIPE)
 
 
 def check_digest(digest, version):
