@@ -76,7 +76,7 @@ def get_docker_image(mode=None):
     process = subprocess.run("docker inspect --format='{{.RepoDigests}}' returntocorp/semgrep:"+version, shell=True, check=True, stdout=subprocess.PIPE)
     digest_check = check_digest(digest, process)
     if mode == "version":
-        if check_digest != -1:
+        if digest_check != -1:
             print("[!!] A new version of semgrep is available.")
             return 1
         else: 
