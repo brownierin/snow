@@ -2,7 +2,7 @@ import json
 import argparse
 import os
 CIBOT_ARTIFACT_DIR = os.getenv('CIBOT_ARTIFACT_DIR')
-CHECKPOINT_JSON_OUT = str(CIBOT_ARTIFACT_DIR)+"checkpoint_results.json"
+CHECKPOINT_JSON_OUT = str(CIBOT_ARTIFACT_DIR)+"/checkpoint_results.json"
 
 def open_json(filename):
     with open(filename, "r") as file:
