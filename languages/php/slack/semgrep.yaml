@@ -116,6 +116,8 @@ rules:
     - pattern: |-
         header("Access-Control-Allow-Origin: " . $_SERVER['HTTP_ORIGIN'])
     - pattern: |-
+        header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}")
+    - pattern: |-
         $VALUE = $_SERVER['HTTP_ORIGIN'];
         ...
         header("Access-Control-Allow-Origin: " . $VALUE);
