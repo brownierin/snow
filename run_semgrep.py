@@ -26,12 +26,12 @@ LANGUAGES_DIR = SNOW_ROOT + CONFIG['general']['languages_dir']
 RESULTS_DIR = SNOW_ROOT + CONFIG['general']['results']
 REPOSITORIES_DIR = SNOW_ROOT + CONFIG['general']['repositories']
 
+
 def cleanup_workspace():
     print('Begin Cleanup Workspace')
     mode = int('775', base=8)
     os.makedirs(RESULTS_DIR, mode=mode, exist_ok=True)
     clean_results_dir()
-    shutil.rmtree(REPOSITORIES_DIR, ignore_errors=True)
     os.makedirs(REPOSITORIES_DIR, mode=mode, exist_ok=True)
     print('End Cleanup Workspace')
 
@@ -87,24 +87,34 @@ def download_repos():
             with open(filename) as f:
                 content = f.read().splitlines()
             for repo in content:
-                print("Cloning Repo " + repo)
-                git_repo = "git@slack-github.com:slack/" + repo + ".git"
-                process = subprocess.run("git -C " + REPOSITORIES_DIR + " clone " + git_repo, shell=True,
-                                         stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                # If we fail to download from Enterprise, try tinyspeck
-                if process.returncode == 128:
-                    git_repo_url = "https://github.com/tinyspeck"
-                    git_repo = "https://github.com/tinyspeck/" + repo + ".git"
-                    process = subprocess.run("git -C " + REPOSITORIES_DIR + " clone " + git_repo, shell=True, check=True,
-                                   stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                print(process.stdout.decode("utf-8"))
-                get_sha_process = subprocess.run("git -C " + REPOSITORIES_DIR +"/"+repo +" rev-parse HEAD", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                git_repo = f"git@slack-github.com:slack/{repo}.git"
+                if repo == "webapp":
+                    print("Updating webapp")
+                    command = f"git -C {REPOSITORIES_DIR}webapp fetch --tags --force --progress "
+                    command += f"-- {git_repo} +refs/heads/*:refs/remotes/origin1/*"
+                    process = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                else:
+                    if os.path.isdir(f"{REPOSITORIES_DIR}{repo}"):
+                        print(f"Updating repo: {repo}")
+                        pull_command = f"git -C {REPOSITORIES_DIR}{repo} pull"
+                        pull = subprocess.run(pull_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                    else:
+                        clone_command = f"git -C {REPOSITORIES_DIR} clone {git_repo}"
+                        clone = subprocess.run(clone_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                        # If we fail to download from Enterprise, try tinyspeck
+                        if clone.returncode == 128:
+                            git_repo_url = "https://github.com/tinyspeck"
+                            git_repo = "https://github.com/tinyspeck/" + repo + ".git"
+                            clone = subprocess.run(clone_command, shell=True, check=True,
+                                           stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                        print(clone.stdout.decode("utf-8"))
+                get_sha_process = subprocess.run("git -C " + REPOSITORIES_DIR + repo +" rev-parse HEAD", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                 git_sha = get_sha_process.stdout.decode("utf-8").rstrip()
                 scan_repo(repo, CONFIG[language]['language'], language, git_repo_url, git_sha)
 
 def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
     git_sha = git_sha.rstrip()
-    print('Scanning Repo ' + repo)
+    print('Scanning repo: ' + repo)
     output_file = f"{language}-{repo}-{git_sha[:7]}.json"
     semgrep_command = "docker run --user \"$(id -u):$(id -g)\" --rm -v " + SNOW_ROOT + ":/src returntocorp/semgrep:" + \
                       CONFIG['general']['version'] + " " + CONFIG[configlanguage]['config'] + " " + \
