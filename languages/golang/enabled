@@ -6,3 +6,13 @@ missions
 murron
 rains
 multipass
+binlog-crawler
+ops-go
+nebula
+nebula-ca-client
+nebula-ca
+nebula-helper-cni
+slauth-request-signing
+slauthorizer
+vault-auth-nebula
+slauth
