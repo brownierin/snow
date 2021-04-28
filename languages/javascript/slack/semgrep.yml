@@ -1,0 +1,171 @@
+rules:
+  # Eval and it's many siblings
+  - id: javascript.eval-like-function-01
+    patterns: 
+    - pattern-either:
+      - pattern: setTimeout("...", ...)
+      - pattern: setInterval("...", ...)
+      - pattern: |-
+          $VALUE = <... "..." ...>;
+          ...
+          setTimeout($VALUE, ...);
+      - pattern: |-
+          $VALUE = <... "..." ...>;
+          ...
+          setInterval($VALUE, ...);
+      
+    fix: Avoid using these construction as they are equivalent to `eval`. Consider using a function as the first argument of setTimeout/setInterval.
+    message: |-
+      A security scan detected a potentially unsafe usage of setTimeout/setInterval. 
+      If user controlled data is used in the first parameter, this could lead to code injection.
+    metadata:
+      cwe: 'CWE-94: Improper Control of Generation of Code'
+    languages: [javascript, typescript]
+    severity: WARNING
+
+  - id: javascript.eval-like-function-02
+    patterns: 
+    - pattern: new Function(...)
+    - pattern-not-inside: |-
+        new Function("...")
+    - pattern-not-inside: |-
+        new Function("...", "...")
+    fix: Avoid dynamically creating function as it's equivalent to using `eval`. Considering rewritting this portion of code without using `new Function`.
+    message: |-
+      A security scan detected a potentially unsafe usage of `new Function`. 
+      If user controlled data is used in the first parameter, this could lead to code injection.
+    metadata:
+      cwe: 'CWE-94: Improper Control of Generation of Code'
+    languages: [javascript, typescript]
+    severity: WARNING
+
+  - id: javascript.eval-like-function-03
+    patterns: 
+    - pattern: eval(...)
+    - pattern-not-inside: |-
+        eval("...")
+    fix: Avoid using `eval`. Considering rewritting this portion of code without using `eval`.
+    message: |-
+      A security scan detected a potentially unsafe usage of `eval`. 
+      If user controlled data is used in the first parameter, this could lead to code injection.
+    metadata:
+      cwe: 'CWE-94: Improper Control of Generation of Code'
+    languages: [javascript, typescript]
+    severity: WARNING
+
+  # Insecure SQL usage
+  - id: javascript.hardcoded-mysql-creds-01
+    patterns: 
+    - pattern-either:
+      - pattern: |-
+          $MYSQL.createConnection({
+            password: "..."
+          });
+      - pattern: |-
+          createConnection({
+            password: "..."
+          });
+      
+    fix: Avoid hardcoding credentials into source code. This password value should be configurable.
+    message: |-
+      A security scan detected a potentially hardcoded credentials. This password should be considered compromised as it has been commited into source control.
+    metadata:
+      cwe: 'CWE-798: Use of Hard-coded Credentials'
+    languages: [javascript, typescript]
+    severity: WARNING
+
+  - id: javascript.potential-sqli-01
+    patterns: 
+    - pattern-either:
+      - pattern: |-
+          "=~/^select .*/i" + $VARIABLE
+      - pattern: |-
+          "=~/^insert into .*/i" + $VARIABLE
+      - pattern: |-
+          "=~/^delete .*/i" + $VARIABLE
+      - pattern: |-
+          "=~/^update .*/i" + $VARIABLE
+      - pattern: |-
+          $VALUE = "=~/^select .*/i";
+          ...
+          $VALUE += ...;
+      - pattern: |-
+          $VALUE = "=~/^insert into .*/i";
+          ...
+          $VALUE += ...;
+      - pattern: |-
+          $VALUE = "=~/^delete .*/i";
+          ...
+          $VALUE += ...;
+      - pattern: |-
+          $VALUE = "=~/^update .*/i";
+          ...
+          $VALUE += ...;
+    fix: Avoid manually constructing SQL queries. You should be using prepared statement here.
+    message: |-
+      A security scan detected a potential SQL injection. If user controlled data is used in this query, it could modify the intended query to leak or modify data.
+    metadata:
+      cwe: 'CWE-89: Improper Neutralization of Special Elements used in an SQL Command'
+    languages: [javascript, typescript]
+    severity: WARNING
+
+  # Insecure usage of Chrome extension API
+  - id: javascript.chrome-message-01
+    patterns: 
+      - pattern-either:
+        - pattern: |-
+            chrome.runtime.$MESSAGE_API.addListener(function ($REQUEST, $SENDER, ...) {
+              ...
+            });
+        - pattern: |-
+            function $FUNC ($REQUEST, $SENDER, ...) {
+              ...
+            }
+            ...
+            chrome.runtime.$MESSAGE_API.addListener($FUNC);
+        - pattern: |-
+            chrome.runtime.$MESSAGE_API.addListener($FUNC);
+            ...
+            function $FUNC ($REQUEST, $SENDER, ...) {
+              ...
+            }
+      - pattern-not: |-
+          chrome.runtime.$MESSAGE_API.addListener(function ($REQUEST, $SENDER, ...) {
+            ...
+            if (<... $SENDER.id ...>) {
+              ...
+            }
+            ...
+          });
+      - pattern-not: |-
+          function $FUNC ($REQUEST, $SENDER, ...) {
+            ...
+            if (<... $SENDER.id ...>) {
+              ...
+            }
+            ...
+          }
+          ...
+          chrome.runtime.$MESSAGE_API.addListener($FUNC);
+      - pattern-not: |-
+          chrome.runtime.$MESSAGE_API.addListener($FUNC);
+          ...
+          function $FUNC ($REQUEST, $SENDER, ...) {
+            ...
+            if (<... $SENDER.id ...>) {
+              ...
+            }
+            ...
+          }
+      - metavariable-regex:
+          metavariable: "$MESSAGE_API"
+          regex: "(onMessageExternal|onMessage)"
+
+    fix: Avoid using these construction as they are equivalent to `eval`. Consider using a function as the first argument of setTimeout/setInterval.
+    message: |-
+      A security scan detected a potentially unsafe usage of setTimeout/setInterval. 
+      If user controlled data is used in the first parameter, this could lead to code injection.
+    metadata:
+      cwe: 'CWE-20: Improper Input Validation'
+    languages: [javascript, typescript]
+    severity: WARNING

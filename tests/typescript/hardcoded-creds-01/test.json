@@ -1,0 +1,4 @@
+{
+    "expected-result-count" : 3,
+    "expected-match" : ["languages.javascript.slack.javascript.hardcoded-mysql-creds-01"]
+}
