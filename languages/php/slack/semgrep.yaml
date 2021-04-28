@@ -1,0 +1,134 @@
+rules:
+# Serialization 
+- id: slack.php.unserialize-01
+  patterns: 
+  - pattern-either:
+      - pattern: |-
+          $VALUE = $USER_INPUT[...];
+          ...
+          $RES = unserialize($VALUE);
+      - pattern: |-
+          $VALUE1 = $USER_INPUT[...];
+          ...
+          $VALUE = $DECODE($VALUE1);
+          ...
+          $RES = unserialize($VALUE);
+      - pattern: unserialize($USER_INPUT[...])
+
+  - metavariable-regex:
+        metavariable: "$USER_INPUT"
+        regex: "\\$(_GET|_POST|_COOKIE)"
+
+  fix: Avoid using PHP serialization with user controlled input. Consider using another format such as JSON to serialize/deserialize your data.
+  message: |-
+    The security scan detected a potential deserialization vulnerability at this location. This could allow an attacker to execute arbitrary code.
+  metadata:
+    cwe: 'CWE-502: Deserialization of Untrusted Data'
+    owasp: 'A8: Insecure Deserialization'
+  languages: [php]
+  severity: WARNING
+
+# Path traversal
+- id: slack.php.path-traversal-01
+  patterns: 
+  - pattern-either: 
+    - pattern: |- 
+        $VALUE = $USER_INPUT[...];
+        ...
+        $FILE_READ_METHOD($VALUE, ...);
+    - pattern: |- 
+        $VALUE1 = $USER_INPUT[...];
+        ...
+        $VALUE = <... "..." . $VALUE1 ...>;
+        ...
+        $FILE_READ_METHOD($VALUE, ...);
+    - pattern: |-
+        $VALUE = $USER_INPUT[...];
+        ...
+        $FILE_READ_METHOD(<... "..." . $VALUE ...> , ...);
+    - pattern: |-
+        $VALUE1 = $USER_INPUT[...];
+        ...
+        $VALUE = <... "..." . $VALUE1 ...>;
+        ... 
+        $FILE_READ_METHOD(<... "..." . $VALUE ...> , ...);
+    
+  - metavariable-regex:
+        metavariable: "$FILE_READ_METHOD"
+        regex: "(file_get_contents|fopen|file|file_put_contents|readfile)"
+
+  - metavariable-regex:
+        metavariable: "$USER_INPUT"
+        regex: "\\$(_GET|_POST|_COOKIE)"
+
+  fix: You shoud consider sanitizing the user input before passing it to the identified I/O function. Function such as 'basename' or 'pathinfo' can be used to extract the filename of a path. 
+  message: |-
+    The security scan detected a potential path traversal vulnerability. This could allow an attacker to read or write arbitrary files.
+  metadata:
+    cwe: 'CWE-23: Relative Path Traversal'
+  languages: [php]
+  severity: WARNING
+
+- id: slack.php.path-traversal-02
+  patterns: 
+  - pattern-either: 
+    - pattern: $FILE_READ_METHOD($USER_INPUT[...], ...)
+    - pattern: $FILE_READ_METHOD(<... "..." . $USER_INPUT[...] ...> , ...)
+    
+  - metavariable-regex:
+      metavariable: "$FILE_READ_METHOD"
+      regex: "(file_get_contents|fopen|file|file_put_contents|readfile)"
+
+  - metavariable-regex:
+      metavariable: "$USER_INPUT"
+      regex: "\\$(_GET|_POST|_COOKIE)"
+
+  fix: You shoud consider sanitizing the user input before passing it to the identified I/O function. Function such as 'basename' or 'pathinfo' can be used to extract the filename of a path. 
+  message: |-
+    The security scan detected a potential path traversal vulnerability. This could allow an attacker to read or write arbitrary files.
+  metadata:
+    cwe: 'CWE-23: Relative Path Traversal'
+  languages: [php]
+  severity: WARNING
+
+# Weak cryptography
+- id: slack.php.weak-crypto-01
+  patterns: 
+  - pattern-either: 
+      - pattern: openssl_encrypt($VAR1, "=~/[a-z0-9]+(-[a-z0-9]+){1,3}/", ...)
+      - pattern: openssl_decrypt($VAR1, "=~/[a-z0-9]+(-[a-z0-9]+){1,3}/", ...)
+  - pattern-not-regex: (aes-128-gcm|aes-256-gcm)
+  message: |-
+    Detected usage of weak crypto function. 
+    
+    See this page for the recommended algorithm to use : https://app.getguru.com/card/cBEbyLBi/Application-Security-Cryptographic-Guidelines-for-Development
+  metadata:
+    cwe: 'CWE-327: Use of a Broken or Risky Cryptographic'
+  languages: [php]
+  severity: WARNING
+
+# CORS Policy
+- id: slack.php.cors-01
+  patterns: 
+  - pattern-either: 
+    - pattern: |-
+        header("Access-Control-Allow-Origin: *")
+    - pattern: |-
+        header("Access-Control-Allow-Origin: " . $_SERVER['HTTP_ORIGIN'])
+    - pattern: |-
+        header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}")
+    - pattern: |-
+        $VALUE = $_SERVER['HTTP_ORIGIN'];
+        ...
+        header("Access-Control-Allow-Origin: " . $VALUE);
+  message: |-
+    A permissive CORS policy will allow a malicious application to communicate with the victim application in an 
+    inappropriate way, leading to spoofing, data theft and other attacks. This header should be configured 
+    to contain only domains that are allowed to access the data that this application is exposing.
+    
+    See this for more information : https://find-sec-bugs.github.io/bugs.htm#PERMISSIVE_CORS and 
+    https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
+  metadata:
+    cwe: 'CWE-942: Permissive Cross-domain Policy with Untrusted Domains'
+  languages: [php]
+  severity: WARNING
