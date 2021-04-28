@@ -161,10 +161,11 @@ rules:
           metavariable: "$MESSAGE_API"
           regex: "(onMessageExternal|onMessage)"
 
-    fix: Avoid using these construction as they are equivalent to `eval`. Consider using a function as the first argument of setTimeout/setInterval.
+    fix: You should validate that the value contained in $SENDER.id is authorized to send message to this handler.
     message: |-
-      A security scan detected a potentially unsafe usage of setTimeout/setInterval. 
-      If user controlled data is used in the first parameter, this could lead to code injection.
+      A security scan detected a potentially unsafe usage of $MESSAGE_API. 
+      It appears that the handler doesn't validate who the sender is. This could allow 
+      a malicious page or extension to send arbitrary message to this handler.
     metadata:
       cwe: 'CWE-20: Improper Input Validation'
     languages: [javascript, typescript]
