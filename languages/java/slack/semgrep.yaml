@@ -1,15 +1,23 @@
 rules:
   # Java deserialization
   - id: java.lang.insecure-deserialization-01
-    pattern: |-
-      $BARRAY = new ByteArrayInputStream(...);
-      ...
-      $INPUT = new ObjectInputStream($BARRAY);
-      ...
-      $INPUT.readObject();
-    fix: Avoid using Java deserialization with potentially untrusted data. When working with user supplied data, it's better to use safe serialization such as ObjectMapper from the Jackson library.
+    patterns: 
+      pattern: |-
+        $BARRAY = new ByteArrayInputStream(...);
+        ...
+        $INPUT = new $INPUT_STREAM_BASE_API($BARRAY);
+        ...
+        $INPUT.readObject();
+      metavariable-regex:
+        metavariable: $INPUT_STREAM_BASE_API
+        regex: (ObjectInputStream|XMLDecoder|BurlapInput)
+    
     message: |-
-      A security scan detected use of a potentially unsafe deserialization.  If user controlled input is passed to the ByteArrayInputStream, it could lead to remote code execution.
+      Avoid using the deserialization API $INPUT_STREAM_BASE_API with potentially untrusted data. When working with user supplied data, 
+      it's better to use safe serialization API such as Gson, Protobuf or ObjectMapper (without default typing).
+      
+      A security scan detected the use of a potentially unsafe deserialization.  If user controlled input is passed to the 
+      ByteArrayInputStream, it could lead to remote code execution.
     metadata:
       cwe: 'CWE-502: Deserialization of Untrusted Data'
       owasp: 'A8: Insecure Deserialization'
@@ -18,11 +26,68 @@ rules:
 
   # ObjectMapper deserialization insecure configuration
   - id: java.lang.insecure-deserialization-02
-    pattern: |-
-      $OM.enableDefaultTyping(...);
-    fix: Avoid using enableDefaultTyping option with ObjectMapper. If you need to handle deserialization of polymorphic type, configure them with the @JsonTypeInfo annotation.
+    pattern: $OM.enableDefaultTyping(...);
     message: |-
-      A security scan detected use of a potentially unsafe deserialization.  If user controlled input is passed to the ObjectMapper, it could lead to remote code execution as it isn't securely configured.
+      Avoid using enableDefaultTyping option with ObjectMapper. If you need to handle deserialization of polymorphic type, configure 
+      them with the @JsonTypeInfo annotation.
+
+      A security scan detected use of a potentially unsafe deserialization.  If user controlled input is passed to the ObjectMapper, 
+      it could lead to remote code execution as it isn't securely configured.
+    metadata:
+      cwe: 'CWE-502: Deserialization of Untrusted Data'
+      owasp: 'A8: Insecure Deserialization'
+    languages: [java]
+    severity: WARNING
+
+  # XStream deserialization
+  - id: java.lang.insecure-deserialization-03
+    patterns: 
+      pattern-inside: $XSTREAM = new XStream(...); ...
+      pattern-either: 
+        - pattern: |-
+            $VALUE =  new ByteArrayInputStream(...);
+            ...
+            $OBJECT = $XSTREAM.fromXML($VALUE);
+        - pattern: |-
+            String $VALUE = ...;
+            ...
+            $OBJECT = $XSTREAM.fromXML($VALUE);
+        - pattern: |-
+            $ACCESS_MODIFIER $RETURN_TYPE $METHOD(..., String $VALUE, ...) {
+              ...
+              $OBJECT = $XSTREAM.fromXML($VALUE);
+              ...
+            }
+    message: |-
+      Avoid using Java deserialization (XStream) with potentially untrusted data. When working with user supplied data, it's better to use 
+      safe serialization such as ObjectMapper from the Jackson library.
+      
+      A security scan detected use of a potentially unsafe deserialization.  If user controlled input is passed to the ByteArrayInputStream, 
+      it could lead to remote code execution.
+    metadata:
+      cwe: 'CWE-502: Deserialization of Untrusted Data'
+      owasp: 'A8: Insecure Deserialization'
+    languages: [java]
+    severity: WARNING
+
+  # Kryo deserialization
+  - id: java.lang.insecure-deserialization-04
+    patterns: 
+      - pattern-inside: $KRYO = new Kryo(...); ... 
+      - patterne-either: 
+          - pattern: |-
+              $VALUE = new ByteArrayInputStream(...);
+              ...
+              $INPUT = new Input($VALUE); 
+              ...
+              $OBJECT = $KRYO.readObject($INPUT, ...);
+          - pattern: |-
+              $INPUT = new Input($VALUE.getBytes()); 
+              ...
+              $OBJECT = $KRYO.readObject($INPUT, ...);
+    fix: Avoid using Java deserialization (XStream) with potentially untrusted data. When working with user supplied data, it's better to use safe serialization such as ObjectMapper from the Jackson library.
+    message: |-
+      A security scan detected use of a potentially unsafe deserialization.  If user controlled input is passed to the ByteArrayInputStream, it could lead to remote code execution.
     metadata:
       cwe: 'CWE-502: Deserialization of Untrusted Data'
       owasp: 'A8: Insecure Deserialization'
@@ -86,7 +151,7 @@ rules:
     - pattern-inside: |-
         $TYPE $FUNC(..., HttpServletRequest $REQ, ...) { 
           ...
-          $VALUE = $REQ.getServerName();
+          $VALUE = $REQ.getHeader("Host");
           ...
         }
     - pattern-either: 
