@@ -1,4 +1,5 @@
-# Insecure usage of Chrome extension API
+rules:
+  # Insecure usage of Chrome extension API
   - id: javascript.chrome-message-01
     patterns: 
       - pattern-either:
