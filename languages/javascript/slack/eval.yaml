@@ -1,0 +1,57 @@
+rules:
+  # Eval and it's many siblings
+  - id: javascript.eval-like-function-01
+    patterns: 
+    - pattern-either:
+      - pattern: setTimeout("...", ...)
+      - pattern: setInterval("...", ...)
+      - pattern: |-
+          $VALUE = <... "..." ...>;
+          ...
+          setTimeout($VALUE, ...);
+      - pattern: |-
+          $VALUE = <... "..." ...>;
+          ...
+          setInterval($VALUE, ...);
+
+    message: |-
+      A security scan detected a potentially unsafe usage of setTimeout/setInterval. 
+      If user controlled data is used in the first parameter, this could lead to code injection.
+
+      Avoid using these construction as they are equivalent to `eval`. Consider using a function as the first argument of setTimeout/setInterval.
+    metadata:
+      cwe: 'CWE-94: Improper Control of Generation of Code'
+    languages: [javascript, typescript]
+    severity: WARNING
+
+  - id: javascript.eval-like-function-02
+    patterns: 
+    - pattern: new Function(...)
+    - pattern-not-inside: |-
+        new Function("...")
+    - pattern-not-inside: |-
+        new Function("...", "...")
+    message: |-
+      A security scan detected a potentially unsafe usage of `new Function`. 
+      If user controlled data is used in the first parameter, this could lead to code injection.
+
+      Avoid dynamically creating function as it's equivalent to using `eval`. Considering rewritting this portion of code without using `new Function`.
+    metadata:
+      cwe: 'CWE-94: Improper Control of Generation of Code'
+    languages: [javascript, typescript]
+    severity: WARNING
+
+  - id: javascript.eval-like-function-03
+    patterns: 
+    - pattern: eval(...)
+    - pattern-not-inside: |-
+        eval("...")
+    message: |-
+      A security scan detected a potentially unsafe usage of `eval`. 
+      If user controlled data is used in the first parameter, this could lead to code injection.
+
+      Avoid using `eval`. Considering rewritting this portion of code without using `eval`.
+    metadata:
+      cwe: 'CWE-94: Improper Control of Generation of Code'
+    languages: [javascript, typescript]
+    severity: WARNING

@@ -1,0 +1,57 @@
+rules:
+  # Insecure SQL usage
+  - id: javascript.hardcoded-mysql-creds-01
+    patterns: 
+    - pattern-either:
+      - pattern: |-
+          $MYSQL.createConnection({
+            password: "..."
+          });
+      - pattern: |-
+          createConnection({
+            password: "..."
+          });
+    message: |-
+      A security scan detected a potentially hardcoded credentials. This password should be considered compromised as it has been commited into source control.
+
+      Avoid hardcoding credentials into source code. This password value should be configurable.
+    metadata:
+      cwe: 'CWE-798: Use of Hard-coded Credentials'
+    languages: [javascript, typescript]
+    severity: WARNING
+
+  - id: javascript.potential-sqli-01
+    patterns: 
+    - pattern-either:
+      - pattern: |-
+          "=~/^select .*/i" + $VARIABLE
+      - pattern: |-
+          "=~/^insert into .*/i" + $VARIABLE
+      - pattern: |-
+          "=~/^delete .*/i" + $VARIABLE
+      - pattern: |-
+          "=~/^update .*/i" + $VARIABLE
+      - pattern: |-
+          $VALUE = "=~/^select .*/i";
+          ...
+          $VALUE += ...;
+      - pattern: |-
+          $VALUE = "=~/^insert into .*/i";
+          ...
+          $VALUE += ...;
+      - pattern: |-
+          $VALUE = "=~/^delete .*/i";
+          ...
+          $VALUE += ...;
+      - pattern: |-
+          $VALUE = "=~/^update .*/i";
+          ...
+          $VALUE += ...;
+    message: |-
+      A security scan detected a potential SQL injection. If user controlled data is used in this query, it could modify the intended query to leak or modify data.
+
+      Avoid manually constructing SQL queries. You should be using prepared statement here.
+    metadata:
+      cwe: 'CWE-89: Improper Neutralization of Special Elements used in an SQL Command'
+    languages: [javascript, typescript]
+    severity: WARNING
