@@ -12,7 +12,6 @@ import time
 import process_hash_ids as comparison
 from pathlib import Path
 import argparse
-import sys
 
 
 # Get config file and read.
@@ -67,40 +66,16 @@ def get_repo_list():
     return repos
 
 
-def get_docker_image(mode=None):
+def get_docker_image():
     version = CONFIG['general']['version']
     digest = CONFIG['general']['digest']
-
-    download_semgrep(version)
-    if mode == "version":
-        download_semgrep("latest")
-
+    print("Downloading Semgrep")
+    subprocess.run(["docker", "pull","returntocorp/semgrep:"+version], check=True, stdout=subprocess.PIPE)
     print("Verifying Semgrep")
-    digest_check_scan = check_digest(digest, version)
-    digest_check_update = check_digest(digest, "latest")
-    if mode == "version":
-        if digest_check_update == -1:
-            print("[!!] A new version of semgrep is available.")
-            return 1
-        else: 
-            print("[+] Semgrep is up to date.")
-            return 0
-    else:
-        if digest_check_scan != -1:
-            raise Exception("[!!] Digest mismatch!")
-        print("Semgrep downloaded and verified")
-
-
-def download_semgrep(version):
-    print("Downloading Semgrep " + version)
-    command = ["docker", "pull","returntocorp/semgrep:"+version]
-    subprocess.run(command, check=True, stdout=subprocess.PIPE)
-
-
-def check_digest(digest, version):
-    command = "docker inspect --format='{{.RepoDigests}}' returntocorp/semgrep:"+version
-    process = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE)
-    return digest.find((process.stdout).decode("utf-8"))
+    process = subprocess.run("docker inspect --format='{{.RepoDigests}}' returntocorp/semgrep:"+version, shell=True, check=True, stdout=subprocess.PIPE)
+    if digest.find((process.stdout).decode("utf-8")) != -1:
+        raise Exception("Digest semgrep mismatch!")
+    print("Semgrep downloaded and verified")
 
 
 def download_repos():
@@ -484,6 +459,3 @@ if __name__ == '__main__':
         run_semgrep_daily()
     elif args.mode == "pr":
         run_semgrep_pr(args.repo, args.git)
-    elif args.mode == "version":
-        exit_code = get_docker_image(args.mode)
-        sys.exit(exit_code)
