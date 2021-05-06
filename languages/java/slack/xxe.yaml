@@ -1,0 +1,131 @@
+rules:
+  # XXE pattern
+  - id: java.lang.xxe-01
+    patterns: 
+      - pattern-inside: |-
+          DocumentBuilderFactory $DBF = ...;
+          ...
+      - pattern: |-
+          $DBF.newDocumentBuilder()
+      - pattern-not-inside: |-
+          $DBF.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+          ...
+      - pattern-not-inside: |-
+          $CONFIG_DISALLOW_DTD = "http://apache.org/xml/features/disallow-doctype-decl";
+          ...
+          $DBF.setFeature($CONFIG_DISALLOW_DTD, true);
+          ...
+    fix: DocumentBuilderFactory should be configured to disable doctype by setting disallowDoctypeDecl to true.
+    message: |-
+      A security scan detected a potentially misconfigured XML parser. If user controlled input is passed to the XML parser, the application could be vulnerable to an XXE attack.
+    metadata:
+      cwe: 'CWE-611: Improper Restriction of XML External Entity'
+      owasp: 'A4: XML External Entities'
+    languages: [java]
+    severity: WARNING
+
+  - id: java.lang.xxe-02
+    patterns: 
+      - pattern-inside: |-
+          SAXParserFactory $SPF = ...;
+          ...
+          $PARSER = $SPF.newSAXParser();
+          ...
+      - pattern: $PARSER.parse(...)
+      - pattern-not-inside: |-
+          $SPF.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+          ...
+      - pattern-not-inside: |-
+          $CONFIG_DISALLOW_DTD = "http://apache.org/xml/features/disallow-doctype-decl";
+          ...
+          $SPF.setFeature($CONFIG_DISALLOW_DTD, true);
+          ...
+    fix: SAXParserFactory should be configured to disable doctype by setting disallowDoctypeDecl to true.
+    message: |-
+      A security scan detected a potentially misconfigured XML parser. If user controlled input is passed to the XML parser, the application could be vulnerable to an XXE attack.
+    metadata:
+      cwe: 'CWE-611: Improper Restriction of XML External Entity'
+      owasp: 'A4: XML External Entities'
+    languages: [java]
+    severity: WARNING
+  
+  - id: java.lang.xxe-03
+    patterns: 
+      - pattern-inside: |-
+          SAXReader $READER = ...;
+          ...
+      - pattern: $READER.read(...)
+      - pattern-not-inside: |-
+          $READER.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+          ...
+      - pattern-not-inside: |-
+          $CONFIG_DISALLOW_DTD = "http://apache.org/xml/features/disallow-doctype-decl";
+          ...
+          $READER.setFeature($CONFIG_DISALLOW_DTD, true);
+          ...
+    fix: SAXReader should be configured to disable doctype by setting disallowDoctypeDecl to true.
+    message: |-
+      A security scan detected a potentially misconfigured XML parser. If user controlled input is passed to the XML parser, the application could be vulnerable to an XXE attack.
+    metadata:
+      cwe: 'CWE-611: Improper Restriction of XML External Entity'
+      owasp: 'A4: XML External Entities'
+    languages: [java]
+    severity: WARNING
+
+  - id: java.lang.xxe-04
+    patterns: 
+      - pattern-inside: |-
+          SAXParserFactory $SPF = ...;
+          ...
+          $PARSER = $SPF.newSAXParser();
+          ...
+          $READER = $PARSER.getXMLReader();
+          ...
+      - pattern: $READER.parse(...)
+      - pattern-not-inside: |-
+          $SPF.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+          ...
+      - pattern-not-inside: |-
+          $CONFIG_DISALLOW_DTD = "http://apache.org/xml/features/disallow-doctype-decl";
+          ...
+          $SPF.setFeature($CONFIG_DISALLOW_DTD, true);
+          ...
+      - pattern-not-inside: |-
+          $READER.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+          ...
+      - pattern-not-inside: |-
+          $CONFIG_DISALLOW_DTD = "http://apache.org/xml/features/disallow-doctype-decl";
+          ...
+          $READER.setFeature($CONFIG_DISALLOW_DTD, true);
+          ...
+    fix: XMLReader or SAXParserFactory should be configured to disable doctype by setting disallowDoctypeDecl to true.
+    message: |-
+      A security scan detected a potentially misconfigured XML parser. If user controlled input is passed to the XML parser, the application could be vulnerable to an XXE attack.
+    metadata:
+      cwe: 'CWE-611: Improper Restriction of XML External Entity'
+      owasp: 'A4: XML External Entities'
+    languages: [java]
+    severity: WARNING
+
+  - id: java.lang.xxe-05
+    patterns: 
+      - pattern-inside: |-
+          SAXBuilder $READER = ...;
+          ...
+      - pattern: $READER.build(...)
+      - pattern-not-inside: |-
+          $READER.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+          ...
+      - pattern-not-inside: |-
+          $CONFIG_DISALLOW_DTD = "http://apache.org/xml/features/disallow-doctype-decl";
+          ...
+          $READER.setFeature($CONFIG_DISALLOW_DTD, true);
+          ...
+    fix: SAXBuilder should be configured to disable doctype by setting disallowDoctypeDecl to true.
+    message: |-
+      A security scan detected a potentially misconfigured XML parser. If user controlled input is passed to the XML parser, the application could be vulnerable to an XXE attack.
+    metadata:
+      cwe: 'CWE-611: Improper Restriction of XML External Entity'
+      owasp: 'A4: XML External Entities'
+    languages: [java]
+    severity: WARNING

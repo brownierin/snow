@@ -1,0 +1,249 @@
+rules:
+  # Java deserialization
+  - id: java.lang.insecure-deserialization-01
+    patterns: 
+      - pattern: |-
+          $BARRAY = new ByteArrayInputStream(...);
+          ...
+          $INPUT = new $INPUT_STREAM_BASE_API($BARRAY);
+          ...
+          $INPUT.readObject();
+      - metavariable-regex:
+          metavariable: $INPUT_STREAM_BASE_API
+          regex: (ObjectInputStream|XMLDecoder|BurlapInput)
+    
+    message: |-
+      Avoid using the deserialization API $INPUT_STREAM_BASE_API with potentially untrusted data. When working with user supplied data, 
+      it's better to use safe serialization API such as Gson, Protobuf or ObjectMapper (without default typing).
+      
+      A security scan detected the use of a potentially unsafe deserialization.  If user controlled input is passed to the 
+      ByteArrayInputStream, it could lead to remote code execution.
+    metadata:
+      cwe: 'CWE-502: Deserialization of Untrusted Data'
+      owasp: 'A8: Insecure Deserialization'
+    languages: [java]
+    severity: WARNING
+
+  # ObjectMapper deserialization insecure configuration
+  - id: java.lang.insecure-deserialization-02
+    pattern-either: 
+      pattern: $OM.enableDefaultTyping(...);
+      pattern: $OM.setDefaultTyping(...);
+      pattern: @JsonTypeInfo(..., use=JsonTypeInfo.Id.CLASS, ...)
+    message: |-
+      A security scan detected use of a potentially unsafe deserialization.  If user controlled input is passed to the ObjectMapper, 
+      it could lead to remote code execution as it isn't securely configured.
+
+      Avoid using default typing with ObjectMapper. If you need to handle deserialization of polymorphic type, configure 
+      them by JsonTypeInfo.Id.NAME with the @JsonTypeInfo annotation.
+    metadata:
+      cwe: 'CWE-502: Deserialization of Untrusted Data'
+      owasp: 'A8: Insecure Deserialization'
+    languages: [java]
+    severity: WARNING
+
+  # XStream deserialization
+  - id: java.lang.insecure-deserialization-03
+    patterns: 
+      - pattern-inside: $XSTREAM = new XStream(...); ...
+      - pattern-either: 
+        - pattern: |-
+            $VALUE =  new ByteArrayInputStream(...);
+            ...
+            $OBJECT = $XSTREAM.fromXML($VALUE);
+        - pattern: |-
+            String $VALUE = ...;
+            ...
+            $OBJECT = $XSTREAM.fromXML($VALUE);
+        - pattern: |-
+            $RETURN_TYPE $METHOD(..., String $VALUE, ...) {
+              ...
+              $OBJECT = $XSTREAM.fromXML($VALUE);
+              ...
+            }
+    message: |-
+      A security scan detected use of a potentially unsafe deserialization.  If user controlled input is passed to the ByteArrayInputStream, 
+      it could lead to remote code execution.
+
+      Avoid using XStream deserialization with potentially untrusted data. When working with user supplied data, 
+      it's better to use safe serialization API such as Gson, Protobuf or ObjectMapper (without default typing).
+    metadata:
+      cwe: 'CWE-502: Deserialization of Untrusted Data'
+      owasp: 'A8: Insecure Deserialization'
+    languages: [java]
+    severity: WARNING
+
+  # Kryo deserialization
+  - id: java.lang.insecure-deserialization-04
+    patterns: 
+      - pattern-inside: $KRYO = new Kryo(...); ... 
+      - pattern-either: 
+          - pattern: |-
+              $VALUE = new ByteArrayInputStream(...);
+              ...
+              $INPUT = new Input($VALUE); 
+              ...
+              $OBJECT = $KRYO.readObject($INPUT, ...);
+          - pattern: |-
+              $INPUT = new Input($VALUE.getBytes()); 
+              ...
+              $OBJECT = $KRYO.readObject($INPUT, ...);
+    message: |-
+      A security scan detected use of a potentially unsafe deserialization.  If user controlled input is passed to ByteArrayInputStream, 
+      it could lead to remote code execution.
+
+      Avoid using Kryo deserialization with potentially untrusted data. When working with user supplied data, 
+      it's better to use safe serialization API such as Gson, Protobuf or ObjectMapper (without default typing).
+    metadata:
+      cwe: 'CWE-502: Deserialization of Untrusted Data'
+      owasp: 'A8: Insecure Deserialization'
+    languages: [java]
+    severity: WARNING
+
+  # Castor / JaxB / ...
+  - id: java.lang.insecure-deserialization-05
+    patterns:  
+      - pattern-either: 
+          - pattern: |-
+              $VALUE = new StringReader(...);
+              ...
+              $RESULT = $UNMARSHALLER.unmarshal($VALUE);
+          - pattern: |-
+              $RESULT = $UNMARSHALLER.unmarshal(new StringReader(...));
+          - pattern: |-
+              $VALUE = new StringReader(...);
+              ...
+              $RESULT = $UNMARSHALLER.unmarshal(..., $VALUE);
+          - pattern: |-
+              $RESULT = $UNMARSHALLER.unmarshal(..., new StringReader(...));
+    message: |-
+      A security scan detected use of a potentially unsafe deserialization.  If user controlled input is passed to StringReader, 
+      it could lead to remote code execution.
+
+      Avoid using deserialization with this API with potentially untrusted data. When working with user supplied data, 
+      it's better to use safe serialization API such as Gson, Protobuf or ObjectMapper (without default typing).
+    metadata:
+      cwe: 'CWE-502: Deserialization of Untrusted Data'
+      owasp: 'A8: Insecure Deserialization'
+    languages: [java]
+    severity: WARNING
+
+  # json-io
+  - id: java.lang.insecure-deserialization-06
+    pattern: JsonReader.jsonToJava(...)
+    message: |-
+      A security scan detected use of a potentially unsafe deserialization.  If user controlled input is passed to jsonToJava, 
+      it could lead to remote code execution.
+
+      Avoid using json-io deserialization with potentially untrusted data. When working with user supplied data, 
+      it's better to use safe serialization API such as Gson, Protobuf or ObjectMapper (without default typing).
+    metadata:
+      cwe: 'CWE-502: Deserialization of Untrusted Data'
+      owasp: 'A8: Insecure Deserialization'
+    languages: [java]
+    severity: WARNING
+
+  
+  # FastJSON
+  - id: java.lang.insecure-deserialization-07
+    pattern: JSON.parseObject(...)
+    message: |-
+      A security scan detected use of a potentially unsafe deserialization.  If user controlled input is passed to parseObject, 
+      it could lead to remote code execution.
+
+      Avoid using FastJSON deserialization with potentially untrusted data. When working with user supplied data, 
+      it's better to use safe serialization API such as Gson, Protobuf or ObjectMapper (without default typing).
+    metadata:
+      cwe: 'CWE-502: Deserialization of Untrusted Data'
+      owasp: 'A8: Insecure Deserialization'
+    languages: [java]
+    severity: WARNING
+
+  # Genson
+  - id: java.lang.insecure-deserialization-08
+    pattern: |-
+      Genson $GENSON = ...;
+      ...
+      $GENSON.deserialize(...);
+    message: |-
+      A security scan detected use of a potentially unsafe deserialization.  If user controlled input is passed to deserialize, 
+      it could lead to remote code execution.
+
+      Avoid using Genson deserialization with potentially untrusted data. When working with user supplied data, 
+      it's better to use safe serialization API such as Gson, Protobuf or ObjectMapper (without default typing).
+    metadata:
+      cwe: 'CWE-502: Deserialization of Untrusted Data'
+      owasp: 'A8: Insecure Deserialization'
+    languages: [java]
+    severity: WARNING
+
+  # JSONDeserializer
+  - id: java.lang.insecure-deserialization-09
+    pattern: |-
+      JSONDeserializer $SERIALIZER = ...;
+      ...
+      $SERIALIZER.deserialize(...);
+    message: |-
+      A security scan detected use of a potentially unsafe deserialization.  If user controlled input is passed to deserialize, 
+      it could lead to remote code execution.
+
+      Avoid using Flexjson deserialization with potentially untrusted data. When working with user supplied data, 
+      it's better to use safe serialization API such as Gson, Protobuf or ObjectMapper (without default typing).
+    metadata:
+      cwe: 'CWE-502: Deserialization of Untrusted Data'
+      owasp: 'A8: Insecure Deserialization'
+    languages: [java]
+    severity: WARNING
+
+  # Jodd
+  - id: java.lang.insecure-deserialization-10
+    patterns: 
+      pattern-inside: |-
+        JsonParser $JSON_PARSER = ...;
+        ...
+      pattern: |-
+        $JSON_PARSER.setClassMetadataName(...)
+    message: |-
+      A security scan detected use of a potentially unsafe deserialization. If user controlled input is passed to JsonParser, 
+      it could lead to remote code execution.
+
+      Avoid using the configuration setClassMetadataName as it allows arbitrary class to be instanciated. When working with user supplied data, 
+      it's better to use safe serialization API such as Gson, Protobuf or ObjectMapper (without default typing).
+    metadata:
+      cwe: 'CWE-502: Deserialization of Untrusted Data'
+      owasp: 'A8: Insecure Deserialization'
+    languages: [java]
+    severity: WARNING
+
+  # Red5 (AMF)
+  - id: java.lang.insecure-deserialization-11
+    pattern: Deserializer.deserialize(...)
+    message: |-
+      A security scan detected use of a potentially unsafe deserialization.  If user controlled input is passed to deserialize, 
+      it could lead to remote code execution.
+
+      Avoid using Red5 AMF deserialization with potentially untrusted data. When working with user supplied data, 
+      it's better to use safe serialization API such as Gson, Protobuf or ObjectMapper (without default typing).
+    metadata:
+      cwe: 'CWE-502: Deserialization of Untrusted Data'
+      owasp: 'A8: Insecure Deserialization'
+    languages: [java]
+    severity: WARNING
+
+  # AMF general rules (detect path to AMF endpoints)
+  - id: java.lang.insecure-deserialization-12
+    pattern-either: 
+      pattern: "~=/.*messagebroker\/amf.*/"
+    message: |-
+      A security scan detected use of a potentially unsafe deserialization (AMF endpoint).
+
+      Avoid using the AMF protocol as it is known to be vulnerable to deserialization vulnerabilities. When working with user supplied data, 
+      it's better to use safe serialization API such as Gson, Protobuf or ObjectMapper (without default typing).
+    metadata:
+      cwe: 'CWE-502: Deserialization of Untrusted Data'
+      owasp: 'A8: Insecure Deserialization'
+    languages: [java]
+    severity: WARNING
+
+
+  
