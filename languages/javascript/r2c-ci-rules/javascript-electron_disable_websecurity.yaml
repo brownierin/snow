@@ -8,7 +8,8 @@ rules:
         var $X = {webPreferences: {webSecurity: false}};
   message: >-
     Disabling webSecurity will disable the same-origin policy and allows the
-    execution of insecure code from any domain.
+    execution of insecure code from any domain. `webSecurity` should be configured
+    to `true`.
   languages:
   - javascript
   severity: ERROR

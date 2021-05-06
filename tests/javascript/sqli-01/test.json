@@ -1,0 +1,4 @@
+{
+    "expected-result-count" : 2,
+    "expected-match" : ["languages.javascript.slack.javascript.potential-sqli-01"]
+}

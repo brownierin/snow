@@ -5,7 +5,8 @@ rules:
       $X.compile(..., {noEscape: true}, ...)
   message: >-
     Disabling Escaping in Handlebars is not a secure behaviour. This can
-    introduce XSS vulnerabilties.
+    introduce XSS vulnerabilties. If you need to have values printed
+    as HTML, use `{{{ }}}` for those values instead of turning off escaping.
   languages:
   - javascript
   severity: ERROR

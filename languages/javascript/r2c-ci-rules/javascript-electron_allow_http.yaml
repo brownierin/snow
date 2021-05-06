@@ -9,7 +9,8 @@ rules:
         var $X = {webPreferences: {allowRunningInsecureContent: true}};
   message: >-
     Application can load content over HTTP and that makes the app vulnerable
-    to Man in the middle attacks.
+    to Man in the middle attacks. `allowRunningInsecureContent` should be configured
+    to `false`.
   languages:
   - javascript
   severity: ERROR
