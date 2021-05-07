@@ -13,11 +13,11 @@ rules:
           regex: (ObjectInputStream|XMLDecoder|BurlapInput)
     
     message: |-
+      A security scan detected the use of a potentially unsafe deserialization. If user controlled input is passed to the 
+      ByteArrayInputStream, it could lead to remote code execution.
+
       Avoid using the deserialization API $INPUT_STREAM_BASE_API with potentially untrusted data. When working with user supplied data, 
       it's better to use safe serialization API such as Gson, Protobuf or ObjectMapper (without default typing).
-      
-      A security scan detected the use of a potentially unsafe deserialization.  If user controlled input is passed to the 
-      ByteArrayInputStream, it could lead to remote code execution.
     metadata:
       cwe: 'CWE-502: Deserialization of Untrusted Data'
       owasp: 'A8: Insecure Deserialization'
@@ -26,10 +26,15 @@ rules:
 
   # ObjectMapper deserialization insecure configuration
   - id: java.lang.insecure-deserialization-02
-    pattern-either: 
-      pattern: $OM.enableDefaultTyping(...);
-      pattern: $OM.setDefaultTyping(...);
-      pattern: @JsonTypeInfo(..., use=JsonTypeInfo.Id.CLASS, ...)
+    patterns:
+      - pattern-either: 
+        - pattern: $OM.enableDefaultTyping(...);
+        - pattern: $OM.setDefaultTyping(...);
+        - pattern: |-
+            @JsonTypeInfo(..., use=JsonTypeInfo.Id.CLASS, ...)
+            class $CLS {
+              ...
+            } 
     message: |-
       A security scan detected use of a potentially unsafe deserialization.  If user controlled input is passed to the ObjectMapper, 
       it could lead to remote code execution as it isn't securely configured.
@@ -45,20 +50,29 @@ rules:
   # XStream deserialization
   - id: java.lang.insecure-deserialization-03
     patterns: 
-      - pattern-inside: $XSTREAM = new XStream(...); ...
-      - pattern-either: 
-        - pattern: |-
-            $VALUE =  new ByteArrayInputStream(...);
-            ...
-            $OBJECT = $XSTREAM.fromXML($VALUE);
-        - pattern: |-
-            String $VALUE = ...;
-            ...
-            $OBJECT = $XSTREAM.fromXML($VALUE);
+      - pattern-either:
+        - patterns:
+          - pattern-inside:
+              $RETURN_TYPE $METHOD (...) {
+                ...
+                $XSTREAM = new XStream(...); 
+                ... 
+              }
+          - pattern-either: 
+            - pattern: |-
+                $VALUE =  new ByteArrayInputStream(...);
+                ...
+                $XSTREAM.fromXML($VALUE);
+            - pattern: |-
+                String $VALUE = ...;
+                ...
+                $XSTREAM.fromXML($VALUE);
         - pattern: |-
             $RETURN_TYPE $METHOD(..., String $VALUE, ...) {
               ...
-              $OBJECT = $XSTREAM.fromXML($VALUE);
+              $XSTREAM = new XStream(...); 
+              ...
+              $XSTREAM.fromXML($VALUE);
               ...
             }
     message: |-
@@ -76,18 +90,23 @@ rules:
   # Kryo deserialization
   - id: java.lang.insecure-deserialization-04
     patterns: 
-      - pattern-inside: $KRYO = new Kryo(...); ... 
+      - pattern-inside: |-
+          $RETURN_TYPE $METHOD (...) {
+            ...
+            $KRYO = new Kryo(...); 
+            ... 
+          }
       - pattern-either: 
           - pattern: |-
               $VALUE = new ByteArrayInputStream(...);
               ...
               $INPUT = new Input($VALUE); 
               ...
-              $OBJECT = $KRYO.readObject($INPUT, ...);
+              $KRYO.readObject($INPUT, ...);
           - pattern: |-
               $INPUT = new Input($VALUE.getBytes()); 
               ...
-              $OBJECT = $KRYO.readObject($INPUT, ...);
+              $KRYO.readObject($INPUT, ...);
     message: |-
       A security scan detected use of a potentially unsafe deserialization.  If user controlled input is passed to ByteArrayInputStream, 
       it could lead to remote code execution.
@@ -105,19 +124,16 @@ rules:
     patterns:  
       - pattern-either: 
           - pattern: |-
-              $VALUE = new StringReader(...);
+              $VALUE = new $UNSAFE_READER(...);
               ...
-              $RESULT = $UNMARSHALLER.unmarshal($VALUE);
+              $UNMARSHALLER.unmarshal(..., $VALUE);
           - pattern: |-
-              $RESULT = $UNMARSHALLER.unmarshal(new StringReader(...));
-          - pattern: |-
-              $VALUE = new StringReader(...);
-              ...
-              $RESULT = $UNMARSHALLER.unmarshal(..., $VALUE);
-          - pattern: |-
-              $RESULT = $UNMARSHALLER.unmarshal(..., new StringReader(...));
+              $UNMARSHALLER.unmarshal(..., new $UNSAFE_READER(...))
+      - metavariable-regex:
+          metavariable: $UNSAFE_READER
+          regex: (StringReader|ByteArrayInputStream|URL)
     message: |-
-      A security scan detected use of a potentially unsafe deserialization.  If user controlled input is passed to StringReader, 
+      A security scan detected use of a potentially unsafe deserialization.  If user controlled input is passed to $UNSAFE_READER, 
       it could lead to remote code execution.
 
       Avoid using deserialization with this API with potentially untrusted data. When working with user supplied data, 
@@ -198,11 +214,15 @@ rules:
   # Jodd
   - id: java.lang.insecure-deserialization-10
     patterns: 
-      pattern-inside: |-
+    - pattern-inside: |-
         JsonParser $JSON_PARSER = ...;
         ...
-      pattern: |-
-        $JSON_PARSER.setClassMetadataName(...)
+    - pattern-either: 
+        - pattern: $JSON_PARSER.setClassMetadataName(...)
+        - pattern: new JsonParser().setClassMetadataName(...)
+        - pattern: new JsonParser().$METHOD1(...).setClassMetadataName(...)
+        - pattern: new JsonParser().$METHOD1(...).$METHOD2(...).setClassMetadataName(...)
+        - pattern: new JsonParser().$METHOD1(...).$METHOD2(...).$METHOD3(...).setClassMetadataName(...)
     message: |-
       A security scan detected use of a potentially unsafe deserialization. If user controlled input is passed to JsonParser, 
       it could lead to remote code execution.
@@ -232,8 +252,8 @@ rules:
 
   # AMF general rules (detect path to AMF endpoints)
   - id: java.lang.insecure-deserialization-12
-    pattern-either: 
-      pattern: "~=/.*messagebroker\/amf.*/"
+    pattern: |-
+        "=~/.*messagebroker\/amf.*/"
     message: |-
       A security scan detected use of a potentially unsafe deserialization (AMF endpoint).
 
@@ -245,5 +265,34 @@ rules:
     languages: [java]
     severity: WARNING
 
+  # jYAML
+  - id: java.lang.insecure-deserialization-13
+    pattern: Yaml.loadType(...)
+    message: |-
+      A security scan detected use of a potentially unsafe deserialization. If user controlled input is passed to Yaml.loadType, 
+      it could lead to remote code execution.
+
+      Avoid using jYAML deserialization with potentially untrusted data. When working with user supplied data, 
+      it's better to use safe serialization API such as Gson, Protobuf or ObjectMapper (without default typing).
+    metadata:
+      cwe: 'CWE-502: Deserialization of Untrusted Data'
+      owasp: 'A8: Insecure Deserialization'
+    languages: [java]
+    severity: WARNING
+
+  # YamlBeans
+  - id: java.lang.insecure-deserialization-14
+    pattern: new YamlReader(...)
+    message: |-
+      A security scan detected use of a potentially unsafe deserialization. If user controlled input is passed to YamlReader, 
+      it could lead to remote code execution.
+
+      Avoid using YamlBeans deserialization with potentially untrusted data. When working with user supplied data, 
+      it's better to use safe serialization API such as Gson, Protobuf or ObjectMapper (without default typing).
+    metadata:
+      cwe: 'CWE-502: Deserialization of Untrusted Data'
+      owasp: 'A8: Insecure Deserialization'
+    languages: [java]
+    severity: WARNING
 
   
