@@ -324,7 +324,7 @@ def alert_channel():
                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
     else:
-        print "This is test job"
+        print ("This is test job")
         pass
 
 
