@@ -231,11 +231,10 @@ def add_hash_id(jsonFile):
 # Alerts will not fire unless on a server 'slack'. Command is different on local env.
 def alert_channel():
     try:
-        fullstring = os.environ['JOB_NAME']
-        print("Printing the value of fullstring")
-        print(fullstring)
-        substring = "security-semgrep-prodsec-test"
-        fullstring.index(substring)
+        current_jenkins_job = os.environ['JOB_NAME']
+        print("Printing the value of current_jenkins_job")
+        print(current_jenkins_job)
+        current_jenkins_job.index(CONFIG['general']['jenkins_test_job'])
     except ValueError:
         semgrep_output_files = os.listdir(RESULTS_DIR)
         semgrep_errors = False
