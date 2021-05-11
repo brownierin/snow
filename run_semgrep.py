@@ -230,14 +230,13 @@ def add_hash_id(jsonFile):
 # Alerts utilize the 'slack' command on servers, which allows messages to be sent. Careful with backticks.
 # Alerts will not fire unless on a server 'slack'. Command is different on local env.
 def alert_channel():
-    try:
-        current_jenkins_job = os.environ['JOB_NAME']
-        print("Printing the value of current_jenkins_job")
-        print(current_jenkins_job)
-        print("Printing the value of jenkins_test_job")
-        print(CONFIG['general']['jenkins_test_job'])
-        current_jenkins_job.index(CONFIG['general']['jenkins_test_job'])
-    except ValueError:
+    current_jenkins_job = os.environ['JOB_NAME']
+    print("Printing the value of current_jenkins_job")
+    print(current_jenkins_job)
+    print("Printing the value of jenkins_test_job")
+    print(CONFIG['general']['jenkins_test_job'])
+
+    if current_jenkins_job.lower() != CONFIG['general']['jenkins_test_job'].lower():
         semgrep_output_files = os.listdir(RESULTS_DIR)
         semgrep_errors = False
         alert_json, error_json = {}, {}
@@ -325,7 +324,7 @@ def alert_channel():
             subprocess.run("echo \":test-error: There were errors this run. Check Jenkins https://jenkins.tinyspeck.com/job/security-semgrep-prodsec \" | slack --channel="+CONFIG['general']['alertchannel']+" --cat --user=SNOW ",
                 shell=True,
                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-
+                
     else:
         print ("This is test job")
         pass
