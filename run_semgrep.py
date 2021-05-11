@@ -234,6 +234,8 @@ def alert_channel():
         current_jenkins_job = os.environ['JOB_NAME']
         print("Printing the value of current_jenkins_job")
         print(current_jenkins_job)
+        print("Printing the value of jenkins_test_job")
+        print(CONFIG['general']['jenkins_test_job'])
         current_jenkins_job.index(CONFIG['general']['jenkins_test_job'])
     except ValueError:
         semgrep_output_files = os.listdir(RESULTS_DIR)
