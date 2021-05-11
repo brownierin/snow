@@ -232,6 +232,8 @@ def add_hash_id(jsonFile):
 def alert_channel():
     try:
         fullstring = os.environ['JOB_NAME']
+        print("Printing the value of fullstring")
+        print(fullstring)
         substring = "security-semgrep-prodsec-test"
         fullstring.index(substring)
     except ValueError:
