@@ -69,13 +69,39 @@ def get_repo_list():
 def get_docker_image():
     version = CONFIG['general']['version']
     digest = CONFIG['general']['digest']
-    print("Downloading Semgrep")
-    subprocess.run(["docker", "pull","returntocorp/semgrep:"+version], check=True, stdout=subprocess.PIPE)
+
+    if mode == None:
+        download_semgrep(version)
+    elif mode == "version":
+        download_semgrep("latest")
+
     print("Verifying Semgrep")
-    process = subprocess.run("docker inspect --format='{{.RepoDigests}}' returntocorp/semgrep:"+version, shell=True, check=True, stdout=subprocess.PIPE)
-    if digest.find((process.stdout).decode("utf-8")) != -1:
-        raise Exception("Digest semgrep mismatch!")
-    print("Semgrep downloaded and verified")
+    digest_check_scan = check_digest(digest, version)
+
+    if mode == "version":
+        digest_check_update = check_digest(digest, "latest")
+        if digest_check_update == -1:
+            print("[!!] A new version of semgrep is available.")
+            return 1
+        else: 
+            print("[+] Semgrep is up to date.")
+            return 0
+    else:
+        if digest_check_scan != -1:
+            raise Exception("[!!] Digest mismatch!")
+        print("Semgrep downloaded and verified")
+
+
+def download_semgrep(version):
+    print("Downloading Semgrep " + version)
+    command = ["docker", "pull","returntocorp/semgrep:"+version]
+    subprocess.run(command, check=True, stdout=subprocess.PIPE)
+
+
+def check_digest(digest, version):
+    command = "docker inspect --format='{{.RepoDigests}}' returntocorp/semgrep:"+version
+    process = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE)
+    return digest.find((process.stdout).decode("utf-8"))
 
 
 def download_repos():
