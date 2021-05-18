@@ -1,0 +1,63 @@
+rules:
+  # Insecure usage of Chrome extension API
+  - id: javascript.chrome-message-01
+    patterns: 
+      - pattern-either:
+        - pattern: |-
+            chrome.runtime.$MESSAGE_API.addListener(function ($REQUEST, $SENDER, ...) {
+              ...
+            });
+        - pattern: |-
+            function $FUNC ($REQUEST, $SENDER, ...) {
+              ...
+            }
+            ...
+            chrome.runtime.$MESSAGE_API.addListener($FUNC);
+        - pattern: |-
+            chrome.runtime.$MESSAGE_API.addListener($FUNC);
+            ...
+            function $FUNC ($REQUEST, $SENDER, ...) {
+              ...
+            }
+      - pattern-not: |-
+          chrome.runtime.$MESSAGE_API.addListener(function ($REQUEST, $SENDER, ...) {
+            ...
+            if (<... $SENDER.id ...>) {
+              ...
+            }
+            ...
+          });
+      - pattern-not: |-
+          function $FUNC ($REQUEST, $SENDER, ...) {
+            ...
+            if (<... $SENDER.id ...>) {
+              ...
+            }
+            ...
+          }
+          ...
+          chrome.runtime.$MESSAGE_API.addListener($FUNC);
+      - pattern-not: |-
+          chrome.runtime.$MESSAGE_API.addListener($FUNC);
+          ...
+          function $FUNC ($REQUEST, $SENDER, ...) {
+            ...
+            if (<... $SENDER.id ...>) {
+              ...
+            }
+            ...
+          }
+      - metavariable-regex:
+          metavariable: "$MESSAGE_API"
+          regex: "(onMessageExternal|onMessage)"
+
+    message: |-
+      A security scan detected a potentially unsafe usage of $MESSAGE_API. 
+      It appears that the handler doesn't validate who the sender is. This could allow 
+      a malicious page or extension to send arbitrary message to this handler.
+
+      You should validate that the value contained in $SENDER.id is authorized to send message to this handler.
+    metadata:
+      cwe: 'CWE-20: Improper Input Validation'
+    languages: [javascript, typescript]
+    severity: WARNING

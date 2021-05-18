@@ -1,0 +1,4 @@
+{
+    "expected-result-count" : 1,
+    "expected-match" : ["languages.java.slack.java.lang.insecure-deserialization-14"]
+}

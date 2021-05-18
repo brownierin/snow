@@ -7,6 +7,7 @@ import os
 import glob
 import json
 import sys
+import argparse
 
 CONFIG = configparser.ConfigParser()
 CONFIG.read('config.cfg')
@@ -27,6 +28,12 @@ def scan_folder(folder, configlanguage, output_file):
 
     subprocess.run(semgrep_command, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
+
+parser = argparse.ArgumentParser(description='Test runner for the semgrep rules.')
+parser.add_argument('--lang', required=False)
+parser.add_argument('--test', required=False)
+args = parser.parse_args()
+
 local_test_directory = SNOW_ROOT + CONFIG['general']['tests_repositories']
 local_results_directory = SNOW_ROOT + CONFIG['general']['results']
 
@@ -38,6 +45,13 @@ for test_config_path in glob.glob(local_test_directory + "/*/*/test.json"):
         file_part = test_config_path.split("/")
         test_case_name = file_part[-2]
         language = file_part[-3]
+
+        # Ignore test cases we don't want to run
+        if args.lang and not args.lang == language:
+            continue
+
+        if args.test and not args.test == test_case_name:
+            continue
 
         test_config = {}
         with open(test_config_path) as f:

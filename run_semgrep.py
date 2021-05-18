@@ -12,7 +12,6 @@ import time
 import process_hash_ids as comparison
 from pathlib import Path
 import argparse
-import sys
 
 
 # Get config file and read.
@@ -27,12 +26,12 @@ LANGUAGES_DIR = SNOW_ROOT + CONFIG['general']['languages_dir']
 RESULTS_DIR = SNOW_ROOT + CONFIG['general']['results']
 REPOSITORIES_DIR = SNOW_ROOT + CONFIG['general']['repositories']
 
+
 def cleanup_workspace():
     print('Begin Cleanup Workspace')
     mode = int('775', base=8)
     os.makedirs(RESULTS_DIR, mode=mode, exist_ok=True)
     clean_results_dir()
-    shutil.rmtree(REPOSITORIES_DIR, ignore_errors=True)
     os.makedirs(REPOSITORIES_DIR, mode=mode, exist_ok=True)
     print('End Cleanup Workspace')
 
@@ -67,7 +66,7 @@ def get_repo_list():
     return repos
 
 
-def get_docker_image(mode=None):
+def get_docker_image():
     version = CONFIG['general']['version']
     digest = CONFIG['general']['digest']
 
@@ -114,24 +113,34 @@ def download_repos():
             with open(filename) as f:
                 content = f.read().splitlines()
             for repo in content:
-                print("Cloning Repo " + repo)
-                git_repo = "git@slack-github.com:slack/" + repo + ".git"
-                process = subprocess.run("git -C " + REPOSITORIES_DIR + " clone " + git_repo, shell=True,
-                                         stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                # If we fail to download from Enterprise, try tinyspeck
-                if process.returncode == 128:
-                    git_repo_url = "https://github.com/tinyspeck"
-                    git_repo = "https://github.com/tinyspeck/" + repo + ".git"
-                    process = subprocess.run("git -C " + REPOSITORIES_DIR + " clone " + git_repo, shell=True, check=True,
-                                   stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                print(process.stdout.decode("utf-8"))
-                get_sha_process = subprocess.run("git -C " + REPOSITORIES_DIR +"/"+repo +" rev-parse HEAD", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                git_repo = f"git@slack-github.com:slack/{repo}.git"
+                if repo == "webapp":
+                    print("Updating webapp")
+                    command = f"git -C {REPOSITORIES_DIR}webapp fetch --tags --force --progress "
+                    command += f"-- {git_repo} +refs/heads/*:refs/remotes/origin1/*"
+                    process = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                else:
+                    if os.path.isdir(f"{REPOSITORIES_DIR}{repo}"):
+                        print(f"Updating repo: {repo}")
+                        pull_command = f"git -C {REPOSITORIES_DIR}{repo} pull"
+                        pull = subprocess.run(pull_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                    else:
+                        clone_command = f"git -C {REPOSITORIES_DIR} clone {git_repo}"
+                        clone = subprocess.run(clone_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                        # If we fail to download from Enterprise, try tinyspeck
+                        if clone.returncode == 128:
+                            git_repo_url = "https://github.com/tinyspeck"
+                            git_repo = "https://github.com/tinyspeck/" + repo + ".git"
+                            clone = subprocess.run(clone_command, shell=True, check=True,
+                                           stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                        print(clone.stdout.decode("utf-8"))
+                get_sha_process = subprocess.run("git -C " + REPOSITORIES_DIR + repo +" rev-parse HEAD", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                 git_sha = get_sha_process.stdout.decode("utf-8").rstrip()
                 scan_repo(repo, CONFIG[language]['language'], language, git_repo_url, git_sha)
 
 def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
     git_sha = git_sha.rstrip()
-    print('Scanning Repo ' + repo)
+    print('Scanning repo: ' + repo)
     output_file = f"{language}-{repo}-{git_sha[:7]}.json"
     semgrep_command = "docker run --user \"$(id -u):$(id -g)\" --rm -v " + SNOW_ROOT + ":/src returntocorp/semgrep:" + \
                       CONFIG['general']['version'] + " " + CONFIG[configlanguage]['config'] + " " + \
@@ -389,6 +398,9 @@ def run_semgrep_pr(repo, git):
     get_sha_process = subprocess.run("echo $CIBOT_COMMIT_HEAD", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     git_sha_branch = get_sha_process.stdout.decode("utf-8").rstrip()
     git_sha_branch_short = git_sha_branch[:7]
+    # Make sure you are on the branch to scan by switching to it.
+    process = subprocess.run("git -C " + REPOSITORIES_DIR + repo + " checkout -f " + git_sha_branch, shell=True, check=True,stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    print("Branch Checkout: " + process.stdout.decode("utf-8"))
     scan_repo(repo, repo_language, config_language, git_repo_url, git_sha_branch_short)
     print(git_sha_branch + " sha branch")
 
@@ -402,7 +414,8 @@ def run_semgrep_pr(repo, git):
         raise Exception("Master and HEAD are equal. Need to compare against two different SHAs!")
 
     # Switch repo to master, so we scan that.
-    subprocess.run("git -C " + REPOSITORIES_DIR + repo + " checkout -f master", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    process = subprocess.run("git -C " + REPOSITORIES_DIR + repo + " checkout -f "+ git_sha_master, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    print("Master Checkout: " + process.stdout.decode("utf-8"))
     scan_repo(repo, repo_language, config_language, git_repo_url, git_sha_master_short)
 
     # Pass in the branch and master to compare for new vulnerabilities. Output file in format language-repo-sha_master-sha_branch.json
@@ -416,7 +429,6 @@ def run_semgrep_pr(repo, git):
     # Read the created json output, report on any new vulnerabilities.
     with open(RESULTS_DIR + repo_language+"-"+repo+"-"+git_sha_master_short+"-"+git_sha_branch_short + ".json") as file:
         data = json.load(file)
-        file.close()
         if data['results'] == "No new findings":
             print("No new vulnerabilities detected!")
             exit(0)
@@ -430,10 +442,10 @@ def run_semgrep_pr(repo, git):
             comparison.remove_false_positives(json_filename, "false_positives.json", parsed_filename)
             with open(parsed_filename) as fileParsed:
                 data = json.load(fileParsed)
-                file.close()
                 # No vulnerabilities would be checking for an empty array.
                 if not data['results']:
                     print("No new vulnerabilities detected!")
+                    file.close()
                     exit(0)
                 else:
                     # Print the results to console so DEV can review.
@@ -441,7 +453,8 @@ def run_semgrep_pr(repo, git):
                     print('=============New vulnerabilities Detected.=============')
                     print('=======================================================')
                     print('Please review the following output. Reach out to #triage-prodsec with questions.')
-                    json.dump(data['results'], file, sort_keys=True, indent=4)
+                    print(data['results'])
+                    file.close()
                     # Exit with status code 1, which should flag the test as failed in Checkpoint/GitHub.
                     exit(1)
 
@@ -472,6 +485,3 @@ if __name__ == '__main__':
         run_semgrep_daily()
     elif args.mode == "pr":
         run_semgrep_pr(args.repo, args.git)
-    elif args.mode == "version":
-        exit_code = get_docker_image(args.mode)
-        sys.exit(exit_code)

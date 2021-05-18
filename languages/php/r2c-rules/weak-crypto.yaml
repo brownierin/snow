@@ -6,7 +6,9 @@ rules:
       metavariable: $FUNC
       regex: crypt|md5|md5_file|sha1|sha1_file|str_rot13
   message: |
-    Detected usage of weak crypto function. Consider using stronger alternatives.
+    Detected usage of weak crypto function. 
+    
+    See this page for the recommended algorithm to use : https://app.getguru.com/card/cBEbyLBi/Application-Security-Cryptographic-Guidelines-for-Development
   metadata:
     references:
     - https://www.php.net/manual/en/book.sodium.php

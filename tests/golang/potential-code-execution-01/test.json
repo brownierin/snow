@@ -1,0 +1,4 @@
+{
+    "expected-result-count" : 2,
+    "expected-match" : ["languages.golang.slack.potential-code-execution-1"]
+}

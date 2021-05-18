@@ -1,0 +1,4 @@
+{
+    "expected-result-count" : 3,
+    "expected-match" : ["languages.php.slack.slack.php.unserialize-01"]
+}

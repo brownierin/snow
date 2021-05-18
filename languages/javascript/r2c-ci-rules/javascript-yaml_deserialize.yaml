@@ -8,7 +8,8 @@ rules:
       $X.load(...)
   message: >-
     User controlled data in 'yaml.load()' function can result in Remote Code
-    Injection.
+    Injection. When dealing with user controlled data, it is prefered to use
+    format such as JSON instead of YAML. 
   languages:
   - javascript
   severity: ERROR

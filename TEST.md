@@ -4,6 +4,14 @@ To run the tests, move to the root of the SNOW project and run the following com
 
 > ./run_tests.py
 
+To run the tests related to only one language, you can use the argument `--lang`.
+
+> ./run_tests.py --lang [LANGUAGE]
+
+To run a test by it's test case name, you can use the argument `--test`.
+
+> ./run_tests.py --test [TEST_CASE_NAME]
+
 # How to add a test ?
 
 The tests are structured in the following way : 
