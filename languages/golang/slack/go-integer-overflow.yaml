@@ -1,4 +1,4 @@
-rules:
+rules: 
 - id: potential-integer-overflow
   pattern: strconv.Atoi(...)
   fix: Replace use of strconv.Atoi() with strconv.ParseInt() or strconv.ParseUint() for bit sized unsigned integers.
