@@ -1,0 +1,91 @@
+rules:
+  # Common bad validation that are done with attacker controllable values
+  - id: java.lang.path-validation-01
+    patterns: 
+    - pattern-inside: $VALUE = $SERVLET.getRequestURI(); ...
+    - pattern-either:
+      - pattern: $VALUE.contains(...)
+      - pattern: $VALUE.startsWith(...)
+      - pattern: $VALUE.endsWith(...)
+      - pattern: $VALUE.indexOf(...)
+    message: |-
+      A security scan detected a conditional that could potentially be bypassed. The value returned by getRequestURI() can contain arbitrary content that is controlled by the attacker. When the URL "https://domain.com/path/here;jsessionid=ATTACKER_CONTROLLED" is queried, getRequestURI() returns "/path/here;jsessionid=ATTACKER_CONTROLLED". 
+
+      Avoid using getRequestURI to do any form of validation. Prefer using getContextPath(), getPathInfo() and getServletPath() to do path validation.
+    metadata:
+      cwe: 'CWE-20: Improper Input Validation'
+    languages: [java]
+    severity: WARNING
+  
+  - id: java.lang.path-validation-02
+    patterns: 
+    - pattern-inside: |-
+        $TYPE $FUNC(..., HttpServletRequest $REQ, ...) { 
+          ...
+          $VALUE = $REQ.getServerName();
+          ...
+        }
+    - pattern-either: 
+      - pattern: $VALUE.equals(...)
+      - pattern: $STRING.equals($VALUE)
+      - pattern: $VALUE.contains(...)
+      - pattern: $VALUE.startsWith(...)
+      - pattern: $VALUE.endsWith(...)
+      - pattern: $VALUE.indexOf(...)
+    message: |-
+      A security scan detected a conditional that could potentially be bypassed. The value returned by getHeader("Host") and getServerName() can contain arbitrary content that is controlled by the attacker.  
+
+      Avoid using the Host header to do security validation as this header can be controlled by an attacker. If you are looking to test whether the application is running a development environment, you should use environment variable or local file configuration.
+    metadata:
+      cwe: 'CWE-20: Improper Input Validation'
+    languages: [java]
+    severity: WARNING
+
+  - id: java.lang.path-validation-03
+    patterns: 
+    - pattern-inside: |-
+        $TYPE $FUNC(..., HttpServletRequest $REQ, ...) { 
+          ...
+          $VALUE = $REQ.getHeader("Host");
+          ...
+        }
+    - pattern-either: 
+      - pattern: $VALUE.equals(...)
+      - pattern: $STRING.equals($VALUE)
+      - pattern: $VALUE.contains(...)
+      - pattern: $VALUE.startsWith(...)
+      - pattern: $VALUE.endsWith(...)
+      - pattern: $VALUE.indexOf(...)
+    message: |-
+      A security scan detected a conditional that could potentially be bypassed. The value returned by getHeader("Host") and getServerName() can contain arbitrary content that is controlled by the attacker.  
+
+      Avoid using the Host header to do security validation as this header can be controlled by an attacker. If you are looking to test whether the application is running a development environment, you should use environment variable or local file configuration.
+    metadata:
+      cwe: 'CWE-20: Improper Input Validation'
+    languages: [java]
+    severity: WARNING
+
+  - id: java.lang.path-validation-04
+    patterns: 
+    - pattern-inside: $TYPE $FUNC(..., HttpServletRequest $REQ, ...) { ... }
+    - pattern-either: 
+      - pattern: $REQ.getHeader("Host").equals(...)
+      - pattern: $STRING.equals($REQ.getHeader("Host"))
+      - pattern: $REQ.getHeader("Host").contains(...)
+      - pattern: $REQ.getHeader("Host").startsWith(...)
+      - pattern: $REQ.getHeader("Host").endsWith(...)
+      - pattern: $REQ.getHeader("Host").indexOf(...)
+      - pattern: $REQ.getServerName().equals(...)
+      - pattern: $STRING.equals($REQ.getServerName())
+      - pattern: $REQ.getServerName().contains(...)
+      - pattern: $REQ.getServerName().startsWith(...)
+      - pattern: $REQ.getServerName().endsWith(...)
+      - pattern: $REQ.getServerName().indexOf(...)
+    message: |-
+      A security scan detected a condition that could potentially be bypassed. The value returned by getHeader("Host") and getServerName() can contain arbitrary content that is controlled by the attacker.  
+
+      Avoid using the Host header to do security validation as this header can be controlled by an attacker. If you are looking to test whether the application is running a development environment, you should use environment variable or local file configuration.
+    metadata:
+      cwe: 'CWE-20: Improper Input Validation'
+    languages: [java]
+    severity: WARNING
