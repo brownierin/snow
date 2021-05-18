@@ -71,15 +71,12 @@ def get_docker_image(mode=None):
     version = CONFIG['general']['version']
     digest = CONFIG['general']['digest']
 
-    if mode == None:
-        download_semgrep(version)
-    elif mode == "version":
-        download_semgrep("latest")
-
+    download_semgrep(version)
     print("Verifying Semgrep")
     digest_check_scan = check_digest(digest, version)
 
     if mode == "version":
+        download_semgrep("latest")
         digest_check_update = check_digest(digest, "latest")
         if digest_check_update == -1:
             print("[!!] A new version of semgrep is available.")
