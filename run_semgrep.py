@@ -74,6 +74,7 @@ def get_docker_image(mode=None):
     if mode == None:
         download_semgrep(version)
     elif mode == "version":
+        download_semgrep(version)
         download_semgrep("latest")
 
     print("Verifying Semgrep")
