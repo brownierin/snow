@@ -318,6 +318,7 @@ def alert_channel():
             shell=True,
             stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
+
 def run_semgrep_daily():
     # Delete all directories that would have old repos, or results from the last run as the build boxes may persist from previous runs.
     cleanup_workspace()
@@ -327,6 +328,7 @@ def run_semgrep_daily():
     download_repos()
     # Output Alerts to channel
     alert_channel()
+
 
 def run_semgrep_pr(repo, git):
     # Delete all directories that would have old repos, or results from the last run as the build boxes may persist from previous runs.
@@ -455,12 +457,5 @@ if __name__ == '__main__':
 
     if args.mode == "daily":
         run_semgrep_daily()
-    elif args.mode == "csv":
-        run_semgrep_csv()
-    elif args.mode == "format_csv":
-        run_semgrep_format_csv()
     elif args.mode == "pr":
         run_semgrep_pr(args.repo, args.git)
-    else:
-        print("Unknown mode '{}'. Must be daily, format_csv, csv or pr".format(args.mode))
-        exit(1)

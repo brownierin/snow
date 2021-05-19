@@ -37,7 +37,3 @@ if __name__ == '__main__':
 
             if not key in old_findings:
                 writer.writerow(new_finding)
-
-
-    
-
