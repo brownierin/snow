@@ -11,8 +11,8 @@ def open_json(filename):
     return data
 
 
-def convert(fp_filename):
-    data = open_json(fp_filename)
+def convert(fp_removed_filename):
+    data = open_json(fp_removed_filename)
     with open(CHECKPOINT_JSON_OUT, "w", encoding="utf-8") as f:
         out = []
         if "results" in data.keys():
@@ -24,6 +24,7 @@ def convert(fp_filename):
                 new_issue["output"] += "\nLocation: " + issue["path"] + ":" + str(issue["start"]["line"])
                 new_issue["output"] += "\nLines: " + issue["extra"]["lines"]
                 new_issue["output"] += "\nMetadata: " + json.dumps(issue["extra"]["metadata"],indent = 1)
+                new_issue["output"] += "\nSeverity: " + issue["extra"]["severity"]
                 new_issue["filename"] = issue["path"]
                 new_issue["line"] = int(issue["start"]["line"])
                 out.append(new_issue)
@@ -35,9 +36,9 @@ if __name__ == "__main__":
         description="Converts a semgrep JSON result to checkpoint json out"
     )
     parser.add_argument(
-        "-result",
-        "--issue_result",
-        help="issue result",
+        "-s",
+        "--semgrep_out",
+        help="json file from semgrep output with false positives removed",
     )
     args = parser.parse_args()
-    convert(args.issue_result)
+    convert(args.semgrep_out)
