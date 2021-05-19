@@ -9,6 +9,7 @@ import shutil
 import json
 import hashlib
 import time
+import checkpoint_out
 import process_hash_ids as comparison
 from pathlib import Path
 import argparse
@@ -452,6 +453,7 @@ def run_semgrep_pr(repo, git):
                     print('=======================================================')
                     print('Please review the following output. Reach out to #triage-prodsec with questions.')
                     print(data['results'])
+                    checkpoint_out.convert(parsed_filename)
                     file.close()
                     # Exit with status code 1, which should flag the test as failed in Checkpoint/GitHub.
                     exit(1)
