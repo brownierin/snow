@@ -8,8 +8,6 @@ import os
 import shutil
 import json
 import hashlib
-import csv
-import glob
 import time
 import process_hash_ids as comparison
 from pathlib import Path
@@ -320,50 +318,6 @@ def alert_channel():
             shell=True,
             stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
-
-def format_csv():
-    all_results = []
-
-    for result_file_path in glob.glob("results/*.json"):
-        filename  = result_file_path[len("results/"):]
-
-        # Ignore result from the test runner that may still be lingering here
-        if filename.startswith("test-"):
-            continue
-
-        # We only look at the result file that removed the false positives
-        if not filename.endswith("-fprm.json"):
-            continue
-
-        language, rest = filename.split("-", 1)
-        rest = rest.split(".")[0]
-        rest = rest[:rest.rindex("-")]
-        project_name = rest[:rest.rindex("-")]
-
-        with open(result_file_path) as result_file:
-            result_data = json.load(result_file)
-            
-            for finding in result_data["results"]:
-                start_line = finding["start"]["line"]
-                end_line = finding["end"]["line"]
-                path = finding["path"]
-                checkid = finding["check_id"]
-                path = path.split("/", 2)[2]
-                hash_id = finding["hash_id"]
-
-                all_results.append({
-                    "Rule" : checkid,
-                    "ProjectName" : project_name,
-                    "Language" : language,
-                    "Path" : "https://slack-github.com/slack/{}/blob/master/{}#L{}-L{}".format(project_name, path, start_line, end_line),
-                    "HashId" : hash_id
-                })
-    
-    with open("results/combined.csv", "w") as csvwrite:       
-        writer = csv.DictWriter(csvwrite, fieldnames=["Rule", "ProjectName", "Language", "Path", "Checked", "Status", "Jira", "Notes", "HashId"])
-        writer.writeheader()
-        writer.writerows(all_results)
-
 def run_semgrep_daily():
     # Delete all directories that would have old repos, or results from the last run as the build boxes may persist from previous runs.
     cleanup_workspace()
@@ -373,18 +327,6 @@ def run_semgrep_daily():
     download_repos()
     # Output Alerts to channel
     alert_channel()
-
-def run_semgrep_csv():
-    # Get Semgrep Docker image, check against a known good hash
-    get_docker_image()
-    # Download the repos in the language enabled list and run
-    download_repos()
-    # Format the result in a local CSV file
-    format_csv()
-
-def run_semgrep_format_csv():
-    # Format the result in a local CSV file
-    format_csv()
 
 def run_semgrep_pr(repo, git):
     # Delete all directories that would have old repos, or results from the last run as the build boxes may persist from previous runs.
