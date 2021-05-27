@@ -64,6 +64,7 @@ with open(args.file, "r", encoding="utf-8") as csvfile:
 
         with open(path_false_positive_file, "w") as f:
             json.dump(existing_data, f, indent=4)
+            f.write("\n")
 
         nb_added += 1
 
