@@ -23,6 +23,9 @@ def format_csv(json_files, out_csv):
             git_branch = result_data["metadata"]["branch"]
 
             for finding in result_data["results"]:
+                if not "hash_id" in finding:
+                    raise Exception(f"The result file '{result_file_path}' is missing the 'hash_id' field.")
+
                 start_line = finding["start"]["line"]
                 end_line = finding["end"]["line"]
                 checkid = finding["check_id"]
@@ -32,13 +35,13 @@ def format_csv(json_files, out_csv):
                 path = path.split("/", 2)[2]
 
                 # hash_id is only available in "fprm" result file. We need to handle when it's missing
-                hash_id = finding["hash_id"] if "hash_id" in finding else ""
+                hash_id = finding["hash_id"]
 
                 all_results.append({
                     "Rule" : checkid,
                     "ProjectName" : project_name,
                     "Language" : language,
-                    "Path" : "{}/slack/{}/blob/{}/{}#L{}-L{}".format(base_github_url, project_name, git_branch, path, start_line, end_line),
+                    "Path" : f"{base_github_url}/slack/{project_name}/blob/{git_branch}/{path}#L{start_line}-L{end_line}",
                     "HashId" : hash_id
                 })
     
