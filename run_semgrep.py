@@ -160,7 +160,6 @@ def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
     # Write to the same file
     with open(SNOW_ROOT + CONFIG['general']['results'] + output_file, 'w') as file:
         json.dump(data, file, sort_keys=True, indent=4)
-        file.close()
 
     # fprm stands for false positives removed
     fp_diff_outfile = f"{language}-{repo}-{git_sha[:7]}-fprm.json"
@@ -438,13 +437,20 @@ def run_semgrep_pr(repo, git):
             # IE: golang-rains-6466c2e6e900cdd9e8a501a695a3fc1025402d9a-2e29dd81fe30efca60694aa999f5b444fd5b829c-parsed.json
             json_filename = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master_short}-{git_sha_branch_short}.json"
             parsed_filename = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master_short}-{git_sha_branch_short}-parsed.json"
-            comparison.remove_false_positives(json_filename, "false_positives.json", parsed_filename)
+            fp_file = f"{SNOW_ROOT}/languages/{language}/false_positives/{repo}_false_positives.json"
+            comparison.remove_false_positives(json_filename, fp_file, parsed_filename)
+
+            process = subprocess.run("git -C " + REPOSITORIES_DIR + repo + " checkout -f " + git_sha_branch, shell=True, check=True,stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            print("Branch Checkout: " + process.stdout.decode("utf-8"))
+            add_hash_id(json_filename)
+            add_hash_id(parsed_filename)
+
             with open(parsed_filename) as fileParsed:
                 data = json.load(fileParsed)
                 # No vulnerabilities would be checking for an empty array.
                 if not data['results']:
                     print("No new vulnerabilities detected!")
-                    file.close()
+                    checkpoint_out.add_false_positive_info(parsed_filename, json_filename)
                     exit(0)
                 else:
                     # Print the results to console so DEV can review.
@@ -454,10 +460,9 @@ def run_semgrep_pr(repo, git):
                     print('Please review the following output. Reach out to #triage-prodsec with questions.')
                     print(data['results'])
                     checkpoint_out.convert(parsed_filename)
-                    file.close()
+                    checkpoint_out.add_false_positive_info(parsed_filename, json_filename)
                     # Exit with status code 1, which should flag the test as failed in Checkpoint/GitHub.
                     exit(1)
-
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
