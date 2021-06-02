@@ -1,5 +1,6 @@
 import json
 import argparse
+import os
 # Temporarily disabled the import requires Python 3.5.9 and the local server runs on Python 3.5.2.
 #import logging
 
@@ -31,8 +32,13 @@ def write_json(filename, json_output):
 
 
 def open_false_positives(filename):
-    data = open_json(filename)
     false_positives = set()
+
+    # When the false positive file doesn't exists we throw an error as this should never occur.
+    if not os.path.exists(filename):
+        raise Exception("The false positive file '{}' doesn't exists. Verify that the project isn't missing it's false_positives.json file.".format(filename))
+
+    data = open_json(filename)
     for fp in data:
         false_positives.add(fp)
     return false_positives
