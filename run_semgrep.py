@@ -168,7 +168,8 @@ def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
     # Add hash identifier to the json result
     # and remove false positives from the output file
     if os.path.exists(RESULTS_DIR+output_file):
-        add_hash_id(RESULTS_DIR+output_file)
+        add_hash_id(RESULTS_DIR+output_file, 2, 1, "old_hash_id")
+        add_hash_id(RESULTS_DIR+output_file, 4, 1, "hash_id")
         comparison.remove_false_positives(
                                             RESULTS_DIR+output_file,
                                             fp_file,
@@ -202,12 +203,12 @@ def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
         
 
 # Grab source codes. Also include one line above and one line below the issue location
-def read_line(issue_file, line):
+def read_line(issue_file, line, start_line, end_line):
     with open(issue_file) as f:
         content = f.readlines()
         # check lines
-        start = line - 2 if line - 2 > 0 else 0
-        end = line + 1 if len(content) >= line + 1 else len(content)
+        start = line - start_line if line - start_line > 0 else 0
+        end = line + end_line if len(content) >= line + end_line else len(content)
         data = content[start:end]
     return "".join(data).replace("\n", "|")
 
@@ -215,7 +216,7 @@ def read_line(issue_file, line):
 # Function to add hash field to the semgrep json output as a unique id
 # The hash is sha 256 value of : check_id + path + 3 line of codes
 # NOTE: We don't hash the line number. Code addition could change the line number
-def add_hash_id(jsonFile):
+def add_hash_id(jsonFile, start_line, end_line, name):
     # Open json file
     f = open(jsonFile, "r")
     data = json.load(f)
@@ -228,7 +229,7 @@ def add_hash_id(jsonFile):
 
         file_path = issue["path"]
         line = issue["start"]["line"]
-        base_code = read_line(file_path, line)
+        base_code = read_line(file_path, line, start_line, end_line)
 
         # Check line from out exist in the base_code
         if issue["extra"]["lines"] in base_code:
@@ -243,7 +244,7 @@ def add_hash_id(jsonFile):
         hash_digest = hashlib.sha256(res).hexdigest()
 
         # Update the json blob
-        issue["hash_id"] = hash_digest
+        issue[name] = hash_digest
 
     ## Save our changes to JSON file
     jsonFile = open(jsonFile, "w+")
@@ -442,8 +443,10 @@ def run_semgrep_pr(repo, git):
 
             process = subprocess.run("git -C " + REPOSITORIES_DIR + repo + " checkout -f " + git_sha_branch, shell=True, check=True,stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
             print("Branch Checkout: " + process.stdout.decode("utf-8"))
-            add_hash_id(json_filename)
-            add_hash_id(parsed_filename)
+            add_hash_id(json_filename, 4, 1, "hash_id")
+            add_hash_id(parsed_filename, 4, 1, "hash_id")
+            add_hash_id(json_filename, 2, 1, "old_hash_id")
+            add_hash_id(parsed_filename, 2, 1, "old_hash_id")
 
             with open(parsed_filename) as fileParsed:
                 data = json.load(fileParsed)
