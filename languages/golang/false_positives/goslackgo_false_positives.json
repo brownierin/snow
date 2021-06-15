@@ -220,5 +220,149 @@
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/goslackgo/blob/master/mayfly/minimay/consul_testutil_fork.go#L277-L277",
         "reason": "Code is located in test file (not reachable)."
+    },
+    "8375c5993a218cc70aad421a0c8e26224f393143d8ff6d5693a9ace0b3e2e7dd": {
+        "message": "Rule 'languages.golang.r2c-ci-rules.go.grpc.security.grpc-client-insecure-connection.grpc-client-insecure-connection' triggered.",
+        "check_id": "languages.golang.r2c-ci-rules.go.grpc.security.grpc-client-insecure-connection.grpc-client-insecure-connection",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/link_safety/cmd/check_link.go#L29-L29",
+        "reason": "Likely falls under Nebula encryption and is mitigated"
+    },
+    "fcced64c224d92daf6a875026ada9c27571ffaa19592bf6bf59fe75b87aa1217": {
+        "message": "Rule 'languages.golang.r2c-ci-rules.go.grpc.security.grpc-client-insecure-connection.grpc-client-insecure-connection' triggered.",
+        "check_id": "languages.golang.r2c-ci-rules.go.grpc.security.grpc-client-insecure-connection.grpc-client-insecure-connection",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/ekm/rotor/rotor.go#L22-L22",
+        "reason": "Likely falls under Nebula encryption and is mitigated"
+    },
+    "f18d48b062d6bacb9761d42a812ede98a8d0bb109572df5b3d3c1916d2c7edc2": {
+        "message": "Rule 'languages.golang.r2c-ci-rules.go.grpc.security.grpc-client-insecure-connection.grpc-client-insecure-connection' triggered.",
+        "check_id": "languages.golang.r2c-ci-rules.go.grpc.security.grpc-client-insecure-connection.grpc-client-insecure-connection",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/rlimit_action/ratelimited_action.go#L109-L114",
+        "reason": "Likely falls under Nebula encryption and is mitigated"
+    },
+    "fa5c19a0383afb5554983e0583d9b85390a02c20e784e64e75a90ab39b2dab75": {
+        "message": "Rule 'languages.golang.r2c-ci-rules.go.grpc.security.grpc-client-insecure-connection.grpc-client-insecure-connection' triggered.",
+        "check_id": "languages.golang.r2c-ci-rules.go.grpc.security.grpc-client-insecure-connection.grpc-client-insecure-connection",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/example_service/client/example_client.go#L45-L45",
+        "reason": "Likely falls under Nebula encryption and is mitigated"
+    },
+    "79df83d042ff2fda34b06d70a41a4feef21c7009de2c8ffccb7fee76064bde25": {
+        "message": "Rule 'languages.golang.r2c-ci-rules.go.grpc.security.grpc-client-insecure-connection.grpc-client-insecure-connection' triggered.",
+        "check_id": "languages.golang.r2c-ci-rules.go.grpc.security.grpc-client-insecure-connection.grpc-client-insecure-connection",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/example_service/client/example_client.go#L63-L63",
+        "reason": "Likely falls under Nebula encryption and is mitigated"
+    },
+    "2f8f8ac20cefd99da24d3c7aaa92f7326440b1dd8ac9ceefe1c5a5df6bd83bc6": {
+        "message": "Rule 'languages.golang.r2c-ci-rules.go.grpc.security.grpc-client-insecure-connection.grpc-client-insecure-connection' triggered.",
+        "check_id": "languages.golang.r2c-ci-rules.go.grpc.security.grpc-client-insecure-connection.grpc-client-insecure-connection",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/quota/client/client.go#L81-L86",
+        "reason": "Likely falls under Nebula encryption and is mitigated"
+    },
+    "74abf4f425bac4c49036b8dbcddfc0d22dee298a26e46e07af870cf84731f1f6": {
+        "message": "Rule 'languages.golang.r2c-ci-rules.go.grpc.security.grpc-server-insecure-connection.grpc-server-insecure-connection' triggered.",
+        "check_id": "languages.golang.r2c-ci-rules.go.grpc.security.grpc-server-insecure-connection.grpc-server-insecure-connection",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/service_proxy/grpc_proxy/server_proxy.go#L66-L72",
+        "reason": "Likely falls under Nebula encryption and is mitigated"
+    },
+    "6e96b90c525c5c034ca427ef311f1c9edc6eea13b8b03111e32ace2393fe9420": {
+        "message": "Rule 'languages.golang.r2c-ci-rules.go.grpc.security.grpc-server-insecure-connection.grpc-server-insecure-connection' triggered.",
+        "check_id": "languages.golang.r2c-ci-rules.go.grpc.security.grpc-server-insecure-connection.grpc-server-insecure-connection",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/common/server/grpc/server.go#L138-L138",
+        "reason": "Likely falls under Nebula encryption and is mitigated"
+    },
+    "ce3d31c0cce213a3c5fe535d8490bb732721c9a239f7119a9cfebddfc0d96e35": {
+        "message": "Rule 'languages.golang.r2c-ci-rules.go.lang.security.audit.crypto.bad_imports.insecure-module-used' triggered.",
+        "check_id": "languages.golang.r2c-ci-rules.go.lang.security.audit.crypto.bad_imports.insecure-module-used",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/service_proxy/grpc_proxy/client_proxy.go#L134-L134",
+        "reason": "We establish a connection name with SHA1, but dont ever use that connection to do any sort of integrity checking. "
+    },
+    "100972d57ca725c39f0f7902d59c0d016a18bc80477679dd7cc934b52e5d08a1": {
+        "message": "Rule 'languages.golang.r2c-ci-rules.go.lang.security.audit.crypto.bad_imports.insecure-module-used' triggered.",
+        "check_id": "languages.golang.r2c-ci-rules.go.lang.security.audit.crypto.bad_imports.insecure-module-used",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/imgproxy/miata/miata.go#L260-L260",
+        "reason": "We output a string of the hash but dont do anything with it. "
+    },
+    "ae9b2dcb2de6ecfeea40e06739e900387b967cc4ab60d6b8c5bf59b650d1efda": {
+        "message": "Rule 'languages.golang.r2c-ci-rules.go.lang.security.audit.net.pprof.pprof-debug-exposure' triggered.",
+        "check_id": "languages.golang.r2c-ci-rules.go.lang.security.audit.net.pprof.pprof-debug-exposure",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/rlimit_action/main.go#L108-L108",
+        "reason": "Likely falls under Nebula encryption and is mitigated"
+    },
+    "681378021422199272f9dae920d0ba5d3d7dc9e60785891c43f2d963408e2d3e": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/rlimit_action/ratelimited_action.go#L81-L81",
+        "reason": "The Flag.String passes in through a command line argument. This is a FP as it would require a user already on the box. "
+    },
+    "3ca923e4fbef40f3f187d9510fbef950b8641bc5458eb9af23036191ba05d517": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/imgproxy/iproxy/iproxy.go#L227-L227",
+        "reason": "String value is only parsed once."
+    },
+    "cdf484da06d0f9e02db6d314a34376440aaa3da73f36c1136ee785ba58fad6fe": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/imgproxy/iproxy/iproxy.go#L230-L230",
+        "reason": "String value is only parsed once."
+    },
+    "561c98acd6a845b849a11b54548f7a894f18a1c59ce121d628293ad08a2b0fba": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/imgproxy/iproxy/iproxy.go#L241-L241",
+        "reason": "String value is only parsed once."
+    },
+    "dc6100b80296f98f3ef1518cd5c5dd601fb163c11409adeba92d52c99c1d9c7c": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/imgproxy/iproxy/iproxy.go#L245-L245",
+        "reason": "String value is only parsed once."
+    },
+    "c9f17ea3681737ed16c6ec5cc000c40bdffc24db56555313c987c30dcf3d2854": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/imgproxy/iproxy/iproxy.go#L262-L262",
+        "reason": "String value is only parsed once."
+    },
+    "45d5798700e025ad85ce7de59fd46863fb7d37f3533c7eab504baf8f170be255": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/imgproxy/iproxy/iproxy.go#L266-L266",
+        "reason": "String value is only parsed once."
+    },
+    "5afc566a61d723986b6f3ad0742694923b4d49aadaeb9497d74fc1bef5bca4a9": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/imgproxy/iproxy/iproxy.go#L1125-L1125",
+        "reason": "String value is only parsed once."
+    },
+    "cd9eddd35b6b4008c7e2bee486c95c16da0759cafa8d4903b55ab7633f0e75f5": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/wot/handlers.go#L887-L887",
+        "reason": "String value is only parsed once."
+    },
+    "f8d77684a28933bffedaf803001b20426f6149cd99d14e03aac7f7082c6adb7a": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/wot/handlers.go#L894-L894",
+        "reason": "String value is only parsed once."
+    },
+    "40c9d9553f3b0d740938ba472bb1c473318718bc52709a27fd41f88026696d55": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/wot/handlers.go#L954-L954",
+        "reason": "String value is only parsed once."
+    },
+    "e92fc02a5a90fe3800c664768c50ea52d495372336affb4c9f8b6e579d45b69d": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/mayfly/accelerator/relay_task.go#L265-L265",
+        "reason": "Id is internal value (not attacker controlled)"
+    },
+    "e3cfadf59e011bbd65055fb6d8cea6e21b68c4ed568ba52bb8c791cd1bf3df11": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/mayfly/accelerator/relay_task.go#L270-L270",
+        "reason": "Id is internal value (not attacker controlled)"
     }
 }

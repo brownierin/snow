@@ -136,5 +136,41 @@
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/flannel/blob/master/util/process.go#L30-L30",
         "reason": "Only arguments are dynamic."
+    },
+    "53a48089a8db2d706f09c8844a3d7e66f4803de3f586f99bb9b0d5c4a0ee6087": {
+        "message": "Rule 'languages.golang.r2c-ci-rules.go.grpc.security.grpc-server-insecure-connection.grpc-server-insecure-connection' triggered.",
+        "check_id": "languages.golang.r2c-ci-rules.go.grpc.security.grpc-server-insecure-connection.grpc-server-insecure-connection",
+        "location": "https://slack-github.com//slack/flannel/blob/c79ffc33c4ccf1f2b46bfa79fb3aeee76a927040/main/common/main.go#L496-L503",
+        "reason": "Likely falls under Nebula encryption and is mitigated"
+    },
+    "3900a3b81da647d8376edf3037374c219a73f65ed308f2bd6347ff2ebe7283ca": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/flannel/blob/c79ffc33c4ccf1f2b46bfa79fb3aeee76a927040/server/debug/handlers.go#L149-L149",
+        "reason": "args to exec, they\u2019re either --no-restart or --no-restart --version=notraffic"
+    },
+    "9605cc0d97188f33ec9f124a5396ab1dffbc1a660849ec1af7d58f87e4e593a6": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/flannel/blob/c79ffc33c4ccf1f2b46bfa79fb3aeee76a927040/scripts/drain/drain.go#L648-L648",
+        "reason": "Locally run script, args passed to script internally. "
+    },
+    "5f760516e0b55bbd458ffe286462120a246c7543ed79ba2f6687afd6423a154b": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/flannel/blob/c79ffc33c4ccf1f2b46bfa79fb3aeee76a927040/scripts/drain/drain.go#L674-L674",
+        "reason": "Locally run script, args passed to script internally. "
+    },
+    "fef3f3f94da4e54735b56436fe77a72bc40b3b1c3d51ec710e496cdd9c251262": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/flannel/blob/c79ffc33c4ccf1f2b46bfa79fb3aeee76a927040/scripts/debug/consistency.go#L46-L46",
+        "reason": "The channel is passed in by the command link through golang flag. "
+    },
+    "7905b8c41192d6f0f9c2c7af2bbe0616998869278614ac91790648d1371cc862": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/flannel/blob/c79ffc33c4ccf1f2b46bfa79fb3aeee76a927040/scripts/debug/consistency.go#L70-L70",
+        "reason": "The channel is passed in by the command link through golang flag. "
     }
 }

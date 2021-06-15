@@ -4,5 +4,29 @@
         "check_id": "languages.javascript.r2c-ci-rules.javascript.lang.correctness.useless-eqeq.eqeq-is-bad",
         "location": "https://slack-github.com/slack/webapp/blob/master/js/libs/TSF.slim.source.js#L91-L91",
         "reason": "Bad code, but not a vulnerability"
+    },
+    "43c90aaf6ccf97789d984375711c6fc713e8737a7ff544b523f93e6b693940ea": {
+        "message": "Rule 'languages.javascript.slack.javascript.eval-like-function-02' triggered.",
+        "check_id": "languages.javascript.slack.javascript.eval-like-function-02",
+        "location": "https://slack-github.com//slack/webapp/blob/576eb4ebc472bc5b8693e07b38e980fb47f3108a/js/libs/d3_v3.js#L1956-L1958",
+        "reason": "Third-party code. Bad code, but not vulnerable."
+    },
+    "138ff0ed791d0e28b2043cf7ba530f6113d37d9df9d985418fdabc4241890b53": {
+        "message": "Rule 'languages.javascript.slack.javascript.eval-like-function-03' triggered.",
+        "check_id": "languages.javascript.slack.javascript.eval-like-function-03",
+        "location": "https://slack-github.com//slack/webapp/blob/576eb4ebc472bc5b8693e07b38e980fb47f3108a/js/modern/utility/serialize-prop-types.jest.js#L79-L79",
+        "reason": "Test file"
+    },
+    "8e5417a48c72ec0ae9c974e7805f82db6c3be658ed490ce99027087a9b90ac79": {
+        "message": "Rule 'languages.javascript.slack.javascript.eval-like-function-03' triggered.",
+        "check_id": "languages.javascript.slack.javascript.eval-like-function-03",
+        "location": "https://slack-github.com//slack/webapp/blob/576eb4ebc472bc5b8693e07b38e980fb47f3108a/js/libs/wistia_v1.js#L1-L1",
+        "reason": "Third-party code."
+    },
+    "bb5365a00257438fd7da2989514998a72c28ec741e7f30eb5a2aed246791317b": {
+        "message": "Rule 'languages.javascript.slack.javascript.potential-sqli-01' triggered.",
+        "check_id": "languages.javascript.slack.javascript.potential-sqli-01",
+        "location": "https://slack-github.com//slack/webapp/blob/576eb4ebc472bc5b8693e07b38e980fb47f3108a/js/libs/jquery.monkeyScroll.js#L251-L251",
+        "reason": "Not SQL"
     }
 }

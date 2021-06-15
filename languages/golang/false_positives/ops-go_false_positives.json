@@ -238,5 +238,263 @@
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/gnife/gnife.go#L82-L82",
         "reason": "Only command line arguments are dynamic."
+    },
+    "4e142504045ffb08419391edfcae09d8c053bcc34baf5b4eaa34d3e2b221a871": {
+        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.use-tls' triggered.",
+        "check_id": "languages.golang.r2c.go.lang.security.audit.net.use-tls",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/emradm/cmds/worker/main.go#L102-L102",
+        "reason": "Likely falls under Nebula encryption and is mitigated"
+    },
+    "20ff3e4969b2e4a44429a3055d2dbae9194a2c93d67494b70fea01644d37a7e4": {
+        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.use-tls' triggered.",
+        "check_id": "languages.golang.r2c.go.lang.security.audit.net.use-tls",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/gaz/main.go#L199-L199",
+        "reason": "Likely falls under Nebula encryption and is mitigated"
+    },
+    "de3ab08f58adaf6802f95fc9c612476f8133cddadb7b4022b21cbbf728c18522": {
+        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.use-tls' triggered.",
+        "check_id": "languages.golang.r2c.go.lang.security.audit.net.use-tls",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/bedrock-api/main.go#L128-L128",
+        "reason": "Likely falls under Nebula encryption and is mitigated"
+    },
+    "3b6cce12d14f77534998b11b0728a6d0a763b0b167d7d4c27430bc46b645e96f": {
+        "message": "Rule 'languages.golang.r2c-ci-rules.go.lang.security.audit.net.pprof.pprof-debug-exposure' triggered.",
+        "check_id": "languages.golang.r2c-ci-rules.go.lang.security.audit.net.pprof.pprof-debug-exposure",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/prometheus-solr-exporter/main.go#L84-L84",
+        "reason": "Likely falls under Nebula encryption and is mitigated"
+    },
+    "646c38502d000009b48c44d4bbbfe3caca2679e420b75ea4e301858078f24b1c": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/tf-smart-plan/interaction.go#L32-L32",
+        "reason": "Argument isn't attacker controlable."
+    },
+    "cbfe7b595990181af8b245c9ac95503511734d20e403112ffadb9bbda8705034": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/kube-test-cluster/terminate_node.go#L192-L192",
+        "reason": "Input is not in attacker control."
+    },
+    "f088aca9e75ee750450419d492d52cd1e74da3ca71ac67b060b6c65a5ae8466f": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/kube-test-cluster/terminate_node.go#L200-L200",
+        "reason": "Input is not in attacker control."
+    },
+    "f3d649b55af2bcaf23032915051b1b6d3dff000d8bc51ee6d05ba075b485803c": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/bedrock/cmd_launch.go#L271-L271",
+        "reason": "Part of the Bedrock build process. This runs the stage script"
+    },
+    "a07232857b4246fc51f816d188c5e16a12f3c025ec73619d27a88bafa0ffd985": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/bedrock/cmd_launch.go#L273-L273",
+        "reason": "Part of the Bedrock build process. This runs the stage script"
+    },
+    "8cdb240eef0d7d85fcd841ad7c357ccadc92c77f624c4be08a5ccf75d7cdd1ec": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/bedrock/cmd_launch.go#L497-L497",
+        "reason": "Only command line arguments are dynamic."
+    },
+    "06dfc4ebba531b96151fe2eb124bf8075dc508ae2afc34401248ff72d34b4460": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/bedrock/cmd_launch_task.go#L261-L266",
+        "reason": "Only command line arguments are dynamic."
+    },
+    "cd33343f93721643135d23458ad8f5291aa236434a9d831c712f52b702a11432": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/tf-smart-plan/check_merge.go#L74-L74",
+        "reason": "Only command line arguments are dynamic."
+    },
+    "f96e817a121880be9134d624804184af4ecc4cbd785f826d25c7c8a09af6715a": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/kube-test-cluster/cmd_run.go#L170-L170",
+        "reason": "Only command line arguments are dynamic."
+    },
+    "75731df4d3a44f620c37fbccac373ac26f700afb9411640fef0676131a5a9244": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/gitchen/kitchen_cli.go#L35-L35",
+        "reason": "Only command line arguments are dynamic."
+    },
+    "68d27241168af9540216337b33c95f6e472364adef487de7b171c94791ebccf1": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/chef/node.go#L506-L506",
+        "reason": "Only command line arguments are dynamic."
+    },
+    "52a6790dc684e5a2f874600b585125f541dafb45996e59d4743b1dee6eac7ba5": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/git/git.go#L256-L256",
+        "reason": "Only command line arguments are dynamic."
+    },
+    "9d57c9aa24493bfb54dc23bf7dea01a76b5f6ca1575166c877021ce4eb2e835a": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/git/git.go#L283-L283",
+        "reason": "Only command line arguments are dynamic."
+    },
+    "0a81a3df1e3fa0725c206b45211170d1b892f22b9edaf07801d331815b482ebf": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/update-ami12/main.go#L465-L465",
+        "reason": "Command is a static string or only the argument are dynamic."
+    },
+    "7c8c92ece9bcc96f670a308cf9e571f303d83dcd90a0f6bf68ccf16dfe1002a8": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/update-ami12/main.go#L650-L650",
+        "reason": "Command is a static string or only the argument are dynamic."
+    },
+    "0a2aaded7a2a1907c08396d1e6bcd771c21699b8a8f391fd696f4378f4517b07": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/update-ami12/main.go#L678-L678",
+        "reason": "Command is a static string or only the argument are dynamic."
+    },
+    "f99cd961ca3f830cac3c7b3367db279728321b9ebce81627e3be29516e13b8a7": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/update-ami12/main.go#L708-L708",
+        "reason": "Command is a static string or only the argument are dynamic."
+    },
+    "0ef06aba219f5effe4225847192e857a16494ae7d7cb97be94dba8110bbd5100": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/core-extractor/main.go#L54-L54",
+        "reason": "Command is a static string or only the argument are dynamic."
+    },
+    "e087022c12fb08c31eab4b5a363d8ff0c96514aff8de7e651a88f772dff0004c": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/core-extractor/main.go#L56-L56",
+        "reason": "Command is a static string or only the argument are dynamic."
+    },
+    "078fc1fdd75dd3b18cd9e161cfafa6a5f4ad2a3ab356eacbded07f6bd76ce428": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/orchestrated-deploy/main.go#L64-L64",
+        "reason": "Command is a static string or only the argument are dynamic."
+    },
+    "e9d34329a92826d22940fc15c49625b8396fbd072e2fd2002fd3b907d83ed116": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/orchestrated-deploy/main.go#L181-L181",
+        "reason": "Command is a static string or only the argument are dynamic."
+    },
+    "4337dc9dac91b6771f736157c0de4151b3286730dae54474b7d8ee5f8f113a7e": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/gitchen/chef.go#L28-L28",
+        "reason": "Sysadmin tool, not attacker controlled."
+    },
+    "8595981e545c1831014fa1675d08d69faa29174697f68465a17760e9671b22ac": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/bedrock/cmd_build.go#L398-L398",
+        "reason": "Part of the Bedrock build process. It runs pre actions that need to run before Bedrock builds the image."
+    },
+    "013f608a6fe932a277520990590886916bfde50127b3e2001d9ec808a64f774a": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/bedrock/cmd_build.go#L400-L400",
+        "reason": "Part of the Bedrock build process. It runs pre actions that need to run before Bedrock builds the image."
+    },
+    "e6fd856386504649ada010921c0b5845399d505b4a512433351b7dda40eb9a1a": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/bedrock/cmd_build.go#L502-L502",
+        "reason": "Part of the Bedrock build process. It runs pre actions that need to run before Bedrock builds the image."
+    },
+    "9a075d214f35beabc51fd57dc2ab2ac7d690749c07c92554dfc9e5253d67d2d2": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/bedrock/cmd_build.go#L625-L625",
+        "reason": "Part of the Bedrock build process. It runs pre actions that need to run before Bedrock builds the image."
+    },
+    "f980e1c65c037112a6622c9cd7f293a352e3ed61040c052f52123c00b0ab8d3b": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/bedrock/cmd_build.go#L635-L635",
+        "reason": "Part of the Bedrock build process. It runs pre actions that need to run before Bedrock builds the image."
+    },
+    "aa4f0c801ad82fdf4a046608d2233a5934df6df35576f35f700695e26e762c48": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/bedrock/cmd_build.go#L644-L644",
+        "reason": "Part of the Bedrock build process. It runs pre actions that need to run before Bedrock builds the image."
+    },
+    "189cb3658b25352f86e566eff5db2347161f6ccaeea21f91c725b48a9f29bc56": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/bedrock/cmd_build.go#L781-L781",
+        "reason": "Part of the Bedrock build process. It runs pre actions that need to run before Bedrock builds the image."
+    },
+    "0c3f9a199a149a906d8ca1219f23fe16251a3c59d0eac40d3f7b4a4ef8511246": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/kube-test-cluster/terminate_node.go#L180-L180",
+        "reason": "Value is only parsed once."
+    },
+    "4d988cfec2f2d6db2d7f601b2d141579208b381479a6d4c484b9ff70ebadc754": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/emradm/dataset/handler.go#L107-L107",
+        "reason": "String value is only parsed once and is validated."
+    },
+    "cad4cc8e6ceafb323209de803e4959bc3d6972069c315980a197ae5885677071": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/emradm/emr/cluster.go#L246-L246",
+        "reason": "String value is not attacker controllable."
+    },
+    "dbaa150494219d90c2c2c5cb9f87a43ff97b01a47cc20e46b3dba686e9f8566d": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/emradm/emr/cluster.go#L393-L393",
+        "reason": "String value is only parsed once."
+    },
+    "4cfc4a5caceb0606401eedd2094654515590c5fedef98575ee45dafd6ef5247c": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/kube-test-cluster/find_node.go#L119-L119",
+        "reason": "Value isn't controlable by an attacker"
+    },
+    "33f64a0b1bd3eb2dd98f35d282e676e9d8ac735f5a8de5aae095abde26695068": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/gaz/kaz_pod.go#L627-L627",
+        "reason": "String value is only parsed once."
+    },
+    "40384cf4367af20e786eed9218ceb3f18363ac299bc384fb92a571870b2bace8": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/gaz/kaz_pod.go#L635-L635",
+        "reason": "String value is only parsed once."
+    },
+    "0d0f5f9b57bd50497fe8a41a92bfaaf4530be9cb95b1bbce666b883490b93ea5": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/tf-smart-plan/flag_num_parallel.go#L17-L17",
+        "reason": "Value isn't controlable by an attacker"
+    },
+    "234640b841f88dd5bf691dd093bd1065520827c8e4bdeba75b090ff30bd22917": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/bedrock/metrics.go#L160-L160",
+        "reason": "String value isn't attacker controlable"
+    },
+    "405e243391ae67813f90c0d5144c2722aa477ba4808d9a6f8592c81184c9fd5b": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/orchestrated-deploy/main.go#L77-L77",
+        "reason": "String value isn't attacker controlable"
     }
 }

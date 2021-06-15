@@ -154,5 +154,23 @@
         "check_id": "languages.java.slack.java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/MessageServer/src/ts/stats/prometheus/PrometheusHistogram.java#L100-L100",
         "reason": "Random is used for stats."
+    },
+    "1de1cdb1f43a1a0d40b9eed8c5c90e2e45e2bb26708e6362cb22c88db1918bf8": {
+        "message": "Rule 'languages.java.r2c-ci-rules.java.lang.security.audit.crypto.weak-hash.use-of-sha1' triggered.",
+        "check_id": "languages.java.r2c-ci-rules.java.lang.security.audit.crypto.weak-hash.use-of-sha1",
+        "location": "https://slack-github.com//slack/JavaBackend/blob/1a646f5088c30eb0039838a9d662d51d0ff86cdc/MessageServer/src/ts/net/SimpleWSClient.java#L427-L427",
+        "reason": "Part of Websocket RFC"
+    },
+    "e12f5ec8c5428b6331faffc3c5b2579a7595a90d8b7fad6d8eb7284933c2f566": {
+        "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
+        "check_id": "languages.java.slack.java.lang.predictable-prng-01",
+        "location": "https://slack-github.com//slack/JavaBackend/blob/1a646f5088c30eb0039838a9d662d51d0ff86cdc/MessageServer/src/ts/net/SimpleWSClient.java#L82-L82",
+        "reason": "Part of Websocket RFC"
+    },
+    "64c382652231cabbfb85ac4df0d2f663d0b39ed6cdd2c3132300b3df1159ac5d": {
+        "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
+        "check_id": "languages.java.slack.java.lang.predictable-prng-01",
+        "location": "https://slack-github.com//slack/JavaBackend/blob/1a646f5088c30eb0039838a9d662d51d0ff86cdc/MessageServer/src/slack/util/restart/PickRandomItsServer.java#L34-L34",
+        "reason": "Used for load balancing, not security relevant."
     }
 }

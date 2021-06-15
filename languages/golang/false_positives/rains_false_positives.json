@@ -16,5 +16,11 @@
         "check_id": "languages.golang.r2c-ci-rules.go.lang.security.audit.crypto.bad_imports.insecure-module-used",
         "location": "https://slack-github.com/slack/rains/blob/master/auth_checks.go#L237-L237",
         "reason": "Already marked as false positive with nosem comment."
+    },
+    "cf1c351a8a98fe2fad9834fd12cd257f4693979e98a95823bf2215289c72d23e": {
+        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.crypto.avoid-ssh-insecure-ignore-host-key' triggered.",
+        "check_id": "languages.golang.r2c.go.lang.security.audit.crypto.avoid-ssh-insecure-ignore-host-key",
+        "location": "https://slack-github.com//slack/rains/blob/52da5749c66770ee6ab8dcc8bece363c535882fe/webappscan/repo.go#L45-L45",
+        "reason": "The nosem: comment doesn't seems to be have been picked up."
     }
 }

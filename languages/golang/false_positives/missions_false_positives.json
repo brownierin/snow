@@ -34,5 +34,23 @@
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/missions/blob/master/api/internal/appruntime/datarefs/convert_text_to_blocks.go#L82-L82",
         "reason": "String value is only parsed once."
+    },
+    "f6837bc80ad263973a9bc8fa1e89644684190ecfd55f07cfde23b0d4f00b7b07": {
+        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.database.string-formatted-query' triggered.",
+        "check_id": "languages.golang.r2c.go.lang.security.audit.database.string-formatted-query",
+        "location": "https://slack-github.com//slack/missions/blob/31ec905f2bc575823ca37e6c0eda4cd4b13da709/shared/dbutils/mysql.go#L27-L27",
+        "reason": "Utility file, internally called only. Chris Skudlarczyk"
+    },
+    "97d4511ed146900e816119c4e6795fd4b7f3b13858bd54e0d519529f53ac5062": {
+        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.database.string-formatted-query' triggered.",
+        "check_id": "languages.golang.r2c.go.lang.security.audit.database.string-formatted-query",
+        "location": "https://slack-github.com//slack/missions/blob/31ec905f2bc575823ca37e6c0eda4cd4b13da709/shared/dbutils/mysql.go#L47-L47",
+        "reason": "Utility file, internally called only. Chris Skudlarczyk"
+    },
+    "618e9db0e3024a56df4ee14a8a3248db3c2613611e8360ae4ab515acf4155443": {
+        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.database.string-formatted-query' triggered.",
+        "check_id": "languages.golang.r2c.go.lang.security.audit.database.string-formatted-query",
+        "location": "https://slack-github.com//slack/missions/blob/31ec905f2bc575823ca37e6c0eda4cd4b13da709/shared/dbutils/mysql.go#L54-L54",
+        "reason": "Utility file, internally called only. Chris Skudlarczyk"
     }
 }
