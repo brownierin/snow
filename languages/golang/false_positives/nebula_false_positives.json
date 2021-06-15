@@ -1,1 +1,116 @@
-{}
+{
+    "f07c382180b84ade89d117a111818340b8ee37c1a56e54b39d2ed02b704a637a": {
+        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.use-tls' triggered.",
+        "check_id": "languages.golang.r2c.go.lang.security.audit.net.use-tls",
+        "location": "https://slack-github.com/slack/nebula/blob/master/stats.go#L117-L117",
+        "reason": "Likely falls under Nebula encryption and is mitigated"
+    },
+    "6ae6a880b92e961aeccd2bac3fbfebef8dcfafac2cd0b56ec800d573faee014d": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_common.go#L48-L48",
+        "reason": "Value isn't attacker controllable (config)."
+    },
+    "109076a4ffeefa118fc00ab056745822120edda6b31f69e2a792d4f4a2bfd807": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/nebula/blob/master/config.go#L194-L194",
+        "reason": "Value isn't attacker controllable (config)."
+    },
+    "c39df367bf68c53f67102c5e14eb578aa6c42f1d25468726bb50ff6ece3694c8": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/nebula/blob/master/e2e/router/router.go#L307-L307",
+        "reason": "String value is only parsed once."
+    },
+    "4a50117193a9151122ca525f235a03640f56808323602c1655d8f4a1f32c8f82": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/nebula/blob/master/firewall.go#L904-L904",
+        "reason": "String value is only parsed once."
+    },
+    "220790749886474aae18aa7717fac0d4ac728b45277b3eb045235d77ad605006": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/nebula/blob/master/firewall.go#L909-L909",
+        "reason": "String value is only parsed once."
+    },
+    "99fe57b0f76dfd449482b3b612685b322d5b27b11a33adb2f74a443a9c2ab925": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/nebula/blob/master/firewall.go#L922-L922",
+        "reason": "String value is only parsed once."
+    },
+    "8a4b46c16f208ed07aa63485bf57e25628d74b95db2fa13151f13654955f2fa7": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/nebula/blob/master/udp_all.go#L76-L76",
+        "reason": "String value is only parsed once."
+    },
+    "ec2cb08565ad85872c5d0d966512fbfba7718e6f33328b561912981bc79cced7": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_windows.go#L60-L67",
+        "reason": "Only command line arguments are dynamic."
+    },
+    "9bcb4bab237971dd5f53690ec20af3e6e7883487e0bbd8883d654f0d9c011409": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_windows.go#L71-L75",
+        "reason": "Only command line arguments are dynamic."
+    },
+    "c3428cf30de1a78c9348fd00f3ac7bf4fc451280df1176989dee563e5fe67d8b": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_windows.go#L86-L88",
+        "reason": "Only command line arguments are dynamic."
+    },
+    "b353b81208ab471b7c8de6940b9b3a50d49872380402ea7f1822406649644a1c": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_darwin.go#L56-L56",
+        "reason": "Only command line arguments are dynamic."
+    },
+    "1a163056ffd25502617bd8c71c5f2bb7bd550844edd3ba2c15a3ab7159e68b20": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_darwin.go#L59-L59",
+        "reason": "Only command line arguments are dynamic."
+    },
+    "0359d232f4e58e424bd59617b9fc11d80ceff8371355d8a0e8ab4ca40a707a74": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_darwin.go#L62-L62",
+        "reason": "Only command line arguments are dynamic."
+    },
+    "af09e7428aad10cc5424e7143442f4acc92abfac86befb37db8b74d59c7a270e": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_darwin.go#L67-L67",
+        "reason": "Only command line arguments are dynamic."
+    },
+    "db68932e82f338b7ab940ba9d6ae9d9279c30c0b3ba06b77ff1ef4e4330a34ff": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_freebsd.go#L62-L62",
+        "reason": "Only command line arguments are dynamic."
+    },
+    "da718ef8950459fde4112799b03f636605a138c34b7f9a80cba89e8fe2c68486": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_freebsd.go#L66-L66",
+        "reason": "Only command line arguments are dynamic."
+    },
+    "dc8c22651b326309163bfd97ef588600a0962c3492e0df1622fe9827b988b1cc": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_freebsd.go#L70-L70",
+        "reason": "Only command line arguments are dynamic."
+    },
+    "1901eabf147dd5080b6b97bcbb7331700f81966e56ef829d2c349bba6020ae09": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_freebsd.go#L76-L76",
+        "reason": "Only command line arguments are dynamic."
+    }
+}

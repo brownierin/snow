@@ -1,1 +1,242 @@
-{}
+{
+    "e15c712e45eecfa3657c536f0c6a270d2380d369587b83f6af1b4d088420949d": {
+        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.use-tls' triggered.",
+        "check_id": "languages.golang.r2c.go.lang.security.audit.net.use-tls",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/emradm/cmds/server/main.go#L81-L81",
+        "reason": "Likely falls under Nebula encryption and is mitigated"
+    },
+    "12e2b6e5d7fbf36b7aa0e024183f6196de0170bac33f5c482087a7bb2cb6ff52": {
+        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.use-tls' triggered.",
+        "check_id": "languages.golang.r2c.go.lang.security.audit.net.use-tls",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/debugactions-worker/main.go#L26-L26",
+        "reason": "Likely falls under Nebula encryption and is mitigated"
+    },
+    "2ca11cda3f9a51f387298cb90ce9ad507b833e587d418d1a29ee9e7077e2e29d": {
+        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.use-tls' triggered.",
+        "check_id": "languages.golang.r2c.go.lang.security.audit.net.use-tls",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/prometheus-solr-exporter/main.go#L84-L84",
+        "reason": "Likely falls under Nebula encryption and is mitigated"
+    },
+    "5c08da814a2b0d2105edfbc0b589e3c3af51204534b71e36f9d7043d822f4bbb": {
+        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.use-tls' triggered.",
+        "check_id": "languages.golang.r2c.go.lang.security.audit.net.use-tls",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/kube-pipeline-manager/kube-pipeline-manager.go#L491-L491",
+        "reason": "Likely falls under Nebula encryption and is mitigated"
+    },
+    "4c9a934149b7e22d0adb562cdfcfde4fc651ed5fbdf9224f505d00201259fdf8": {
+        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.use-tls' triggered.",
+        "check_id": "languages.golang.r2c.go.lang.security.audit.net.use-tls",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/foodcourt/server/main.go#L650-L650",
+        "reason": "Likely falls under Nebula encryption and is mitigated"
+    },
+    "4dbed5ae264194c0609539d313f443c01d5f47195ae6d807181efa15db286fc2": {
+        "message": "Rule 'languages.golang.r2c-ci-rules.go.lang.security.audit.crypto.bad_imports.insecure-module-used' triggered.",
+        "check_id": "languages.golang.r2c-ci-rules.go.lang.security.audit.crypto.bad_imports.insecure-module-used",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/haproxy-server-state-management/main.go#L180-L180",
+        "reason": "Used for purpose not related to a security component."
+    },
+    "1b7baa9cc2117584972703d3d44e1efaadae3aebd61b4c5912038eef405a7ab4": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/capacity-service-webapp/cs.go#L89-L89",
+        "reason": "String value is not attacker controllable."
+    },
+    "ffe676c62dd2dbb757c368ab907c3fdedb87053d3b928753c7d5e491920a618f": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L167-L167",
+        "reason": "String value isn't attacker controlable"
+    },
+    "3effdaa267cd2f1237c20f72ba42251cfbdb5649d3aa79d06c57c3eb5b53e0c0": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L181-L181",
+        "reason": "String value isn't attacker controlable"
+    },
+    "1becb69ab768b51fd3913ce5acfee28b87c3862ed337c06f2e4da5e059b914e1": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L183-L183",
+        "reason": "String value isn't attacker controlable"
+    },
+    "3087ad75b6ec13157635dcb68ee982b589d1104d65e1d3d3d40771bd54aa8893": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L186-L186",
+        "reason": "String value isn't attacker controlable"
+    },
+    "f113a1bedee73adf2652241f0ff57743101988fa0196aa79ca5c7776c8a068ea": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L187-L187",
+        "reason": "String value isn't attacker controlable"
+    },
+    "5d3a369d50ea2968df91c60a1da05f67a4b3797ee0809ccaac3d3ad25108088d": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L188-L188",
+        "reason": "String value isn't attacker controlable"
+    },
+    "44cb242932575b543a67aac526abc16b1c3d0157dd38398949bd19ca09e17b62": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L189-L189",
+        "reason": "String value isn't attacker controlable"
+    },
+    "ff216cfa250220c76022efaf61aaab4c18d6ac0391e454c2ab1571a1672f6932": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L190-L190",
+        "reason": "String value isn't attacker controlable"
+    },
+    "97a3adf4cb25e63a317ec1e16dbb4fbae1ec0e1c320787f5dcb94347a1f521b1": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L191-L191",
+        "reason": "String value isn't attacker controlable"
+    },
+    "88dd3dc7fa54b844dba664530d95e820f703a08373d70a60c537926b4b49ed88": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L192-L192",
+        "reason": "String value isn't attacker controlable"
+    },
+    "8fa3d053b8d551375eb92576d766c8ff986f366a785b68776b92866239d3fe0a": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L193-L193",
+        "reason": "String value isn't attacker controlable"
+    },
+    "b5f4afa28296e31f7fd64f72dd01408ec8187c876f1a8813ab3deeefa42f9f40": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L194-L194",
+        "reason": "String value isn't attacker controlable"
+    },
+    "a4cc12f65d5e659ed0bf9fe99428cdd6c5f3f9c4ca5886d5914e2396f5cda8f6": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L195-L195",
+        "reason": "String value isn't attacker controlable"
+    },
+    "de2bd2696f317ce1fa92a8414e641d3daa74df184e98c6338291aa3aca7a17c5": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L196-L196",
+        "reason": "String value isn't attacker controlable"
+    },
+    "d7b353fe76634c71aec2033cf60f08b8f9209e110632cd804d68692e9e00ea47": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L197-L197",
+        "reason": "String value isn't attacker controlable"
+    },
+    "a3c988d02c04d2d8e8aa609b9501364f1f923e56883bd3775a91670f38178127": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L199-L199",
+        "reason": "String value isn't attacker controlable"
+    },
+    "1b6b118b93482e01544f4af5da2d10ffddefe8fbebdc75e9d1982c36da6d9013": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/prometheus-solr-exporter/exporter.go#L370-L370",
+        "reason": "String value isn't attacker controlable"
+    },
+    "b20624ac915762c9ffada1d6ae83d2b35bc5da210b2fe05956f5e0268403e950": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/prometheus-solr-exporter/main.go#L68-L68",
+        "reason": "String value comes from a PID file."
+    },
+    "995f52b63536d0bb588068a3fc7958a9aff2756b35f84d4a0cd5f2019a3ba48a": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/olib/okta.go#L309-L309",
+        "reason": "String value is only parsed once."
+    },
+    "a0f0ef719bdb0533d5d6f42dc450fb63615445fd6576a2f2323a3a45eef0b90d": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/bedrock/client/replicaset.go#L79-L79",
+        "reason": "String value isn't attacker controlable"
+    },
+    "5e8972e9d3130ff748ef827c77d987e881a2b84a71922948df0eef345fc777ab": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/bedrock/client/replicaset.go#L82-L82",
+        "reason": "String value isn't attacker controlable"
+    },
+    "44574a194e8b156d1d2bda878c8bb5e4f02cb35a3aeffba7e85868f45fc88c98": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/haproxy-server-state-management/main.go#L49-L49",
+        "reason": "String value isn't attacker controlable"
+    },
+    "a80d9074c7eb2202a26f909b6637980b92197a580c00c71e3e1c843ed5b6704c": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/emradm/emr/transformer.go#L371-L371",
+        "reason": "String value isn't attacker controlable"
+    },
+    "82d19701203451c2f096bbd93e965f71cbb84ce5d1947bb20ad611b35af3ac92": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/bedrock/consul_template.go#L135-L135",
+        "reason": "String value has limited value that can't cause overflow."
+    },
+    "06b9bb19e5a062bf0c219b9e436f1d98b58cc317486f71cfccf5b667c10aaa9a": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/bedrock/twistlock.go#L88-L88",
+        "reason": "Only command line arguments are dynamic."
+    },
+    "2bdfbab164a7a63c29f77671bc6015edc8c56fa1dff1095207f8dc150865e411": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/fma/fma.go#L26-L26",
+        "reason": "Command is a static string."
+    },
+    "633d0c45f2a16c752c0bb60d5ac8d83b967ccac770cad3212bdf47260d884a05": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/sgs2tf/main.go#L220-L220",
+        "reason": "Only command line arguments are dynamic."
+    },
+    "ecb0d1777639ad498235d819244195b27348ccc7be9892fdd441c9599f590071": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/slack-emergency/cmd/confabulator.go#L42-L42",
+        "reason": "Only command line arguments are dynamic."
+    },
+    "5419b5cc873e5307fb324976b3e79770075408f82f4889dca9d0b7c00ddfcee3": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/fma-assume-role/fma-assume-role.go#L279-L279",
+        "reason": "Command is a static string."
+    },
+    "6402f49283e119ae41c050d691231c853bd0a17cef158c298c649df94ffe42be": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/consul-rpc-throttle/main.go#L180-L180",
+        "reason": "Only command line arguments are dynamic."
+    },
+    "15aa002aec28c2db8b603864884120721a40516fd359f8efa5554777f210b59e": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/consul-rpc-throttle/main.go#L206-L206",
+        "reason": "Command is a static string."
+    },
+    "b54c94454ddf04a12d8f251c27709b96e79d21bdcd092c25d699869bbc646d0f": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/capacity-service-webapp/main.go#L126-L126",
+        "reason": "Only command line arguments are dynamic."
+    },
+    "2615cef363406e83998348a7c897331881f94d400be16261f43763145a6d1223": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/gnife/gnife.go#L82-L82",
+        "reason": "Only command line arguments are dynamic."
+    }
+}

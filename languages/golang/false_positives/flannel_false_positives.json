@@ -1,1 +1,140 @@
-{}
+{
+    "2271ffde6ea1e059be5956da5d22fbfac5caf421733de8d76abe5c29045eeaa0": {
+        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.use-tls' triggered.",
+        "check_id": "languages.golang.r2c.go.lang.security.audit.net.use-tls",
+        "location": "https://slack-github.com/slack/flannel/blob/master/cli/cli/cli.go#L177-L177",
+        "reason": "Likely falls under Nebula encryption and is mitigated"
+    },
+    "c3750b7be5c1931a456da8265005ce954791cc528cda031ee9c808cf899eaf44": {
+        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.use-of-unsafe-block' triggered.",
+        "check_id": "languages.golang.r2c.go.lang.security.audit.use-of-unsafe-block",
+        "location": "https://slack-github.com/slack/flannel/blob/master/websocket/mask.go#L8-L8",
+        "reason": "Unsafe block is used to compute a static value (no dynamic content used here)."
+    },
+    "3ebf5f12f283a0cba217e1916514687684f49fedb175c84117b61773ba196aea": {
+        "message": "Rule 'languages.golang.r2c-ci-rules.go.grpc.security.grpc-client-insecure-connection.grpc-client-insecure-connection' triggered.",
+        "check_id": "languages.golang.r2c-ci-rules.go.grpc.security.grpc-client-insecure-connection.grpc-client-insecure-connection",
+        "location": "https://slack-github.com/slack/flannel/blob/master/testutil/test_context_grpc.go#L82-L82",
+        "reason": "Code is located in test file (not reachable)."
+    },
+    "b97b047f40016a78e3bd11e2aa48b00444731fda16cca90b62cfa1c0176c50e2": {
+        "message": "Rule 'languages.golang.r2c-ci-rules.go.grpc.security.grpc-server-insecure-connection.grpc-server-insecure-connection' triggered.",
+        "check_id": "languages.golang.r2c-ci-rules.go.grpc.security.grpc-server-insecure-connection.grpc-server-insecure-connection",
+        "location": "https://slack-github.com/slack/flannel/blob/master/testutil/test_context_grpc.go#L42-L42",
+        "reason": "Code is located in test file (not reachable)."
+    },
+    "1750fd36a318038355136916ed457776ede494106750be5c9f7810104b47795b": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/master/util/process.go#L35-L35",
+        "reason": "Value isn't controlable by an attacker."
+    },
+    "b8d520727a07b721c4477b82d192d611e563e4022142517beb5db903320b33a7": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/master/testutil/test_context.go#L1045-L1045",
+        "reason": "Code is located in test file (not reachable)."
+    },
+    "e3291fd788971074042ab1677d3d57aba31ddbd8f8f6c82e5f7bf0e1235893a4": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/master/testutil/test_context.go#L1046-L1046",
+        "reason": "Code is located in test file (not reachable)."
+    },
+    "9db1795c854b64878aeae5daa8252f2b647127c18d4d112dcce7e48fec0e972d": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/master/util/ids.go#L1106-L1106",
+        "reason": "Size is too small to overflow (3 bytes)"
+    },
+    "4efbfa725cbfabea0a44e0139f753417c34a6c18b6ed4583514ea93f19086f97": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/master/util/ids.go#L1114-L1114",
+        "reason": "Size is too small to overflow (3 bytes)"
+    },
+    "499e3b9ec1c260176e5091eb39e5a7261d8c003f1faf40ed97e410b4621f299e": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/master/server/frontend/frontend_server.go#L874-L874",
+        "reason": "String value is only parsed once and is validated."
+    },
+    "067bd6827dab5ecd0733acf8bfc571934d2de7f0fa8b1e4ddc74cb696315e117": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/master/discovery/consul_resolver.go#L129-L129",
+        "reason": "String value is only parsed once."
+    },
+    "ba9bdea6f97d990b7c59031b1f3d504a6965e2f506c1dcd427dba3f4d382952e": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/master/util/conversions.go#L9-L9",
+        "reason": "Utility function. No usage of this method found (dead code)."
+    },
+    "4814dd8b9effd88103a9549bb04953cca063e3e8fd1e637dad7562c7e5eeb8fc": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/master/util/conversions.go#L15-L15",
+        "reason": "Utility function. No unsafe usage of this method found."
+    },
+    "ef9cd87000270452d440625c8b7fadeb84e5fee7dcb2e651628da291e85a1b2a": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/master/server/backend/debug.go#L146-L146",
+        "reason": "String value is only parsed once."
+    },
+    "06115c12588260cf1028e76a1f360f4eacbadcd58a857acb2ab560f5d0443468": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/master/server/backend/debug.go#L182-L182",
+        "reason": "String value is only parsed once."
+    },
+    "bde7c14159d5dcb6a1e455cab88772685bd24097ac852fbf3d294eaca1621886": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/master/server/backend/debug.go#L225-L225",
+        "reason": "String value is only parsed once."
+    },
+    "c1de096b850cb342b55a624537888f996fd92141de26d8cfb640cf41825039af": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/master/server/backend/debug.go#L229-L229",
+        "reason": "String value is only parsed once."
+    },
+    "c48f4fdf16eff9ae2927d2edd26a69c444bee23122cad2ea2fcd15e9c15af8d0": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/master/gateway/mock_gateway.go#L241-L241",
+        "reason": "Test code."
+    },
+    "156f14e10357d8d169af5faf7fe70320bb71ce6a3914d0e78ac30dbd02beb38c": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/flannel/blob/master/alerts/alerts.go#L80-L80",
+        "reason": "Only arguments are dynamic."
+    },
+    "4657bddd2a1ebf505f55665db61670c638ebb2aca6f8612e2c7e5dce36a9aaf5": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/flannel/blob/master/server/debug/handlers.go#L152-L152",
+        "reason": "No dynamic content"
+    },
+    "fe789884257c447cc40ce0b2b9c2139d5d8e48608aa096f0ed70cb20d6d7804a": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/flannel/blob/master/scripts/debug/consistency.go#L32-L32",
+        "reason": "Only arguments are dynamic."
+    },
+    "1c366e21531ff44bd95ebe2ced33c0ffebcdc34ad31530fdf19320cb110b32b2": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/flannel/blob/master/util/process.go#L14-L14",
+        "reason": "Dead code."
+    },
+    "20f752772592f7bdcde1f90635ab7c2eb0081c1f47c4fb8306e6edfb7092bb33": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/flannel/blob/master/util/process.go#L30-L30",
+        "reason": "Only arguments are dynamic."
+    }
+}

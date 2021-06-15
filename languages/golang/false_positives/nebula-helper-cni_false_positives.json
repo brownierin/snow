@@ -1,1 +1,26 @@
-{}
+{
+    "857ea37014a036ce16189341105a0718d42e6766f3687f7f6abcf90e85803319": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/nebula-helper-cni/blob/master/main.go#L266-L266",
+        "reason": "Dynamic content is bound to arguments."
+    },
+    "99680d37a04b1a928a098f44a343ecb2c1493a87e8742601e63c1e3f46796ed4": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/nebula-helper-cni/blob/master/main.go#L292-L292",
+        "reason": "Dynamic content is bound to arguments."
+    },
+    "d3a9a4104b9e1773713d970bb86c44429b6a5df326c17db97a9e8c483fc1f27e": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/nebula-helper-cni/blob/master/main.go#L394-L394",
+        "reason": "Dynamic content is bound to arguments."
+    },
+    "de3610c3a3467e2422d7950c5a3fc7ee5f2126d66a4169c2fe5c78a1b9313750": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/nebula-helper-cni/blob/master/main.go#L493-L493",
+        "reason": "Dynamic content is bound to arguments."
+    }
+}

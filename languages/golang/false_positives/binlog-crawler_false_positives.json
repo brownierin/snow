@@ -1,1 +1,20 @@
-{}
+{
+    "5002a0be4f16b89c87a3bca81df02c0d37df28d84e67333229a74828f7e20d91": {
+        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.database.string-formatted-query' triggered.",
+        "check_id": "languages.golang.r2c.go.lang.security.audit.database.string-formatted-query",
+        "location": "https://slack-github.com/slack/binlog-crawler/blob/master/core/sql/db.go#L120-L120",
+        "reason": "Value isn't controlable by an attacker."
+    },
+    "bdd0df393e6732946692d4df028862f83451630056cb944ced994955c69ce437": {
+        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.database.string-formatted-query' triggered.",
+        "check_id": "languages.golang.r2c.go.lang.security.audit.database.string-formatted-query",
+        "location": "https://slack-github.com/slack/binlog-crawler/blob/master/v2/progress.go#L18-L131",
+        "reason": "Value used to create the query are static."
+    },
+    "e45b4e4658221f27a1e2480d98f0d7b5da9f5a617a05342813669ab9252c6d7b": {
+        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.database.string-formatted-query' triggered.",
+        "check_id": "languages.golang.r2c.go.lang.security.audit.database.string-formatted-query",
+        "location": "https://slack-github.com/slack/binlog-crawler/blob/master/v2/progress.go#L30-L131",
+        "reason": "Value used to create the query are static."
+    }
+}

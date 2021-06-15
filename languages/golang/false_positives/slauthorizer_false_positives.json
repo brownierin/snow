@@ -1,1 +1,8 @@
-{}
+{
+    "a45a9abc2d8807947a865968f681b9f9152ceb2e28a8226a180e30afbd3a89ee": {
+        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.use-tls' triggered.",
+        "check_id": "languages.golang.r2c.go.lang.security.audit.net.use-tls",
+        "location": "https://slack-github.com/slack/slauthorizer/blob/master/main.go#L106-L106",
+        "reason": "Likely falls under Nebula encryption and is mitigated"
+    }
+}

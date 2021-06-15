@@ -1,1 +1,8 @@
-{}
+{
+    "1377e8f4af654eb26d53b3120659eb76ccc42c7567027c8a6c999c0201ddcca2": {
+        "message": "Rule 'languages.javascript.r2c-ci-rules.javascript.lang.correctness.useless-eqeq.eqeq-is-bad' triggered.",
+        "check_id": "languages.javascript.r2c-ci-rules.javascript.lang.correctness.useless-eqeq.eqeq-is-bad",
+        "location": "https://slack-github.com/slack/webapp/blob/master/js/libs/TSF.slim.source.js#L91-L91",
+        "reason": "Bad code, but not a vulnerability"
+    }
+}

@@ -1,1 +1,158 @@
-{}
+{
+    "a08a96722194336a00edefa73282c602debb206e4e5856cb3d25c0640b1b08f7": {
+        "message": "Rule 'languages.java.r2c-ci-rules.java.lang.security.audit.crypto.weak-hash.use-of-md5' triggered.",
+        "check_id": "languages.java.r2c-ci-rules.java.lang.security.audit.crypto.weak-hash.use-of-md5",
+        "location": "https://slack-github.com/slack/JavaBackend/blob/master/MessageServer/src/ts/util/Sys.java#L929-L929",
+        "reason": "Dead code."
+    },
+    "1ce075afb108fda50e4307cc28dce16c1f63f24a1fdbb3e00c2a6bdb7da5abd3": {
+        "message": "Rule 'languages.java.r2c-ci-rules.java.lang.correctness.no-string-eqeq.no-string-eqeq' triggered.",
+        "check_id": "languages.java.r2c-ci-rules.java.lang.correctness.no-string-eqeq.no-string-eqeq",
+        "location": "https://slack-github.com/slack/JavaBackend/blob/master/MessageServer/src/ts/util/Strings.java#L94-L94",
+        "reason": "String compare is used for reference counting."
+    },
+    "57f19e2f51a8d7a047430b41e32b89291bf8d5f16015b38269e736ac8446e0bd": {
+        "message": "Rule 'languages.java.r2c-ci-rules.java.lang.correctness.no-string-eqeq.no-string-eqeq' triggered.",
+        "check_id": "languages.java.r2c-ci-rules.java.lang.correctness.no-string-eqeq.no-string-eqeq",
+        "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadtestFramework/src/slack/loadtest_framework/ConsulValue.java#L94-L94",
+        "reason": "Code is located in test file (not reachable)."
+    },
+    "c0fbbc07dbe00234fca3b8cbeb4da7e895000665a4f8e1b33d22d4d21bb8ce18": {
+        "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
+        "check_id": "languages.java.slack.java.lang.predictable-prng-01",
+        "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/ChannelServerCanHandleSpecifiedMessageRate.java#L42-L42",
+        "reason": "Code is located in test file (not reachable)."
+    },
+    "2de20a53dca8fc90d0818aa40877cca788620c1a9fa7edb41acaec30b2ce085b": {
+        "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
+        "check_id": "languages.java.slack.java.lang.predictable-prng-01",
+        "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/ChannelServerCanHandleSpecifiedNumberOfChannels.java#L171-L171",
+        "reason": "Code is located in test file (not reachable)."
+    },
+    "9226f27ed293d718aea5e987776e7ba7ef7a59325e9289cb709755090c760863": {
+        "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
+        "check_id": "languages.java.slack.java.lang.predictable-prng-01",
+        "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/ChannelServerCanHandleSpecifiedSubscriptionSize.java#L135-L135",
+        "reason": "Code is located in test file (not reachable)."
+    },
+    "f4c5f55d8020af35ad0bd91dcf0b91935ede173c07f23e2b4e4bcdfbff9188e2": {
+        "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
+        "check_id": "languages.java.slack.java.lang.predictable-prng-01",
+        "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/GSPresenceVisibilityDev.java#L31-L31",
+        "reason": "Code is located in test file (not reachable)."
+    },
+    "2a60eb429f05a0b9f042787b8dbad05c87f15cba924a55cfa6b67e646c22d1fe": {
+        "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
+        "check_id": "languages.java.slack.java.lang.predictable-prng-01",
+        "location": "https://slack-github.com/slack/JavaBackend/blob/master/MessageServer/src/slack/util/restart/PickRandomActiveChannelServer.java#L35-L35",
+        "reason": "Random isn't used in security critical code."
+    },
+    "1d9b659727f96928033aa057929ed9f8c05b655a3bf1bbe4e7dc822179484e14": {
+        "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
+        "check_id": "languages.java.slack.java.lang.predictable-prng-01",
+        "location": "https://slack-github.com/slack/JavaBackend/blob/master/MessageServer/src/slack/util/restart/PickRandomActiveTimerServer.java#L37-L37",
+        "reason": "Random isn't used in security critical code."
+    },
+    "203313fb64fd874b6ca2cecc884951834804f27162792e601ed2fa4b945738c7": {
+        "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
+        "check_id": "languages.java.slack.java.lang.predictable-prng-01",
+        "location": "https://slack-github.com/slack/JavaBackend/blob/master/MessageServer/src/slack/util/restart/PickRandomAdminServer.java#L39-L39",
+        "reason": "Random isn't used in security critical code."
+    },
+    "46a4defa3e7420ec342d30bcaa3e9ee4640928b15b48004af879c3bb96af1c5f": {
+        "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
+        "check_id": "languages.java.slack.java.lang.predictable-prng-01",
+        "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/LoadTestBase.java#L252-L252",
+        "reason": "Code is located in test file (not reachable)."
+    },
+    "bd98a33dcde243aefe1b1729080dc6403fd9902c79cad6be27c0576f6db715f6": {
+        "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
+        "check_id": "languages.java.slack.java.lang.predictable-prng-01",
+        "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/LoadTestBase.java#L631-L631",
+        "reason": "Code is located in test file (not reachable)."
+    },
+    "4da0713002567319cd3cc2e9d47ccebf4e99263978b941ba4ef9ce01c5135928": {
+        "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
+        "check_id": "languages.java.slack.java.lang.predictable-prng-01",
+        "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/PresenceServerCanHandleSpecifiedNumberOfUsers.java#L119-L119",
+        "reason": "Code is located in test file (not reachable)."
+    },
+    "0c1af7eba739958dbd1ab0ded056f4f7ece0d11aab7ba835534c7d40e2be809d": {
+        "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
+        "check_id": "languages.java.slack.java.lang.predictable-prng-01",
+        "location": "https://slack-github.com/slack/JavaBackend/blob/master/MessageServer/src/ts/stats/StatsdClient.java#L61-L61",
+        "reason": "Random is used for stats."
+    },
+    "12d15753ad14cf84d8bf7674846434d424c9d95a072a7fa5618a913b56d5eeb8": {
+        "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
+        "check_id": "languages.java.slack.java.lang.predictable-prng-01",
+        "location": "https://slack-github.com/slack/JavaBackend/blob/master/MessageServer/src/ts/stats/PercentileData.java#L65-L65",
+        "reason": "Random is used for stats."
+    },
+    "cc418a64dc3ae5cc759669fac6ade766b6ee9c351fe81b90090ee27b64edd0a4": {
+        "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
+        "check_id": "languages.java.slack.java.lang.predictable-prng-01",
+        "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/experimental/GSPresenceLoad.java#L124-L124",
+        "reason": "Code is located in test file (not reachable)."
+    },
+    "5056f9e39495b3fb802a8d40a61f6ccd8045e02d119b6e1c7aaababcacf7d032": {
+        "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
+        "check_id": "languages.java.slack.java.lang.predictable-prng-01",
+        "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/experimental/GSPresenceLoad.java#L248-L248",
+        "reason": "Code is located in test file (not reachable)."
+    },
+    "5b57d32973f06a7162f99791d62ab3e72771205de7c75c4f3517f6bbe0bc7f54": {
+        "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
+        "check_id": "languages.java.slack.java.lang.predictable-prng-01",
+        "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/experimental/GSPresenceLoad.java#L264-L264",
+        "reason": "Code is located in test file (not reachable)."
+    },
+    "3756d899f3481c84a9596c960feb384ae6fce60b2b52ed38b51becd4815eb1bf": {
+        "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
+        "check_id": "languages.java.slack.java.lang.predictable-prng-01",
+        "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/experimental/GSPresenceLoad.java#L282-L282",
+        "reason": "Code is located in test file (not reachable)."
+    },
+    "7964c41f5ca5b96b850427fddafa25d04c93efaf0db239daf232b0b1a3283a7d": {
+        "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
+        "check_id": "languages.java.slack.java.lang.predictable-prng-01",
+        "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/experimental/GSWebsocketLoad.java#L56-L56",
+        "reason": "Code is located in test file (not reachable)."
+    },
+    "5cc089510bfd1e111cc791490d8834e2649e34700926f827870b243b21d3581f": {
+        "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
+        "check_id": "languages.java.slack.java.lang.predictable-prng-01",
+        "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/experimental/Presence10KEndpoint1.java#L56-L56",
+        "reason": "Code is located in test file (not reachable)."
+    },
+    "d84d552a812e8112fa03f86b6f9a5d149c31991f27b26ecf74a690ad0c7aa2de": {
+        "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
+        "check_id": "languages.java.slack.java.lang.predictable-prng-01",
+        "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/experimental/PresenceServerLoadTestDriver.java#L181-L181",
+        "reason": "Code is located in test file (not reachable)."
+    },
+    "9a2299c8752fc9422b02d402e850a3aff9be6c0218b9bfa473c353844482ad07": {
+        "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
+        "check_id": "languages.java.slack.java.lang.predictable-prng-01",
+        "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/infra/DeadPigLoadTestCluster.java#L76-L76",
+        "reason": "Code is located in test file (not reachable)."
+    },
+    "6323b1c4cf7667442cf9e85f90aefd6013c3a5bf6d9a2040f13c38862b64275b": {
+        "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
+        "check_id": "languages.java.slack.java.lang.predictable-prng-01",
+        "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/infra/DeadPigLoadTestCluster.java#L115-L115",
+        "reason": "Code is located in test file (not reachable)."
+    },
+    "280e66bb697bd1f8e238a4eb2858394520bf19e30d6e3383dfbe67cd9af7aee9": {
+        "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
+        "check_id": "languages.java.slack.java.lang.predictable-prng-01",
+        "location": "https://slack-github.com/slack/JavaBackend/blob/master/MessageServer/src/slack/cs/CSClientBase.java#L212-L212",
+        "reason": "Random is used for load balancing."
+    },
+    "424118a54d93ba72acfd091b9e2758c0a4a0e2a4ca5b1c587d458a4ef7a3a4bf": {
+        "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
+        "check_id": "languages.java.slack.java.lang.predictable-prng-01",
+        "location": "https://slack-github.com/slack/JavaBackend/blob/master/MessageServer/src/ts/stats/prometheus/PrometheusHistogram.java#L100-L100",
+        "reason": "Random is used for stats."
+    }
+}

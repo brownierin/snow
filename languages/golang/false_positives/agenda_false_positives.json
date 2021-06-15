@@ -1,1 +1,8 @@
-{}
+{
+    "321231161c430fe5f0a8bcedd0c4cf14f188e3d84dfaeeb125b2a91ad0fbb422": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/agenda/blob/master/cmd/cli/wormhole/agendagate.go#L37-L37",
+        "reason": "Value isn't controlable by an attacker."
+    }
+}

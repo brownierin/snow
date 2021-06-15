@@ -1,1 +1,8 @@
-{}
+{
+    "ad94e609ca1e0cfcabd3325c58c673e2efc06d753ecd25c117becad6a5f5f1c2": {
+        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.use-tls' triggered.",
+        "check_id": "languages.golang.r2c.go.lang.security.audit.net.use-tls",
+        "location": "https://slack-github.com/slack/nebula-ca/blob/master/main.go#L154-L154",
+        "reason": "There is a command line option to run with TLS."
+    }
+}

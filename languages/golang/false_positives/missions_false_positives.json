@@ -1,1 +1,38 @@
-{}
+{
+    "56fb51919b1b3f2887e3aeb89038ac8a42881c9e0ff6df0283aae3d7ac29aba3": {
+        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.database.string-formatted-query' triggered.",
+        "check_id": "languages.golang.r2c.go.lang.security.audit.database.string-formatted-query",
+        "location": "https://slack-github.com/slack/missions/blob/master/api/cmd/migrator/migrations/008-force-one-workflow-per-app.go#L103-L103",
+        "reason": "False positive, but this is bad code."
+    },
+    "64596e871e17bdda9c6139001096320748053a99b722d4d1b78ff091c3e8fe51": {
+        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.database.string-formatted-query' triggered.",
+        "check_id": "languages.golang.r2c.go.lang.security.audit.database.string-formatted-query",
+        "location": "https://slack-github.com/slack/missions/blob/master/api/internal/store/app.go#L410-L486",
+        "reason": "Query is concatenated with static string only."
+    },
+    "ba4face8f15c4726d1082eeb590103537f98526c3e330aeffb484a424e0f9be8": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/missions/blob/master/api/internal/appruntime/steps/function.go#L235-L235",
+        "reason": "String value comes from configuration."
+    },
+    "a1b0b8b1a6b0ecf5ff43cd259e0cf79d9106458528e58876bb61772d6ce64cc7": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/missions/blob/master/shared/utils/pagination.go#L31-L31",
+        "reason": "String value is only parsed once."
+    },
+    "1746e8d6b6b46c4c9245cc4084f74e554be98d8b83fef91d118e36198f057c3f": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/missions/blob/master/shared/utils/pagination.go#L38-L38",
+        "reason": "String value is only parsed once."
+    },
+    "3958a3605d76113d3d1f6eb79379feaee28e3e5a60595a499a8942c4e5201c97": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/missions/blob/master/api/internal/appruntime/datarefs/convert_text_to_blocks.go#L82-L82",
+        "reason": "String value is only parsed once."
+    }
+}
