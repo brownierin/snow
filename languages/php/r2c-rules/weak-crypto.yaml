@@ -8,7 +8,7 @@ rules:
   message: |
     Detected usage of weak crypto function. 
     
-    See this page for the recommended algorithm to use : https://app.getguru.com/card/cBEbyLBi/Application-Security-Cryptographic-Guidelines-for-Development
+    See this page for the recommended algorithm to use : https://slack-github.com/slack/docs/tree/master/security/product_security/cryptography_guidance
   metadata:
     references:
     - https://www.php.net/manual/en/book.sodium.php

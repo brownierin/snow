@@ -9,7 +9,7 @@ rules:
     NullCipher was detected. This will not encrypt anything;
     the cipher text will be the same as the plain text.
     
-    See https://app.getguru.com/card/cBEbyLBi/Application-Security-Cryptographic-Guidelines-for-Development for more information.
+    See https://slack-github.com/slack/docs/tree/master/security/product_security/cryptography_guidance for more information.
   severity: WARNING
   languages:
   - java
