@@ -4,7 +4,7 @@ rules:
     DES is considered deprecated. AES is the recommended cipher.
     Upgrade to use AES.
     
-    See https://app.getguru.com/card/cBEbyLBi/Application-Security-Cryptographic-Guidelines-for-Development for more information.
+    See https://slack-github.com/slack/docs/tree/master/security/product_security/cryptography_guidance for more information.
   metadata:
     cwe: 'CWE-326: Inadequate Encryption Strength'
     owasp: 'A3: Sensitive Data Exposure'

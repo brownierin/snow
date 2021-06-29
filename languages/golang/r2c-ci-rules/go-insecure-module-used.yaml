@@ -2,14 +2,14 @@ rules:
 - id: go.lang.security.audit.crypto.bad_imports.insecure-module-used
   message: >-
     Detected use of an insecure cryptographic hashing method. The detected method is known
-    to be broken and relatively easily compromised. Please see the Application Security cryptographic guidelines for development Guru card for reference on acceptable cryptographic hashing algorithms https://app.getguru.com/card/cBEbyLBi/Application-Security-Cryptographic-Guidelines-for-Development .
+    to be broken and relatively easily compromised. Please see the Application Security cryptographic guidelines for development Guru card for reference on acceptable cryptographic hashing algorithms https://slack-github.com/slack/docs/tree/master/security/product_security/cryptography_guidance .
   metadata:
     owasp: 'A9: Using Components with Known Vulnerabilities'
     cwe: 'CWE-327: Use of a Broken or Risky Cryptographic Algorithm'
     source-rule-url: https://github.com/securego/gosec
     references:
     - https://godoc.org/golang.org/x/crypto/sha3
-    - https://app.getguru.com/card/cBEbyLBi/Application-Security-Cryptographic-Guidelines-for-Development
+    - https://slack-github.com/slack/docs/tree/master/security/product_security/cryptography_guidance
   languages: [go]
   severity: WARNING
   patterns:
