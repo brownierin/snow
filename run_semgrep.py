@@ -146,8 +146,7 @@ def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
                       CONFIG[configlanguage]['exclude'] + " --json -o /src" + CONFIG['general'][
                           'results'] + output_file + CONFIG['general']['repositories'][1:] + repo + " --dangerously-allow-arbitrary-code-execution-from-rules"
     print(semgrep_command)
-    # Purposely do not check shell exit code as vulnerabilities returns a 1
-    process = subprocess.run(semgrep_command, shell=True, stdout=subprocess.PIPE)
+    process = subprocess.run(semgrep_command, shell=True, check=True, stdout=subprocess.PIPE)
     # Results here should be sent to a new function for us to work with!
     print(process.stdout.decode("utf-8"))
     # We want to capture where these results came from. GitHub, and Branch in the file
