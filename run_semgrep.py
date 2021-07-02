@@ -144,7 +144,7 @@ def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
     semgrep_command = "docker run --user \"$(id -u):$(id -g)\" --rm -v " + SNOW_ROOT + ":/src returntocorp/semgrep:" + \
                       CONFIG['general']['version'] + " " + CONFIG[configlanguage]['config'] + " " + \
                       CONFIG[configlanguage]['exclude'] + " --json -o /src" + CONFIG['general'][
-                          'results'] + output_file + " --error " + CONFIG['general']['repositories'][1:] + repo + " --dangerously-allow-arbitrary-code-execution-from-rules"
+                          'results'] + output_file + CONFIG['general']['repositories'][1:] + repo + " --dangerously-allow-arbitrary-code-execution-from-rules"
     print(semgrep_command)
     # Purposely do not check shell exit code as vulnerabilities returns a 1
     process = subprocess.run(semgrep_command, shell=True, stdout=subprocess.PIPE)
