@@ -5,6 +5,23 @@ import json
 import csv
 import argparse
 import os.path
+import glob
+import yaml
+
+def make_csv_link(url, text):
+    return f'=HYPERLINK("{url}","{text}")'
+
+def get_nice_checkid(language, check_id):
+    for yaml_file in glob.glob(f"languages/{language}/**/*.yaml", recursive=True):
+        with open(yaml_file, "r") as f:
+            definition_content = yaml.safe_load(f)
+
+            for rule in definition_content["rules"]:
+                if check_id.endswith(rule["id"]):
+                    url = f"https://slack-github.com/slack/snow/tree/master/{yaml_file}"
+                    return make_csv_link(url, rule["id"])
+
+    return check_id
 
 def format_csv(json_files, out_csv):
     all_results = []
@@ -21,6 +38,7 @@ def format_csv(json_files, out_csv):
             project_name = result_data["metadata"]["repoName"]
             base_github_url = result_data["metadata"]["GitHubRepo"]
             git_branch = result_data["metadata"]["branch"]
+            url_project = f"https://slack-github.com/slack/{project_name}/"
 
             for finding in result_data["results"]:
                 if not "hash_id" in finding:
@@ -38,15 +56,28 @@ def format_csv(json_files, out_csv):
                 hash_id = finding["hash_id"]
 
                 all_results.append({
-                    "Rule" : checkid,
-                    "ProjectName" : project_name,
+                    "Rule and Remediation Guidance" : get_nice_checkid(language, checkid),
+                    "ProjectName" : make_csv_link(url_project, project_name),
                     "Language" : language,
                     "Path" : f"{base_github_url}/slack/{project_name}/blob/{git_branch}/{path}#L{start_line}-L{end_line}",
                     "HashId" : hash_id
                 })
     
     with open(out_csv, "w") as csvwrite:       
-        writer = csv.DictWriter(csvwrite, fieldnames=["Rule", "ProjectName", "Language", "Path", "Checked", "Status", "Jira", "Notes", "HashId"])
+        writer = csv.DictWriter(csvwrite, fieldnames=[
+            "Rule and Remediation Guidance",
+            "ProjectName",
+            "Language",
+            "Initial Assessment",
+            "Dev Contact",
+            "Dev Assessment",
+            "Dev Notes on Assesment Decision",
+            "Final Assessment",
+            "JIRA Ticket",
+            "Security Notes",
+            "Path",
+            "HashId"
+        ])
         writer.writeheader()
         writer.writerows(all_results)
 

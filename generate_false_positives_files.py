@@ -5,7 +5,20 @@ import csv
 import argparse
 import sys
 import json
+import yaml
 import os.path
+import glob
+
+def get_long_rule_id(check_id):
+    for yaml_file in glob.glob(f"languages/{language}/**/*.yaml", recursive=True):
+        with open(yaml_file, "r") as f:
+            definition_content = yaml.safe_load(f)
+
+            for rule in definition_content["rules"]:
+                if check_id == rule["id"]:
+                    return os.path.dirname(yaml_file).replace("/", ".") + "." + check_id
+
+    raise Exception(f"Unknown check id : {check_id}")
 
 parser = argparse.ArgumentParser(
     description="Generates the false positives files."
@@ -28,8 +41,8 @@ with open(args.file, "r", encoding="utf-8") as csvfile:
     for finding in csv.DictReader(csvfile):
         line += 1
 
-        # Only check the finding that are marked as false positive.
-        if not finding["Status"].strip().upper() == "FP":
+        # Only check the finding that are marked as false positive in the "Final Assessment" column
+        if not "false positive" in finding["Final Assessment"].lower():
             continue
 
         false_positive += 1
@@ -56,10 +69,10 @@ with open(args.file, "r", encoding="utf-8") as csvfile:
             continue
 
         existing_data[hash_id] = {
-            "message" : "Rule '{}' triggered.".format(finding["Rule"]),
-            "check_id" : finding["Rule"],
+            "message" : "Rule '{}' triggered.".format(finding["Rule and Remediation Guidance"]),
+            "check_id" : get_long_rule_id(finding["Rule and Remediation Guidance"]),
             "location" : finding["Path"],
-            "reason" : finding["Notes"]
+            "reason" : finding["Security Notes"]
         }
 
         with open(path_false_positive_file, "w") as f:
