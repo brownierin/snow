@@ -62,9 +62,9 @@ def remove_false_positives(json_filename, fp_filename, parsed_filename):
 
 
 def get_hash_ids(data):
-    hash_ids = set()
+    hash_ids = {}
     for issue in data["results"]:
-        hash_ids.add(issue["hash_id"])
+        hash_ids["hash_id"] = issue
     return hash_ids
 
 
@@ -78,24 +78,11 @@ def compare_to_last_run(old_output, new_output, output_filename):
     new = open_json(new_output)
     old_hashes = get_hash_ids(old)
     new_hashes = get_hash_ids(new)
-    #logging.info(f"old hashes: \n {old_hashes}")
-    #logging.info(f"new hashes: \n {new_hashes}")
-    if old_hashes == new_hashes:
-        new["results"].clear()
-        new["results"] = "No new findings"
-        write_json(output_filename, new)
-        return new
 
     for new_issue_hash in new_hashes:
-        #(f"current hash: {new_issue_hash}")
-        # old_hash = old_hashes[new_issue_hash]
         if new_issue_hash in old_hashes:
-            [
-                new["results"].remove(issue)
-                for issue in new["results"]
-                if issue["hash_id"] == new_issue_hash
-            ]
-            #logging.info(f"removing issue {new_issue_hash}")
+            new["results"].remove(new_hashes[new_issue_hash])
+                    
     write_json(output_filename, new)
     return new
 
