@@ -141,10 +141,14 @@ def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
     git_sha = git_sha.rstrip()
     print('Scanning repo: ' + repo)
     output_file = f"{language}-{repo}-{git_sha[:7]}.json"
-    semgrep_command = "docker run --user \"$(id -u):$(id -g)\" --rm -v " + SNOW_ROOT + ":/src returntocorp/semgrep:" + \
-                      CONFIG['general']['version'] + " " + CONFIG[configlanguage]['config'] + " " + \
-                      CONFIG[configlanguage]['exclude'] + " --json -o /src" + CONFIG['general'][
-                          'results'] + output_file + CONFIG['general']['repositories'][1:] + repo + " --dangerously-allow-arbitrary-code-execution-from-rules"
+    semgrep_command = (
+        f"docker run --user \"$(id -u):$(id -g)\" --rm "
+        f"-v {SNOW_ROOT}:/src returntocorp/semgrep:{CONFIG['general']['version']} "
+        f"{CONFIG[configlanguage]['config']} "
+        f"{CONFIG[configlanguage]['exclude']} "
+        "--json --dangerously-allow-arbitrary-code-execution-from-rules "
+        f"-o /src{CONFIG['general']['results']}{output_file} "
+        f"{CONFIG['general']['repositories'][1:]}{repo}")
     print(semgrep_command)
     process = subprocess.run(semgrep_command, shell=True, check=True, stdout=subprocess.PIPE)
     # Results here should be sent to a new function for us to work with!
