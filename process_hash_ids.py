@@ -64,7 +64,7 @@ def remove_false_positives(json_filename, fp_filename, parsed_filename):
 def get_hash_ids(data):
     hash_ids = {}
     for issue in data["results"]:
-        hash_ids["hash_id"] = issue
+        hash_ids[issue["hash_id"]] = issue
     return hash_ids
 
 

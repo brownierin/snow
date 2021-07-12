@@ -16,3 +16,4 @@ slauth-request-signing
 slauthorizer
 vault-auth-nebula
 slauth
+orchestrator

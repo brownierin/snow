@@ -27,6 +27,17 @@ if CONFIG['general']['run_local_semgrep'] != "False":
 LANGUAGES_DIR = SNOW_ROOT + CONFIG['general']['languages_dir']
 RESULTS_DIR = SNOW_ROOT + CONFIG['general']['results']
 REPOSITORIES_DIR = SNOW_ROOT + CONFIG['general']['repositories']
+FORKED_REPOS = {
+    "orchestrator"  : "https://github.com/openark/orchestrator.git",
+    "vitess"        : "https://github.com/vitessio/vitess.git",
+    "unreleased"    : "https://github.com/electron/unreleased.git",
+    "secor"         : "https://github.com/pinterest/secor.git",
+    "trop"          : "https://github.com/electron/trop.git",
+    "hive"          : "https://github.com/apache/hive.git",
+    "kafka"         : "https://github.com/apache/kafka.git",
+    "apache-ranger" : "https://github.com/apache/ranger.git",
+    "fbthrift"      : "https://github.com/facebook/fbthrift.git"
+}
 
 def cleanup_workspace():
     print('Begin Cleanup Workspace')
@@ -132,9 +143,45 @@ def download_repos():
                             clone = subprocess.run(clone_command, shell=True, check=True,
                                            stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                         print(clone.stdout.decode("utf-8"))
+
                 get_sha_process = subprocess.run("git -C " + REPOSITORIES_DIR + repo +" rev-parse HEAD", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                 git_sha = get_sha_process.stdout.decode("utf-8").rstrip()
                 scan_repo(repo, CONFIG[language]['language'], language, git_repo_url, git_sha)
+
+                # Special repos are repos that are forked from open-source library or project.
+                # For those repos the results that we must consider for the scan are the diff 
+                # between our current version and the original version it's forked from.
+                if repo in FORKED_REPOS:
+                    # Setup the upstream repo as a remote
+                    forked_repo = FORKED_REPOS[repo]
+                    print(f"Repository is forked from {forked_repo}.")
+
+                    subprocess.run(f"git -C {REPOSITORIES_DIR}{repo} remote | grep -q '^forked$' || git -C {REPOSITORIES_DIR}{repo} remote add forked {forked_repo}", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                    subprocess.run(f"git -C {REPOSITORIES_DIR}{repo} fetch forked", shell=True, check=True)
+
+                    # Get the remote "master" branch name (not always "master")
+                    symref_process = subprocess.run(f"git -C  {REPOSITORIES_DIR}{repo} remote show forked | sed -n '/HEAD branch/s/.*: //p'", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                    remote_master_name = symref_process.stdout.decode("utf-8")
+
+                    # Identify the commit id it was forked from
+                    merge_base_process = subprocess.run(f"git -C {REPOSITORIES_DIR}{repo} merge-base {git_sha} forked/{remote_master_name}", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                    forked_commit_id = merge_base_process.stdout.decode("utf-8")
+                    print(f"Using the commit id {forked_commit_id} as the commit the repo is forked from.")
+
+                    # Scan the repo for that commit ID
+                    scan_repo(repo, CONFIG[language]['language'], language, git_repo_url, forked_commit_id)
+
+                    # Compare the results and override the original result with the difference
+                    repo_language = language.replace("language-", "")
+
+                    for suffix in ["", "-fprm"]:
+                        old_output = f"{RESULTS_DIR}{repo_language}-{repo}-{forked_commit_id[:7]}{suffix}.json"
+                        new_output = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha[:7]}{suffix}.json"
+
+                        if os.path.exists(old_output):
+                            comparison.compare_to_last_run(old_output, new_output, new_output)
+                            os.remove(old_output) # Cleanup
+
 
 def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
     git_sha = git_sha.rstrip()
@@ -185,6 +232,7 @@ def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
     process = subprocess.run(git_branch_cmd, shell=True, stdout=subprocess.PIPE)
     branch = process.stdout.decode('utf-8').rstrip()
     print(f"branch is: {branch}")
+
     if branch == "master":
         # sorts files by most recent
         paths = []
