@@ -3,7 +3,7 @@
         "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.use-tls' triggered.",
         "check_id": "languages.golang.r2c.go.lang.security.audit.net.use-tls",
         "location": "https://slack-github.com/slack/murron/blob/master/cmd/murron-ping/main.go#L58-L58",
-        "reason": "Likely falls under Nebula encryption and is mitigated"
+        "reason": "Protected by Nebula"
     },
     "bf14e89d8b6b6d3fbaa42f1d58d0fb545d41a495dfc6ba9ed6f3c7e9505d27c6": {
         "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.use-tls' triggered.",
@@ -45,19 +45,19 @@
         "message": "Rule 'languages.golang.r2c-ci-rules.go.grpc.security.grpc-client-insecure-connection.grpc-client-insecure-connection' triggered.",
         "check_id": "languages.golang.r2c-ci-rules.go.grpc.security.grpc-client-insecure-connection.grpc-client-insecure-connection",
         "location": "https://slack-github.com//slack/murron/blob/875571564b18d203aaefaae92b7948f325f964cd/example-clients/grpc/main.go#L70-L70",
-        "reason": "Likely falls under Nebula encryption and is mitigated"
+        "reason": "Protected by Nebula"
     },
     "9ea52c90bfe9b10175a626556da099a9a2fac02c94bfb36feb464c7af8a0978d": {
         "message": "Rule 'languages.golang.r2c-ci-rules.go.grpc.security.grpc-client-insecure-connection.grpc-client-insecure-connection' triggered.",
         "check_id": "languages.golang.r2c-ci-rules.go.grpc.security.grpc-client-insecure-connection.grpc-client-insecure-connection",
         "location": "https://slack-github.com//slack/murron/blob/875571564b18d203aaefaae92b7948f325f964cd/example-clients/grpc/main.go#L119-L119",
-        "reason": "Likely falls under Nebula encryption and is mitigated"
+        "reason": "Protected by Nebula"
     },
     "155ecc3b89099fbe594cf4ea93e983f4c919eb4f8ed5a2601164e252b66377c6": {
         "message": "Rule 'languages.golang.r2c-ci-rules.go.grpc.security.grpc-server-insecure-connection.grpc-server-insecure-connection' triggered.",
         "check_id": "languages.golang.r2c-ci-rules.go.grpc.security.grpc-server-insecure-connection.grpc-server-insecure-connection",
         "location": "https://slack-github.com//slack/murron/blob/875571564b18d203aaefaae92b7948f325f964cd/pkg/core/input/grpc/grpc.go#L16-L40",
-        "reason": "Likely falls under Nebula encryption and is mitigated"
+        "reason": "Protected by Nebula"
     },
     "92f5cc5cfb8b89b220dbc2093dd17daad13a2c58d97b5c2daf7cc64fcd2826ed": {
         "message": "Rule 'languages.golang.r2c-ci-rules.go.lang.security.audit.crypto.bad_imports.insecure-module-used' triggered.",

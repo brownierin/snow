@@ -3,7 +3,7 @@
         "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.use-tls' triggered.",
         "check_id": "languages.golang.r2c.go.lang.security.audit.net.use-tls",
         "location": "https://slack-github.com/slack/rains/blob/master/healthcheck/healthcheck.go#L27-L27",
-        "reason": "Likely falls under Nebula encryption and is mitigated"
+        "reason": "Protected by Nebula"
     },
     "c33f96636c3589c740013744db9379187cc26155d216a80ea54dc2d12367844c": {
         "message": "Rule 'languages.golang.r2c-ci-rules.go.lang.security.audit.crypto.bad_imports.insecure-module-used' triggered.",

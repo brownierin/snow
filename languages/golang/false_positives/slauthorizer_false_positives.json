@@ -3,6 +3,6 @@
         "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.use-tls' triggered.",
         "check_id": "languages.golang.r2c.go.lang.security.audit.net.use-tls",
         "location": "https://slack-github.com/slack/slauthorizer/blob/master/main.go#L106-L106",
-        "reason": "Likely falls under Nebula encryption and is mitigated"
+        "reason": "Only listens on localhost; see https://slack-github.com/slack/slauthorizer/pull/18"
     }
 }
