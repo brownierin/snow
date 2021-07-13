@@ -17,3 +17,7 @@ slauthorizer
 vault-auth-nebula
 slauth
 orchestrator
+malware-service
+vtops
+orc-deploy-lite
+prom-aggregation-gateway
