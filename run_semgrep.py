@@ -124,10 +124,10 @@ def git_ops(repo):
     repo_path = f"{REPOSITORIES_DIR}{repo}"
     git_repo = f"git@slack-github.com:slack/{repo}.git"
     if repo == "webapp":
-        print("Updating webapp")
+        print("[+] Updating webapp")
         command = (
-                    f"git -C {REPOSITORIES_DIR}webapp ",
-                    f"fetch --tags --force --progress ",
+                    f"git -C {REPOSITORIES_DIR}webapp "
+                    f"fetch --tags --force --progress "
                     f"-- {git_repo} +refs/heads/*:refs/remotes/origin1/*"
                     )
         process = run_command(command)
