@@ -48,6 +48,10 @@ with open(args.file, "r", encoding="utf-8") as csvfile:
         false_positive += 1
         hash_id = finding["HashId"].strip()
 
+        if finding["Security Notes"].strip() == "":
+            print("[WARNING] Line {} is marked as a false positive, but doesn't contain a note explaining the reason the finding is marked as a false positive. Can't add this false positives !".format(line))
+            continue
+
         if hash_id == "":
             print("[WARNING] Line {} is marked as a false positive, but doesn't contain a hash id. Can't add this false positives !".format(line))
             continue

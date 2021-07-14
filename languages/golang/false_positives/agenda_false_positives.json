@@ -1,1 +1,18 @@
-{}
+{
+    "971739920efd919daf9a1a1bbac1a1c22c61269dd898ccf676b6aaf603926844": {
+        "message": "Rule 'bad-tmp-file-creation' triggered.",
+        "check_id": "bad-tmp-file-creation",
+        "location": "https://slack-github.com/slack/agenda/blob/master/cmd/cli/wormhole/agendastore.go#L79-L79",
+        "reason": "Low risk: used only when running CLI tool as part of dev workflow.",
+        "jira": "PRODSEC-3137",
+        "risk": "Informational"
+    },
+    "10b5834fdc79cecd232542e1bbf71a729c377a000a15b42af20bf5f109d6b535": {
+        "message": "Rule 'bad-tmp-file-creation' triggered.",
+        "check_id": "bad-tmp-file-creation",
+        "location": "https://slack-github.com/slack/agenda/blob/master/cmd/cli/wormhole/agendastore.go#L95-L95",
+        "reason": "Low risk: used only when running CLI tool as part of dev workflow.",
+        "jira": "PRODSEC-3137",
+        "risk": "Informational"
+    }
+}

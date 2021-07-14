@@ -1,1 +1,448 @@
-{}
+{
+    "533c2bde3e640f3d2f13f7635be42e2c6acedc79a0599d092409b2b18539aba3": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/wot/omni.go#L366-L366",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "950b6c2d813990645626a81bffbc042e709c98514d6924a2f3124a01d1c04d56": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/mayfly/cli/ops/failedjobs/processor/failed_queue_processor.go#L392-L392",
+        "reason": "Id is internal value (not attacker controlled)",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "4766ceb39e430820d3a60294f14d2323a03ff956a7420a24e72a365d7c07cd17": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/imgproxy/iproxy/iproxy.go#L256-L256",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "b42c7a157b53918c8ca4d442757c429b658e3d0f30482f65dcc9423a83451a72": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/mayfly/router/claim/hash.go#L34-L34",
+        "reason": "Value doesn't appear to be controlable by an attacker.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "3e13eeb8aaa41d6398b6c61b7e56d559ddda0e9d2d79d2d5d514604800b77474": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/mayfly/router/prommetrics/metrics.go#L180-L180",
+        "reason": "Value doesn't appear to be controlable by an attacker.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "beb07bf3c2893c54d4d2dcf1a751f9ac96bc22c8a346869958e97da5f65180f6": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/mayfly/router/prommetrics/metrics.go#L191-L191",
+        "reason": "Value doesn't appear to be controlable by an attacker.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "e80e7441fd9039dc1347cdc17f70c8346cd08886dd9211b697a850e3f37cc4b6": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/mayfly/router/prommetrics/metrics.go#L224-L224",
+        "reason": "Value doesn't appear to be controlable by an attacker.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "53eb4830f6276db162f5b38f211424eee8ea0b753837d67bca3e23e6ef31b879": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/mayfly/router/prommetrics/metrics.go#L225-L225",
+        "reason": "Value doesn't appear to be controlable by an attacker.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "9e9b37cb27d09a9ad9c9f94874e7775dddc49cb6223bf000da93e6fdc5b386c2": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/mayfly/router/prommetrics/metrics.go#L251-L251",
+        "reason": "Value doesn't appear to be controlable by an attacker.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "67181da6e250720ea62317caf9e525a670c159de91374ce33e7fcf704759c40d": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/imgproxy/perfdebug/perfdebug.go#L160-L160",
+        "reason": "Value isn't used anywhere."
+    },
+    "d5b4807df3098b305e632f5bb686c2c110302b94ff6e7b292e8107afb13b510f": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/imgproxy/perfdebug/perfdebug.go#L184-L184",
+        "reason": "Value is validated.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "93fea46e0e513aa89e85888bff4e5817a9939fab830a70fae6cefde05cc18bf1": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/cdc/source/filters.go#L45-L45",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "f42e7d859fc952489ed9c7d38d55be170d77fcf97efc9efa71555aed0f7a850d": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/wot/slo_buckets.go#L169-L169",
+        "reason": "Value doesn't appear to be controlable by an attacker.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "a684b9b4fc525f444ea9445b44626a2aa9fbcc173d3bda54becede9e6e7c29b3": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/wot/slo_buckets.go#L174-L174",
+        "reason": "Value doesn't appear to be controlable by an attacker.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "e16fe0355b5ec2c100456d77551aef79595986ad09d799265673e45e1b066311": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/wot/slo_calc.go#L77-L77",
+        "reason": "Value doesn't appear to be controlable by an attacker.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "9ef341c7c03667b782d42ee9d202558e50ecabb7a0df4c5a4e9f1e9c9c1256ef": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/wot/slo_calc.go#L101-L101",
+        "reason": "Value doesn't appear to be controlable by an attacker.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "474db84c7ad3bb15860685369bc9a99b27d1ac06bf0bbf4395a4259bbe9714e4": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/mayfly/registry/registry.go#L130-L130",
+        "reason": "Value doesn't appear to be controlable by an attacker.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "10616a4d94ed2a52b6a1b0f498124212ba70ee20f8f75f34bcf2b3411df7f2fe": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/common/client/grpc/resolver/resolver.go#L83-L83",
+        "reason": "Value doesn't appear to be controlable by an attacker.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "c0bd6e21e4a0f5174c180eaf20ed0e1e21eb1f3d15e03908f8db72f7ff25a11a": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/common/client/grpc/resolver/resolver.go#L86-L86",
+        "reason": "Value doesn't appear to be controlable by an attacker.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "e842dc4b372e35fed081ec0c776b013f4e9defc284c249fbc54200e7c11d37f6": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/common/client/grpc/resolver/resolver.go#L162-L162",
+        "reason": "Value is validated.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "4e29fc47835cccfb76dc186ae62dfcccc4f698adcfdad627a011f7a833fe52d7": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/viz/pkg/models/singlestatpanel.go#L47-L47",
+        "reason": "Value (font size) is of no security interest.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "41bdb46befd716f0bb34941d8cf064692276ea864ce5847ee657116dd045dc95": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/wot/alert.go#L72-L72",
+        "reason": "Value doesn't appear to be controlable by an attacker.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "006ccb1e096a760067079f31f1069f1b20d172bad4facefdc96484cdc178ccf5": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/wot/alert.go#L192-L192",
+        "reason": "Value doesn't appear to be controlable by an attacker.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "b9e078f3563fe4875e2ca2e1ddbeac432391f523f2ca541dc83dda36ed560f1d": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/common/prom_metrics/proc.go#L19-L19",
+        "reason": "Value doesn't appear to be controlable by an attacker.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "0aed4e702b2c05c06ec4d90c4156c981c657f55c4f0dfcf8f8fbc70a48dd09be": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/build/notification/notif.go#L155-L155",
+        "reason": "Command is only used with static string.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "ccceb0b2c15d6571dc7035abf44abcdd188bffd8a05ed63076e27b6ab55872fb": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/mayfly/minimay/sqs.go#L21-L21",
+        "reason": "Dynamic content is bound to arguments.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "8f7f84d851463cbca7d4ac83be3eb773034a9abb17f6dbca38937d98912ccbf9": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/mayfly/minimay/sqs.go#L57-L57",
+        "reason": "Dynamic content is bound to arguments.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "815d93534f4445228620606dded8671dd6274a2ca7a495d2690796d92112fbcc": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/mayfly/minimay/sqs.go#L60-L60",
+        "reason": "Dynamic content is bound to arguments.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "4292117e422fb5e8185d73df8d3bb7ec40667be61b3dc2212636e1a863f0cf6c": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/mayfly/minimay/sqs.go#L70-L70",
+        "reason": "Dynamic content is bound to arguments.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "7596e3b1086e882406a80b65034df4319c1f1742c8ce4d6562172ef010c7b029": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/imgproxy/iproxy/iproxy-load/image.go#L127-L127",
+        "reason": "Dynamic content is bound to arguments.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "991d9553424c040fe9d7ff7d599e751709a1c2352298cd125fb6b4714740fb94": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/slack-aws-creds/internal/okta/duo.go#L61-L61",
+        "reason": "Dynamic content is bound to arguments.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "ce3d31c0cce213a3c5fe535d8490bb732721c9a239f7119a9cfebddfc0d96e35": {
+        "message": "Rule 'languages.golang.r2c-ci-rules.go.lang.security.audit.crypto.bad_imports.insecure-module-used' triggered.",
+        "check_id": "languages.golang.r2c-ci-rules.go.lang.security.audit.crypto.bad_imports.insecure-module-used",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/service_proxy/grpc_proxy/client_proxy.go#L134-L134",
+        "reason": "We establish a connection name with SHA1, but dont ever use that connection to do any sort of integrity checking. ",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "100972d57ca725c39f0f7902d59c0d016a18bc80477679dd7cc934b52e5d08a1": {
+        "message": "Rule 'languages.golang.r2c-ci-rules.go.lang.security.audit.crypto.bad_imports.insecure-module-used' triggered.",
+        "check_id": "languages.golang.r2c-ci-rules.go.lang.security.audit.crypto.bad_imports.insecure-module-used",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/imgproxy/miata/miata.go#L260-L260",
+        "reason": "We output a string of the hash but dont do anything with it. ",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "681378021422199272f9dae920d0ba5d3d7dc9e60785891c43f2d963408e2d3e": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/rlimit_action/ratelimited_action.go#L81-L81",
+        "reason": "The Flag.String passes in through a command line argument. This is a FP as it would require a user already on the box. ",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "3ca923e4fbef40f3f187d9510fbef950b8641bc5458eb9af23036191ba05d517": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/imgproxy/iproxy/iproxy.go#L227-L227",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "cdf484da06d0f9e02db6d314a34376440aaa3da73f36c1136ee785ba58fad6fe": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/imgproxy/iproxy/iproxy.go#L230-L230",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "561c98acd6a845b849a11b54548f7a894f18a1c59ce121d628293ad08a2b0fba": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/imgproxy/iproxy/iproxy.go#L241-L241",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "dc6100b80296f98f3ef1518cd5c5dd601fb163c11409adeba92d52c99c1d9c7c": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/imgproxy/iproxy/iproxy.go#L245-L245",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "c9f17ea3681737ed16c6ec5cc000c40bdffc24db56555313c987c30dcf3d2854": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/imgproxy/iproxy/iproxy.go#L262-L262",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "45d5798700e025ad85ce7de59fd46863fb7d37f3533c7eab504baf8f170be255": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/imgproxy/iproxy/iproxy.go#L266-L266",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "5afc566a61d723986b6f3ad0742694923b4d49aadaeb9497d74fc1bef5bca4a9": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/imgproxy/iproxy/iproxy.go#L1125-L1125",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "cd9eddd35b6b4008c7e2bee486c95c16da0759cafa8d4903b55ab7633f0e75f5": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/wot/handlers.go#L887-L887",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "f8d77684a28933bffedaf803001b20426f6149cd99d14e03aac7f7082c6adb7a": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/wot/handlers.go#L894-L894",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "40c9d9553f3b0d740938ba472bb1c473318718bc52709a27fd41f88026696d55": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/wot/handlers.go#L954-L954",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "e92fc02a5a90fe3800c664768c50ea52d495372336affb4c9f8b6e579d45b69d": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/mayfly/accelerator/relay_task.go#L265-L265",
+        "reason": "Id is internal value (not attacker controlled)",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "e3cfadf59e011bbd65055fb6d8cea6e21b68c4ed568ba52bb8c791cd1bf3df11": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com//slack/goslackgo/blob/03c82a1d77466c1d74a00a72594cf3a658fcb811/mayfly/accelerator/relay_task.go#L270-L270",
+        "reason": "Id is internal value (not attacker controlled)",
+        "jira": "PRODSEC-3153",
+        "risk": "Informational"
+    },
+    "42a2e73a3b1a16f6cca2a140273c44a9b78895a92c1cfcea9cef3d16e218091f": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/ekm/cmd/ekm/index.go#L23-L23",
+        "reason": "Dead code.",
+        "jira": "PRODSEC-3154",
+        "risk": "Low"
+    },
+    "80e135ab1047848e40f7dbe7cd8922779a011eb7901769bfe73fbb8a1df789d1": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/mayfly/minimay/consul_testutil_fork.go#L277-L277",
+        "reason": "Code is located in test file (not reachable).",
+        "jira": "",
+        "risk": "False Positive"
+    },
+    "cf31278679e1f681576a69adf602b56570c1cab584d8ca8966b20b8d7bf7db68": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/imgproxy/testutil/testutil.go#L91-L91",
+        "reason": "Code is located in test file (not reachable).",
+        "jira": "",
+        "risk": "False Positive"
+    },
+    "7c6683ed50918ede633d5b707ceef5f5a9e0367629022574a2a83dbb9bb7a7e0": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/imgproxy/testutil/testutil.go#L97-L97",
+        "reason": "Code is located in test file (not reachable).",
+        "jira": "",
+        "risk": "False Positive"
+    },
+    "b237010e89329023685cefaf09212ebd887ee792e9e00e178fc1167dd0aac2fe": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/cdc/testutil/test_utils.go#L38-L38",
+        "reason": "Code is located in test file (not reachable).",
+        "jira": "",
+        "risk": "False Positive"
+    },
+    "0e85436db9b09b6622436a436dad9f6880b2956efecb4d11d92a64526d20081d": {
+        "message": "Rule Triggered - potential-code-execution",
+        "check_id": "potential-code-execution",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/rlimit_action/ratelimited_action.go#L81-L81",
+        "reason": "The Flag.String passes in through a command line argument.",
+        "jira": "PRODSEC-3142",
+        "risk": "Informational"
+    },
+      "6411babed8949fe3bddc8c7b104289b62fe90210f1f564a9bf0c76a9fc7b80eb": {
+          "message": "Rule Triggered - bad_imports.insecure-module-used",
+          "check_id": "bad_imports.insecure-module-used",
+          "location": "https://slack-github.com/slack/goslackgo/blob/master/imgproxy/miata/miata.go#L266-L266",
+          "reason": "We output a string of the hash but dont do anything with it. Its for debug and print to console",
+          "jira": "PRODSEC-3142",
+          "risk": "Informational"
+      },
+      "536b6d14455b0dced15b81f5798c4fc588e9b8ce981d0e7733644e684067816a": {
+          "message": "Rule Triggered - bad_imports.insecure-module-used",
+          "check_id": "bad_imports.insecure-module-used",
+          "location": "https://slack-github.com/slack/goslackgo/blob/master/service_proxy/grpc_proxy/client_proxy.go#L134-L134",
+          "reason": "SHA 1 used for debug, no crypto uses. ",
+          "jira": "PRODSEC-3142",
+          "risk": "Informational"
+      },
+      "8c3c2f9a235c682d5a9da0799cff6d602c419ca33c42a4381fc49efe310e8edb": {
+          "message": "Rule Triggered - bad_imports.insecure-module-used",
+          "check_id": "bad_imports.insecure-module-used",
+          "location": "https://slack-github.com/slack/goslackgo/blob/master/ekm/cmd/ekm/decrypt_handler.go#L569-L569",
+          "reason": "MD5, is used as idenfier for encryptionn keys. I don't think this is an issue, but I dont like this so closely related to crypto. ",
+          "jira": "PRODSEC-3142",
+          "risk": "Informational"
+        },
+      "9c8f0c339387b7473a69911e01c662613fc8bb93bec1820ac34c12e0f57f8692": {
+          "message": "Rule Triggered - bad_imports.insecure-module-used",
+          "check_id": "bad_imports.insecure-module-used",
+          "location": "https://slack-github.com/slack/goslackgo/blob/master/mayfly/registry/registry.go#L270-L270",
+          "reason": "This checks if a file changes and reloads it if it ever does. If you caused a collision here, it would NOT load the file. Cant see this being exploitable. ",
+          "jira": "PRODSEC-3142",
+          "risk": "Informational"
+        }
+}

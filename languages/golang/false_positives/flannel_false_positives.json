@@ -1,1 +1,266 @@
-{}
+{
+    "c3750b7be5c1931a456da8265005ce954791cc528cda031ee9c808cf899eaf44": {
+        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.use-of-unsafe-block' triggered.",
+        "check_id": "languages.golang.r2c.go.lang.security.audit.use-of-unsafe-block",
+        "location": "https://slack-github.com/slack/flannel/blob/master/websocket/mask.go#L8-L8",
+        "reason": "Unsafe block is used to compute a static value (no dynamic content used here).",
+        "jira": "PRODSEC-3151",
+        "Risk": "Informational"
+    },
+    "1750fd36a318038355136916ed457776ede494106750be5c9f7810104b47795b": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/master/util/process.go#L35-L35",
+        "reason": "Value isn't controlable by an attacker.",
+        "jira": "PRODSEC-3151",
+        "Risk": "Informational"
+    },
+    "9db1795c854b64878aeae5daa8252f2b647127c18d4d112dcce7e48fec0e972d": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/master/util/ids.go#L1106-L1106",
+        "reason": "Size is too small to overflow (3 bytes)",
+        "jira": "PRODSEC-3151",
+        "Risk": "Informational"
+    },
+    "4efbfa725cbfabea0a44e0139f753417c34a6c18b6ed4583514ea93f19086f97": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/master/util/ids.go#L1114-L1114",
+        "reason": "Size is too small to overflow (3 bytes)",
+        "jira": "PRODSEC-3151",
+        "Risk": "Informational"
+    },
+    "499e3b9ec1c260176e5091eb39e5a7261d8c003f1faf40ed97e410b4621f299e": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/master/server/frontend/frontend_server.go#L874-L874",
+        "reason": "String value is only parsed once and is validated.",
+        "jira": "PRODSEC-3151",
+        "Risk": "Informational"
+    },
+    "067bd6827dab5ecd0733acf8bfc571934d2de7f0fa8b1e4ddc74cb696315e117": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/master/discovery/consul_resolver.go#L129-L129",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3151",
+        "Risk": "Informational"
+    },
+    "4814dd8b9effd88103a9549bb04953cca063e3e8fd1e637dad7562c7e5eeb8fc": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/master/util/conversions.go#L15-L15",
+        "reason": "Utility function. No unsafe usage of this method found.",
+        "jira": "PRODSEC-3151",
+        "Risk": "Informational"
+    },
+    "ef9cd87000270452d440625c8b7fadeb84e5fee7dcb2e651628da291e85a1b2a": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/master/server/backend/debug.go#L146-L146",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3151",
+        "Risk": "Informational"
+    },
+    "06115c12588260cf1028e76a1f360f4eacbadcd58a857acb2ab560f5d0443468": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/master/server/backend/debug.go#L182-L182",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3151",
+        "Risk": "Informational"
+    },
+    "bde7c14159d5dcb6a1e455cab88772685bd24097ac852fbf3d294eaca1621886": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/master/server/backend/debug.go#L225-L225",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3151",
+        "Risk": "Informational"
+    },
+    "c1de096b850cb342b55a624537888f996fd92141de26d8cfb640cf41825039af": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/master/server/backend/debug.go#L229-L229",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3151",
+        "Risk": "Informational"
+    },
+    "156f14e10357d8d169af5faf7fe70320bb71ce6a3914d0e78ac30dbd02beb38c": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/flannel/blob/master/alerts/alerts.go#L80-L80",
+        "reason": "Only arguments are dynamic.",
+        "jira": "PRODSEC-3151",
+        "Risk": "Informational"
+    },
+    "4657bddd2a1ebf505f55665db61670c638ebb2aca6f8612e2c7e5dce36a9aaf5": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/flannel/blob/master/server/debug/handlers.go#L152-L152",
+        "reason": "No dynamic content",
+        "jira": "PRODSEC-3151",
+        "Risk": "Informational"
+    },
+    "fe789884257c447cc40ce0b2b9c2139d5d8e48608aa096f0ed70cb20d6d7804a": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/flannel/blob/master/scripts/debug/consistency.go#L32-L32",
+        "reason": "Only arguments are dynamic.",
+        "jira": "PRODSEC-3151",
+        "Risk": "Informational"
+    },
+    "20f752772592f7bdcde1f90635ab7c2eb0081c1f47c4fb8306e6edfb7092bb33": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/flannel/blob/master/util/process.go#L30-L30",
+        "reason": "Only arguments are dynamic.",
+        "jira": "PRODSEC-3151",
+        "Risk": "Informational"
+    },
+    "3900a3b81da647d8376edf3037374c219a73f65ed308f2bd6347ff2ebe7283ca": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/flannel/blob/c79ffc33c4ccf1f2b46bfa79fb3aeee76a927040/server/debug/handlers.go#L149-L149",
+        "reason": "args to exec, they\u2019re either --no-restart or --no-restart --version=notraffic",
+        "jira": "PRODSEC-3151",
+        "Risk": "Informational"
+    },
+    "9605cc0d97188f33ec9f124a5396ab1dffbc1a660849ec1af7d58f87e4e593a6": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/flannel/blob/c79ffc33c4ccf1f2b46bfa79fb3aeee76a927040/scripts/drain/drain.go#L648-L648",
+        "reason": "Locally run script, args passed to script internally. ",
+        "jira": "PRODSEC-3151",
+        "Risk": "Informational"
+    },
+    "5f760516e0b55bbd458ffe286462120a246c7543ed79ba2f6687afd6423a154b": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/flannel/blob/c79ffc33c4ccf1f2b46bfa79fb3aeee76a927040/scripts/drain/drain.go#L674-L674",
+        "reason": "Locally run script, args passed to script internally. ",
+        "jira": "PRODSEC-3151",
+        "Risk": "Informational"
+    },
+    "fef3f3f94da4e54735b56436fe77a72bc40b3b1c3d51ec710e496cdd9c251262": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/flannel/blob/c79ffc33c4ccf1f2b46bfa79fb3aeee76a927040/scripts/debug/consistency.go#L46-L46",
+        "reason": "The channel is passed in by the command link through golang flag.",
+        "jira": "PRODSEC-3151",
+        "Risk": "Informational"
+    },
+    "7905b8c41192d6f0f9c2c7af2bbe0616998869278614ac91790648d1371cc862": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/flannel/blob/c79ffc33c4ccf1f2b46bfa79fb3aeee76a927040/scripts/debug/consistency.go#L70-L70",
+        "reason": "The channel is passed in by the command link through golang flag.",
+        "jira": "PRODSEC-3151",
+        "Risk": "Informational"
+    },
+    "560885d0b7439a786cc22bd33cec62652acc977a86b81f15d2b987691639ecd7": {
+        "message": "Rule triggered - use-of-unsafe-block",
+        "check_id": "use-of-unsafe-block",
+        "location": "https://slack-github.com/slack/flannel/blob/master/websocket/mask.go#L27-L27",
+        "reason": "Low risk: performance optimization with good code coverage in tests",
+        "jira": "PRODSEC-3151",
+        "Risk": "Informational"
+    },
+    "03d56c54c74f931da49c8fd908a79bff63197506a93976150c8eaafdf5f2d5ba": {
+        "message": "Rule triggered - use-of-unsafe-block",
+        "check_id": "use-of-unsafe-block",
+        "location": "https://slack-github.com/slack/flannel/blob/master/websocket/mask.go#L41-L41",
+        "reason": "This is part of masking for Google websockets implementation. The code doesnt look to be exploitable using unsafe. https://github.com/google/inverting-proxy/blob/master/vendor/github.com/gorilla/websocket/mask.go",
+        "jira": "PRODSEC-3138",
+        "Risk": "Informational"
+    },
+    "154888c432fcac4a6be53208ad55ad46fe25ef8eb90859e4b3d4de52b7c0fd43": {
+        "message": "Rule triggered - use-of-unsafe-block",
+        "check_id": "use-of-unsafe-block",
+        "location": "https://slack-github.com/slack/flannel/blob/master/websocket/mask.go#L46-L46",
+        "reason": "This is part of masking for Google websockets implementation. The code doesnt look to be exploitable using unsafe. https://github.com/google/inverting-proxy/blob/master/vendor/github.com/gorilla/websocket/mask.go",
+        "jira": "PRODSEC-3138",
+        "Risk": "Informational"
+    },
+    "35d8d5178234cc45f25d7f6ff81f5de8fe3d995aeeda1f88d9523f5d981a9dfc": {
+        "message": "Rule triggered - use-of-unsafe-block",
+        "check_id": "use-of-unsafe-block",
+        "location": "https://slack-github.com/slack/flannel/blob/master/websocket/mask.go#L46-L46",
+        "reason": "Fixed (PR 3864) https://slack-github.com/slack/flannel/pull/3864",
+        "jira": "PRODSEC-3138",
+        "Risk": "Informational"
+    },
+    "becec16ee79db574b51ab9e85265faf4d876a1d91f0d0a57000bef101d36e56f": {
+        "message": "potential-code-execution",
+        "check_id": "potential-code-execution",
+        "location": "https://slack-github.com/slack/flannel/blob/master/scripts/drain/drain.go#L648-L648",
+        "reason": "Locally run script, args passed to script internally. ",
+        "jira": "PRODSEC-3138",
+        "Risk": "Informational"
+    },
+    "09925df41d8e0c0b39ce0636fb2169368dcb6c9d8136c08c005cfffffbe47831": {
+        "message": "potential-code-execution",
+        "check_id": "potential-code-execution",
+        "location": "https://slack-github.com/slack/flannel/blob/master/scripts/debug/consistency.go#L165-L165",
+        "reason": "The channel is passed in by the command link through golang flag. ",
+        "jira": "PRODSEC-3138",
+        "Risk": "Informational"
+    },
+    "ae2b27075a1b196b16444fffbd5dc326183ed0f68558be27c1166a01e89675b2": {
+        "message": "Rule Trigger - bad_imports.insecure-module-used",
+        "check_id": "bad_imports.insecure-module-used",
+        "location": "https://slack-github.com/slack/flannel/blob/master/websocket/util.go#L17-L17",
+        "reason": "Challenge key in code is not a secret. It comes from https://datatracker.ietf.org/doc/html/rfc6455",
+        "jira": "PRODSEC-3138",
+        "Risk": "Informational"
+    },
+    "3efaa503c5a71b5b3f5f5508dca26680488d496767fb6f19af63bbb69ace4a89": {
+        "message": "Rule Trigger - potential-code-execution-6",
+        "check_id": "potential-code-execution-6",
+        "location": "https://slack-github.com/slack/flannel/blob/master/server/debug/handlers.go#L149-L149",
+        "reason": "Non exploitable vulnerability with no direct user input",
+        "jira": "PRODSEC-3138",
+        "Risk": "Informational"
+    },
+  "ba9bdea6f97d990b7c59031b1f3d504a6965e2f506c1dcd427dba3f4d382952e": {
+      "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+      "check_id": "languages.golang.slack.potential-integer-overflow",
+      "location": "https://slack-github.com/slack/flannel/blob/master/util/conversions.go#L9-L9",
+      "reason": "Utility function. No usage of this method found (dead code).",
+      "jira": "PRODSEC-3152",
+      "Risk": "Low"
+    },
+    "1c366e21531ff44bd95ebe2ced33c0ffebcdc34ad31530fdf19320cb110b32b2": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/flannel/blob/master/util/process.go#L14-L14",
+        "reason": "Dead code.",
+        "jira": "PRODSEC-3152",
+        "Risk": "Low"
+    },
+    "b8d520727a07b721c4477b82d192d611e563e4022142517beb5db903320b33a7": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/master/testutil/test_context.go#L1045-L1045",
+        "reason": "Code is located in test file (not reachable).",
+        "jira": "",
+        "Risk": "False Positive"
+    },
+    "e3291fd788971074042ab1677d3d57aba31ddbd8f8f6c82e5f7bf0e1235893a4": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/master/testutil/test_context.go#L1046-L1046",
+        "reason": "Code is located in test file (not reachable).",
+        "jira": "",
+        "Risk": "False Positive"
+    },
+    "c48f4fdf16eff9ae2927d2edd26a69c444bee23122cad2ea2fcd15e9c15af8d0": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/master/gateway/mock_gateway.go#L241-L241",
+        "reason": "Test code.",
+        "jira": "",
+        "Risk": "False Positive"
+    }
+}

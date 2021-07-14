@@ -1,0 +1,18 @@
+{
+  "xxxxxxhashxxxxxx": {
+      "message": "texthere",
+      "check_id": "checidhere",
+      "location": "urlllllllllllll",
+      "reason": "reasonnnnnnnn",
+      "jira": "PRODSECxxxxxxxxxxxx",
+      "risk": "Informational"
+  },
+    "xxxxxxhashxxxxxx": {
+        "message": "texthere",
+        "check_id": "checidhere",
+        "location": "urlllllllllllll",
+        "reason": "reasonnnnnnnn",
+        "jira": "PRODSECxxxzxxxxxxxzxx",
+        "risk": "xxxxxxxx"
+    }
+}

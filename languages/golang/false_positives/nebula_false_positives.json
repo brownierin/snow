@@ -1,1 +1,308 @@
-{}
+{
+    "6ae6a880b92e961aeccd2bac3fbfebef8dcfafac2cd0b56ec800d573faee014d": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_common.go#L48-L48",
+        "reason": "Value isn't attacker controllable (config).",
+        "jira": "PRODSEC-3157",
+        "risk": "Informational"
+    },
+    "109076a4ffeefa118fc00ab056745822120edda6b31f69e2a792d4f4a2bfd807": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/nebula/blob/master/config.go#L194-L194",
+        "reason": "Value isn't attacker controllable (config).",
+        "jira": "PRODSEC-3157",
+        "risk": "Informational"
+    },
+    "c39df367bf68c53f67102c5e14eb578aa6c42f1d25468726bb50ff6ece3694c8": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/nebula/blob/master/e2e/router/router.go#L307-L307",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3157",
+        "risk": "Informational"
+    },
+    "4a50117193a9151122ca525f235a03640f56808323602c1655d8f4a1f32c8f82": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/nebula/blob/master/firewall.go#L904-L904",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3157",
+        "risk": "Informational"
+    },
+    "220790749886474aae18aa7717fac0d4ac728b45277b3eb045235d77ad605006": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/nebula/blob/master/firewall.go#L909-L909",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3157",
+        "risk": "Informational"
+    },
+    "99fe57b0f76dfd449482b3b612685b322d5b27b11a33adb2f74a443a9c2ab925": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/nebula/blob/master/firewall.go#L922-L922",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3157",
+        "risk": "Informational"
+    },
+    "8a4b46c16f208ed07aa63485bf57e25628d74b95db2fa13151f13654955f2fa7": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/nebula/blob/master/udp_all.go#L76-L76",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3157",
+        "risk": "Informational"
+    },
+    "ec2cb08565ad85872c5d0d966512fbfba7718e6f33328b561912981bc79cced7": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_windows.go#L60-L67",
+        "reason": "Only command line arguments are dynamic.",
+        "jira": "PRODSEC-3157",
+        "risk": "Informational"
+    },
+    "9bcb4bab237971dd5f53690ec20af3e6e7883487e0bbd8883d654f0d9c011409": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_windows.go#L71-L75",
+        "reason": "Only command line arguments are dynamic.",
+        "jira": "PRODSEC-3157",
+        "risk": "Informational"
+    },
+    "c3428cf30de1a78c9348fd00f3ac7bf4fc451280df1176989dee563e5fe67d8b": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_windows.go#L86-L88",
+        "reason": "Only command line arguments are dynamic.",
+        "jira": "PRODSEC-3157",
+        "risk": "Informational"
+    },
+    "b353b81208ab471b7c8de6940b9b3a50d49872380402ea7f1822406649644a1c": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_darwin.go#L56-L56",
+        "reason": "Only command line arguments are dynamic.",
+        "jira": "PRODSEC-3157",
+        "risk": "Informational"
+    },
+    "1a163056ffd25502617bd8c71c5f2bb7bd550844edd3ba2c15a3ab7159e68b20": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_darwin.go#L59-L59",
+        "reason": "Only command line arguments are dynamic.",
+        "jira": "PRODSEC-3157",
+        "risk": "Informational"
+    },
+    "0359d232f4e58e424bd59617b9fc11d80ceff8371355d8a0e8ab4ca40a707a74": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_darwin.go#L62-L62",
+        "reason": "Only command line arguments are dynamic.",
+        "jira": "PRODSEC-3157",
+        "risk": "Informational"
+    },
+    "af09e7428aad10cc5424e7143442f4acc92abfac86befb37db8b74d59c7a270e": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_darwin.go#L67-L67",
+        "reason": "Only command line arguments are dynamic.",
+        "jira": "PRODSEC-3157",
+        "risk": "Informational"
+    },
+    "db68932e82f338b7ab940ba9d6ae9d9279c30c0b3ba06b77ff1ef4e4330a34ff": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_freebsd.go#L62-L62",
+        "reason": "Only command line arguments are dynamic.",
+        "jira": "PRODSEC-3157",
+        "risk": "Informational"
+    },
+    "da718ef8950459fde4112799b03f636605a138c34b7f9a80cba89e8fe2c68486": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_freebsd.go#L66-L66",
+        "reason": "Only command line arguments are dynamic.",
+        "jira": "PRODSEC-3157",
+        "risk": "Informational"
+    },
+    "dc8c22651b326309163bfd97ef588600a0962c3492e0df1622fe9827b988b1cc": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_freebsd.go#L70-L70",
+        "reason": "Only command line arguments are dynamic.",
+        "jira": "PRODSEC-3157",
+        "risk": "Informational"
+    },
+    "1901eabf147dd5080b6b97bcbb7331700f81966e56ef829d2c349bba6020ae09": {
+        "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_freebsd.go#L76-L76",
+        "reason": "Only command line arguments are dynamic.",
+        "jira": "PRODSEC-3157",
+        "risk": "Informational"
+    },
+    "f9b7859dabfc7cc40a4881a003216cbebb2f40ceaf411efb4523f4dc0d267a39": {
+        "message": "Rule Triggered - use-of-unsafe-block",
+        "check_id": "use-of-unsafe-block",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_linux.go#L114-L114",
+        "reason": "use-of-unsafe-block is being used as a valid system call to the underlying OS per the Golang standard.",
+        "jira": "PRODSEC-3141",
+        "risk": "Informational"
+    },
+    "df1feff8e6f40798f45e853ac774471f862e5bfbd428a90d77fe5b401c3c0aa6": {
+        "message": "Rule Triggered - use-of-unsafe-block",
+        "check_id": "use-of-unsafe-block",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_linux.go#L152-L152",
+        "reason": "use-of-unsafe-block is being used as a valid system call to the underlying OS per the Golang standard.",
+        "jira": "PRODSEC-3141",
+        "risk": "Informational"
+    },
+    "600992d617a4b44217a87a97404b25183cdc2b20cacd113f68786934aa48d395": {
+        "message": "Rule Triggered - use-of-unsafe-block",
+        "check_id": "use-of-unsafe-block",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_linux.go#L221-L221",
+        "reason": "use-of-unsafe-block is being used as a valid system call to the underlying OS per the Golang standard.",
+        "jira": "PRODSEC-3141",
+        "risk": "Informational"
+    },
+    "bedccfe967bfea6a879107ec31035aac8079927fa20ae4562b0002501f0e6581": {
+        "message": "Rule Triggered - use-of-unsafe-block",
+        "check_id": "use-of-unsafe-block",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_linux.go#L227-L227",
+        "reason": "use-of-unsafe-block is being used as a valid system call to the underlying OS per the Golang standard.",
+        "jira": "PRODSEC-3141",
+        "risk": "Informational"
+    },
+    "869ac279aea3cb1a7ec9086a6069bd25d3dafb4a333b4dfaa5d304693af63818": {
+        "message": "Rule Triggered - use-of-unsafe-block",
+        "check_id": "use-of-unsafe-block",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_linux.go#L233-L233",
+        "reason": "use-of-unsafe-block is being used as a valid system call to the underlying OS per the Golang standard.",
+        "jira": "PRODSEC-3141",
+        "risk": "Informational"
+    },
+    "3054dd79f1ac470763e5ff5ad46c78b75fdef53e6fbf9590a90f71aae597a589": {
+        "message": "Rule Triggered - use-of-unsafe-block",
+        "check_id": "use-of-unsafe-block",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_linux.go#L239-L239",
+        "reason": "use-of-unsafe-block is being used as a valid system call to the underlying OS per the Golang standard.",
+        "jira": "PRODSEC-3141",
+        "risk": "Informational"
+    },
+    "1095641c8a0cb8aa502c3d71c5bd512067ed2dc81b89b529ab37fd892315821a": {
+        "message": "Rule Triggered - use-of-unsafe-block",
+        "check_id": "use-of-unsafe-block",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_linux.go#L246-L246",
+        "reason": "use-of-unsafe-block is being used as a valid system call to the underlying OS per the Golang standard.",
+        "jira": "PRODSEC-3141",
+        "risk": "Informational"
+    },
+    "82d27061c2ef8c7839df96848ebe1350dc25f5faeb14f1d254c572adcd18c04d": {
+        "message": "Rule Triggered - use-of-unsafe-block",
+        "check_id": "use-of-unsafe-block",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_linux.go#L253-L253",
+        "reason": "use-of-unsafe-block is being used as a valid system call to the underlying OS per the Golang standard.",
+        "jira": "PRODSEC-3141",
+        "risk": "Informational"
+    },
+    "dd52078c97f3f845910bc84e3b0f9af9efb06aa636fcff3dc85a365da1b074c8": {
+        "message": "Rule Triggered - use-of-unsafe-block",
+        "check_id": "use-of-unsafe-block",
+        "location": "https://slack-github.com/slack/nebula/blob/master/tun_linux.go#L315-L315",
+        "reason": "use-of-unsafe-block is being used as a valid system call to the underlying OS per the Golang standard.",
+        "jira": "PRODSEC-3141",
+        "risk": "Informational"
+    },
+    "5ae0e2266ddf3ef0700b959f83bea3a96cdc61feba77e654ac1a9f020baf8944": {
+        "message": "Rule Triggered - use-of-unsafe-block",
+        "check_id": "use-of-unsafe-block",
+        "location": "https://slack-github.com/slack/nebula/blob/master/udp_linux.go#L158-L158",
+        "reason": "use-of-unsafe-block is being used as a valid system call to the underlying OS per the Golang standard.",
+        "jira": "PRODSEC-3141",
+        "risk": "Informational"
+    },
+    "91680b4174b0f09850d60dfc98509bce01e05fb96cbffb4d2973b0ca2078d2e8": {
+        "message": "Rule Triggered - use-of-unsafe-block",
+        "check_id": "use-of-unsafe-block",
+        "location": "https://slack-github.com/slack/nebula/blob/master/udp_linux.go#L179-L179",
+        "reason": "use-of-unsafe-block is being used as a valid system call to the underlying OS per the Golang standard.",
+        "jira": "PRODSEC-3141",
+        "risk": "Informational"
+    },
+    "1d2d46c2d843104699026bd9c90770d923efbd344ef0806ac37022693a40b6e0": {
+        "message": "Rule Triggered - use-of-unsafe-block",
+        "check_id": "use-of-unsafe-block",
+        "location": "https://slack-github.com/slack/nebula/blob/master/udp_linux.go#L198-L198",
+        "reason": "use-of-unsafe-block is being used as a valid system call to the underlying OS per the Golang standard.",
+        "jira": "PRODSEC-3141",
+        "risk": "Informational"
+    },
+    "97003ea78e8ac71276dccf02660afcff63137006d72c388c224ffc7512536c65": {
+        "message": "Rule Triggered - use-of-unsafe-block",
+        "check_id": "use-of-unsafe-block",
+        "location": "https://slack-github.com/slack/nebula/blob/master/udp_linux.go#L207-L207",
+        "reason": "use-of-unsafe-block is being used as a valid system call to the underlying OS per the Golang standard.",
+        "jira": "PRODSEC-3141",
+        "risk": "Informational"
+    },
+    "ff450710c0ea7d4dcc8b502451626664055b95788addb7de0e78111f15c8a99b": {
+        "message": "Rule Triggered - use-of-unsafe-block",
+        "check_id": "use-of-unsafe-block",
+        "location": "https://slack-github.com/slack/nebula/blob/master/udp_linux.go#L210-L210",
+        "reason": "use-of-unsafe-block is being used as a valid system call to the underlying OS per the Golang standard.",
+        "jira": "PRODSEC-3141",
+        "risk": "Informational"
+    },
+    "af16fbbe9bda079bf5bd9f8bdcc930daaaa37add4b3213a5bb18bafe6fa4210c": {
+        "message": "Rule Triggered - use-of-unsafe-block",
+        "check_id": "use-of-unsafe-block",
+        "location": "https://slack-github.com/slack/nebula/blob/master/udp_linux.go#L258-L258",
+        "reason": "use-of-unsafe-block is being used as a valid system call to the underlying OS per the Golang standard.",
+        "jira": "PRODSEC-3141",
+        "risk": "Informational"
+    },
+    "80c1e0f025aee84c16e5f3e68708e8fe459b17083650a072e9ce65de9fdc631b": {
+        "message": "Rule Triggered - use-of-unsafe-block",
+        "check_id": "use-of-unsafe-block",
+        "location": "https://slack-github.com/slack/nebula/blob/master/udp_linux.go#L258-L258",
+        "reason": "use-of-unsafe-block is being used as a valid system call to the underlying OS per the Golang standard.",
+        "jira": "PRODSEC-3141",
+        "risk": "Informational"
+    },
+    "02df29206a0ce79cd1e461fe9640895088d270ae2d2574fd074c6a26f84efb7c": {
+        "message": "Rule Triggered - use-of-unsafe-block",
+        "check_id": "use-of-unsafe-block",
+        "location": "https://slack-github.com/slack/nebula/blob/master/util/assert.go#L125-L125",
+        "reason": "This checks to see if two variables have the same values but DO NOT share any memory. It is not exploitable.",
+        "jira": "PRODSEC-3141",
+        "risk": "Informational"
+    },
+    "8672b6106f58bab9f51fc12698a6bd33a78d78eebcc70c9f01d69f4e02996236": {
+        "message": "Rule Triggered - use-of-unsafe-block",
+        "check_id": "use-of-unsafe-block",
+        "location": "https://slack-github.com/slack/nebula/blob/master/util/assert.go#L126-L126",
+        "reason": "This checks to see if two variables have the same values but DO NOT share any memory. It is not exploitable.",
+        "jira": "PRODSEC-3141",
+        "risk": "Informational"
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

@@ -1,1 +1,18 @@
-{}
+{
+    "c33f96636c3589c740013744db9379187cc26155d216a80ea54dc2d12367844c": {
+        "message": "Rule 'languages.golang.r2c-ci-rules.go.lang.security.audit.crypto.bad_imports.insecure-module-used' triggered.",
+        "check_id": "languages.golang.r2c-ci-rules.go.lang.security.audit.crypto.bad_imports.insecure-module-used",
+        "location": "https://slack-github.com/slack/rains/blob/master/auth_checks.go#L171-L171",
+        "reason": "Already marked as false positive with nosem comment.",
+        "jira": "PRODSEC-3163",
+        "risk": "Informational"
+    },
+    "3c0c9615975de75849e3ae639b252c84d76922285d10f3d6bd02c6efef455a78": {
+        "message": "Rule 'languages.golang.r2c-ci-rules.go.lang.security.audit.crypto.bad_imports.insecure-module-used' triggered.",
+        "check_id": "languages.golang.r2c-ci-rules.go.lang.security.audit.crypto.bad_imports.insecure-module-used",
+        "location": "https://slack-github.com/slack/rains/blob/master/auth_checks.go#L237-L237",
+        "reason": "Already marked as false positive with nosem comment.",
+        "jira": "PRODSEC-3163",
+        "risk": "Informational"
+    }
+}

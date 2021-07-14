@@ -1,1 +1,72 @@
-{}
+{
+    "6fd95f645249012eb4ff418a303d29b48525d87603adce01957300f96e56b18b": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/magical-images/blob/master/dev/avatar_recut.go#L36-L36",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3160",
+        "risk": "Informational"
+    },
+    "9f0e0e2f8a3ed5d3e0bb052896cc2284735384f2b2d546fd52e5d004402159fa": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/magical-images/blob/master/dev/crop_avatar.go#L38-L38",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3160",
+        "risk": "Informational"
+    },
+    "2ce1bc6e04bdea2a70d4dc86e2bc92b8cf23a0dbc4e10211d4000078a211320c": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/magical-images/blob/master/dev/crop_avatar.go#L47-L47",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3160",
+        "risk": "Informational"
+    },
+    "822223b751b2b1d7aafa7c6e918ac3d30bf7b8d01fed2ed18aac3d6208685646": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/magical-images/blob/master/dev/crop_avatar.go#L56-L56",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3160",
+        "risk": "Informational"
+    },
+    "1c6afadcf495ee86228962b3832c14e98f282707281b1ad3ae05e2110634e98c": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/magical-images/blob/master/dev/async_prepare_avatar.go#L35-L35",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3160",
+        "risk": "Informational"
+    },
+    "e66855d78275e624d55d971d22134e0aec6987a0229f846e43e0bd0b099288e3": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/magical-images/blob/master/dev/async_prepare_avatar.go#L47-L47",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3160",
+        "risk": "Informational"
+    },
+    "c9147c4e3d87f08357ea26977dd195a27f687e8ca310765c05d2f3d4d162f462": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/magical-images/blob/master/dev/async_prepare_avatar.go#L56-L56",
+        "reason": "String value is only parsed once."
+    },
+    "c8f70c045c33f7ab8fd6d3a6ef4c75b1786b87f4ccff5411144e3396817d2039": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/magical-images/blob/master/dev/async_prepare_avatar.go#L65-L65",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3160",
+        "risk": "Informational"
+    },
+    "5de4e800934ae98609cfe1ad2e2a004ca173cfecd82ebe40f2b3164c3f86db17": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/magical-images/blob/master/dev/screenshot.go#L36-L36",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3160",
+        "risk": "Informational"
+    }
+}

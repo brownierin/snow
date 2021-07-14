@@ -1,1 +1,58 @@
-{}
+{
+    "5e5341d3f147a28601aaa3afcfe9ef6bbe2e92d90b7f9eca18a11516e1b4ff3e": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/murron/blob/master/pkg/outputs/elasticsearch/formatter.go#L97-L97",
+        "reason": "Value is only converted once and isn't further transformed after.",
+        "jira": "PRODSEC-3156",
+        "risk": "Informational"
+    },
+    "d1fe9872bd07d8b9ebdf479394e5663422e8cdc3afbdd0d9044b0f5ff679b3f0": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/murron/blob/master/docker/kafka/cmd/admin/admin.go#L50-L50",
+        "reason": "This is used with command line arguments (not user controlled)",
+        "jira": "PRODSEC-3156",
+        "risk": "Informational"
+    },
+    "11a798e5be6c082f99309213417e55195867ee7e762131d7a71b707bfd8c5e6d": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/murron/blob/master/docker/kafka/cmd/produce/produce.go#L25-L25",
+        "reason": "This is used with command line arguments (not user controlled)",
+        "jira": "PRODSEC-3156",
+        "risk": "Informational"
+    },
+    "d682f306d9f23970dfeb94b2a6e6fa16159f3a84de662e82b2291f2a8bb66fc5": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/murron/blob/master/tools/generate_version_info/main.go#L114-L114",
+        "reason": "This is used with environment variable (not user controlled)",
+        "jira": "PRODSEC-3156",
+        "risk": "Informational"
+    },
+    "c8ff81e63f02898e989059f0a45436ee6c43db73486310933fda5826135d3a1c": {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/murron/blob/master/pkg/views/span_generator.go#L73-L73",
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3156",
+        "risk": "Informational"
+    },
+    "92f5cc5cfb8b89b220dbc2093dd17daad13a2c58d97b5c2daf7cc64fcd2826ed": {
+        "message": "Rule 'languages.golang.r2c-ci-rules.go.lang.security.audit.crypto.bad_imports.insecure-module-used' triggered.",
+        "check_id": "languages.golang.r2c-ci-rules.go.lang.security.audit.crypto.bad_imports.insecure-module-used",
+        "location": "https://slack-github.com//slack/murron/blob/875571564b18d203aaefaae92b7948f325f964cd/pkg/outputs/insights/insights_service.go#L364-L364",
+        "reason": "SHA1 used as identifier",
+        "jira": "PRODSEC-3156",
+        "risk": "Informational"
+    },
+    "4c67c597d3d227047718ea931d14d3e636574eafa51bdcb4ea9f9d759852af73": {
+        "message": "Rule Triggered - bad_imports.insecure-module-used",
+        "check_id": "bad_imports.insecure-module-used",
+        "location": "urlllllllllllll",
+        "reason": "Not used for security/encryption purposes, data deduplication",
+        "jira": "PRODSEC-3140",
+        "risk": "Informational"
+        }
+}
