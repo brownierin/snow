@@ -40,12 +40,12 @@ FORKED_REPOS = {
 }
 
 def cleanup_workspace():
-    print('Begin Cleanup Workspace')
+    print('[+] Begin workspace cleanup')
     mode = int('775', base=8)
     os.makedirs(RESULTS_DIR, mode=mode, exist_ok=True)
     clean_results_dir()
     os.makedirs(REPOSITORIES_DIR, mode=mode, exist_ok=True)
-    print('End Cleanup Workspace')
+    print('[+] End workspace cleanup')
 
 
 def clean_results_dir():
@@ -61,7 +61,11 @@ def clean_results_dir():
         selected_paths = [x for x in paths if f"{repo}" in str(x)]
         if len(selected_paths) > 3:
             for file in selected_paths[:-3]:
-                os.remove(file)
+                try:
+                    os.remove(file)
+                except FileNotFoundError:
+                    print(f"[!!] File not found! {file}")
+                    continue
 
 
 def get_repo_list():
@@ -83,7 +87,7 @@ def get_docker_image(mode=None):
     digest = CONFIG['general']['digest']
 
     download_semgrep(version)
-    print("Verifying Semgrep")
+    print("[+] Verifying Semgrep")
     digest_check_scan = check_digest(digest, version)
 
     if mode == "version":
@@ -98,13 +102,12 @@ def get_docker_image(mode=None):
     else:
         if digest_check_scan != -1:
             raise Exception("[!!] Digest mismatch!")
-        print("Semgrep downloaded and verified")
+        print("[+] Semgrep downloaded and verified")
 
 
 def download_semgrep(version):
-    print("Downloading Semgrep " + version)
-    command = ["docker", "pull","returntocorp/semgrep:"+version]
-    subprocess.run(command, check=True, stdout=subprocess.PIPE)
+    print(f"[+] Downloading Semgrep {version}")
+    run_command(f"docker pull returntocorp/semgrep:{version}")
 
 
 def check_digest(digest, version):
@@ -113,38 +116,87 @@ def check_digest(digest, version):
     return digest.find((process.stdout).decode("utf-8"))
 
 
+def run_command(command):
+    return subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+
+
+def git_ops(repo):
+    repo_path = f"{REPOSITORIES_DIR}{repo}"
+    git_repo = f"git@slack-github.com:slack/{repo}.git"
+    if repo == "webapp":
+        print("Updating webapp")
+        command = (
+                    f"git -C {REPOSITORIES_DIR}webapp ",
+                    f"fetch --tags --force --progress ",
+                    f"-- {git_repo} +refs/heads/*:refs/remotes/origin1/*"
+                    )
+        process = run_command(command)
+    else:
+        if os.path.isdir(f"{repo_path}"):
+            print(f"[+] Updating repo: {repo}")
+            pull = run_command(f"git -C {repo_path} pull")
+        else:
+            clone_command = f"git -C {REPOSITORIES_DIR} clone {git_repo}"
+            clone = run_command(clone_command)
+            # If we fail to download from Enterprise, try tinyspeck
+            if clone.returncode == 128:
+                git_repo = f"https://github.com/tinyspeck/{repo}.git"
+                clone_command = f"git -C {REPOSITORIES_DIR} clone {git_repo}"
+                clone = run_command(clone_command)
+            print(clone.stdout.decode("utf-8"))
+
+
+def git_forked_repos(repo, language, git_sha, git_repo_url):
+    repo_path = f"{REPOSITORIES_DIR}{repo}"
+    # Setup the upstream repo as a remote
+    forked_repo = FORKED_REPOS[repo]
+    print(f"[+] Repository is forked from {forked_repo}.")
+
+    # fetch the upstream repo
+    command = (
+                f"git -C {repo_path} remote | grep -q '^forked$' || "
+                f"git -C {repo_path} remote add forked {forked_repo}"
+            )
+    run_command(command)
+    run_command(f"git -C {repo_path} fetch forked")
+
+    # Get the remote "master" branch name (not always "master")
+    symref_process = run_command(f"git -C  {repo_path} remote show forked | sed -n '/HEAD branch/s/.*: //p'")
+    remote_master_name = symref_process.stdout.decode("utf-8")
+
+    # Identify the commit id it was forked from
+    merge_base_process = run_command(f"git -C {repo_path} merge-base {git_sha} forked/{remote_master_name}")
+    forked_commit_id = merge_base_process.stdout.decode("utf-8")
+    print(f"[+] Using the commit id {forked_commit_id} as the commit the repo is forked from.")
+
+    # Scan the repo for that commit ID
+    scan_repo(repo, CONFIG[language]['language'], language, git_repo_url, forked_commit_id)
+
+    # Compare the results and override the original result with the difference
+    repo_language = language.replace("language-", "")
+
+    for suffix in ["", "-fprm"]:
+        old_output = f"{RESULTS_DIR}{repo_language}-{repo}-{forked_commit_id[:7]}{suffix}.json"
+        new_output = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha[:7]}{suffix}.json"
+
+        if os.path.exists(old_output):
+            comparison.compare_to_last_run(old_output, new_output, new_output)
+            os.remove(old_output) # Cleanup
+
 def download_repos():
     for language in CONFIG.sections():
         git_repo_url = "https://slack-github.com/"
         if language.find('language-') != -1:
-            print("Downloading " + str(CONFIG[language]) + " repos")
+            print(f"Downloading {CONFIG[language]} repos")
             filename = LANGUAGES_DIR + CONFIG[language]['language'] + '/enabled'
             with open(filename) as f:
                 content = f.read().splitlines()
             for repo in content:
-                git_repo = f"git@slack-github.com:slack/{repo}.git"
-                if repo == "webapp":
-                    print("Updating webapp")
-                    command = f"git -C {REPOSITORIES_DIR}webapp fetch --tags --force --progress "
-                    command += f"-- {git_repo} +refs/heads/*:refs/remotes/origin1/*"
-                    process = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                else:
-                    if os.path.isdir(f"{REPOSITORIES_DIR}{repo}"):
-                        print(f"Updating repo: {repo}")
-                        pull_command = f"git -C {REPOSITORIES_DIR}{repo} pull"
-                        pull = subprocess.run(pull_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                    else:
-                        clone_command = f"git -C {REPOSITORIES_DIR} clone {git_repo}"
-                        clone = subprocess.run(clone_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                        # If we fail to download from Enterprise, try tinyspeck
-                        if clone.returncode == 128:
-                            git_repo_url = "https://github.com/tinyspeck"
-                            git_repo = "https://github.com/tinyspeck/" + repo + ".git"
-                            clone = subprocess.run(clone_command, shell=True, check=True,
-                                           stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                        print(clone.stdout.decode("utf-8"))
+                """ Download all the repos """
+                git_ops(repo)
 
-                get_sha_process = subprocess.run("git -C " + REPOSITORIES_DIR + repo +" rev-parse HEAD", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                """ Scan repos """
+                get_sha_process = run_command(f"git -C {REPOSITORIES_DIR}{repo} rev-parse HEAD")
                 git_sha = get_sha_process.stdout.decode("utf-8").rstrip()
                 scan_repo(repo, CONFIG[language]['language'], language, git_repo_url, git_sha)
 
@@ -152,40 +204,12 @@ def download_repos():
                 # For those repos the results that we must consider for the scan are the diff 
                 # between our current version and the original version it's forked from.
                 if repo in FORKED_REPOS:
-                    # Setup the upstream repo as a remote
-                    forked_repo = FORKED_REPOS[repo]
-                    print(f"Repository is forked from {forked_repo}.")
-
-                    subprocess.run(f"git -C {REPOSITORIES_DIR}{repo} remote | grep -q '^forked$' || git -C {REPOSITORIES_DIR}{repo} remote add forked {forked_repo}", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                    subprocess.run(f"git -C {REPOSITORIES_DIR}{repo} fetch forked", shell=True, check=True)
-
-                    # Get the remote "master" branch name (not always "master")
-                    symref_process = subprocess.run(f"git -C  {REPOSITORIES_DIR}{repo} remote show forked | sed -n '/HEAD branch/s/.*: //p'", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                    remote_master_name = symref_process.stdout.decode("utf-8")
-
-                    # Identify the commit id it was forked from
-                    merge_base_process = subprocess.run(f"git -C {REPOSITORIES_DIR}{repo} merge-base {git_sha} forked/{remote_master_name}", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                    forked_commit_id = merge_base_process.stdout.decode("utf-8")
-                    print(f"Using the commit id {forked_commit_id} as the commit the repo is forked from.")
-
-                    # Scan the repo for that commit ID
-                    scan_repo(repo, CONFIG[language]['language'], language, git_repo_url, forked_commit_id)
-
-                    # Compare the results and override the original result with the difference
-                    repo_language = language.replace("language-", "")
-
-                    for suffix in ["", "-fprm"]:
-                        old_output = f"{RESULTS_DIR}{repo_language}-{repo}-{forked_commit_id[:7]}{suffix}.json"
-                        new_output = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha[:7]}{suffix}.json"
-
-                        if os.path.exists(old_output):
-                            comparison.compare_to_last_run(old_output, new_output, new_output)
-                            os.remove(old_output) # Cleanup
+                    git_forked_repos(repo, language, git_sha, git_repo_url)
 
 
 def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
     git_sha = git_sha.rstrip()
-    print('Scanning repo: ' + repo)
+    print('[+] Scanning repo: ' + repo)
     output_file = f"{language}-{repo}-{git_sha[:7]}.json"
     semgrep_command = (
         f"docker run --user \"$(id -u):$(id -g)\" --rm "
@@ -194,13 +218,15 @@ def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
         f"{CONFIG[configlanguage]['exclude']} "
         "--json --dangerously-allow-arbitrary-code-execution-from-rules "
         f"-o /src{CONFIG['general']['results']}{output_file} "
-        f"{CONFIG['general']['repositories'][1:]}{repo}")
-    print(semgrep_command)
-    process = subprocess.run(semgrep_command, shell=True, check=True, stdout=subprocess.PIPE)
+        f"{CONFIG['general']['repositories'][1:]}{repo}"
+    )
+    print(f"[+] Docker scan command:\n {semgrep_command}")
+    print("[+] Semgrep scan results")
+    process = subprocess.run(semgrep_command, shell=True, stdout=subprocess.PIPE)
     # Results here should be sent to a new function for us to work with!
     print(process.stdout.decode("utf-8"))
     # We want to capture where these results came from. GitHub, and Branch in the file
-    print("OPENING " + SNOW_ROOT + CONFIG['general']['results'] + output_file)
+    print("[+] Opening " + SNOW_ROOT + CONFIG['general']['results'] + output_file)
     # Read The Json Data
     with open(SNOW_ROOT + CONFIG['general']['results'] + output_file, ) as file:
         git_repo_branch = git_sha
@@ -234,7 +260,7 @@ def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
     git_branch_cmd = f"git -C {REPOSITORIES_DIR}/{repo} branch --show-current"
     process = subprocess.run(git_branch_cmd, shell=True, stdout=subprocess.PIPE)
     branch = process.stdout.decode('utf-8').rstrip()
-    print(f"branch is: {branch}")
+    print(f"[+] Current branch: {branch}")
 
     if branch == "master":
         # sorts files by most recent
