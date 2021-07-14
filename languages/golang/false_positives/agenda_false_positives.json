@@ -1,26 +1,18 @@
 {
-    "321231161c430fe5f0a8bcedd0c4cf14f188e3d84dfaeeb125b2a91ad0fbb422": {
-        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
-        "check_id": "languages.golang.slack.potential-integer-overflow",
-        "location": "https://slack-github.com/slack/agenda/blob/master/cmd/cli/wormhole/agendagate.go#L37-L37",
-        "reason": "Value isn't controlable by an attacker."
+    "971739920efd919daf9a1a1bbac1a1c22c61269dd898ccf676b6aaf603926844": {
+        "message": "Rule 'bad-tmp-file-creation' triggered.",
+        "check_id": "bad-tmp-file-creation",
+        "location": "https://slack-github.com/slack/agenda/blob/master/cmd/cli/wormhole/agendastore.go#L79-L79",
+        "reason": "Low risk: used only when running CLI tool as part of dev workflow.",
+        "jira": "PRODSEC-3137",
+        "risk": "Informational"
     },
-    "50e9c5ec0993389b139017b4f5c051570f4e6cc7211ceed307887cc1add1b7cf": {
-        "message": "Rule 'languages.golang.r2c-ci-rules.go.grpc.security.grpc-server-insecure-connection.grpc-server-insecure-connection' triggered.",
-        "check_id": "languages.golang.r2c-ci-rules.go.grpc.security.grpc-server-insecure-connection.grpc-server-insecure-connection",
-        "location": "https://slack-github.com//slack/agenda/blob/c1e938ab21c2dfc29541d22816c999f9a0db3dd9/agendagate/gate_server.go#L915-L940",
-        "reason": "Protected by Nebula"
-    },
-    "f4724f2543225de023aaaee72294ab25ff58758d5fbf353fb4d42ad0d4e40aec": {
-        "message": "Rule 'languages.golang.r2c-ci-rules.go.grpc.security.grpc-server-insecure-connection.grpc-server-insecure-connection' triggered.",
-        "check_id": "languages.golang.r2c-ci-rules.go.grpc.security.grpc-server-insecure-connection.grpc-server-insecure-connection",
-        "location": "https://slack-github.com//slack/agenda/blob/c1e938ab21c2dfc29541d22816c999f9a0db3dd9/agendastore/store_server.go#L596-L619",
-        "reason": "Protected by Nebula"
-    },
-    "d41a21a20448f30347076af90c0abb6b915f2b5ead6904bbd8c9a133deb5c3f4": {
-        "message": "Rule 'languages.golang.r2c-ci-rules.go.grpc.security.grpc-server-insecure-connection.grpc-server-insecure-connection' triggered.",
-        "check_id": "languages.golang.r2c-ci-rules.go.grpc.security.grpc-server-insecure-connection.grpc-server-insecure-connection",
-        "location": "https://slack-github.com//slack/agenda/blob/c1e938ab21c2dfc29541d22816c999f9a0db3dd9/cmd/cli/base.go#L172-L175",
-        "reason": "Protected by Nebula"
+    "10b5834fdc79cecd232542e1bbf71a729c377a000a15b42af20bf5f109d6b535": {
+        "message": "Rule 'bad-tmp-file-creation' triggered.",
+        "check_id": "bad-tmp-file-creation",
+        "location": "https://slack-github.com/slack/agenda/blob/master/cmd/cli/wormhole/agendastore.go#L95-L95",
+        "reason": "Low risk: used only when running CLI tool as part of dev workflow.",
+        "jira": "PRODSEC-3137",
+        "risk": "Informational"
     }
 }

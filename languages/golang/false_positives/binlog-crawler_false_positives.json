@@ -3,24 +3,32 @@
         "message": "Rule 'languages.golang.r2c.go.lang.security.audit.database.string-formatted-query' triggered.",
         "check_id": "languages.golang.r2c.go.lang.security.audit.database.string-formatted-query",
         "location": "https://slack-github.com/slack/binlog-crawler/blob/master/core/sql/db.go#L120-L120",
-        "reason": "Value isn't controlable by an attacker."
+        "reason": "Value isn't controlable by an attacker.",
+        "jira": "PRODSEC-3159",
+        "risk": "Informational"
     },
     "bdd0df393e6732946692d4df028862f83451630056cb944ced994955c69ce437": {
         "message": "Rule 'languages.golang.r2c.go.lang.security.audit.database.string-formatted-query' triggered.",
         "check_id": "languages.golang.r2c.go.lang.security.audit.database.string-formatted-query",
         "location": "https://slack-github.com/slack/binlog-crawler/blob/master/v2/progress.go#L18-L131",
-        "reason": "Values used to create the query are static."
+        "reason": "Values used to create the query are static.",
+        "jira": "PRODSEC-3159",
+        "risk": "Informational"
     },
     "e45b4e4658221f27a1e2480d98f0d7b5da9f5a617a05342813669ab9252c6d7b": {
         "message": "Rule 'languages.golang.r2c.go.lang.security.audit.database.string-formatted-query' triggered.",
         "check_id": "languages.golang.r2c.go.lang.security.audit.database.string-formatted-query",
         "location": "https://slack-github.com/slack/binlog-crawler/blob/master/v2/progress.go#L30-L131",
-        "reason": "Values used to create the query are static."
+        "reason": "Values used to create the query are static.",
+        "jira": "PRODSEC-3159",
+        "risk": "Informational"
     },
     "17e6a6aad1ce387b8d0c1bd472bce40b7884aa8ffd552028a975f398f32a2cb6": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com//slack/binlog-crawler/blob/72443484860c5aba0f1977f9fe4134e060867ca3/binlog-finder/main.go#L410-L410",
-        "reason": "Value isn't controlable by an attacker."
+        "reason": "Value isn't controlable by an attacker.",
+        "jira": "PRODSEC-3159",
+        "risk": "Informational"
     }
 }

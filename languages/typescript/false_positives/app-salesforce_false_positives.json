@@ -3,55 +3,73 @@
         "message": "Rule 'languages.javascript.slack.javascript.potential-sqli-01' triggered.",
         "check_id": "languages.javascript.slack.javascript.potential-sqli-01",
         "location": "https://slack-github.com//slack/app-salesforce/blob/513979f893ddbec97818d81b6c7ca1be1e1e8bbd/src/lib/debugDb.ts#L42-L44",
-        "reason": "SQL query concatenated with prepared statement."
+        "reason": "SQL query concatenated with prepared statement.",
+        "jira": "PRODSEC-3167",
+        "risk": "Low"
     },
     "87a2da8b1ee6ed1d9781b2c2e588c11f657a0ca4fac889401a8f098357ac5f9c": {
         "message": "Rule 'languages.javascript.slack.javascript.potential-sqli-01' triggered.",
         "check_id": "languages.javascript.slack.javascript.potential-sqli-01",
         "location": "https://slack-github.com//slack/app-salesforce/blob/513979f893ddbec97818d81b6c7ca1be1e1e8bbd/src/lib/debugDb.ts#L42-L43",
-        "reason": "SQL query concatenated with prepared statement."
+        "reason": "SQL query concatenated with prepared statement.",
+        "jira": "PRODSEC-3167",
+        "risk": "Low"
     },
     "e02007bd835a5efbfb1da8da7a41891dd5b0b202248252db47be1af5fd42e16b": {
         "message": "Rule 'languages.javascript.slack.javascript.potential-sqli-01' triggered.",
         "check_id": "languages.javascript.slack.javascript.potential-sqli-01",
         "location": "https://slack-github.com//slack/app-salesforce/blob/513979f893ddbec97818d81b6c7ca1be1e1e8bbd/src/lib/debugDb.ts#L56-L60",
-        "reason": "SQL query concatenated with prepared statement."
+        "reason": "SQL query concatenated with prepared statement.",
+        "jira": "PRODSEC-3167",
+        "risk": "Low"
     },
     "a5f5748200fa97e8828939185885be13568821803ce9f3e3e7feb338f2ffd479": {
         "message": "Rule 'languages.javascript.slack.javascript.potential-sqli-01' triggered.",
         "check_id": "languages.javascript.slack.javascript.potential-sqli-01",
         "location": "https://slack-github.com//slack/app-salesforce/blob/513979f893ddbec97818d81b6c7ca1be1e1e8bbd/src/lib/debugDb.ts#L56-L59",
-        "reason": "SQL query concatenated with prepared statement."
+        "reason": "SQL query concatenated with prepared statement.",
+        "jira": "PRODSEC-3167",
+        "risk": "Low"
     },
     "1e155b37fafe3f6614503c1088a72bb893977462d8cd1ecea3bd2756a7ad0a48": {
         "message": "Rule 'languages.javascript.slack.javascript.potential-sqli-01' triggered.",
         "check_id": "languages.javascript.slack.javascript.potential-sqli-01",
         "location": "https://slack-github.com//slack/app-salesforce/blob/513979f893ddbec97818d81b6c7ca1be1e1e8bbd/src/lib/debugDb.ts#L56-L58",
-        "reason": "SQL query concatenated with prepared statement."
+        "reason": "SQL query concatenated with prepared statement.",
+        "jira": "PRODSEC-3167",
+        "risk": "Low"
     },
     "4dd17d9b56b04229849cb269c749e60d275305b41ded9cb07d3220d79fe3f133": {
         "message": "Rule 'languages.javascript.slack.javascript.potential-sqli-01' triggered.",
         "check_id": "languages.javascript.slack.javascript.potential-sqli-01",
         "location": "https://slack-github.com//slack/app-salesforce/blob/513979f893ddbec97818d81b6c7ca1be1e1e8bbd/src/lib/debugDb.ts#L56-L57",
-        "reason": "SQL query concatenated with prepared statement."
+        "reason": "SQL query concatenated with prepared statement.",
+        "jira": "PRODSEC-3167",
+        "risk": "Low"
     },
     "6c0cfed8f7af87905126a9aca111bf86c6250f704167d00993d240fd64517256": {
         "message": "Rule 'languages.javascript.slack.javascript.potential-sqli-01' triggered.",
         "check_id": "languages.javascript.slack.javascript.potential-sqli-01",
         "location": "https://slack-github.com//slack/app-salesforce/blob/513979f893ddbec97818d81b6c7ca1be1e1e8bbd/src/lib/debugDb.ts#L73-L79",
-        "reason": "SQL query concatenated with prepared statement."
+        "reason": "SQL query concatenated with prepared statement.",
+        "jira": "PRODSEC-3167",
+        "risk": "Low"
     },
     "cfdebd5da79658ec797f81355ef4f94a431ab37ac627aec94d82139303b3b760": {
         "message": "Rule 'languages.javascript.slack.javascript.potential-sqli-01' triggered.",
         "check_id": "languages.javascript.slack.javascript.potential-sqli-01",
         "location": "https://slack-github.com//slack/app-salesforce/blob/513979f893ddbec97818d81b6c7ca1be1e1e8bbd/src/lib/debugDb.ts#L73-L78",
-        "reason": "SQL query concatenated with prepared statement."
+        "reason": "SQL query concatenated with prepared statement.",
+        "jira": "PRODSEC-3167",
+        "risk": "Low"
     },
     "ea2d08f3c752ed821168137c532576034de535712e0ea504775883eb459abb31": {
         "message": "Rule 'languages.javascript.slack.javascript.potential-sqli-01' triggered.",
         "check_id": "languages.javascript.slack.javascript.potential-sqli-01",
         "location": "https://slack-github.com//slack/app-salesforce/blob/513979f893ddbec97818d81b6c7ca1be1e1e8bbd/src/lib/debugDb.ts#L73-L77",
-        "reason": "SQL query concatenated with prepared statement."
+        "reason": "SQL query concatenated with prepared statement.",
+        "jira": "PRODSEC-3167",
+        "risk": "Low"
     },
     "5c899e4c2e9d4b75e07c37e1569ead16f321ef59a3f68ccf9d9ec6761c517267": {
         "message": "Rule 'languages.javascript.slack.javascript.potential-sqli-01' triggered.",
@@ -63,6 +81,8 @@
         "message": "Rule 'languages.javascript.slack.javascript.potential-sqli-01' triggered.",
         "check_id": "languages.javascript.slack.javascript.potential-sqli-01",
         "location": "https://slack-github.com//slack/app-salesforce/blob/513979f893ddbec97818d81b6c7ca1be1e1e8bbd/src/lib/slack/AppHomeProcessor.ts#L496-L497",
-        "reason": "Not SQL"
+        "reason": "Not SQL",
+        "jira": "PRODSEC-3167",
+        "risk": "Low"
     }
 }

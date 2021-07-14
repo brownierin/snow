@@ -1,68 +1,58 @@
 {
-    "f9092918f68a9782a352bd2a35646bad3b04aedb430fd7073bef2ce345bbd015": {
-        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.use-tls' triggered.",
-        "check_id": "languages.golang.r2c.go.lang.security.audit.net.use-tls",
-        "location": "https://slack-github.com/slack/murron/blob/master/cmd/murron-ping/main.go#L58-L58",
-        "reason": "Protected by Nebula"
-    },
-    "bf14e89d8b6b6d3fbaa42f1d58d0fb545d41a495dfc6ba9ed6f3c7e9505d27c6": {
-        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.use-tls' triggered.",
-        "check_id": "languages.golang.r2c.go.lang.security.audit.net.use-tls",
-        "location": "https://slack-github.com/slack/murron/blob/master/docker/kafka/cmd/murron-consumer-file/main.go#L15-L15",
-        "reason": "Server listens on localhost only."
-    },
     "5e5341d3f147a28601aaa3afcfe9ef6bbe2e92d90b7f9eca18a11516e1b4ff3e": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/murron/blob/master/pkg/outputs/elasticsearch/formatter.go#L97-L97",
-        "reason": "Value is only converted once and isn't further transformed after."
+        "reason": "Value is only converted once and isn't further transformed after.",
+        "jira": "PRODSEC-3156",
+        "risk": "Informational"
     },
     "d1fe9872bd07d8b9ebdf479394e5663422e8cdc3afbdd0d9044b0f5ff679b3f0": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/murron/blob/master/docker/kafka/cmd/admin/admin.go#L50-L50",
-        "reason": "This is used with command line arguments (not user controlled)"
+        "reason": "This is used with command line arguments (not user controlled)",
+        "jira": "PRODSEC-3156",
+        "risk": "Informational"
     },
     "11a798e5be6c082f99309213417e55195867ee7e762131d7a71b707bfd8c5e6d": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/murron/blob/master/docker/kafka/cmd/produce/produce.go#L25-L25",
-        "reason": "This is used with command line arguments (not user controlled)"
+        "reason": "This is used with command line arguments (not user controlled)",
+        "jira": "PRODSEC-3156",
+        "risk": "Informational"
     },
     "d682f306d9f23970dfeb94b2a6e6fa16159f3a84de662e82b2291f2a8bb66fc5": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/murron/blob/master/tools/generate_version_info/main.go#L114-L114",
-        "reason": "This is used with environment variable (not user controlled)"
+        "reason": "This is used with environment variable (not user controlled)",
+        "jira": "PRODSEC-3156",
+        "risk": "Informational"
     },
     "c8ff81e63f02898e989059f0a45436ee6c43db73486310933fda5826135d3a1c": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/murron/blob/master/pkg/views/span_generator.go#L73-L73",
-        "reason": "String value is only parsed once."
-    },
-    "cdadfbcc1546b3ea068a89dd07d37ad5ac87211558a1529223c2824a0a7c265c": {
-        "message": "Rule 'languages.golang.r2c-ci-rules.go.grpc.security.grpc-client-insecure-connection.grpc-client-insecure-connection' triggered.",
-        "check_id": "languages.golang.r2c-ci-rules.go.grpc.security.grpc-client-insecure-connection.grpc-client-insecure-connection",
-        "location": "https://slack-github.com//slack/murron/blob/875571564b18d203aaefaae92b7948f325f964cd/example-clients/grpc/main.go#L70-L70",
-        "reason": "Protected by Nebula"
-    },
-    "9ea52c90bfe9b10175a626556da099a9a2fac02c94bfb36feb464c7af8a0978d": {
-        "message": "Rule 'languages.golang.r2c-ci-rules.go.grpc.security.grpc-client-insecure-connection.grpc-client-insecure-connection' triggered.",
-        "check_id": "languages.golang.r2c-ci-rules.go.grpc.security.grpc-client-insecure-connection.grpc-client-insecure-connection",
-        "location": "https://slack-github.com//slack/murron/blob/875571564b18d203aaefaae92b7948f325f964cd/example-clients/grpc/main.go#L119-L119",
-        "reason": "Protected by Nebula"
-    },
-    "155ecc3b89099fbe594cf4ea93e983f4c919eb4f8ed5a2601164e252b66377c6": {
-        "message": "Rule 'languages.golang.r2c-ci-rules.go.grpc.security.grpc-server-insecure-connection.grpc-server-insecure-connection' triggered.",
-        "check_id": "languages.golang.r2c-ci-rules.go.grpc.security.grpc-server-insecure-connection.grpc-server-insecure-connection",
-        "location": "https://slack-github.com//slack/murron/blob/875571564b18d203aaefaae92b7948f325f964cd/pkg/core/input/grpc/grpc.go#L16-L40",
-        "reason": "Protected by Nebula"
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3156",
+        "risk": "Informational"
     },
     "92f5cc5cfb8b89b220dbc2093dd17daad13a2c58d97b5c2daf7cc64fcd2826ed": {
         "message": "Rule 'languages.golang.r2c-ci-rules.go.lang.security.audit.crypto.bad_imports.insecure-module-used' triggered.",
         "check_id": "languages.golang.r2c-ci-rules.go.lang.security.audit.crypto.bad_imports.insecure-module-used",
         "location": "https://slack-github.com//slack/murron/blob/875571564b18d203aaefaae92b7948f325f964cd/pkg/outputs/insights/insights_service.go#L364-L364",
-        "reason": "SHA1 used as identifier"
-    }
+        "reason": "SHA1 used as identifier",
+        "jira": "PRODSEC-3156",
+        "risk": "Informational"
+    },
+    "4c67c597d3d227047718ea931d14d3e636574eafa51bdcb4ea9f9d759852af73": {
+        "message": "Rule Triggered - bad_imports.insecure-module-used",
+        "check_id": "bad_imports.insecure-module-used",
+        "location": "urlllllllllllll",
+        "reason": "Not used for security/encryption purposes, data deduplication",
+        "jira": "PRODSEC-3140",
+        "risk": "Informational"
+        }
 }

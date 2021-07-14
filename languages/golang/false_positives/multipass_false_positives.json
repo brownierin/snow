@@ -3,6 +3,8 @@
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/multipass/blob/master/helpers.go#L92-L92",
-        "reason": "Only used with command line arguments (not user controlled)."
+        "reason": "Only used with command line arguments (not user controlled).",
+        "jira": "PRODSEC-3161",
+        "risk": "Informational"
     }
 }

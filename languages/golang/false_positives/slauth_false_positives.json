@@ -1,14 +1,1 @@
-{
-    "c14980c9a23c323e4ed1bdfa8ab3f31b04a57ea354a5f01aff6b1fe632e71fb1": {
-        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.use-tls' triggered.",
-        "check_id": "languages.golang.r2c.go.lang.security.audit.net.use-tls",
-        "location": "https://slack-github.com/slack/slauth/blob/master/main.go#L255-L255",
-        "reason": "Listening on localhost only."
-    },
-    "37327707bc1c4b5de013f1e446bec1869c53a171fc60c5a7fe19b8a9ba00c1c0": {
-        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.use-tls' triggered.",
-        "check_id": "languages.golang.r2c.go.lang.security.audit.net.use-tls",
-        "location": "https://slack-github.com/slack/slauth/blob/master/main.go#L283-L283",
-        "reason": "TLS mode is configurable."
-    }
-}
+{}

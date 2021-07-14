@@ -3,6 +3,8 @@
         "message": "Rule 'languages.javascript.slack.javascript.potential-sqli-01' triggered.",
         "check_id": "languages.javascript.slack.javascript.potential-sqli-01",
         "location": "https://slack-github.com//slack/app-onedrive/blob/33b9fff3d787bcbc4df07386671eb1ad12988b31/src/api/domains/domain-repo.ts#L191-L191",
-        "reason": "SQL query concatenated with prepared statement."
+        "reason": "SQL query concatenated with prepared statement.",
+        "jira": "PRODSEC-3166",
+        "risk": "Low"
     }
 }

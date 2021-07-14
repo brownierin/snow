@@ -3,54 +3,96 @@
         "message": "Rule 'languages.golang.r2c.go.lang.security.audit.database.string-formatted-query' triggered.",
         "check_id": "languages.golang.r2c.go.lang.security.audit.database.string-formatted-query",
         "location": "https://slack-github.com/slack/missions/blob/master/api/cmd/migrator/migrations/008-force-one-workflow-per-app.go#L103-L103",
-        "reason": "False positive, but this is bad code."
+        "reason": "Not vulnerable, but this is bad code.",
+        "jira": "PRODSEC-3155",
+        "risk": "Informational"
     },
     "64596e871e17bdda9c6139001096320748053a99b722d4d1b78ff091c3e8fe51": {
         "message": "Rule 'languages.golang.r2c.go.lang.security.audit.database.string-formatted-query' triggered.",
         "check_id": "languages.golang.r2c.go.lang.security.audit.database.string-formatted-query",
         "location": "https://slack-github.com/slack/missions/blob/master/api/internal/store/app.go#L410-L486",
-        "reason": "Query is concatenated with static string only."
+        "reason": "Query is concatenated with static string only.",
+        "jira": "PRODSEC-3155",
+        "risk": "Informational"
     },
     "ba4face8f15c4726d1082eeb590103537f98526c3e330aeffb484a424e0f9be8": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/missions/blob/master/api/internal/appruntime/steps/function.go#L235-L235",
-        "reason": "String value comes from configuration."
+        "reason": "String value comes from configuration.",
+        "jira": "PRODSEC-3155",
+        "risk": "Informational"
     },
     "a1b0b8b1a6b0ecf5ff43cd259e0cf79d9106458528e58876bb61772d6ce64cc7": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/missions/blob/master/shared/utils/pagination.go#L31-L31",
-        "reason": "String value is only parsed once."
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3155",
+        "risk": "Informational"
     },
     "1746e8d6b6b46c4c9245cc4084f74e554be98d8b83fef91d118e36198f057c3f": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/missions/blob/master/shared/utils/pagination.go#L38-L38",
-        "reason": "String value is only parsed once."
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3155",
+        "risk": "Informational"
     },
     "3958a3605d76113d3d1f6eb79379feaee28e3e5a60595a499a8942c4e5201c97": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/missions/blob/master/api/internal/appruntime/datarefs/convert_text_to_blocks.go#L82-L82",
-        "reason": "String value is only parsed once."
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3155",
+        "risk": "Informational"
     },
     "f6837bc80ad263973a9bc8fa1e89644684190ecfd55f07cfde23b0d4f00b7b07": {
         "message": "Rule 'languages.golang.r2c.go.lang.security.audit.database.string-formatted-query' triggered.",
         "check_id": "languages.golang.r2c.go.lang.security.audit.database.string-formatted-query",
         "location": "https://slack-github.com//slack/missions/blob/31ec905f2bc575823ca37e6c0eda4cd4b13da709/shared/dbutils/mysql.go#L27-L27",
-        "reason": "Utility file, internally called only. Chris Skudlarczyk"
+        "reason": "Utility file, internally called only. Chris Skudlarczyk",
+        "jira": "PRODSEC-3155",
+        "risk": "Informational"
     },
     "97d4511ed146900e816119c4e6795fd4b7f3b13858bd54e0d519529f53ac5062": {
         "message": "Rule 'languages.golang.r2c.go.lang.security.audit.database.string-formatted-query' triggered.",
         "check_id": "languages.golang.r2c.go.lang.security.audit.database.string-formatted-query",
         "location": "https://slack-github.com//slack/missions/blob/31ec905f2bc575823ca37e6c0eda4cd4b13da709/shared/dbutils/mysql.go#L47-L47",
-        "reason": "Utility file, internally called only. Chris Skudlarczyk"
+        "reason": "Utility file, internally called only. Chris Skudlarczyk",
+        "jira": "PRODSEC-3155",
+        "risk": "Informational"
     },
     "618e9db0e3024a56df4ee14a8a3248db3c2613611e8360ae4ab515acf4155443": {
         "message": "Rule 'languages.golang.r2c.go.lang.security.audit.database.string-formatted-query' triggered.",
         "check_id": "languages.golang.r2c.go.lang.security.audit.database.string-formatted-query",
         "location": "https://slack-github.com//slack/missions/blob/31ec905f2bc575823ca37e6c0eda4cd4b13da709/shared/dbutils/mysql.go#L54-L54",
-        "reason": "Utility file, internally called only. Chris Skudlarczyk"
-    }
+        "reason": "Utility file, internally called only. Chris Skudlarczyk",
+        "jira": "PRODSEC-3155",
+        "risk": "Informational"
+    },
+    "2ae158ab7e0fb92ab04ac52f2f2fb18ecc53b6f76b841ebb7a0b16e0fb7ec552": {
+        "message": "Rule Triggered - string-formatted-query",
+        "check_id": "string-formatted-query",
+        "location": "https://slack-github.com/slack/missions/blob/master/shared/dbutils/mysql.go#L27-L27",
+        "reason": "it won't ever resolve user input other than empty or notraffic",
+        "jira": "PRODSEC-3139",
+        "risk": "Informational"
+    },
+    "2f9e9e067c67bd72282e1e3dbe108d8df9e5e7c01bd1111ce47fbde93260c7e5": {
+        "message": "Rule Triggered - string-formatted-query",
+        "check_id": "string-formatted-query",
+        "location": "https://slack-github.com/slack/missions/blob/master/shared/dbutils/mysql.go#L47-L47",
+        "reason": "it won't ever resolve user input other than empty or notraffic",
+        "jira": "PRODSEC-3139",
+        "risk": "Informational"
+    },
+      "cf9bc75820b781584613f89eb1c7456c1b89697667eefe62ecc4d2677016c56b": {
+        "message": "Rule Triggered - string-formatted-query",
+        "check_id": "string-formatted-query",
+        "location": "https://slack-github.com/slack/missions/blob/master/shared/dbutils/mysql.go#L54-L54",
+        "reason": "it won't ever resolve user input other than empty or notraffic",
+        "jira": "PRODSEC-3139",
+        "risk": "Informational"
+      }
 }

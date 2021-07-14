@@ -1,14 +1,1 @@
-{
-    "4565253d74d1f13b5930bc5e9652082122829a45d8367bcfe20d21b9a9d03cd0": {
-        "message": "Rule 'languages.java.r2c-ci-rules.java.lang.correctness.no-string-eqeq.no-string-eqeq' triggered.",
-        "check_id": "languages.java.r2c-ci-rules.java.lang.correctness.no-string-eqeq.no-string-eqeq",
-        "location": "https://slack-github.com/slack/interop/blob/master/3rdparty/zimbra-mime/src/main/java/com/zimbra/common/mime/InternetAddress.java#L138-L138",
-        "reason": "Bad code, but not a vulnerability"
-    },
-    "12d5bc2df00995d431982e57696500876c3a217dfb1085f1e173a5c7682babce": {
-        "message": "Rule 'languages.java.r2c-ci-rules.java.lang.correctness.no-string-eqeq.no-string-eqeq' triggered.",
-        "check_id": "languages.java.r2c-ci-rules.java.lang.correctness.no-string-eqeq.no-string-eqeq",
-        "location": "https://slack-github.com/slack/interop/blob/master/3rdparty/zimbra-mime/src/main/java/com/zimbra/common/mime/MimeMultipart.java#L198-L198",
-        "reason": "Weird code, but no security impact."
-    }
-}
+{}

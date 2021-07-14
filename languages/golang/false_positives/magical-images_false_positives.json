@@ -1,51 +1,51 @@
 {
-    "9cc6986c770a900b14ee864f2c1a23987f40428b2d13cb5ffd68ecd9e8841050": {
-        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.use-tls' triggered.",
-        "check_id": "languages.golang.r2c.go.lang.security.audit.net.use-tls",
-        "location": "https://slack-github.com/slack/magical-images/blob/master/broker/main.go#L143-L143",
-        "reason": "Protected by Nebula"
-    },
-    "21b4b5940f41de97b3499ef7481bb15afaa2dd8e02bf2b5285d0b828ecc4e157": {
-        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.use-tls' triggered.",
-        "check_id": "languages.golang.r2c.go.lang.security.audit.net.use-tls",
-        "location": "https://slack-github.com/slack/magical-images/blob/master/monitor/main.go#L37-L37",
-        "reason": "Protected by Nebula"
-    },
     "6fd95f645249012eb4ff418a303d29b48525d87603adce01957300f96e56b18b": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/magical-images/blob/master/dev/avatar_recut.go#L36-L36",
-        "reason": "String value is only parsed once."
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3160",
+        "risk": "Informational"
     },
     "9f0e0e2f8a3ed5d3e0bb052896cc2284735384f2b2d546fd52e5d004402159fa": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/magical-images/blob/master/dev/crop_avatar.go#L38-L38",
-        "reason": "String value is only parsed once."
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3160",
+        "risk": "Informational"
     },
     "2ce1bc6e04bdea2a70d4dc86e2bc92b8cf23a0dbc4e10211d4000078a211320c": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/magical-images/blob/master/dev/crop_avatar.go#L47-L47",
-        "reason": "String value is only parsed once."
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3160",
+        "risk": "Informational"
     },
     "822223b751b2b1d7aafa7c6e918ac3d30bf7b8d01fed2ed18aac3d6208685646": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/magical-images/blob/master/dev/crop_avatar.go#L56-L56",
-        "reason": "String value is only parsed once."
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3160",
+        "risk": "Informational"
     },
     "1c6afadcf495ee86228962b3832c14e98f282707281b1ad3ae05e2110634e98c": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/magical-images/blob/master/dev/async_prepare_avatar.go#L35-L35",
-        "reason": "String value is only parsed once."
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3160",
+        "risk": "Informational"
     },
     "e66855d78275e624d55d971d22134e0aec6987a0229f846e43e0bd0b099288e3": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/magical-images/blob/master/dev/async_prepare_avatar.go#L47-L47",
-        "reason": "String value is only parsed once."
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3160",
+        "risk": "Informational"
     },
     "c9147c4e3d87f08357ea26977dd195a27f687e8ca310765c05d2f3d4d162f462": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
@@ -57,48 +57,16 @@
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/magical-images/blob/master/dev/async_prepare_avatar.go#L65-L65",
-        "reason": "String value is only parsed once."
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3160",
+        "risk": "Informational"
     },
     "5de4e800934ae98609cfe1ad2e2a004ca173cfecd82ebe40f2b3164c3f86db17": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/magical-images/blob/master/dev/screenshot.go#L36-L36",
-        "reason": "String value is only parsed once."
-    },
-    "6cfed00570913e21b0cabf8a8725d3b6e9b3ec217aba6ffd337ec72327e8e435": {
-        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.use-tls' triggered.",
-        "check_id": "languages.golang.r2c.go.lang.security.audit.net.use-tls",
-        "location": "https://slack-github.com//slack/magical-images/blob/de58cd6b343198bced641a9fa8b58d0b3439a926/dev/main.go#L86-L86",
-        "reason": "Protected by Nebula"
-    },
-    "d700d90593c89f50bbd8594c2d3783547c36c9cd47da14df22f28c29e3abe9c8": {
-        "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.use-tls' triggered.",
-        "check_id": "languages.golang.r2c.go.lang.security.audit.net.use-tls",
-        "location": "https://slack-github.com//slack/magical-images/blob/de58cd6b343198bced641a9fa8b58d0b3439a926/worker/main.go#L67-L67",
-        "reason": "Protected by Nebula"
-    },
-    "c6b4dba2b6df8d4c57b6466d6a0a2da0adb85962e2c4b3e0e497245a03b8da8b": {
-        "message": "Rule 'languages.golang.r2c-ci-rules.go.grpc.security.grpc-client-insecure-connection.grpc-client-insecure-connection' triggered.",
-        "check_id": "languages.golang.r2c-ci-rules.go.grpc.security.grpc-client-insecure-connection.grpc-client-insecure-connection",
-        "location": "https://slack-github.com//slack/magical-images/blob/de58cd6b343198bced641a9fa8b58d0b3439a926/dev/main.go#L34-L34",
-        "reason": "Protected by Nebula"
-    },
-    "d3cf6ca8175a5c355e9e7b8a40bf350a4efda2a127eec8d94022621fe0ad9a0b": {
-        "message": "Rule 'languages.golang.r2c-ci-rules.go.grpc.security.grpc-client-insecure-connection.grpc-client-insecure-connection' triggered.",
-        "check_id": "languages.golang.r2c-ci-rules.go.grpc.security.grpc-client-insecure-connection.grpc-client-insecure-connection",
-        "location": "https://slack-github.com//slack/magical-images/blob/de58cd6b343198bced641a9fa8b58d0b3439a926/worker/broker_client.go#L37-L37",
-        "reason": "Protected by Nebula"
-    },
-    "67ce307d4c6f0bb67057060c79f3b9f2dc12a2b5174f33a5153382133ac30651": {
-        "message": "Rule 'languages.golang.r2c-ci-rules.go.grpc.security.grpc-server-insecure-connection.grpc-server-insecure-connection' triggered.",
-        "check_id": "languages.golang.r2c-ci-rules.go.grpc.security.grpc-server-insecure-connection.grpc-server-insecure-connection",
-        "location": "https://slack-github.com//slack/magical-images/blob/de58cd6b343198bced641a9fa8b58d0b3439a926/broker/main.go#L95-L111",
-        "reason": "Protected by Nebula"
-    },
-    "e3093a7de03bdc7ebc6aff9c66190fef66ae85fdcd1f22f7c902358335119564": {
-        "message": "Rule 'languages.golang.r2c-ci-rules.go.grpc.security.grpc-server-insecure-connection.grpc-server-insecure-connection' triggered.",
-        "check_id": "languages.golang.r2c-ci-rules.go.grpc.security.grpc-server-insecure-connection.grpc-server-insecure-connection",
-        "location": "https://slack-github.com//slack/magical-images/blob/de58cd6b343198bced641a9fa8b58d0b3439a926/broker/main.go#L114-L130",
-        "reason": "Protected by Nebula"
+        "reason": "String value is only parsed once.",
+        "jira": "PRODSEC-3160",
+        "risk": "Informational"
     }
 }
