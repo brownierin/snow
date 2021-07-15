@@ -201,7 +201,7 @@ def download_repos():
     for language in CONFIG.sections():
         git_repo_url = "https://slack-github.com/"
         if language.find('language-') != -1:
-            print(f"Downloading {CONFIG[language]} repos")
+            print(f"[!!] Downloading {language} repos")
             filename = LANGUAGES_DIR + CONFIG[language]['language'] + '/enabled'
             with open(filename) as f:
                 content = f.read().splitlines()
