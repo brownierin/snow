@@ -1,1 +1,26 @@
-{}
+{
+  "9c1b418ef223ad8c8dc3c877310787e5b36f5fd70be50f0291192a9e3f88c162": {
+      "message": "Rule Triggered - potential-integer-overflow",
+      "check_id": "potential-integer-overflow",
+      "location": "https://slack-github.com//slack/prom-aggregation-gateway/blob/ac25c60ff8a30908d1d65cf816cccec8b2d089c9/cmd/prom-agg-gateway/webapp.go#L283-L283",
+      "reason": "Internally controlled by calling out to an internal service, an integer attack impact looks to be negligible if it did occur as well",
+      "jira": "PRODSEC-",
+      "risk": "Informational"
+  },
+    "d43fd7914552e80ae307253f0677856f366d02056c2f81c407c3e14254825c72": {
+        "message": "Rule Triggered - potential-integer-overflow",
+        "check_id": "potential-integer-overflow",
+        "location": "https://slack-github.com//slack/prom-aggregation-gateway/blob/ac25c60ff8a30908d1d65cf816cccec8b2d089c9/cmd/prom-agg-gateway/webapp.go#L287-L287",
+        "reason": "Internally controlled by calling out to an internal service, an integer attack impact looks to be negligible if it did occur as well",
+        "jira": "PRODSEC-",
+        "risk": "Informational"
+    },
+    "dbb22af1387e6bb9f08d4f7af3e1b1a3ae61a05772eaeb31b03457bce1d478f2": {
+        "message": "Rule Triggered - potential-integer-overflow",
+        "check_id": "potential-integer-overflow",
+        "location": "https://slack-github.com//slack/prom-aggregation-gateway/blob/ac25c60ff8a30908d1d65cf816cccec8b2d089c9/tools/version/version.go#L123-L123",
+        "reason": "Internally controlled by calling out to an internal service, an integer attack impact looks to be negligible if it did occur as well",
+        "jira": "PRODSEC-",
+        "risk": "Informational"
+    }
+}
