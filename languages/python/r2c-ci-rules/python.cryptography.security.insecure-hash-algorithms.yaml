@@ -1,0 +1,14 @@
+rules:
+- id: python.pycryptodome.security.insecure-hash-algorithm
+  message: |
+    Detected SHA1 hash algorithm which is considered insecure. SHA1 is not collision resistant and is therefore not suitable as a cryptographic signature. Use SHA256 or SHA3 instead.
+  metadata:
+    cwe: 'CWE-327: Use of a Broken or Risky Cryptographic Algorithm'
+    owasp: 'A3: Sensitive Data Exposure'
+    references:
+    - https://pycryptodome.readthedocs.io/en/latest/src/hash/sha3_256.html
+  patterns:
+    - pattern: cryptography.hazmat.primitives.hashes.SHA1(...)
+  severity: WARNING
+  languages:
+  - python
