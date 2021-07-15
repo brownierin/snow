@@ -180,7 +180,7 @@ def git_forked_repos(repo, language, git_sha, git_repo_url):
         for suffix in ["", "-fprm"]:
             output = f"{RESULTS_DIR}{repo_language}-{repo}-{forked_commit_id[:7]}{suffix}.json"
             # This will remove all the entry of the results, but keep the metadata about the scan.
-            # Will this is sort-of weird code, it will ensure the output is consistent with other scan results.
+            # While this is sort-of weird code, it will ensure the output is consistent with other scan results.
             if os.path.exists(output):
                 comparison.compare_to_last_run(output, output, output)
         return
