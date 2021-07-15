@@ -21,5 +21,4 @@ vtops
 prom-aggregation-gateway
 multipass
 orchestrator
-vitess
 orc-deploy-lite
