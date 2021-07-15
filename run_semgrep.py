@@ -148,6 +148,8 @@ def git_ops(repo):
 
 def git_forked_repos(repo, language, git_sha, git_repo_url):
     repo_path = f"{REPOSITORIES_DIR}{repo}"
+    repo_language = language.replace("language-", "")
+
     # Setup the upstream repo as a remote
     forked_repo = FORKED_REPOS[repo]
     print(f"[+] Repository is forked from {forked_repo}.")
@@ -166,15 +168,27 @@ def git_forked_repos(repo, language, git_sha, git_repo_url):
 
     # Identify the commit id it was forked from
     merge_base_process = run_command(f"git -C {repo_path} merge-base {git_sha} forked/{remote_master_name}")
-    forked_commit_id = merge_base_process.stdout.decode("utf-8")
+    forked_commit_id = merge_base_process.stdout.decode("utf-8").strip()
     print(f"[+] Using the commit id {forked_commit_id} as the commit the repo is forked from.")
+
+    # In this special case, we haven't pushed any custom code into the forked repo as the
+    # HEAD of the slack repo exists in the repo we forked it from.
+    #
+    # Note: startswith is used in case the git_sha is a shortened commit hash.
+    if forked_commit_id.startswith(git_sha):
+        print(f"[+] We have detected that this repository doesn't contain any custom commits. Returning no findings because of this.")
+        for suffix in ["", "-fprm"]:
+            output = f"{RESULTS_DIR}{repo_language}-{repo}-{forked_commit_id[:7]}{suffix}.json"
+            # This will remove all the entry of the results, but keep the metadata about the scan.
+            # Will this is sort-of weird code, it will ensure the output is consistent with other scan results.
+            if os.path.exists(output):
+                comparison.compare_to_last_run(output, output, output)
+        return
 
     # Scan the repo for that commit ID
     scan_repo(repo, CONFIG[language]['language'], language, git_repo_url, forked_commit_id)
 
     # Compare the results and override the original result with the difference
-    repo_language = language.replace("language-", "")
-
     for suffix in ["", "-fprm"]:
         old_output = f"{RESULTS_DIR}{repo_language}-{repo}-{forked_commit_id[:7]}{suffix}.json"
         new_output = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha[:7]}{suffix}.json"
