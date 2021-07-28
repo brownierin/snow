@@ -63,7 +63,7 @@ def convert(fp_removed_filename, original_filename, comparison_filename):
                 command_mark_as_fp += f"--hash_id={issue['hash_id']} "
                 command_mark_as_fp += f"--location=\"{path_in_project}#{issue['start']['line']}\" "
                 command_mark_as_fp += f"--language={fp_removed_data['metadata']['language']} "
-                command_mark_as_fp += f"--project_name={fp_removed_data['metadata']['repoName']} "
+                command_mark_as_fp += f"--repo_name={fp_removed_data['metadata']['repoName']} "
                 command_mark_as_fp += "--message=\"{}\" ".format(issue['extra']['message'].replace('\"','\'').replace('`','\'').replace('\n',' '))
                 command_mark_as_fp += f"--check_id={issue['check_id']} "
 
