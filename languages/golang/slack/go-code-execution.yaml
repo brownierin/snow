@@ -16,6 +16,8 @@ rules:
     - pattern-not: $PACKAGE.$METHOD("...", "...", "...", "...", "...", "...")
     - pattern-not: $PACKAGE.$METHOD("...", "...", "...", "...", "...", "...", "...")
     - pattern-not: $PACKAGE.$METHOD("...", "...", "...", "...", "...", "...", "...", "...")
+    - pattern-not: $PACKAGE.$METHOD("...", "...", "...", "...", "...", "...", "...", "...", "...")
+    - pattern-not: $PACKAGE.$METHOD("...", "...", "...", "...", "...", "...", "...", "...", "...", "...")
     - pattern-not: exec.CommandContext($CTX, "...")
     - pattern-not: exec.CommandContext($CTX, "...", "...")
     - pattern-not: exec.CommandContext($CTX, "...", "...", "...")
@@ -24,6 +26,8 @@ rules:
     - pattern-not: exec.CommandContext($CTX, "...", "...", "...", "...", "...", "...")
     - pattern-not: exec.CommandContext($CTX, "...", "...", "...", "...", "...", "...", "...")
     - pattern-not: exec.CommandContext($CTX, "...", "...", "...", "...", "...", "...", "...", "...")
+    - pattern-not: exec.CommandContext($CTX, "...", "...", "...", "...", "...", "...", "...", "...", "...")
+    - pattern-not: exec.CommandContext($CTX, "...", "...", "...", "...", "...", "...", "...", "...", "...", "...")
 
   fix: |-
     Avoid use of exec.Command() if possible. If this function is necessary to application functionality, ensure that the following verifications are done. 
