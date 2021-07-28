@@ -16,8 +16,9 @@ slauth-request-signing
 slauthorizer
 vault-auth-nebula
 slauth
-orchestrator
 malware-service
 vtops
-orc-deploy-lite
 prom-aggregation-gateway
+multipass
+orchestrator
+orc-deploy-lite
