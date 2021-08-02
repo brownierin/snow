@@ -286,23 +286,5 @@
         "reason": "This checks to see if two variables have the same values but DO NOT share any memory. It is not exploitable.",
         "jira": "PRODSEC-3141",
         "risk": "Informational"
-    },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
 }
