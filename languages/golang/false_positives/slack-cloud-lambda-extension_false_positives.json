@@ -1,1 +1,10 @@
-{}
+{
+    "e066da6e8a0a256ea0719797ba3c0ad02863ffe158b2810c215107bf890e5766": {
+        "message": "Rule Triggered - languages.golang.slack.potential-code-execution-1",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "https://slack-github.com//slack/slack-cloud-lambda-extension/blob/7140a74ff59f5a8d14d75ccb2a8c57ccfff73c14/denoruntime/bootstrap.go#L217-L217",
+        "reason": "Dynamic value are passed as command line arguments and are deemed not to cause command injection.",
+        "jira": "PRODSEC-3200",
+        "risk": "Informational"
+    }
+}

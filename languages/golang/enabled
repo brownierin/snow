@@ -19,7 +19,6 @@ slauth
 malware-service
 vtops
 prom-aggregation-gateway
-hermes-cli-ref
 slack-cloud-lambda-extension
 orchestrator
 orc-deploy-lite
