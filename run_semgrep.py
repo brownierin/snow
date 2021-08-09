@@ -64,7 +64,7 @@ def clean_results_dir():
                 try:
                     os.remove(file)
                 except FileNotFoundError:
-                    print(f"[!!] File not found! {file}")
+                    print(f"[!!] Cannot clean result file. File not found! {file}")
                     continue
 
 
