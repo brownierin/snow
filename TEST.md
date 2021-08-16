@@ -25,4 +25,3 @@ The tests are structured in the following way :
     - `expected-match` - An array of the expected rule that should be triggered.
 
 Note: If the rule you are adding is intended not to trigger in some cases, it's highly recommended that your test case includes code that shouldn't trigger.
-
