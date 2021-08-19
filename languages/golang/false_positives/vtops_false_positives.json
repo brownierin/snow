@@ -1,1 +1,18 @@
-{}
+{
+  "22c45146c8a1987e7c3d09a6d6b9d166a83ec14cedc435462ffbe73ca5e5a870": {
+      "message": "Rule Triggered - potential-integer-overflow",
+      "check_id": "potential-integer-overflow",
+      "location": "https://slack-github.com//slack/vtops/blob/fa59df02f0614f2a9403f10756f0f601c53f7d5a/go/orcapi/orc_api.go#L184-L184",
+      "reason": "Integer is internally conrolled.",
+      "jira": "PRODSEC-3177",
+      "risk": "Informational"
+  },
+    "2d75edcf755e56c38afc446a2648261e8e9bcbf083006518f2f1a4ed6b454c57": {
+        "message": "Rule Triggered - potential-code-execution",
+        "check_id": "potential-code-execution-1",
+        "location": "https://slack-github.com//slack/vtops/blob/fa59df02f0614f2a9403f10756f0f601c53f7d5a/go/release/cherry_pick.go#L55-L55",
+        "reason": "Not vulnerable, file input is internally controlled",
+        "jira": "PRODSEC-3177",
+        "risk": "Informational"
+    }
+}

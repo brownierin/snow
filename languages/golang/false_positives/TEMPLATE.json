@@ -4,7 +4,7 @@
       "check_id": "checidhere",
       "location": "urlllllllllllll",
       "reason": "reasonnnnnnnn",
-      "jira": "PRODSECxxxxxxxxxxxx",
+      "jira": "PRODSEC-",
       "risk": "Informational"
   },
     "xxxxxxhashxxxxxx": {
@@ -12,7 +12,7 @@
         "check_id": "checidhere",
         "location": "urlllllllllllll",
         "reason": "reasonnnnnnnn",
-        "jira": "PRODSECxxxzxxxxxxxzxx",
+        "jira": "PRODSEC-",
         "risk": "xxxxxxxx"
     }
 }
