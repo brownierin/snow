@@ -16,8 +16,9 @@ slauth-request-signing
 slauthorizer
 vault-auth-nebula
 slauth
-orchestrator
 malware-service
 vtops
-orc-deploy-lite
 prom-aggregation-gateway
+slack-cloud-lambda-extension
+orchestrator
+orc-deploy-lite
