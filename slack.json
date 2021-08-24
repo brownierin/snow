@@ -16,6 +16,20 @@
           "name": "#proj-static-analysis-non-webapp"
         }
       ]
-    }
+    },
+    "tests": [
+      {
+          "name": "snow-rules-unit-test",
+          "script": "./ci/test-rules.sh"
+      },
+      {
+          "name": "snow-core-unit-test",
+          "script": "./ci/test-core.sh"
+      },
+      {
+          "name": "snow-core-integration-test",
+          "script": "./ci/test-integration.sh"
+      }
+    ]
   }
 }

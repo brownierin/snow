@@ -3,3 +3,5 @@
 /results
 /repositories
 env
+__pycache__
+

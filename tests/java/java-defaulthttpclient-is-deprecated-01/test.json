@@ -1,4 +1,0 @@
-{
-    "expected-result-count" : 1,
-    "expected-match" : ["languages.java.r2c-ci-rules.java.lang.security.audit.crypto.ssl.defaulthttpclient-is-deprecated.defaulthttpclient-is-deprecated"]
-}

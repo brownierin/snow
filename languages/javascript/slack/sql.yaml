@@ -10,7 +10,7 @@ rules:
       - pattern: |-
           createConnection({
             password: "..."
-          });
+          })
     message: |-
       A security scan detected a potentially hardcoded credentials. This password should be considered compromised as it has been commited into source control.
 
