@@ -571,7 +571,7 @@ if __name__ == '__main__':
     parser.add_argument(
         "-m",
         "--mode",
-        help="the mode you wish to run semgrep, daily or pr. ",
+        help="the mode you wish to run semgrep, daily or pr",
     )
     parser.add_argument(
         "-r",
@@ -587,6 +587,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.mode == "daily":
+        if args.repo or args.git:
+            print("Daily mode does not support extra args. Ignoring them.")
         run_semgrep_daily()
     elif args.mode == "pr":
         run_semgrep_pr(args.repo, args.git)
@@ -594,3 +596,5 @@ if __name__ == '__main__':
         exit_code = get_docker_image(args.mode)
         print(exit_code)
         sys.exit(exit_code)
+    else:
+        parser.print_help()
