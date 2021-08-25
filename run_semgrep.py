@@ -124,6 +124,9 @@ def git_ops(repo):
     repo_path = f"{REPOSITORIES_DIR}{repo}"
     git_repo = f"git@slack-github.com:slack/{repo}.git"
     if repo == "webapp":
+        if not os.path.isdir(f"{repo_path}"):
+            sys.exit("[!!] webapp not found. Please run clone manually if running locally. Perhaps\n"
+                    f"     with: GIT_LFS_SKIP_SMUDGE=1 git -C {REPOSITORIES_DIR} clone {git_repo}")
         print("[+] Updating webapp")
         command = (
                     f"git -C {REPOSITORIES_DIR}webapp "
