@@ -21,6 +21,10 @@ def open_json(filename):
 def semgrep_path_to_relative_path(path):
     return path.split("/", 2)[-1]
 
+def create_checkpoint_results_json(results):
+    with open(CHECKPOINT_JSON_OUT, "w", encoding="utf-8") as f:
+        json.dump(results, f, ensure_ascii=False, indent=4)
+
 def convert(fp_removed_filename, original_filename, comparison_filename):
     fp_removed_data = open_json(fp_removed_filename)
     comparison_data = open_json(comparison_filename)
@@ -37,13 +41,12 @@ def convert(fp_removed_filename, original_filename, comparison_filename):
     shutil.copy(original_filename, CHECKPOINT_ORIGINAL_OUT)
 
     # Mark the test case "semgrep-scan-non-blocking" as "failed" or "pass" depending on whether we have findings or not.
-    with open(CHECKPOINT_JSON_OUT, "w", encoding="utf-8") as f:
-        out = [{
-            "level" : "failure" if is_failure else "pass",
-            "case" : "semgrep-scan-non-blocking",
-            "output" : checkpoint_output
-        }]
-        json.dump(out, f, ensure_ascii=False, indent=4)
+    out = [{
+        "level" : "failure" if is_failure else "pass",
+        "case" : "semgrep-scan-non-blocking",
+        "output" : checkpoint_output
+    }]
+    create_checkpoint_results_json(out)
 
     # Generate a human readable version of the results so that people can see what vulnerabilities were found.
     with open(CHECKPOINT_TEXT_RESULT, "w", encoding="utf-8") as f:

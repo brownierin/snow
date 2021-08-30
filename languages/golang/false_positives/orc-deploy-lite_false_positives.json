@@ -1,1 +1,10 @@
-{}
+{
+  "3eb9f5705f9c6430a7d6e6821d4b34e0c9f057975cb8fb5a5791790f8eb2bf8e": {
+      "message": "Rule Triggered - go.lang.security.decompression_bomb.potential-dos-via-decompression-bomb",
+      "check_id": "go.lang.security.decompression_bomb.potential-dos-via-decompression-bomb",
+      "location": "https://slack-github.com//slack/orc-deploy-lite/blob/4878eeae4ea7f236ee6e98fce231e0a77523cf65/main.go#L80-L80",
+      "reason": "Copy is only used internally. ",
+      "jira": "PRODSEC-",
+      "risk": "Informational"
+  }
+}

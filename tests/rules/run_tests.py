@@ -1,18 +1,20 @@
 #!/usr/bin/env python3
 
-import pprint
+import sys, os
+
+SNOW_ROOT = os.path.realpath(os.path.dirname(os.path.realpath(__file__)) + "/../../")
+sys.path.append(SNOW_ROOT)
+
 import subprocess
 import configparser
-import os
 import glob
 import json
-import sys
 import argparse
+from concurrent.futures import ThreadPoolExecutor
+from checkpoint_out import create_checkpoint_results_json
 
 CONFIG = configparser.ConfigParser()
 CONFIG.read('config.cfg')
-
-SNOW_ROOT = os.getenv('PWD')
 
 def scan_folder(folder, configlanguage, output_file):
     semgrep_command =  "docker run --user \"$(id -u):$(id -g)\" --rm "
@@ -28,38 +30,15 @@ def scan_folder(folder, configlanguage, output_file):
 
     subprocess.run(semgrep_command, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
-
-parser = argparse.ArgumentParser(description='Test runner for the semgrep rules.')
-parser.add_argument('--lang', required=False)
-parser.add_argument('--test', required=False)
-args = parser.parse_args()
-
-local_test_directory = SNOW_ROOT + CONFIG['general']['tests_repositories']
-local_results_directory = SNOW_ROOT + CONFIG['general']['results']
-
-is_all_test_success = True
-test_ran, test_ran_success, test_ran_fail = 0, 0, 0
-
-for test_config_path in glob.glob(local_test_directory + "/*/*/test.json"):
+def do_test(test_case_name, language, test_config_path):
     try:
-        file_part = test_config_path.split("/")
-        test_case_name = file_part[-2]
-        language = file_part[-3]
-
-        # Ignore test cases we don't want to run
-        if args.lang and not args.lang == language:
-            continue
-
-        if args.test and not args.test == test_case_name:
-            continue
-
         test_config = {}
         with open(test_config_path) as f:
             test_config = json.load(f)
 
         output_file = "test-{}-{}.json".format(language, test_case_name)
         language_config = "language-{}".format(language)
-        relative_path = "{}/{}".format(language, test_case_name)
+        relative_path = "rules/{}/{}".format(language, test_case_name)
 
         scan_folder(relative_path, language_config, output_file)
 
@@ -73,8 +52,7 @@ for test_config_path in glob.glob(local_test_directory + "/*/*/test.json"):
         result_count = len(scan_result["results"])
         expected_count = test_config["expected-result-count"]
         if not result_count == expected_count:
-            print("[ERR] Expected {} results from test case '{}', but got {}.".format(expected_count, test_case_name, result_count))
-            is_success = False
+            print("[WARN] Expected {} results from test case '{}', but got {}.".format(expected_count, test_case_name, result_count))
 
         # Check if the correct rule got triggered
         expected_rule_match = test_config["expected-match"]
@@ -96,15 +74,64 @@ for test_config_path in glob.glob(local_test_directory + "/*/*/test.json"):
         print("[ERR] An unexpected error occured while running the test case '{}' ({}).".format(test_case_name, str(e)))
         is_success = False
 
+    return is_success
+
+parser = argparse.ArgumentParser(description='Test runner for the semgrep rules.')
+parser.add_argument('--lang', required=False)
+parser.add_argument('--test', required=False)
+parser.add_argument('--worker', default=1, required=False)
+parser.add_argument('--generate_checkpoint_artifact', default=False, dest='generate_checkpoint_artifact', action='store_true', required=False)
+args = parser.parse_args()
+
+local_test_directory = SNOW_ROOT + CONFIG['general']['tests_repositories']
+local_results_directory = SNOW_ROOT + CONFIG['general']['results']
+
+is_all_test_success = True
+test_ran, test_ran_success, test_ran_fail = 0, 0, 0
+test_results = []
+pending_test_results = []
+
+with ThreadPoolExecutor(max_workers=int(args.worker)) as executor:
+    for test_config_path in glob.glob(local_test_directory + "/rules/*/*/test.json"):
+        file_part = test_config_path.split("/")
+        test_case_name = file_part[-2]
+        language = file_part[-3]
+
+        # Ignore test cases we don't want to run
+        if args.lang and not args.lang == language:
+            continue
+
+        if args.test and not args.test == test_case_name:
+            continue
+
+        future = executor.submit(do_test, test_case_name, language, test_config_path)
+        pending_test_results.append({ "future" : future, "test_case_name" : test_case_name })
+
+for result in pending_test_results:
     test_ran += 1
+    is_success = result["future"].result()
+
     if is_success:
-        print("[OK] %s" % (test_case_name))
+        print("[OK] %s" % (result["test_case_name"]))
         test_ran_success += 1
+        test_results.append({
+            "level" : "pass",
+            "case" : "semgrep-rule-" + result["test_case_name"],
+            "output" : ""
+        })
     else:
         is_all_test_success = False
         test_ran_fail += 1
+        test_results.append({
+            "level" : "failure",
+            "case" : "semgrep-rule-" + result["test_case_name"],
+            "output" : ""
+        })        
 
 print("[INFO] {} test executed. Passed :  {} Fail : {}.".format(test_ran, test_ran_success, test_ran_fail))
+
+if args.generate_checkpoint_artifact:
+    create_checkpoint_results_json(test_results)
 
 if is_all_test_success:
     print("[OK] All test passed !")

@@ -585,60 +585,68 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-      "32192c026323014878d7722af663fd0698262d5a245f440ff44511700fe60563": {
-          "message": "Rule Triggered - pprof-debug-exposure",
-          "check_id": "pprof-debug-exposure",
-          "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/prometheus-solr-exporter/main.go#L84-L84",
-          "reason": "Dead code. Just deleted it https://slack-github.com/slack/ops-go/pull/1909",
-          "jira": "PRODSEC-3143",
-          "risk": "Informational"
-      },
-      "7e406234a6d06b2849d5e2e5967db23e77d2cf38a9ad35180567ecd9fdedc503": {
-          "message": "Rule Triggered - potential-code-execution",
-          "check_id": "potential-code-execution",
-          "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/bedrock/cmd_launch.go#L272-L272",
-          "reason": "Part of the Bedrock build process. It runs pre actions that need to run before Bedrock builds the image.",
-          "jira": "PRODSEC-3143",
-          "risk": "Informational"
-      },
-      "edddbdc7a59ff71846b08c1bd07823a9e2ace355ea86754edf643d4f4037aa99": {
-          "message": "Rule Triggered - potential-code-execution",
-          "check_id": "potential-code-execution",
-          "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/bedrock/cmd_launch.go#L270-L270",
-          "reason": "Part of the Bedrock build process. It runs pre actions that need to run before Bedrock builds the image.",
-          "jira": "PRODSEC-3143",
-          "risk": "Informational"
-      },
-      "1e793a809ce199219edf98fce62524fc263e92ed5cb9f40fe572333961a6dbcb": {
-          "message": "Rule Triggered - potential-code-execution",
-          "check_id": "potential-code-execution",
-          "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/bedrock/cmd_build.go#L390-L390",
-          "reason": "This file was deleted between discovery and analysis",
-          "jira": "PRODSEC-3143",
-          "risk": "Informational"
-      },
-      "b8b8dd25aeeaaf97e2d43815f4b08a5a06da08b37c84093c0a81c3d7460f7e39": {
-          "message": "Rule Triggered - bad_imports.insecure-module-used",
-          "check_id": "checidhere",
-          "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/sshkey/users_json.go#L255-L255",
-          "reason": "This file was deleted between discovery and analysis",
-          "jira": "PRODSEC-3143",
-          "risk": "Informational"
-      },
-      "9d49a6938447d798a2f50f6f0bd3686bda3a1c3d49611d07a644a8ae41d1f2df": {
-          "message": "Rule Triggered - bad_imports.insecure-module-used",
-          "check_id": "bad_imports.insecure-module-used",
-          "location": "https://slack-github.com/slack/ops-go/blob/master/orchestrated-deploy/hash.go#L21-L21",
-          "reason": "MD5 used for data deduplication with s3, which only natively supports MD5. Not used for a security purpose.",
-          "jira": "PRODSEC-3143",
-          "risk": "Informational"
-      },
-      "ab3af7446a97b4e46925f9199b9164c8c74dcafda3878b76a01c3a4598153e66": {
-          "message": "Rule Triggered - bad-tmp-file-creation",
-          "check_id": "bad-tmp-file-creation",
-          "location": "https://slack-github.com/slack/ops-go/blob/master/lambdas/whitecastle_watcher/lambda.go#L358-L358",
-          "reason": "Does not ever take in user input. The file is created one time on the back end, shipped to S3 and then is overwritten. Not exploitable.  ",
-          "jira": "PRODSEC-3143",
-          "risk": "Informational"
-      }
+    "32192c026323014878d7722af663fd0698262d5a245f440ff44511700fe60563": {
+        "message": "Rule Triggered - pprof-debug-exposure",
+        "check_id": "pprof-debug-exposure",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/prometheus-solr-exporter/main.go#L84-L84",
+        "reason": "Dead code. Just deleted it https://slack-github.com/slack/ops-go/pull/1909",
+        "jira": "PRODSEC-3143",
+        "risk": "Informational"
+    },
+    "7e406234a6d06b2849d5e2e5967db23e77d2cf38a9ad35180567ecd9fdedc503": {
+        "message": "Rule Triggered - potential-code-execution",
+        "check_id": "potential-code-execution",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/bedrock/cmd_launch.go#L272-L272",
+        "reason": "Part of the Bedrock build process. It runs pre actions that need to run before Bedrock builds the image.",
+        "jira": "PRODSEC-3143",
+        "risk": "Informational"
+    },
+    "edddbdc7a59ff71846b08c1bd07823a9e2ace355ea86754edf643d4f4037aa99": {
+        "message": "Rule Triggered - potential-code-execution",
+        "check_id": "potential-code-execution",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/bedrock/cmd_launch.go#L270-L270",
+        "reason": "Part of the Bedrock build process. It runs pre actions that need to run before Bedrock builds the image.",
+        "jira": "PRODSEC-3143",
+        "risk": "Informational"
+    },
+    "1e793a809ce199219edf98fce62524fc263e92ed5cb9f40fe572333961a6dbcb": {
+        "message": "Rule Triggered - potential-code-execution",
+        "check_id": "potential-code-execution",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/bedrock/cmd_build.go#L390-L390",
+        "reason": "This file was deleted between discovery and analysis",
+        "jira": "PRODSEC-3143",
+        "risk": "Informational"
+    },
+    "b8b8dd25aeeaaf97e2d43815f4b08a5a06da08b37c84093c0a81c3d7460f7e39": {
+        "message": "Rule Triggered - bad_imports.insecure-module-used",
+        "check_id": "checidhere",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/sshkey/users_json.go#L255-L255",
+        "reason": "This file was deleted between discovery and analysis",
+        "jira": "PRODSEC-3143",
+        "risk": "Informational"
+    },
+    "9d49a6938447d798a2f50f6f0bd3686bda3a1c3d49611d07a644a8ae41d1f2df": {
+        "message": "Rule Triggered - bad_imports.insecure-module-used",
+        "check_id": "bad_imports.insecure-module-used",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/orchestrated-deploy/hash.go#L21-L21",
+        "reason": "MD5 used for data deduplication with s3, which only natively supports MD5. Not used for a security purpose.",
+        "jira": "PRODSEC-3143",
+        "risk": "Informational"
+    },
+    "ab3af7446a97b4e46925f9199b9164c8c74dcafda3878b76a01c3a4598153e66": {
+        "message": "Rule Triggered - bad-tmp-file-creation",
+        "check_id": "bad-tmp-file-creation",
+        "location": "https://slack-github.com/slack/ops-go/blob/master/lambdas/whitecastle_watcher/lambda.go#L358-L358",
+        "reason": "Does not ever take in user input. The file is created one time on the back end, shipped to S3 and then is overwritten. Not exploitable.  ",
+        "jira": "PRODSEC-3143",
+        "risk": "Informational"
+    },
+    "818727b0730df3ffedfeb0c60210242e78bb8da86df67911080d9f2d1f5a008a": {
+        "message": "The profiling 'pprof' endpoint is automatically exposed on /debug/pprof. This could leak information about the server. Instead, use 'import 'net/http/pprof''. See https://www.farsightsecurity.com/blog/txt-record/go-remote-profiling-20161028/ for more information and mitigation. ",
+        "check_id": "languages.golang.r2c-ci-rules.go.lang.security.audit.net.pprof.pprof-debug-exposure",
+        "location": "cmds/gaz/main.go#200",
+        "reason": "gaz is internal-facing only and exposure of pprof data is acceptable",
+        "jira": "CLOUDC-1046",
+        "risk": "Low"
+    }
 }
