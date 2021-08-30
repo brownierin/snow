@@ -8,16 +8,17 @@ Under the hood, SNOW uses a fabulous open source tool called [semgrep](https://g
 
 ### Dependencies
 
-* Make sure you have the most recent verison of Docker installed on your machine if you would like to run this program locally.
+* Make sure you have the most recent version of Docker installed on your machine if you would like to run this program locally.
+* Run `./pre-install.sh`.
 
 ### Executing program
 
-* Clone this repository to your local machine
-* Run semgrep locally by modifying the config.cfg, 'run_local_semgrep' to your desired workspace. 
+* Clone this repository to your local machine.
+* Run semgrep locally by modifying the config.cfg, 'run_local_semgrep' to your desired workspace. You can have Git ignore changes to this file by running `git update-index --skip-worktree config.cfg`.
 * Semgrep will run against any language in the config file with the syntax <language-xxxx>. The language directory is determined by 'language' variable. 
 
 ```
-./run_semgrep.py
+./run_semgrep.py -m MODE
 ```
 
 After running the semgrep script, you should receive an output of JSON to your terminal with a list of rule violations similar to this:
