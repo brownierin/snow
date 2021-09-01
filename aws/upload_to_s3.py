@@ -18,6 +18,6 @@ def upload_file(filename, bucket):
     print(f"[+] Uploaded file successfully")
     return True
 
-def upload_files(filenames, bucket)
+def upload_files(filenames, bucket):
     for filename in filenames:
         upload_file(filename, bucket)
