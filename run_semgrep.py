@@ -15,6 +15,7 @@ from pathlib import Path
 import argparse
 import sys
 import datetime
+import aws.upload_to_s3 as s3
 
 # Get config file and read.
 CONFIG = configparser.ConfigParser()
@@ -553,6 +554,17 @@ def run_semgrep_pr(repo, git):
         # No vulnerabilities would be checking for an empty array.
 
     checkpoint_out.convert(parsed_filename, json_filename, parsed_filename)
+
+    if git == 'ts':
+        bucket = CONFIG['general']['s3_bucket']
+        filenames = [
+            parsed_filename, 
+            json_filename, 
+            old_output, 
+            new_output, 
+            output_filename
+        ]
+        s3.upload_files(parsed_filename, bucket)
 
     if not data['results']:
         print("No new vulnerabilities detected!")
