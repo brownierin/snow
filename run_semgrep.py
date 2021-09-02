@@ -512,7 +512,8 @@ def run_semgrep_pr(repo, git):
         os.environ['CIBOT_COMMIT_HEAD'] = os.environ.get('GITHUB_SHA')
         
     # As HEAD is on the current branch, it will retrieve the branch sha.
-    git_sha_branch_short = os.environ.get('CIBOT_COMMIT_HEAD')[:7]
+    git_sha_branch = os.environ.get('CIBOT_COMMIT_HEAD')
+    git_sha_branch_short = git_sha_branch[:7]
     # Make sure you are on the branch to scan by switching to it.
     process = subprocess.run("git -C " + REPOSITORIES_DIR + repo + " checkout -f " + git_sha_branch, shell=True, check=True,stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     print("Branch Checkout: " + process.stdout.decode("utf-8"))
@@ -524,8 +525,9 @@ def run_semgrep_pr(repo, git):
         os.environ['CIBOT_COMMIT_MASTER'] = master_ref.read()
         os.environ['CIBOT_ARTIFACT_DIR'] = RESULTS_DIR
 
-    git_sha_master_short = os.environ.get('CIBOT_COMMIT_MASTER')[:7]
-    print(os.environ.get('CIBOT_COMMIT_MASTER') + " sha master")
+    git_sha_master = os.environ.get('CIBOT_COMMIT_MASTER')
+    git_sha_master_short = git_sha_master[:7]
+    print(f"{git_sha_master} sha master")
 
     if git_sha_branch == git_sha_master:
         print("[-] Master and HEAD are equal. Need to compare against two different SHAs! We won't scan.")
