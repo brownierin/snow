@@ -481,7 +481,6 @@ def run_semgrep_pr(repo, git):
     if git == 'ghe':
         subprocess.run("mv ../* ../.* " +REPOSITORIES_DIR + repo, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
-    # Get Semgrep Docker image, check against a known good hash
     get_docker_image()
 
     # Every repo in SNOW is tied to a language in the enabled file. The repo name has to be exactly the same as
@@ -523,6 +522,8 @@ def run_semgrep_pr(repo, git):
     if git == 'ts':
         master_ref = open('.git/refs/heads/master', 'r')
         os.environ['CIBOT_COMMIT_MASTER'] = master_ref.read()
+        os.environ['CIBOT_ARTIFACT_DIR'] = RESULTS_DIR
+
     git_sha_master_short = os.environ.get('CIBOT_COMMIT_MASTER')[:7]
     print(os.environ.get('CIBOT_COMMIT_MASTER') + " sha master")
 
