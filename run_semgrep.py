@@ -465,7 +465,7 @@ def run_semgrep_daily():
 
 def webhook_alerts(data):
     try:
-        webhooks.send_webhook(data)
+        webhooks.send(data)
     except Exception as e:
         print(f"[-] Webhook failed to send: error is {e}")
 
@@ -577,8 +577,17 @@ def run_semgrep_pr(repo, git):
             new_output, 
             output_filename
         ]
-        s3.upload_files(parsed_filename, bucket)
+        s3.upload_files(filenames, bucket)
 
+    content = create_results_blob(data)
+    print(content)
+
+    if git == "ts":
+        webhook_alerts(content)
+
+    exit(0) if data['results'] else exit(1)
+
+def create_results_blob(data):
     if not data['results']:
         content = "No new vulnerabilities detected!"
     else: 
@@ -589,13 +598,7 @@ def run_semgrep_pr(repo, git):
         Please review the following output. Reach out to #triage-prodsec with questions.
         {data['results']}
         """
-
-    print(content)
-
-    if git == "ts":
-        webhook_alerts(content)
-
-    exit(0) if data['results'] else exit(1)
+    return content
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
