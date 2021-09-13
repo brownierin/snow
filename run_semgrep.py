@@ -518,7 +518,7 @@ def run_semgrep_pr(repo, git):
     process = subprocess.run("git -C " + REPOSITORIES_DIR + repo + " checkout -f " + git_sha_branch, shell=True, check=True,stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     print("Branch Checkout: " + process.stdout.decode("utf-8"))
     scan_repo(repo, repo_language, config_language, git_repo_url, git_sha_branch_short)
-    print(os.environ.get('CIBOT_COMMIT_HEAD') + " sha branch")
+    print(f"{git_sha_branch} sha branch")
 
     if git == 'ts':
         master_ref = open('.git/refs/heads/master', 'r')
@@ -595,7 +595,7 @@ def run_semgrep_pr(repo, git):
     if git == "ts":
         webhook_alerts(content)
 
-    if data['results'] exit(0) else exit(1)
+    exit(0) if data['results'] else exit(1)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
