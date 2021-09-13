@@ -16,6 +16,7 @@ import argparse
 import sys
 import datetime
 import aws.upload_to_s3 as s3
+import webhooks
 
 # Get config file and read.
 CONFIG = configparser.ConfigParser()
@@ -462,6 +463,13 @@ def run_semgrep_daily():
     alert_channel()
 
 
+def webhook_alerts(data):
+    try:
+        webhooks.send_webhook(data)
+    except Exception as e:
+        print(f"[-] Webhook failed to send: error is {e}")
+
+
 def run_semgrep_pr(repo, git):
     # Delete all directories that would have old repos, or results from the last run as the build boxes may persist from previous runs.
     cleanup_workspace()
@@ -572,17 +580,22 @@ def run_semgrep_pr(repo, git):
         s3.upload_files(parsed_filename, bucket)
 
     if not data['results']:
-        print("No new vulnerabilities detected!")
-        exit(0)
-    else:
-        # Print the results to console so DEV can review.
-        print('=======================================================')
-        print('=============New vulnerabilities Detected.=============')
-        print('=======================================================')
-        print('Please review the following output. Reach out to #triage-prodsec with questions.')
-        print(data['results'])
-        # Exit with status code 1, which should flag the test as failed in Checkpoint/GitHub.
-        exit(1)
+        content = "No new vulnerabilities detected!"
+    else: 
+        content = f"""
+        =======================================================
+        =============New vulnerabilities Detected.=============
+        =======================================================
+        Please review the following output. Reach out to #triage-prodsec with questions.
+        {data['results']}
+        """
+
+    print(content)
+
+    if git == "ts":
+        webhook_alerts(content)
+
+    if data['results'] exit(0) else exit(1)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
