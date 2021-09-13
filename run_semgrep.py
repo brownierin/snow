@@ -595,7 +595,7 @@ def run_semgrep_pr(repo, git):
     if git == "ts":
         webhook_alerts(content)
 
-    if data['results'] exit(0) else exit(1)
+    exit(0) if data['results'] else exit(1)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
