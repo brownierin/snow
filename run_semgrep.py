@@ -470,9 +470,9 @@ def run_semgrep_pr(repo, git):
     # Grab the PR code, move it to the repository with it's own directory
     # We do this as it mimics the same environment configuration as the daily scan so we can re-use the code.
     # Move everything into 'SNOW/repositories/'. run_semgrep.py scans by looking for the repo name in the repositories/ directory.
-    subprocess.run("mv ../* ../.* " +REPOSITORIES_DIR + repo, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    if git == 'ghe':
+        subprocess.run("mv ../* ../.* " +REPOSITORIES_DIR + repo, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
-    # Get Semgrep Docker image, check against a known good hash
     get_docker_image()
 
     # Every repo in SNOW is tied to a language in the enabled file. The repo name has to be exactly the same as
@@ -500,21 +500,26 @@ def run_semgrep_pr(repo, git):
     else:
         raise Exception("No supported git url supplied.")
 
+    if git == 'ts':
+        os.environ['CIBOT_COMMIT_HEAD'] = os.environ.get('GITHUB_SHA')
+        
     # As HEAD is on the current branch, it will retrieve the branch sha.
-    get_sha_process = subprocess.run("echo $CIBOT_COMMIT_HEAD", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    git_sha_branch = get_sha_process.stdout.decode("utf-8").rstrip()
+    git_sha_branch = os.environ.get('CIBOT_COMMIT_HEAD')
     git_sha_branch_short = git_sha_branch[:7]
     # Make sure you are on the branch to scan by switching to it.
     process = subprocess.run("git -C " + REPOSITORIES_DIR + repo + " checkout -f " + git_sha_branch, shell=True, check=True,stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     print("Branch Checkout: " + process.stdout.decode("utf-8"))
     scan_repo(repo, repo_language, config_language, git_repo_url, git_sha_branch_short)
-    print(git_sha_branch + " sha branch")
+    print(f"{git_sha_branch} sha branch")
 
-    # Now get the master sha.
-    get_sha_process = subprocess.run("echo $CIBOT_COMMIT_MASTER", shell=True, check=True, stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
-    git_sha_master = get_sha_process.stdout.decode("utf-8").rstrip()
+    if git == 'ts':
+        master_ref = open('.git/refs/heads/master', 'r')
+        os.environ['CIBOT_COMMIT_MASTER'] = master_ref.read()
+        os.environ['CIBOT_ARTIFACT_DIR'] = RESULTS_DIR
+
+    git_sha_master = os.environ.get('CIBOT_COMMIT_MASTER')
     git_sha_master_short = git_sha_master[:7]
-    print(git_sha_master + " sha master")
+    print(f"{git_sha_master} sha master")
 
     if git_sha_branch == git_sha_master:
         print("[-] Master and HEAD are equal. Need to compare against two different SHAs! We won't scan.")
