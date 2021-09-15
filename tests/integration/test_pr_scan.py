@@ -83,7 +83,6 @@ def do_scan(test_name, pr_commit, master_commit):
             cmd_env = os.environ.copy()
             cmd_env["CIBOT_REPO"] = f"https://slack-github.com/slack/{test_name}.git"
             cmd_env["CIBOT_ARTIFACT_DIR"] = checkpoint_out_dir
-            os.environ["CIBOT_ARTIFACT_DIR"] = checkpoint_out_dir
             cmd_env["CIBOT_COMMIT_HEAD"] = pr_commit
             cmd_env["CIBOT_COMMIT_MASTER"] = master_commit
 
