@@ -267,7 +267,6 @@ def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
     # Add hash identifier to the json result
     # and remove false positives from the output file
     if os.path.exists(RESULTS_DIR+output_file):
-        add_hash_id(RESULTS_DIR+output_file, 2, 1, "old_hash_id")
         add_hash_id(RESULTS_DIR+output_file, 4, 1, "hash_id")
         comparison.remove_false_positives(
                                             RESULTS_DIR+output_file,
@@ -551,8 +550,6 @@ def run_semgrep_pr(repo, git):
     print("Branch Checkout: " + process.stdout.decode("utf-8"))
     add_hash_id(json_filename, 4, 1, "hash_id")
     add_hash_id(parsed_filename, 4, 1, "hash_id")
-    add_hash_id(json_filename, 2, 1, "old_hash_id")
-    add_hash_id(parsed_filename, 2, 1, "old_hash_id")
 
     with open(parsed_filename) as fileParsed:
         data = json.load(fileParsed)
