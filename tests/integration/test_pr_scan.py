@@ -4,6 +4,7 @@ import json
 import tempfile
 import subprocess
 
+
 """
 TEST SETUP UTILITY - START
 """
@@ -202,6 +203,7 @@ def test_pr_with_false_positives():
     assert len(output["comparison"]["results"]) == 0
 
     take_down_case(test_name, test_lang)
+
 
 """
 TEST CASES - END
