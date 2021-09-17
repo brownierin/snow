@@ -14,6 +14,9 @@ import process_hash_ids as comparison
 from pathlib import Path
 import argparse
 import sys
+import requests
+import re
+import glob
 import datetime
 import aws.upload_to_s3 as s3
 
@@ -28,6 +31,8 @@ if CONFIG['general']['run_local_semgrep'] != "False":
 LANGUAGES_DIR = SNOW_ROOT + CONFIG['general']['languages_dir']
 RESULTS_DIR = SNOW_ROOT + CONFIG['general']['results']
 REPOSITORIES_DIR = SNOW_ROOT + CONFIG['general']['repositories']
+CHECKPOINT_API_URL = CONFIG['general']['checkpoint_api_url']
+CHECKPOINT_TOKEN_ENV = CONFIG['general']['checkpoint_token_env']
 FORKED_REPOS = {
     "orchestrator"  : "https://github.com/openark/orchestrator.git",
     "vitess"        : "https://github.com/vitessio/vitess.git",
@@ -48,6 +53,12 @@ def cleanup_workspace():
     os.makedirs(REPOSITORIES_DIR, mode=mode, exist_ok=True)
     print('[+] End workspace cleanup')
 
+global_exit_code = 0
+
+# Changes the exit code of the program without exiting the program.
+def set_exit_code(code):
+    global global_exit_code
+    global_exit_code = code
 
 def clean_results_dir():
     """
@@ -449,6 +460,113 @@ def alert_channel():
         # This is not a production jenkins job. So no need to send alerts.
         pass
 
+def call_checkpoint_api(method, auth_token, get_params, post_params):
+    get_params["method"] = method
+    get_params["token"] = auth_token
+
+    headers = { "Content-Type": "application/json" }
+    
+    r = requests.post(
+        url     = CHECKPOINT_API_URL,
+        params  = get_params,
+        headers = headers,
+        json    = post_params
+    )
+
+    return r.json()
+
+def get_checkpoint_auth_token():
+    # Try to see if the checkpoint token exists as an environment variable
+    auth_token = os.getenv(CHECKPOINT_TOKEN_ENV)
+
+    # Try to get it from the command line tool "security" if we can't find it yet
+    #
+    # Note: This section only works on developer machine and is meant to be there to
+    # simplify the testing process. In production, the checkpoint token should be defined
+    # in the environment variable "CHECKPOINT_TOKEN".
+    # 
+    # Note 2: This is adapted from the CheckpointClient located in slack-cli-tools
+    # See: https://slack-github.com/slack/slack-cli-tools/blob/master/slack_include/checkpoint_client.rb#L30
+    if not auth_token or auth_token.strip() == "":
+        get_token_command = "security 2>&1 >/dev/null find-generic-password -a auth -g"
+        security_token_proc = subprocess.run(get_token_command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+
+        # If the command line fails, try from the ".slack-checkpoint.key" file located in the home folder
+        if security_token_proc.returncode != 0:
+            token_file = os.getenv("HOME") + "/.slack-checkpoint.key"
+            if os.path.exists(token_file):
+                with open(token_file) as f:
+                    security_token = f.read()
+            else:
+                security_token = ""
+        else:
+            security_token = security_token_proc.stdout.decode("utf-8")
+
+        matches = re.match(r'password: "(.+)"', security_token)
+        if matches:
+            auth_token = matches.group(1)
+
+    return auth_token
+
+def upload_results_to_checkpoint():
+    auth_token = get_checkpoint_auth_token()
+
+    if not auth_token or auth_token.strip() == "":
+        text = """:banger-alert: :snowflake:Daily :block-s: :block-e: :block-m: :block-g: :block-r: :block-e: :block-p: Scan Error:snowflake::banger-alert:\nThe checkpoint auth token couldn't be found. We can't upload results to checkpoint !"""
+        cmd = f"echo \"{text}\" | slack --channel={CONFIG['general']['alertchannel']} --cat --user=SNOW "
+        subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        print("No checkpoint token found. The results of this scan won't be uploaded to checkpoint. Please reach out to #triage-prodsec if you see this error message.")
+        set_exit_code(1)
+        return
+
+    current_time = int(time.time())
+
+    for semgrep_output_file in glob.glob(f"{RESULTS_DIR}/*.json"):
+        # Upload only the original results to checkpoint
+        if semgrep_output_file.endswith("-fprm.json") or semgrep_output_file.endswith("-comparison.json"):
+            continue
+
+        with open(semgrep_output_file, "r") as f:
+            semgrep_content = json.load(f)
+
+        is_failure = len(semgrep_content["results"]) > 0
+        output_data = json.dumps({
+            "original" : semgrep_content
+        })
+
+        get_params = {
+            "test_name" : "semgrep-scan-daily",
+            "state" : "failure" if is_failure else "success",
+            "repo" :  f'ghe/slack/{semgrep_content["metadata"]["repoName"]}',
+            "commit_head" : semgrep_content["metadata"]["branch"],
+            "commit_master" : semgrep_content["metadata"]["branch"],
+            "date_started" : current_time,
+            "date_finished" : current_time,
+            "cibot_worker" : "", # Empty, this job is not ran as a CI job
+            "ci_job_link" : "",  # Empty, this job is not ran as a CI job
+            "branch" : "master",
+            "check_flakiness" : False,
+            "payload" : "" # Empty, parameter not used
+        }
+        test_results = {"test_results" : [{
+            "case" : "semgrep-scan-daily",
+            "level" : "failure" if is_failure else "pass",
+            "owner" : [""],  # Empty value, not used
+            "duration" : 0,  # Default value, we don't store any performance metrics for daily scan
+            "output" : output_data,
+            "filename" : "", # Empty value, the results aren't specific to a file
+            "line" : 0       # Empty value, the results aren't specific to a file
+        }]}
+        call_result = call_checkpoint_api("test_run.import", auth_token, get_params, test_results)
+
+        if call_result["ok"] == False:
+            clean_error_results = call_result['error'].replace('\"','').replace('`','').replace('$','')
+            text = """:banger-alert: :snowflake:Daily :block-s: :block-e: :block-m: :block-g: :block-r: :block-e: :block-p: Scan Error:snowflake::banger-alert:\nCheckpoint results upload failed: """
+            cmd = f"echo \"{text}{clean_error_results}\" | slack --channel={CONFIG['general']['alertchannel']} --cat --user=SNOW "
+            subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            set_exit_code(1)
+            print(f"Error while uploading results to checkpoint : {call_result['error']}")
+
 
 def run_semgrep_daily():
     # Delete all directories that would have old repos, or results from the last run as the build boxes may persist from previous runs.
@@ -459,6 +577,8 @@ def run_semgrep_daily():
     download_repos()
     # Output Alerts to channel
     alert_channel()
+    # Upload the results to checkpoint
+    upload_results_to_checkpoint()
 
 
 def run_semgrep_pr(repo, git):
@@ -615,3 +735,8 @@ if __name__ == '__main__':
         sys.exit(exit_code)
     else:
         parser.print_help()
+
+    # Exit the program with the expected exit code.
+    # If a non-blocking error occured during the execution of this program, 
+    # "global_exit_code" will be change to "1". Otherwise it will stay at "0".
+    sys.exit(global_exit_code)
