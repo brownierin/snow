@@ -702,7 +702,7 @@ def run_semgrep_pr(repo, git):
     if git == "ts":
         webhook_alerts(content)
 
-    exit(0) if data['results'] else exit(1)
+    exit(0) if not data['results'] else exit(1)
 
 def create_results_blob(data):
     if not data['results']:
