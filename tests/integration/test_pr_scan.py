@@ -86,9 +86,11 @@ def do_scan(test_name, pr_commit, master_commit):
             cmd_env["CIBOT_COMMIT_HEAD"] = pr_commit
             cmd_env["CIBOT_COMMIT_MASTER"] = master_commit
 
-            subprocess.run(["../repos/snow/semgrep-checkpoint-pr.sh"], env=cmd_env, cwd=repo_dir)
+            process = subprocess.run(["../repos/snow/semgrep-checkpoint-pr.sh"], env=cmd_env, cwd=repo_dir)
 
             checkpoint_out_result = {}
+            checkpoint_out_result["exit_code"] = process.returncode
+
             for artefact in os.listdir(checkpoint_out_dir):
                 with open(f"{checkpoint_out_dir}/{artefact}", "r") as f:
                     checkpoint_out_result[artefact] = f.read()
@@ -124,6 +126,8 @@ def test_pr_scan_base_case():
     assert len(output["comparison"]["results"]) == 1
     assert output["comparison"]["results"][0]["check_id"] == "languages.golang.slack.potential-code-execution-1"
 
+    assert checkpoint_output["exit_code"] > 0
+
     take_down_case(test_name, test_lang)
 
 # Test case where master contains one vulnerability and pr contains a new one
@@ -147,6 +151,8 @@ def test_pr_scan_report_new_vuln_only():
     assert len(output["comparison"]["results"]) == 1
     assert output["comparison"]["results"][0]["check_id"] == "languages.golang.r2c.go.lang.security.bad-tmp-file-creation"
 
+    assert checkpoint_output["exit_code"] > 0
+
     take_down_case(test_name, test_lang)
 
 # Test case where the pr contains no new vulnerability that isn't in master
@@ -168,6 +174,8 @@ def test_pr_scan_no_new_vuln():
     output = json.loads(checkpoint_result[0]["output"])
 
     assert len(output["comparison"]["results"]) == 0
+
+    assert checkpoint_output["exit_code"] == 0
 
     take_down_case(test_name, test_lang)
 
@@ -201,6 +209,8 @@ def test_pr_with_false_positives():
     output = json.loads(checkpoint_result[0]["output"])
 
     assert len(output["comparison"]["results"]) == 0
+
+    assert checkpoint_output["exit_code"] == 0
 
     take_down_case(test_name, test_lang)
 
