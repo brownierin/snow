@@ -1,1 +1,26 @@
-{}
+{
+    "25a5dd2c8e00e7071fe5cc87d1fa472e102f4d4d4eb6504d95253c7adbe14bf5": {
+        "message": "Rule 'deserialization.avoid-pyyaml-load' triggered.",
+        "check_id": "deserialization.avoid-pyyaml-load",
+        "location": "https://slack-github.com//slack/mysql-grants/blob/f82b3b81ef2e2e2f96ca2abbf15e8c8558860325/mysql_grants/config.py#L16-L16",
+        "reason": "Internal controlled yaml file.",
+        "jira": "PRODSEC-3278",
+        "risk": "False Positive"
+    },
+    "0f04e03d8b2f9f3363157d507a7e65ac3aa8f600252f326b53972e77b5b658cc": {
+        "message": "Rule 'deserialization.avoid-pyyaml-load' triggered.",
+        "check_id": "deserialization.avoid-pyyaml-load",
+        "location": "https://slack-github.com//slack/mysql-grants/blob/f82b3b81ef2e2e2f96ca2abbf15e8c8558860325/mysql_grants/config.py#L31-L31",
+        "reason": "Internal controlled yaml file.",
+        "jira": "PRODSEC-3278",
+        "risk": "False Positive"
+    },
+    "a53a405b10da5ceb4584aba7bab5f7c757f2c023005486f945db83e93d0fcc94": {
+        "message": "Rule 'hardcoded-password-default-argument' triggered.",
+        "check_id": "hardcoded-password-default-argument",
+        "location": "https://slack-github.com//slack/mysql-grants/blob/f82b3b81ef2e2e2f96ca2abbf15e8c8558860325/mysql_grants/utils.py#L12-L23",
+        "reason": "No password in file.",
+        "jira": "PRODSEC-3278",
+        "risk": "False Positive"
+    }
+}

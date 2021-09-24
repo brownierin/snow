@@ -1,1 +1,898 @@
-{}
+{
+      "c9e1a7a1fbb99cf57a705af1c313e513aea5dbe1e5e8b97ed00811d448497073": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200420_155500_remove_lead_support_date_ranges.py#L123-L127",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+          "c9e1a7a1fbb99cf57a705af1c313e513aea5dbe1e5e8b97ed00811d448497073": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200420_155500_remove_lead_support_date_ranges.py#L123-L127",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "04f0529e891024936cd040f905ce649aaaeddcb107229ea70fb62df8ac6c5b1c": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200429_152603_fix_first_exposure_team_size_sql.py#L52-L56",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "5e231623a3353af9155bab1b92e1d95fca17a1cdfcfebe19445ff5d71a40c63b": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200501_143028_fix_more_dimension_sql.py#L52-L56",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "ac07c29456f6289a7dd26b52bf70b2751a6c178a6a676a92472f930a42c62933": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200518_104840_add_backfill_sql_to_dimension.py#L49-L53",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "207406720f5d45a2cd5f87250edac29fa98ff30ae74207a60db369d22f5fd4d9": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200603_154823_cleanup_dim_groupings.py#L65-L69",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "0a66e095bac9f0a9e5260423b5ea848065c559dfc9dfb90f372ec1fae8b6808c": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200608_124319_fix_team_size_deleted_timestamp.py#L53-L57",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "8cbdce492cab6ef58679c557a26a448c0582aeac43b1c916ba4b04e4e6f9c998": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200609_123831_fix_missing_rows_in_fused_size_.py#L62-L66",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "94b831cba58e9ef7847cfba112a06928deccf4afef92c0297a2af37e26635a0e": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200710_112101_update_team_size_dimensions_for_seuid.py#L111-L117",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "a9eccaed9ed45c56bdd4938cb345f06f31aef7531959f4eaf0b96e07fc90efda": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200710_112101_update_team_size_dimensions_for_seuid.py#L119-L123",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "eb65ffbaf63e199b0e9d151881c56268b62868eec0aa25e12ffeddf856fa0b24": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200710_112101_update_team_size_dimensions_for_seuid.py#L125-L130",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "dbbf3d770b57772f9d1c8d197e5d59f43026dec0b94026eccf9de4f88cf85984": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200710_112101_update_team_size_dimensions_for_seuid.py#L134-L140",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "3b6d1ef1bc5164ac79e893464e446477180aee179b3ad80faa03a8e52ee3f058": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200710_112101_update_team_size_dimensions_for_seuid.py#L142-L146",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "9f08140d7a8a0c900bf75404d07b2654716bb98cae3ffe1f20f47a65b5ceaf9b": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200710_112101_update_team_size_dimensions_for_seuid.py#L148-L153",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "0a2893837dadce9f6b0bfb3cf22a79ca2cb4f29d9f389b92d68ce5b707b5923d": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200710_122308_update_is_new_human_dimension_for_seuid.py#L86-L91",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "658bbb3b66740505e7179455cc13da004d1cf899cbfbc840ea496eeba1ada8d7": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200710_122308_update_is_new_human_dimension_for_seuid.py#L93-L97",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "76d00e2de8e86526cd8ffa00fc2fcbd53832f14c04734e61d023f4452300e935": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200710_122308_update_is_new_human_dimension_for_seuid.py#L99-L104",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "ae2eeddb1478ea422822e18b0c9f8060ef74ab4bb5a9e3b8622bea0cd17fba8c": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200710_122308_update_is_new_human_dimension_for_seuid.py#L108-L113",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "6d9fbb9376744dcd7b88bb221af05c62c0ed2f5850669276608c7bbad962c51f": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200710_122308_update_is_new_human_dimension_for_seuid.py#L115-L119",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "a82aead621ae71303c9e4f06d789d9028f1e62332387c50b825842a6cf7d9b7e": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200710_122308_update_is_new_human_dimension_for_seuid.py#L121-L126",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "647a32e877da21a03a569c1321a2d5a9df6a38e06ddb837d3714f9a0b36ca8ee": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200914_131144_update_days_since_team_creation_for_seuid.py#L73-L78",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "fb7535fd012b1b82321dc835e3bfcf7062d980be417d4b566a007dbc780e42e1": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200914_131144_update_days_since_team_creation_for_seuid.py#L82-L87",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "76ccef68eb1f28a78e2c072570026face3652d81d400639cc56e1588df5cea6e": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200914_132118_update_product_type_paid_dimension_for_.py#L69-L74",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "db2017f6df9e21069047dfbda2bc2bb89ed000f58bc26574d0e86117ddb341ab": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200914_132118_update_product_type_paid_dimension_for_.py#L78-L83",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "cb91e4b6106a1ae556986e82d325ed5429356acf4edc93d513bda9e635b983a8": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200914_132432_update_fused_size_segementation_.py#L71-L76",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "1d9ed2e66b3f086e7835d0743261ab4eb121dc9a8ac410493ace393bc87e22b9": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200914_132432_update_fused_size_segementation_.py#L80-L85",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "1365b8fb68008086bd820de73d69bd7ee7c5a9fbf24b4d596a1bf2b6af8426e0": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200914_151548_update_country_user_dimension_for_seuid.py#L65-L70",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "d659764d7d58854df3efdd76dc1a151b9a67531c161be802ce862ca1a54a4e63": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200914_151548_update_country_user_dimension_for_seuid.py#L74-L79",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "1c12270397e80ff028b73d7c3a559b996e3c270c06d19a7b3123cea7add84749": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200914_152307_update_team_type_dimension_for_seuid.py#L65-L70",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "bd5cba08b6fbf40260a348d8c11718951b6731fa0323372aa90dc96470c2101b": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200914_152307_update_team_type_dimension_for_seuid.py#L74-L79",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "fedb9b8d8e2426b53087638ca2acf80ee1bb0d13ea0b5d006a0c251f55fdf7df": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20201001_151346_fix_first_exposure_interface_dim.py#L55-L60",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "a669dd818804a0762cd484957f31a20e214036a8c8af2724839f35160453713e": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20201001_151346_fix_first_exposure_interface_dim.py#L64-L69",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "ee4baf1f5eaa69727222e9801cf37e9b8bcd3fc8a900b2442bfcec45dca0b3bd": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210126_111725_fix_is_new_human_for_corrupted_records.py#L81-L86",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "76c2117e32778d386e6f15119083ef508e39993a3a670f60f8ddc4a0d9d8f2e9": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210126_111725_fix_is_new_human_for_corrupted_records.py#L90-L95",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "a8e6db2972ffff85920d0c32828b314102ac6ada7fec07fb3deaab05acdfe747": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210128_114815_use_ds_partitioned_teams_table.py#L82-L87",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "86f5242d2b23c3dc1ade43e3799233a37ce2a87faf14427d1939a4753148fd44": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210128_114815_use_ds_partitioned_teams_table.py#L91-L96",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "88a693a0864d13106af06c9dee24fa1934265de157669adb9061a314c23af5f5": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210225_133237_updating_dependencies_for_vitess_users_.py#L99-L104",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "92b391b0a5109e3b0844b915135eddb6fa5c021a421bb59afdc64286d3cfccef": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210225_133237_updating_dependencies_for_vitess_users_.py#L106-L110",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "af6f6370a4afd9d77a9cbcd01e23e63edeb4b56bf39e061e766713e783005d29": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210225_133237_updating_dependencies_for_vitess_users_.py#L112-L117",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "c9b4a6e2dbdf102e7707692fa8abb26662da783ab2f74e2ccf1f852b40acbdda": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210225_133237_updating_dependencies_for_vitess_users_.py#L121-L126",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "d52453a0e2b5f2cb7013d7d8a5d8f7aa4efb93fac5251e4838725e51c37973ca": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210225_133237_updating_dependencies_for_vitess_users_.py#L128-L132",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "31e8fb866e645b53a070629e10280029c894bb3d812e251e9cd927df515f1fec": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210225_133237_updating_dependencies_for_vitess_users_.py#L134-L139",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "c0ff9e177b68859c778932be8b26fedc3911e8ad8ffb760fb11aa1626785320f": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210226_111750_updating_dependencies_for_vitess_users_.py#L99-L104",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "9ab2e16b2c2b83505c61d6dbf41574cf9bc4cb4fa4a016a3c2151a92dc926647": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210226_111750_updating_dependencies_for_vitess_users_.py#L106-L110",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "8b77697b484aa1c4f050f9113b42dada3cc78669b35be7eb0324e1befa5e376e": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210226_111750_updating_dependencies_for_vitess_users_.py#L112-L117",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "c2e1f3200b5f3482babc697c0a20c4d20ef008e9fb6ee7e7cb6728280a28a6e8": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210226_111750_updating_dependencies_for_vitess_users_.py#L121-L126",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "166a8b7acf5fe029b6617811e639668046484e3be335035093e7f934f9eb29fb": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210226_111750_updating_dependencies_for_vitess_users_.py#L128-L132",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "ade86ab033bb575f2f17293cfa720b59ba028a2a0974233ac2c9e26e55f2d759": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210226_111750_updating_dependencies_for_vitess_users_.py#L134-L139",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "862ec2ded75bfecdd6afea8ec7c158be1d40b866710d75870b77d1113271958c": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210301_105311_use_original_users_ds_partitioned_table_.py#L98-L103",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "a1e32878bc85929bedf95e9eef625937f7635257215c0401db760c1a287fdc83": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210301_105311_use_original_users_ds_partitioned_table_.py#L107-L112",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "cef5f735269cf9cb2c7a37e22359ffaeb8b587fd836ab971018afb464285c06a": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210426_132651_fix_is_new_human_dim.py#L82-L87",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "8e38f0104265fd94ebff268fd02965f0846545ce6d70d6e49c6632f4df9d9cfa": {
+        "message": "Rule 'formatted-sql-query' triggered.",
+        "check_id": "formatted-sql-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210426_132651_fix_is_new_human_dim.py#L91-L96",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "c2a60df8ca6efebd256eb76731bc5f7e251a0bebe0ec1f2cbba62e5a4a3ae068": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200420_155500_remove_lead_support_date_ranges.py#L123-L127",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "90f382b8ce92a97b7589f4d8f41ef5af9ad017d68766a254d8730f3f961e1ee5": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200429_152603_fix_first_exposure_team_size_sql.py#L52-L56",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "24ab98b7a888ba9f8791c8fbb56240f31ce6f50eb8f2549305c324d0afbc45e4": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200501_143028_fix_more_dimension_sql.py#L52-L56",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "0dbb08c0f1e5135f7a04e2598757874cdb12a271362129722e25a0d61f29a894": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200518_104840_add_backfill_sql_to_dimension.py#L49-L53",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "90b623171ae6491d599b7686538a627c80f209b213b2ac9f349099278e2ecd68": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200603_154823_cleanup_dim_groupings.py#L65-L69",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "149146048e866f3de9e12f5a9f38b0fef1012e47d37b76334fe611c1f481b834": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200608_124319_fix_team_size_deleted_timestamp.py#L53-L57",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "3afe5f1bc989b8cf21cbb9ff14e4a5a6ce42f41d9206d1bf1f97380611101c17": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200609_123831_fix_missing_rows_in_fused_size_.py#L62-L66",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "95b778f0d662e37cad9438105f76f166e41aa06c16ee46b2a1ac6f31e6734b78": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200710_112101_update_team_size_dimensions_for_seuid.py#L111-L117",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "2a383ce09fcfcd46d61ae10976b600839ed471094a4f09ad2a0cb744a475b1bf": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200710_112101_update_team_size_dimensions_for_seuid.py#L119-L123",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "6d8d2686a019224fb3b9e48b3f81dc1508ea936cb06b5cb9aa94919580345779": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200710_112101_update_team_size_dimensions_for_seuid.py#L125-L130",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "26aa453e8af6da710c345557d56f3b9c828633dad29cd89ea50104d6ea7b7f9e": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200710_112101_update_team_size_dimensions_for_seuid.py#L134-L140",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "3ea8feab37ff490e3af1b1c14f9ba3c520d0927ebe7f27d14288089b45bdd60a": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200710_112101_update_team_size_dimensions_for_seuid.py#L142-L146",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "7b0cdeb482ce89855d827953f1b3a824ff5ada8b79e89c2205a412fe8b9ee22c": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200710_112101_update_team_size_dimensions_for_seuid.py#L148-L153",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "992ae942c34c98a79c7206588dbfa6243b49da7e14f39c07a8729450870c0ca2": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200710_122308_update_is_new_human_dimension_for_seuid.py#L86-L91",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "22c9d0d5df9360897c265bc0272168c084525fc0446b5089da06b7ce2e752a28": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200710_122308_update_is_new_human_dimension_for_seuid.py#L93-L97",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "392e94e65356bad5262439f0ad6a26fa1c383d216a78bc72226427d34693c4f8": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200710_122308_update_is_new_human_dimension_for_seuid.py#L99-L104",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "3cbd8091b4a593894c4c00010f1f6e2732230c14fe1c187d73f62d0f25d0f3ce": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200710_122308_update_is_new_human_dimension_for_seuid.py#L108-L113",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "72bc1c7d3cd333d4ede4a55896d11cc49a058e44c35cda1fc438930c3c97587a": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200710_122308_update_is_new_human_dimension_for_seuid.py#L115-L119",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "c7099a827cf7b3f89e8872e3c970e0199cab660dd1d0ee5e3091fc0f0f1e2bac": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200710_122308_update_is_new_human_dimension_for_seuid.py#L121-L126",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "baa501d5ee85696192d944908eed6bb6cc4322ec49482f30c5d46c3832ee4503": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200914_131144_update_days_since_team_creation_for_seuid.py#L73-L78",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "c16215a1ffc15636c808bccdfe3b595e3a0c7c732d8f1ab0b30788c504703271": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200914_131144_update_days_since_team_creation_for_seuid.py#L82-L87",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "d877dfa554ce75af3cdf1ac83d4d01e126024037055c46b4652821331ca00399": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200914_132118_update_product_type_paid_dimension_for_.py#L69-L74",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "db2167d638dac65dec1a6384bf11127494a324bfddaf40c289640c370ec5e78c": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200914_132118_update_product_type_paid_dimension_for_.py#L78-L83",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "e500f5b00a745ad66b733fb2b4c808f500625363c00b005540aa489863fdfda8": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200914_132432_update_fused_size_segementation_.py#L71-L76",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "042ec52d7d444ad5f38ae2ef9c88d1a65ee628a3e0570c8cdaecadc04a39c52d": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200914_132432_update_fused_size_segementation_.py#L80-L85",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "1e2f40603ee66ba03a453fba4f1d64aae417b6bdf35d64ec432c6dc1f87720c5": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200914_151548_update_country_user_dimension_for_seuid.py#L65-L70",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "c21d454372a6b6c3d910f36e3d360a4bf01be666db3795b1cdba6d2b930902c8": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200914_151548_update_country_user_dimension_for_seuid.py#L74-L79",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "af4c436fc66d8866bb0cf421bd5ac137392c79d8f92769a41fd427741aaf0a23": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200914_152307_update_team_type_dimension_for_seuid.py#L65-L70",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "d403b2dd006fafca5165153ede057e276f5f17574b5de8fdedb8f4600acb29b7": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20200914_152307_update_team_type_dimension_for_seuid.py#L74-L79",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "e17ae42d15aa87288a9f1d03e0d886346d8fd892d3f0445264003c937a07ff6e": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20201001_151346_fix_first_exposure_interface_dim.py#L55-L60",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "feac6a5c02b15c60f9c3e7808cf4577d7a8d6afa48f9215ae92f7a1782619c99": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20201001_151346_fix_first_exposure_interface_dim.py#L64-L69",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "ff77c188ec48734c1de4e51350d5afde8a0f55a44d39b345610e0ae91eed8f9c": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210126_111725_fix_is_new_human_for_corrupted_records.py#L81-L86",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "611ae610bf35c040b2da8e6d0dafe6fe03905987cd2d5de972c764a4601f2ec3": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210126_111725_fix_is_new_human_for_corrupted_records.py#L90-L95",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "80100868e639ab0faa6ff54d167d526e23670d46427f08c5cd10825017263e4e": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210128_114815_use_ds_partitioned_teams_table.py#L82-L87",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "1724e24e49ded15b0e6c106a21658c6f50d414605315e43e072ad89fd54be6b0": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210128_114815_use_ds_partitioned_teams_table.py#L91-L96",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "b401047658887be9cd01372e1f4b7e6af38fe427909aefcb65793444c98d4d13": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210225_133237_updating_dependencies_for_vitess_users_.py#L99-L104",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "bb549691c72ea9c7743f9993ab4a72ec029aa12800732f3ad0d0eb4d23ba8fb7": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210225_133237_updating_dependencies_for_vitess_users_.py#L106-L110",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "ec2bfeed0beb57d95f559c78a6efefdec17de975f1f169639dfe7492d77d05b4": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210225_133237_updating_dependencies_for_vitess_users_.py#L112-L117",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "12d2e4023871d5cc762990d85ab36e60bf0d442cd973b10e64e68d6ec458ed3b": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210225_133237_updating_dependencies_for_vitess_users_.py#L121-L126",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "db2dd95ef4ad52ae3bbc4fce8f63485f64ee8a913225fbb9551bf281a200062f": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210225_133237_updating_dependencies_for_vitess_users_.py#L128-L132",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "bb9d3d76dc2e7a755135ab5b6241fc65da6b8f9f3abdbdcf22df7af20a0e1243": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210225_133237_updating_dependencies_for_vitess_users_.py#L134-L139",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "298d82b0cbcdca73e241c576fdc81e3912ff388b7e724a446f91ddc7a32153b2": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210226_111750_updating_dependencies_for_vitess_users_.py#L99-L104",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "934beb1e6e5745f4faf7fb60f093678fc285c7d26a9ad8103c6bea827f5144fd": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210226_111750_updating_dependencies_for_vitess_users_.py#L106-L110",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "8fa45fab0e2b9e153bb9d506ad4bca3cfd13dc372b5f71d55c78bb3495cf1438": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210226_111750_updating_dependencies_for_vitess_users_.py#L112-L117",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "11b6b0769900768ec2e714e6a04dd5738e00de20d4517e9b4de60f6561060f55": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210226_111750_updating_dependencies_for_vitess_users_.py#L121-L126",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "08a7d8656db2ea6d7a2eef2e1a9ce79684799ee85e70a34af215d214f365c5a1": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210226_111750_updating_dependencies_for_vitess_users_.py#L128-L132",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "a9c0964f1ff0e65fb2a1cdac00160ed903e530778dcfa1dd1017b3dbf71a9471": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210226_111750_updating_dependencies_for_vitess_users_.py#L134-L139",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "22128e34ae4112bb31da86888a33b22fff9c5f5ca57b179527bad93fe38060d1": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210301_105311_use_original_users_ds_partitioned_table_.py#L98-L103",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "d6fb638cf34c209458eccd954bca9ba32f4d84d4caa923ad589217a99ce06e47": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210301_105311_use_original_users_ds_partitioned_table_.py#L107-L112",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "d721fdb495b9e202daf5d099e70b4ffb13b377e3865e6e14f1300a0a678e4c9a": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210426_132651_fix_is_new_human_dim.py#L82-L87",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "443c5b626c034fd453533b6bb8c0e062a4d46da5029160da3bda9396abf183c2": {
+        "message": "Rule 'sqlalchemy-execute-raw-query' triggered.",
+        "check_id": "sqlalchemy-execute-raw-query",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/migrations/versions/20210426_132651_fix_is_new_human_dim.py#L91-L96",
+        "reason": "One value is escaped whereas the other one is hardcoded",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "ef87af3d9d6d18a45a96392888e1fbe75f932c5053879531444361e28c8a3300": {
+        "message": "Rule 'unescaped-template-extension' triggered.",
+        "check_id": "unescaped-template-extension",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/src/metric_group.py#L304-L320",
+        "reason": "All values are internally controlled. Supplied input even internally does not allow abitrary input. ",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "9ab56489f73dde718b28967f8445afc4a7ccd4772dbf369155c4cae539e913c0": {
+        "message": "Rule 'unescaped-template-extension' triggered.",
+        "check_id": "unescaped-template-extension",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/src/models/dimensions.py#L178-L195",
+        "reason": "All values are internally controlled. Supplied input even internally does not allow abitrary input. ",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "942f51451a5d1d9bb87372866b74fe66189f159b9ef26362a77a20ccf7943cb6": {
+        "message": "Rule 'unescaped-template-extension' triggered.",
+        "check_id": "unescaped-template-extension",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/src/experiment_result_set.py#L99-L99",
+        "reason": "There is not end user supplied parameter inside render_template funciton. The variables inside it are hard coded values from config file",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "22a257c97cd69849d23e9255b25aef276090db009e51070a3e9a3f55ab3f0310": {
+        "message": "Rule 'render-template-string' triggered.",
+        "check_id": "render-template-string",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/src/metric_group_query.py#L142-L142",
+        "reason": "The source of the input is from querying the database for padtion_dates ds. ds is end date of result data",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "c40e018e89fdf426205ea72c42e5081d50c8981af4e880782d1b8faacc34a4f8": {
+        "message": "Rule 'render-template-string' triggered.",
+        "check_id": "render-template-string",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/src/models/dimensions.py#L162-L168",
+        "reason": "Values input are date time or hive engine",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "e2d9d99ddf0575114dc80b301ae67f0207829a2c7414bcbfbac4fb4cfe9344c8": {
+        "message": "Rule 'render-template-string' triggered.",
+        "check_id": "render-template-string",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/src/dao/job_result.py#L180-L186",
+        "reason": "No end user controlled value used inside render_template_string function",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "b7f3c7e28b73e6a09538323e07f4428733a9c3584f9fcd45c89422d6b26fe3f9": {
+        "message": "Rule 'make-response-with-unknown-content' triggered.",
+        "check_id": "make-response-with-unknown-content",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/src/routes/metric/metric.py#L89-L89",
+        "reason": "The response MIME type is set  to text/plain. resp.mimetype = \"text/plain\"",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "54bf3939e2a6cf9d119ec617b8e865e0c263d3ad93533910c599202a274d93b1": {
+        "message": "Rule 'make-response-with-unknown-content' triggered.",
+        "check_id": "make-response-with-unknown-content",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/src/routes/experiment_result/experiment_results_by_metric_group.py#L99-L99",
+        "reason": "The response MIME type is set  to text/plain. resp.mimetype = \"text/plain\"",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    },
+        "3cd0ed3bcbe9dffc2b8d7cb386196938ac0e64e5ae783eb585667e5e0bb9bb9e": {
+        "message": "Rule 'avoid-pyyaml-load' triggered.",
+        "check_id": "avoid-pyyaml-load",
+        "location": "https://slack-github.com//slack/odin/blob/19a28592e1ccb8664f943871a8ce0aa029024f24/src/notebook/job_processor.py#L370-L373",
+        "reason": "All values are internally controlled.",
+        "jira": "PRODSEC-3281",
+        "risk": "False Positive"
+    }
+}
