@@ -44,7 +44,7 @@ FORKED_REPOS = {
     "kafka"         : "https://github.com/apache/kafka.git",
     "apache-ranger" : "https://github.com/apache/ranger.git",
     "fbthrift"      : "https://github.com/facebook/fbthrift.git",
-    "slack-vetra"   : "https://slack-github.com/slack/slack-verta"
+    "vitess"        : "https://github.com/vitessio/vitess"
 }
 
 def cleanup_workspace():
