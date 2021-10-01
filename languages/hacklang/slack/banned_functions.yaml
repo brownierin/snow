@@ -1,0 +1,28 @@
+rules:
+  - id: slack.hack.shell
+    languages: [hack]
+    message: |-
+      Yikes, shelling out is dangerous! Avoid shelling out if you can.
+    fix: >-
+      If you can't avoid shelling out, please use exec_ok and
+      ask for a code review in #triage-prodsec.
+    patterns:
+      - pattern: $FUNC(...)
+      - metavariable-regex:
+          metavariable: $FUNC
+          regex: "(curl_exec|curl_multi_exec|exec|passthru|\
+            proc_open|shell_exec|system|exec_ok_unsafe)"
+    severity: ERROR
+
+  - id: slack.hack.open-redirect
+    languages: [hack]
+    message: Using this function can cause open redirect vulnerabilities!
+    fix: >-
+      Please use util_internal_redirect instead. If you are determined to implement an
+      open redirect please reach out to #triage-prodsec to discuss mitigations.
+    patterns:
+      - pattern: $FUNC(...)
+      - metavariable-regex:
+          metavariable: $FUNC
+          regex: "(util_redirect|util_redirect_migrate|util_allowed_migrate_redirect)"
+    severity: ERROR
