@@ -43,8 +43,7 @@ FORKED_REPOS = {
     "hive"          : "https://github.com/apache/hive.git",
     "kafka"         : "https://github.com/apache/kafka.git",
     "apache-ranger" : "https://github.com/apache/ranger.git",
-    "fbthrift"      : "https://github.com/facebook/fbthrift.git",
-    "vitess"        : "https://github.com/vitessio/vitess"
+    "fbthrift"      : "https://github.com/facebook/fbthrift.git"
 }
 
 def cleanup_workspace():
