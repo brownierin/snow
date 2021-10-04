@@ -739,7 +739,7 @@ if __name__ == '__main__':
         "--git",
         help="the github url you wish to scan, supported options ghe (github enterprise) and ts (tinyspeck)",
     )
-    parser.add_argument("--s3", help="upload to s3", action=argparse.BooleanOptionalAction)
+    parser.add_argument("--s3", help="upload to s3", action='store_true')
 
     args = parser.parse_args()
 
