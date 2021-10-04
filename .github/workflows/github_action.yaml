@@ -6,6 +6,7 @@ jobs:
   scan-with-semgrep:
     timeout-minutes: 15
     runs-on: ubuntu-latest
+
     steps:
       - name: Clone snow code
         uses: actions/checkout@v2
@@ -31,4 +32,7 @@ jobs:
         run: cd snow; python3 -m pip install -r requirements.txt
 
       - name: Run semgrep
-        run: cd snow; python3 run_semgrep.py -m pr -g ts -r ${{ github.event.repository.name }}
+        run: |
+          cd snow
+          ls -al .git 
+          python3 run_semgrep.py -m pr -g ts -r ${{ github.event.repository.name }}
