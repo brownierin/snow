@@ -642,13 +642,13 @@ def run_semgrep_pr(repo, git):
     print(f"{git_sha_branch} sha branch")
 
     if git == 'ts':
-        cmd = run_command(f"git -C {repo_dir} branch master")
+        cmd = run_command(f"git -C {repo_dir} branch --list --remote origin/master")
         ls = run_command(f"ls -al; pwd")
         print(ls.stdout.decode("utf-8"))
         lsr = run_command(f"ls -al repositories")
         print(lsr.stdout.decode("utf-8"))
-        master_ref = open(f'{repo_dir}/.git/refs/heads/master', 'r')
-        os.environ['CIBOT_COMMIT_MASTER'] = master_ref.read()
+        master_ref = run_command(f"git -C {repo_dir} rev-parse refs/remotes/origin/master")
+        os.environ['CIBOT_COMMIT_MASTER'] = master_ref.stdout.decode("utf-8")
         os.environ['CIBOT_ARTIFACT_DIR'] = RESULTS_DIR
 
     git_sha_master = os.environ.get('CIBOT_COMMIT_MASTER')
