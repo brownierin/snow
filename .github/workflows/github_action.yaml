@@ -18,6 +18,7 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
         with:
+          repository: $GITHUB_REPOSITORY
           fetch-depth: 0
           path: snow/repositories
 
