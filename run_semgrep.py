@@ -130,7 +130,7 @@ def check_digest(digest, version):
 
 
 def run_command(command):
-    return subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    return subprocess.run(command, shell=True, check=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
 
 def git_ops(repo):
@@ -640,8 +640,11 @@ def run_semgrep_pr(repo, git):
     print(f"{git_sha_branch} sha branch")
 
     if git == 'ts':
-        cmd = run_command(f"git -C {REPOSITORIES_DIR}{repo} branch master")
-        master_ref = open(f'${REPOSITORIES_DIR}{repo}/.git/refs/heads/master', 'r')
+        repo_dir = f"{REPOSITORIES_DIR}{repo}"
+        cmd = run_command(f"git -C {repo_dir} branch master")
+        ls = run_command(f"ls -al {repo_dir}")
+        print(ls.stdout.decode("utf-8"))
+        master_ref = open(f'{repo_dir}/.git/refs/heads/master', 'r')
         os.environ['CIBOT_COMMIT_MASTER'] = master_ref.read()
         os.environ['CIBOT_ARTIFACT_DIR'] = RESULTS_DIR
 

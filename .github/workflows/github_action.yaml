@@ -13,11 +13,12 @@ jobs:
         with:
           repository: 'tinyspeck/snow'
           path: snow
-          fetch_depth: 0
+          fetch-depth: 0
 
       - name: Check out repository code
         uses: actions/checkout@v2
         with:
+          fetch-depth: 0
           path: snow/repositories
 
       - name: Install python3
