@@ -133,6 +133,20 @@ def check_digest(digest, version):
 def run_command(command):
     return subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
+def git_pull_repo(repo_path):
+    try:
+        return run_command(f"git -C {repo_path} pull")
+    except:
+        # When "git pull" fails it's sometimes because there was a force push done at some point to the repo.
+        # In this case the pull fails because we have local commits that don't exists in the remote.
+        # We attempt to fix this problem by rebasing the local repo with the main branch of the remote.
+        symref_process = run_command(f"git -C  {repo_path} remote show origin | sed -n '/HEAD branch/s/.*: //p'")
+        main_branch = symref_process.stdout.decode("utf-8")
+
+        run_command(f"git -C {repo_path} reset --hard origin/{main_branch}")
+        return run_command(f"git -C {repo_path} pull")
+
+
 def git_ops(repo):
     repo_path = f"{REPOSITORIES_DIR}{repo}"
     git_repo = f"git@slack-github.com:slack/{repo}.git"
@@ -150,7 +164,7 @@ def git_ops(repo):
     else:
         if os.path.isdir(f"{repo_path}"):
             print(f"[+] Updating repo: {repo}")
-            pull = run_command(f"git -C {repo_path} pull")
+            pull = git_pull_repo(repo_path)
         else:
             clone_command = f"git -C {REPOSITORIES_DIR} clone {git_repo}"
             clone = run_command(clone_command)
@@ -293,22 +307,17 @@ def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
 
     if branch == "master":
         # sorts files by most recent
-        paths = []
-        for path in Path(RESULTS_DIR).iterdir():
-            paths.append(RESULTS_DIR + path.name)
-        paths = sorted(paths, key=os.path.getmtime)
-        selected_paths = [x for x in paths if f"{language}-{repo}" in str(x)]
+        selected_paths = list(glob.glob(f"{RESULTS_DIR}{language}-{repo}-*-fprm.json"))
+        selected_paths = sorted(selected_paths, key=os.path.getmtime)
         comparison_result = f"{RESULTS_DIR}{fp_diff_outfile.split('-fprm')[0]}-comparison.json"
         print(f"[+] Comparison result is stored at: {comparison_result}")
 
         # get the second most recent result with fprm in it
-        if len(selected_paths) > 2:
-            for file in selected_paths[-5:-2]:
-                if "fprm" in str(file):
-                    old = file
-                    print(f"[+] Old file is: {old}")
-                    print(f"[+] Comparing {old} and {fp_diff_outfile}")
-                    comparison.compare_to_last_run(old, RESULTS_DIR+fp_diff_outfile, comparison_result)
+        if len(selected_paths) >= 2:
+            old = selected_paths[-2]
+            print(f"[+] Old file is: {old}")
+            print(f"[+] Comparing {old} and {fp_diff_outfile}")
+            comparison.compare_to_last_run(old, RESULTS_DIR+fp_diff_outfile, comparison_result)
         else:
             print("[!!] Not enough runs for comparison")
         
@@ -362,11 +371,31 @@ def add_hash_id(jsonFile, start_line, end_line, name):
     jsonFile.write(json.dumps(data))
     jsonFile.close()
 
+def get_job_name():
+    if "JOB_NAME" in os.environ:
+        return os.environ['JOB_NAME']
+    return "local"
+
+def get_job_enviroment():
+    job_name = get_job_name()
+
+    # This case happens when we aren't running on Jenkins
+    if job_name == "local":
+        return "dev"
+
+    # This case happens when we are running on the production job on Jenkins
+    if job_name.lower() == CONFIG['general']['jenkins_prod_job'].lower():
+        return "prod"
+
+    # This case happens when we are running a job on Jenkins, but it it's the 
+    # production job.
+    return "qa"
+
 # Alert Channel iterates through the /results directory. Reads the JSON files, and outputs the alerts to SLACK per CONFIG file.
 # Alerts utilize the 'slack' command on servers, which allows messages to be sent. Careful with backticks.
 # Alerts will not fire unless on a server 'slack'. Command is different on local env.
 def alert_channel():
-    current_jenkins_job = os.environ['JOB_NAME']
+    current_jenkins_job = get_job_name()
     # Sending the alerts to #alerts-snow channel only when the jenkins job is production, and not test/others. 
     if current_jenkins_job.lower() == CONFIG['general']['jenkins_prod_job'].lower():
         semgrep_output_files = os.listdir(RESULTS_DIR)
@@ -578,13 +607,21 @@ def upload_daily_scan_results_to_checkpoint():
         with open(semgrep_output_file, "r") as f:
             semgrep_content = json.load(f)
 
+        comparison_filename = semgrep_output_file.replace(".json", "-comparison.json")
+        if os.path.exists(comparison_filename):
+            with open(comparison_filename, "r") as f:
+                semgrep_comparison_content = json.load(f)
+        else:
+            semgrep_comparison_content = { "results" : [] }
+
         is_failure = len(semgrep_content["results"]) > 0
         output_data = json.dumps({
-            "original" : semgrep_content
+            "original"   : semgrep_content,
+            "comparison" : semgrep_comparison_content
         })
 
         upload_test_result_to_checkpoint(
-            test_name     = "semgrep-scan-daily",
+            test_name     = f"semgrep-scan-daily-{get_job_enviroment()}",
             output_data   = output_data,
             repo          = f'ghe/slack/{semgrep_content["metadata"]["repoName"]}',
             date_started  = current_time,
