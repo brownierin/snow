@@ -34,6 +34,7 @@ RESULTS_DIR = SNOW_ROOT + CONFIG['general']['results']
 REPOSITORIES_DIR = SNOW_ROOT + CONFIG['general']['repositories']
 CHECKPOINT_API_URL = CONFIG['general']['checkpoint_api_url']
 CHECKPOINT_TOKEN_ENV = CONFIG['general']['checkpoint_token_env']
+TSAUTH_TOKEN_ENV = CONFIG['general']['tsauth_token_env']
 FORKED_REPOS = {
     "orchestrator"  : "https://github.com/openark/orchestrator.git",
     "vitess"        : "https://github.com/vitessio/vitess.git",
@@ -131,7 +132,6 @@ def check_digest(digest, version):
 
 def run_command(command):
     return subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-
 
 def git_ops(repo):
     repo_path = f"{REPOSITORIES_DIR}{repo}"
@@ -461,65 +461,113 @@ def alert_channel():
         # This is not a production jenkins job. So no need to send alerts.
         pass
 
-def call_checkpoint_api(method, auth_token, get_params, post_params):
-    get_params["method"] = method
-    get_params["token"] = auth_token
+# Use "uberproxy-curl" to reach checkpoint API
+def uberproxy_curl(url, method, headers={}, content = None):
+    cmdline = ["slack", "uberproxy-curl", "-s", url, "-X", method]
 
-    headers = { "Content-Type": "application/json" }
-    
-    r = requests.post(
-        url     = CHECKPOINT_API_URL,
-        params  = get_params,
-        headers = headers,
-        json    = post_params
+    if not content is None:
+        cmdline += ["--data", content]
+
+    for header_key in headers:
+        cmdline += ["-H", f"{header_key}: {headers[header_key]}"]
+
+    process = subprocess.Popen(
+        cmdline, 
+        stdout = subprocess.PIPE,
+        stderr = subprocess.DEVNULL
     )
 
-    return r.json()
+    return process.stdout.read()
 
-def get_checkpoint_auth_token():
-    # Try to see if the checkpoint token exists as an environment variable
-    auth_token = os.getenv(CHECKPOINT_TOKEN_ENV)
+def call_checkpoint_api(url, post_params, tsauth_auth_token=None):
+    headers = { "Content-Type": "application/json" }
 
-    # Try to get it from the command line tool "security" if we can't find it yet
-    #
-    # Note: This section only works on developer machine and is meant to be there to
-    # simplify the testing process. In production, the checkpoint token should be defined
-    # in the environment variable "CHECKPOINT_TOKEN".
-    # 
-    # Note 2: This is adapted from the CheckpointClient located in slack-cli-tools
-    # See: https://slack-github.com/slack/slack-cli-tools/blob/master/slack_include/checkpoint_client.rb#L30
-    if not auth_token or auth_token.strip() == "":
-        get_token_command = "security 2>&1 >/dev/null find-generic-password -a auth -g"
-        security_token_proc = subprocess.run(get_token_command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    try:
+        if tsauth_auth_token is None:
+            # For internal testing, we can use the local command "uberproxy-curl" for the TSAuth.
+            # If no TSAuth token is configured, we assume that it's running from a local environment which has the uberproxy-curl command
+            raw_result = uberproxy_curl(
+                url = CHECKPOINT_API_URL + url,
+                method = "POST",
+                headers = headers,
+                content = json.dumps(post_params)
+            )
 
-        # If the command line fails, try from the ".slack-checkpoint.key" file located in the home folder
-        if security_token_proc.returncode != 0:
-            token_file = os.getenv("HOME") + "/.slack-checkpoint.key"
-            if os.path.exists(token_file):
-                with open(token_file) as f:
-                    security_token = f.read()
-            else:
-                security_token = ""
+            return json.loads(raw_result)
         else:
-            security_token = security_token_proc.stdout.decode("utf-8")
+            # External authentication requires a TSAuth token.
+            headers["Authorization"] = f"Bearer {tsauth_auth_token}"
+            
+            r = requests.post(
+                url     = CHECKPOINT_API_URL + url,
+                headers = headers,
+                json    = post_params
+            )
+            
+            return r.json()
+    except Exception as e:
+        # To simplify error handling, we return an object that indicates a failure.
+        # All the error logic can be handled by the callee of this function.
+        return { "ok": False, "error": str(e) }
 
-        matches = re.match(r'password: "(.+)"', security_token)
-        if matches:
-            auth_token = matches.group(1)
 
-    return auth_token
+def get_tsauth_auth_token():
+    return os.getenv(TSAUTH_TOKEN_ENV)
 
-def upload_results_to_checkpoint():
-    auth_token = get_checkpoint_auth_token()
+def uberproxy_curl_installed():
+    process = subprocess.Popen(
+        ["slack", "help"],
+        stdout = subprocess.PIPE,
+        stderr = subprocess.DEVNULL)
+    return "uberproxy-curl" in process.stdout.read().decode("utf-8")
 
-    if not auth_token or auth_token.strip() == "":
-        text = """:banger-alert: :snowflake:Daily :block-s: :block-e: :block-m: :block-g: :block-r: :block-e: :block-p: Scan Error:snowflake::banger-alert:\nThe checkpoint auth token couldn't be found. We can't upload results to checkpoint !"""
+def upload_test_result_to_checkpoint(test_name, output_data, repo, date_started, date_finished, branch, commit_head, commit_master, is_failure):
+    tsauth_auth_token = get_tsauth_auth_token()
+
+    if (not tsauth_auth_token or tsauth_auth_token.strip() == "") and not uberproxy_curl_installed():
+        text = """:banger-alert: :snowflake:Daily :block-s: :block-e: :block-m: :block-g: :block-r: :block-e: :block-p: Scan Error:snowflake::banger-alert:\nTSAuth token couldn't be found. We can't upload results to checkpoint !"""
         cmd = f"echo \"{text}\" | slack --channel={CONFIG['general']['alertchannel']} --cat --user=SNOW "
         subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        print("No checkpoint token found. The results of this scan won't be uploaded to checkpoint. Please reach out to #triage-prodsec if you see this error message.")
+        print("No TSAuth token found. The results of this scan won't be uploaded to checkpoint. Please reach out to #triage-prodsec if you see this error message.")
         set_exit_code(1)
         return
 
+    test_results = {
+        "test_run": {
+            "test_name"       : test_name,
+            "repo"            :  repo,
+            "state"           : "failure" if is_failure else "success",
+            "commit_head"     : commit_head,
+            "commit_master"   : commit_master,
+            "date_started"    : date_started,
+            "date_finished"   : date_finished,
+            "cibot_worker"    : "", # Empty, this job is not ran as a CI job
+            "ci_job_link"     : "",  # Empty, this job is not ran as a CI job
+            "branch"          : branch,
+            "check_flakiness" : False,
+        },
+        "test_results" : [{
+            "case"     : test_name,
+            "level"    : "failure" if is_failure else "pass",
+            "owner"    : [""],  # Empty value, not used
+            "duration" : 0,  # Default value, we don't store any performance metrics for daily scan
+            "output"   : output_data,
+            "filename" : "", # Empty value, the results aren't specific to a file
+            "line"     : 0       # Empty value, the results aren't specific to a file
+        }]
+    }
+    call_result = call_checkpoint_api("/api/v1/testrun/import", test_results, tsauth_auth_token)
+
+    if call_result["ok"] == False:
+        clean_error_results = call_result['error'].replace('\"','').replace('`','').replace('$','')
+        text = """:banger-alert: :snowflake:Daily :block-s: :block-e: :block-m: :block-g: :block-r: :block-e: :block-p: Scan Error:snowflake::banger-alert:\nCheckpoint results upload failed: """
+        cmd = f"echo \"{text}{clean_error_results}\" | slack --channel={CONFIG['general']['alertchannel']} --cat --user=SNOW "
+        subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        set_exit_code(1)
+        print(f"Error while uploading results to checkpoint : {call_result['error']}")
+
+
+def upload_daily_scan_results_to_checkpoint():
     current_time = int(time.time())
 
     for semgrep_output_file in glob.glob(f"{RESULTS_DIR}/*.json"):
@@ -535,39 +583,17 @@ def upload_results_to_checkpoint():
             "original" : semgrep_content
         })
 
-        get_params = {
-            "test_name" : "semgrep-scan-daily",
-            "state" : "failure" if is_failure else "success",
-            "repo" :  f'ghe/slack/{semgrep_content["metadata"]["repoName"]}',
-            "commit_head" : semgrep_content["metadata"]["branch"],
-            "commit_master" : semgrep_content["metadata"]["branch"],
-            "date_started" : current_time,
-            "date_finished" : current_time,
-            "cibot_worker" : "", # Empty, this job is not ran as a CI job
-            "ci_job_link" : "",  # Empty, this job is not ran as a CI job
-            "branch" : "master",
-            "check_flakiness" : False,
-            "payload" : "" # Empty, parameter not used
-        }
-        test_results = {"test_results" : [{
-            "case" : "semgrep-scan-daily",
-            "level" : "failure" if is_failure else "pass",
-            "owner" : [""],  # Empty value, not used
-            "duration" : 0,  # Default value, we don't store any performance metrics for daily scan
-            "output" : output_data,
-            "filename" : "", # Empty value, the results aren't specific to a file
-            "line" : 0       # Empty value, the results aren't specific to a file
-        }]}
-        call_result = call_checkpoint_api("test_run.import", auth_token, get_params, test_results)
-
-        if call_result["ok"] == False:
-            clean_error_results = call_result['error'].replace('\"','').replace('`','').replace('$','')
-            text = """:banger-alert: :snowflake:Daily :block-s: :block-e: :block-m: :block-g: :block-r: :block-e: :block-p: Scan Error:snowflake::banger-alert:\nCheckpoint results upload failed: """
-            cmd = f"echo \"{text}{clean_error_results}\" | slack --channel={CONFIG['general']['alertchannel']} --cat --user=SNOW "
-            subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-            set_exit_code(1)
-            print(f"Error while uploading results to checkpoint : {call_result['error']}")
-
+        upload_test_result_to_checkpoint(
+            test_name     = "semgrep-scan-daily",
+            output_data   = output_data,
+            repo          = f'ghe/slack/{semgrep_content["metadata"]["repoName"]}',
+            date_started  = current_time,
+            date_finished = current_time,
+            branch        = "master",
+            commit_head   = semgrep_content["metadata"]["branch"],
+            commit_master = semgrep_content["metadata"]["branch"],
+            is_failure    = is_failure
+        )
 
 def run_semgrep_daily():
     # Delete all directories that would have old repos, or results from the last run as the build boxes may persist from previous runs.
@@ -579,7 +605,7 @@ def run_semgrep_daily():
     # Output Alerts to channel
     alert_channel()
     # Upload the results to checkpoint
-    upload_results_to_checkpoint()
+    upload_daily_scan_results_to_checkpoint()
 
 
 def webhook_alerts(data):
