@@ -593,12 +593,14 @@ def run_semgrep_pr(repo, git):
     # Delete all directories that would have old repos, or results from the last run as the build boxes may persist from previous runs.
     cleanup_workspace()
     mode = int('775', base=8)
-    os.makedirs(REPOSITORIES_DIR + repo, mode=mode, exist_ok=True)
+    repo_dir = REPOSITORIES_DIR + repo
+    os.makedirs(repo_dir, mode=mode, exist_ok=True)
+    print(f"[+] Repository dir is at: {repo_dir}")
     # Grab the PR code, move it to the repository with it's own directory
     # We do this as it mimics the same environment configuration as the daily scan so we can re-use the code.
     # Move everything into 'SNOW/repositories/'. run_semgrep.py scans by looking for the repo name in the repositories/ directory.
     if git == 'ghe':
-        subprocess.run("mv ../* ../.* " +REPOSITORIES_DIR + repo, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        subprocess.run("mv ../* ../.* " + repo_dir, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
     get_docker_image()
 
@@ -634,16 +636,17 @@ def run_semgrep_pr(repo, git):
     git_sha_branch = os.environ.get('CIBOT_COMMIT_HEAD')
     git_sha_branch_short = git_sha_branch[:7]
     # Make sure you are on the branch to scan by switching to it.
-    process = subprocess.run("git -C " + REPOSITORIES_DIR + repo + " checkout -f " + git_sha_branch, shell=True, check=True,stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    print("Branch Checkout: " + process.stdout.decode("utf-8"))
+    process = subprocess.run("git -C " + repo_dir + " checkout -f " + git_sha_branch, shell=True, check=True,stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    print("[+] Branch Checkout: " + process.stdout.decode("utf-8"))
     scan_repo(repo, repo_language, config_language, git_repo_url, git_sha_branch_short)
     print(f"{git_sha_branch} sha branch")
 
     if git == 'ts':
-        repo_dir = f"{REPOSITORIES_DIR}{repo}"
         cmd = run_command(f"git -C {repo_dir} branch master")
-        ls = run_command(f"ls -al {repo_dir}")
+        ls = run_command(f"ls -al; pwd")
         print(ls.stdout.decode("utf-8"))
+        lsr = run_command(f"ls -al repositories")
+        print(lsr.stdout.decode("utf-8"))
         master_ref = open(f'{repo_dir}/.git/refs/heads/master', 'r')
         os.environ['CIBOT_COMMIT_MASTER'] = master_ref.read()
         os.environ['CIBOT_ARTIFACT_DIR'] = RESULTS_DIR
