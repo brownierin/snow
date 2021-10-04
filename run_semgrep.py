@@ -640,9 +640,7 @@ def run_semgrep_pr(repo, git):
     print(f"{git_sha_branch} sha branch")
 
     if git == 'ts':
-        cmd = run_command('pwd')
-        print(cmd.stdout.decode("utf-8"))
-        cmd = run_command('ls -al .git/refs/heads')
+        cmd = run_command(f"git -C {REPOSITORIES_DIR}{repo} fetch origin master")
         print(cmd.stdout.decode("utf-8"))
         master_ref = open(f'${SNOW_ROOT}/.git/refs/heads/master', 'r')
         os.environ['CIBOT_COMMIT_MASTER'] = master_ref.read()
