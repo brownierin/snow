@@ -643,10 +643,6 @@ def run_semgrep_pr(repo, git):
 
     if git == 'ts':
         cmd = run_command(f"git -C {repo_dir} branch --list --remote origin/master")
-        ls = run_command(f"ls -al; pwd")
-        print(ls.stdout.decode("utf-8"))
-        lsr = run_command(f"ls -al repositories")
-        print(lsr.stdout.decode("utf-8"))
         master_ref = run_command(f"git -C {repo_dir} rev-parse refs/remotes/origin/master")
         os.environ['CIBOT_COMMIT_MASTER'] = master_ref.stdout.decode("utf-8")
         os.environ['CIBOT_ARTIFACT_DIR'] = RESULTS_DIR
@@ -660,7 +656,7 @@ def run_semgrep_pr(repo, git):
         sys.exit(0)
 
     # Switch repo to master, so we scan that.
-    process = subprocess.run("git -C " + REPOSITORIES_DIR + repo + " checkout -f "+ git_sha_master, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    process = subprocess.run("git -C " + repo_dir + " checkout -f "+ git_sha_master, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     print("Master Checkout: " + process.stdout.decode("utf-8"))
     scan_repo(repo, repo_language, config_language, git_repo_url, git_sha_master_short)
 
@@ -692,7 +688,7 @@ def run_semgrep_pr(repo, git):
 
     checkpoint_out.convert(parsed_filename, json_filename, parsed_filename)
 
-    if git == 'ts':
+    if os.environ["ENABLE_S3"]:
         bucket = CONFIG['general']['s3_bucket']
         filenames = [
             parsed_filename, 
@@ -743,8 +739,12 @@ if __name__ == '__main__':
         "--git",
         help="the github url you wish to scan, supported options ghe (github enterprise) and ts (tinyspeck)",
     )
+    parser.add_argument("--s3", help="upload to s3", action=argparse.BooleanOptionalAction)
 
     args = parser.parse_args()
+
+    if args.s3:
+        os.environ["ENABLE_S3"] = True
 
     if args.mode == "daily":
         if args.repo or args.git:
