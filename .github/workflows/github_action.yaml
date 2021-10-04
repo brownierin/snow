@@ -25,9 +25,6 @@ jobs:
         with:
           python-version: 3.5.10
 
-      - name: install future fstrings
-        run: python3 -m pip install future-fstrings
-
       - name: install requirements
         run: cd snow; python3 -m pip install -r requirements.txt
 
