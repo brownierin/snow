@@ -31,5 +31,4 @@ jobs:
       - name: Run semgrep
         run: |
           cd snow
-          ls -al .git 
           python3 run_semgrep.py -m pr -g ts -r ${{ github.event.repository.name }}
