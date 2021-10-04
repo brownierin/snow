@@ -641,7 +641,7 @@ def run_semgrep_pr(repo, git):
 
     if git == 'ts':
         cmd = run_command(f"git -C {REPOSITORIES_DIR}{repo} branch master")
-        master_ref = open(f'${SNOW_ROOT}/.git/refs/heads/master', 'r')
+        master_ref = open(f'${REPOSITORIES_DIR}{repo}/.git/refs/heads/master', 'r')
         os.environ['CIBOT_COMMIT_MASTER'] = master_ref.read()
         os.environ['CIBOT_ARTIFACT_DIR'] = RESULTS_DIR
 
