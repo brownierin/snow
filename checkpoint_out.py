@@ -6,11 +6,14 @@ import argparse
 import os
 import shutil
 
-CIBOT_ARTIFACT_DIR = os.getenv('CIBOT_ARTIFACT_DIR')
-CHECKPOINT_JSON_OUT = str(CIBOT_ARTIFACT_DIR)+"/checkpoint_results.json"
-CHECKPOINT_TEXT_RESULT = str(CIBOT_ARTIFACT_DIR)+"/report.txt"
-CHECKPOINT_FPRM_OUT = str(CIBOT_ARTIFACT_DIR)+"/fprm-result.json"
-CHECKPOINT_ORIGINAL_OUT = str(CIBOT_ARTIFACT_DIR)+"/original-result.json"
+cibot_artifact_dir = get_artifact_dir()
+checkpoint_json_out = str(cibot_artifact_dir)+"/checkpoint_results.json"
+checkpoint_text_result = str(cibot_artifact_dir)+"/report.txt"
+checkpoint_fprm_out = str(cibot_artifact_dir)+"/fprm-result.json"
+checkpoint_original_out = str(cibot_artifact_dir)+"/original-result.json"
+
+def get_artifact_dir():
+    return os.getenv('CIBOT_ARTIFACT_DIR')
 
 def open_json(filename):
     with open(filename, "r") as file:
@@ -22,10 +25,11 @@ def semgrep_path_to_relative_path(path):
     return path.split("/", 2)[-1]
 
 def create_checkpoint_results_json(results):
-    with open(CHECKPOINT_JSON_OUT, "w", encoding="utf-8") as f:
+    with open(checkpoint_json_out, "w", encoding="utf-8") as f:
         json.dump(results, f, ensure_ascii=False, indent=4)
 
 def convert(fp_removed_filename, original_filename, comparison_filename):
+    print(f"[+] Checkpoint artifacts dir: {get_artifact_dir()}")
     fp_removed_data = open_json(fp_removed_filename)
     comparison_data = open_json(comparison_filename)
     original_data = open_json(original_filename)
@@ -37,8 +41,8 @@ def convert(fp_removed_filename, original_filename, comparison_filename):
     })
 
     # Copy the original results as artifact for archival purpose
-    shutil.copy(fp_removed_filename, CHECKPOINT_FPRM_OUT)
-    shutil.copy(original_filename, CHECKPOINT_ORIGINAL_OUT)
+    shutil.copy(fp_removed_filename, checkpoint_fprm_out)
+    shutil.copy(original_filename, checkpoint_original_out)
 
     # Mark the test case "semgrep-scan-non-blocking" as "failed" or "pass" depending on whether we have findings or not.
     out = [{
@@ -49,7 +53,7 @@ def convert(fp_removed_filename, original_filename, comparison_filename):
     create_checkpoint_results_json(out)
 
     # Generate a human readable version of the results so that people can see what vulnerabilities were found.
-    with open(CHECKPOINT_TEXT_RESULT, "w", encoding="utf-8") as f:
+    with open(checkpoint_text_result, "w", encoding="utf-8") as f:
         content  = "########################\n"
         content += "# Vulnerability report #\n"
         content += "########################\n"
