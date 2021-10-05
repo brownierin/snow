@@ -6,33 +6,23 @@ jobs:
   scan-with-semgrep:
     timeout-minutes: 15
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: snow
+    env:
+      working-directory: snow
 
     steps:
       - name: Clone snow code
         uses: actions/checkout@v2
         with:
           repository: 'tinyspeck/snow'
+          path: snow
           fetch-depth: 0
-
-      - name: Set up clone path
-        run: |
-          REPONAME=$(echo $GITHUB_REPOSITORY | cut -d \/ -f 2)
-          echo "clone-path=repositories/${REPONAME}" | tee --append "$GITHUB_ENV"
 
       - name: Check out repository code
         uses: actions/checkout@v2
         with:
           repository: ${{ github.repository }}
-          path: ${{ env.clone-path }}
+          path: snow/repo
           fetch-depth: 0
-
-      - name: check where code was put
-        run: |
-          ls -al snow
-          ls -al snow/repositories
 
       - name: Install python3
         uses: actions/setup-python@v2
@@ -41,10 +31,12 @@ jobs:
 
       - name: install requirements
         run: |
-          cd snow
+          cd ${{ env.working-directory }}
           python3 -m pip install -r requirements.txt
 
       - name: Run semgrep
         run: |
-          cd snow
+          cd ${{ env.working-directory }}
+          mkdir -p repositories/${{ github.event.repository.name }}
+          mv repo/* repo/.* repositories/${{ github.event.repository.name }}
           python3 run_semgrep.py -m pr -g ts -r ${{ github.event.repository.name }}
