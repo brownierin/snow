@@ -14,7 +14,7 @@ checkpoint_original_out = str(cibot_artifact_dir)+"/original-result.json"
 
 def get_artifact_dir():
     try:
-        cibot_artifact_dir = os.getenv('CIBOT_ARTIFACT_DIR')
+        cibot_artifact_dir = os.environ['CIBOT_ARTIFACT_DIR']
     except KeyError as e:
         print("[+] CIBOT_ARTIFACT_DIR isn't set!")
     return cibot_artifact_dir
