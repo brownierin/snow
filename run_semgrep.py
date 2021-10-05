@@ -689,7 +689,7 @@ def run_semgrep_pr(repo, git):
 
     checkpoint_out.convert(parsed_filename, json_filename, parsed_filename)
 
-    if os.environ["ENABLE_S3"]:
+    if os.getenv("ENABLE_S3"):
         bucket = CONFIG['general']['s3_bucket']
         filenames = [
             parsed_filename, 
