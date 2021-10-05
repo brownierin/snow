@@ -6,7 +6,7 @@ import argparse
 import os
 import shutil
 
-cibot_artifact_dir = get_artifact_dir()
+cibot_artifact_dir = os.environ['CIBOT_ARTIFACT_DIR']
 checkpoint_json_out = str(cibot_artifact_dir)+"/checkpoint_results.json"
 checkpoint_text_result = str(cibot_artifact_dir)+"/report.txt"
 checkpoint_fprm_out = str(cibot_artifact_dir)+"/fprm-result.json"
