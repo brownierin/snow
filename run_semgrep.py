@@ -637,9 +637,8 @@ def run_semgrep_pr(repo, git):
     git_sha_branch_short = git_sha_branch[:7]
     # Make sure you are on the branch to scan by switching to it.
     process = subprocess.run("git -C " + repo_dir + " checkout -f " + git_sha_branch, shell=True, check=True,stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    print("[+] Branch Checkout: " + process.stdout.decode("utf-8"))
+    print(f"[+] Branch SHA: {git_sha_branch}")
     scan_repo(repo, repo_language, config_language, git_repo_url, git_sha_branch_short)
-    print(f"{git_sha_branch} sha branch")
 
     if git == 'ts':
         cmd = run_command(f"git -C {repo_dir} branch --list --remote origin/master")
