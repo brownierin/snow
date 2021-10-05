@@ -621,7 +621,6 @@ def run_semgrep_pr(repo, git):
         raise Exception(f"No language found in snow for repo {repo} check with #triage-prodsec!")
     config_language = "language-" + repo_language
 
-    # We really only support ghe right now, as tinyspeck doesn't really hook up with Checkpoint at this time.
     if git == "ghe":
         git_repo_url = "https://slack-github.com/"
     elif git == "ts":
@@ -656,8 +655,8 @@ def run_semgrep_pr(repo, git):
         sys.exit(0)
 
     # Switch repo to master, so we scan that.
-    process = subprocess.run("git -C " + repo_dir + " checkout -f "+ git_sha_master, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    print("Master Checkout: " + process.stdout.decode("utf-8"))
+    process = run_command(f"git -C {repo_dir} checkout -f {git_sha_master}")
+    print("[+] Master Checkout: " + process.stdout.decode("utf-8"))
     scan_repo(repo, repo_language, config_language, git_repo_url, git_sha_master_short)
 
     # Pass in the branch and master to compare for new vulnerabilities. Output file in format language-repo-sha_master-sha_branch.json
@@ -677,8 +676,8 @@ def run_semgrep_pr(repo, git):
     fp_file = f"{SNOW_ROOT}/languages/{repo_language}/false_positives/{repo}_false_positives.json"
     comparison.remove_false_positives(json_filename, fp_file, parsed_filename)
 
-    process = subprocess.run("git -C " + REPOSITORIES_DIR + repo + " checkout -f " + git_sha_branch, shell=True, check=True,stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    print("Branch Checkout: " + process.stdout.decode("utf-8"))
+    process = run_command(f"git -C {repo_dir} checkout -f {git_sha_branch}")
+    print("[+] Branch Checkout: " + process.stdout.decode("utf-8"))
     add_hash_id(json_filename, 4, 1, "hash_id")
     add_hash_id(parsed_filename, 4, 1, "hash_id")
 
