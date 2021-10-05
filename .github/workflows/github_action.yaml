@@ -6,20 +6,26 @@ jobs:
   scan-with-semgrep:
     timeout-minutes: 15
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: snow
 
     steps:
       - name: Clone snow code
         uses: actions/checkout@v2
         with:
           repository: 'tinyspeck/snow'
-          path: snow
           fetch-depth: 0
+
+      - name: Set up clone path
+        run: |
+          echo "clone-path=repositories/$(echo $GITHUB_REPOSITORY | cut -d \/ -f 2)" >> $GITHUB_ENV
 
       - name: Check out repository code
         uses: actions/checkout@v2
         with:
           repository: ${{ github.repository }}
-          path: snow/repositories
+          path: ${{ env.clone-path }}
           fetch-depth: 0
 
       - name: check where code was put
