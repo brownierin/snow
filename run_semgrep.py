@@ -130,7 +130,7 @@ def check_digest(digest, version):
 
 
 def run_command(command):
-    return subprocess.run(command, shell=True, check=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    return subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
 
 def git_ops(repo):
