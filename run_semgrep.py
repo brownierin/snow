@@ -646,10 +646,11 @@ def run_semgrep_pr(repo, git):
         master_ref = run_command(f"git -C {repo_dir} rev-parse refs/remotes/origin/master")
         os.environ['CIBOT_COMMIT_MASTER'] = master_ref.stdout.decode("utf-8")
         os.environ['CIBOT_ARTIFACT_DIR'] = RESULTS_DIR
+        print(f"[+] Artifacts dir is: {os.environ['CIBOT_ARTIFACT_DIR']}")
 
     git_sha_master = os.environ.get('CIBOT_COMMIT_MASTER')
     git_sha_master_short = git_sha_master[:7]
-    print(f"{git_sha_master} sha master")
+    print(f"[+] Master SHA: {git_sha_master}")
 
     if git_sha_branch == git_sha_master:
         print("[-] Master and HEAD are equal. Need to compare against two different SHAs! We won't scan.")
