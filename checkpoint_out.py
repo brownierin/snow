@@ -6,14 +6,18 @@ import argparse
 import os
 import shutil
 
-cibot_artifact_dir = os.environ['CIBOT_ARTIFACT_DIR']
+cibot_artifact_dir = os.getenv('CIBOT_ARTIFACT_DIR')
 checkpoint_json_out = str(cibot_artifact_dir)+"/checkpoint_results.json"
 checkpoint_text_result = str(cibot_artifact_dir)+"/report.txt"
 checkpoint_fprm_out = str(cibot_artifact_dir)+"/fprm-result.json"
 checkpoint_original_out = str(cibot_artifact_dir)+"/original-result.json"
 
 def get_artifact_dir():
-    return os.getenv('CIBOT_ARTIFACT_DIR')
+    try:
+        cibot_artifact_dir = os.getenv('CIBOT_ARTIFACT_DIR')
+    except KeyError as e:
+        print("[+] CIBOT_ARTIFACT_DIR isn't set!")
+    return cibot_artifact_dir
 
 def open_json(filename):
     with open(filename, "r") as file:
@@ -29,7 +33,8 @@ def create_checkpoint_results_json(results):
         json.dump(results, f, ensure_ascii=False, indent=4)
 
 def convert(fp_removed_filename, original_filename, comparison_filename):
-    print(f"[+] Checkpoint artifacts dir: {get_artifact_dir()}")
+    cibot_artifact_dir = get_artifact_dir()
+    print(f"[+] Checkpoint artifacts dir: {cibot_artifact_dir}")
     fp_removed_data = open_json(fp_removed_filename)
     comparison_data = open_json(comparison_filename)
     original_data = open_json(original_filename)
