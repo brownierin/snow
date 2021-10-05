@@ -19,7 +19,8 @@ jobs:
 
       - name: Set up clone path
         run: |
-          echo "clone-path=repositories/$(echo $GITHUB_REPOSITORY | cut -d \/ -f 2)" >> $GITHUB_ENV
+          REPONAME=$(echo $GITHUB_REPOSITORY | cut -d \/ -f 2)
+          echo "clone-path=repositories/${REPONAME}" | tee --append "$GITHUB_ENV"
 
       - name: Check out repository code
         uses: actions/checkout@v2
