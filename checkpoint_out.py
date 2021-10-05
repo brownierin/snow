@@ -6,19 +6,23 @@ import argparse
 import os
 import shutil
 
-cibot_artifact_dir = os.getenv('CIBOT_ARTIFACT_DIR')
 
 def get_artifact_dir():
     try:
         cibot_artifact_dir = os.environ['CIBOT_ARTIFACT_DIR']
+        return cibot_artifact_dir
     except KeyError as e:
-        print("[+] CIBOT_ARTIFACT_DIR isn't set!")
-    return cibot_artifact_dir
+        print("[-] CIBOT_ARTIFACT_DIR isn't set!")
 
-checkpoint_json_out = str(get_artifact_dir())+"/checkpoint_results.json"
-checkpoint_text_result = str(get_artifact_dir())+"/report.txt"
-checkpoint_fprm_out = str(get_artifact_dir())+"/fprm-result.json"
-checkpoint_original_out = str(get_artifact_dir())+"/original-result.json"
+def set_filenames():
+    global cibot_artifact_dir, checkpoint_json_out
+    global checkpoint_text_result, checkpoint_fprm_out
+    global checkpoint_original_out
+    cibot_artifact_dir = get_artifact_dir()
+    checkpoint_json_out = str(get_artifact_dir())+"/checkpoint_results.json"
+    checkpoint_text_result = str(get_artifact_dir())+"/report.txt"
+    checkpoint_fprm_out = str(get_artifact_dir())+"/fprm-result.json"
+    checkpoint_original_out = str(get_artifact_dir())+"/original-result.json"
 
 def open_json(filename):
     with open(filename, "r") as file:
@@ -34,7 +38,7 @@ def create_checkpoint_results_json(results):
         json.dump(results, f, ensure_ascii=False, indent=4)
 
 def convert(fp_removed_filename, original_filename, comparison_filename):
-    cibot_artifact_dir = get_artifact_dir()
+    set_filenames()
     print(f"[+] Checkpoint artifacts dir: {cibot_artifact_dir}")
     fp_removed_data = open_json(fp_removed_filename)
     comparison_data = open_json(comparison_filename)
