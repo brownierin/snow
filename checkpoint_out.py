@@ -7,10 +7,6 @@ import os
 import shutil
 
 cibot_artifact_dir = os.getenv('CIBOT_ARTIFACT_DIR')
-checkpoint_json_out = str(get_artifact_dir())+"/checkpoint_results.json"
-checkpoint_text_result = str(get_artifact_dir())+"/report.txt"
-checkpoint_fprm_out = str(get_artifact_dir())+"/fprm-result.json"
-checkpoint_original_out = str(get_artifact_dir())+"/original-result.json"
 
 def get_artifact_dir():
     try:
@@ -18,6 +14,11 @@ def get_artifact_dir():
     except KeyError as e:
         print("[+] CIBOT_ARTIFACT_DIR isn't set!")
     return cibot_artifact_dir
+
+checkpoint_json_out = str(get_artifact_dir())+"/checkpoint_results.json"
+checkpoint_text_result = str(get_artifact_dir())+"/report.txt"
+checkpoint_fprm_out = str(get_artifact_dir())+"/fprm-result.json"
+checkpoint_original_out = str(get_artifact_dir())+"/original-result.json"
 
 def open_json(filename):
     with open(filename, "r") as file:
