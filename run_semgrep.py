@@ -591,7 +591,7 @@ def webhook_alerts(data):
 
 def run_semgrep_pr(repo, git):
     # Delete all directories that would have old repos, or results from the last run as the build boxes may persist from previous runs.
-    cleanup_workspace()
+    cleanup_workspace() if git == "ghe" else print("[+] Skipping cleanup")
     mode = int('775', base=8)
     repo_dir = REPOSITORIES_DIR + repo
     os.makedirs(repo_dir, mode=mode, exist_ok=True)
