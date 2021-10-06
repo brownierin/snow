@@ -254,7 +254,7 @@ def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
     print("[+] Semgrep scan results")
     process = subprocess.run(semgrep_command, shell=True, stdout=subprocess.PIPE)
     # Results here should be sent to a new function for us to work with!
-    if git == 'ts':
+    if git != 'ts':
         print(process.stdout.decode("utf-8"))
     # We want to capture where these results came from. GitHub, and Branch in the file
     print("[+] Opening " + SNOW_ROOT + CONFIG['general']['results'] + output_file)
