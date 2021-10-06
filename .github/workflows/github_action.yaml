@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       working-directory: snow
+      SNOW_ALERT_WEBHOOK: '${{ secrets.SNOW_ALERT_WEBHOOK }}'
 
     steps:
       - name: Clone snow code
@@ -28,7 +29,7 @@ jobs:
         run: |
           cd ${{ env.working-directory }}
           mkdir -p repositories/${{ github.event.repository.name }}
-          mv repo/{*,.[^.]*,..?*} repositories/${{ github.event.repository.name }}
+          mv repo/.[!.]* repositories/${{ github.event.repository.name }}
 
       - name: Install python3
         uses: actions/setup-python@v2

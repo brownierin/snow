@@ -601,11 +601,6 @@ def run_semgrep_pr(repo, git):
     # Move everything into 'SNOW/repositories/'. run_semgrep.py scans by looking for the repo name in the repositories/ directory.
     if git == 'ghe':
         subprocess.run("mv ../* ../.* " + repo_dir, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    elif git == 'ts':
-        # Tinyspeck checks out the repo under the snow dir
-        # We'll move it to the repositories dir
-        ls = run_command(f"pwd; ls -al {repo_dir}")
-        print(ls.stdout.decode("utf-8"))
 
     get_docker_image()
 
@@ -623,7 +618,7 @@ def run_semgrep_pr(repo, git):
                     print(f"[+] {repo} is written in {language}")
             file.close()
     if repo_language == "":
-        raise Exception(f"No language found in snow for repo {repo} check with #triage-prodsec!")
+        raise Exception(f"[!!] No language found in snow for repo {repo} check with #triage-prodsec!")
     config_language = "language-" + repo_language
 
     if git == "ghe":

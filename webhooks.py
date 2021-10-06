@@ -8,7 +8,23 @@ import os
 def send(content):
     headers = {"Content-Type": "application/json"}
     data = {"text": content}
-    url = os.environ.get("SNOW_ALERT_WEBHOOK")
+
+    try: 
+        length = len(os.environ.get("SNOW_ALERT_WEBHOOK"))
+        print(f"[+] The webhook url length is: {length}")
+    except Exception as e:
+        print("")
+
+    try:
+        length = len(os.environ.get("CHECKPOINT_TOKEN"))
+        print(f"[+] The checkpoint token length is: {length}")
+    except Exception as e:
+        print("")
+
+    try: 
+        url = os.environ["SNOW_ALERT_WEBHOOK"]
+    except Exception as e:
+        print(f"[-] Webhook URL isn't set! Error is: {e}")
 
     try:
         r = requests.post(url, headers=headers, json=data)
