@@ -590,7 +590,7 @@ def webhook_alerts(data):
         print(f"[-] Webhook failed to send: error is {e}")
 
 
-def run_semgrep_pr(repo, git):
+def run_semgrep_pr(repo):
     # Delete all directories that would have old repos, or results from the last run as the build boxes may persist from previous runs.
     cleanup_workspace() if git == "ghe" else print("[+] Skipping cleanup")
     mode = int('775', base=8)
@@ -753,7 +753,7 @@ if __name__ == '__main__':
             print("Daily mode does not support extra args. Ignoring them.")
         run_semgrep_daily()
     elif args.mode == "pr":
-        run_semgrep_pr(args.repo, args.git)
+        run_semgrep_pr(args.repo)
     elif args.mode == "version":
         exit_code = get_docker_image(args.mode)
         print(exit_code)
