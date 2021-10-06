@@ -254,7 +254,8 @@ def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
     print("[+] Semgrep scan results")
     process = subprocess.run(semgrep_command, shell=True, stdout=subprocess.PIPE)
     # Results here should be sent to a new function for us to work with!
-    # print(process.stdout.decode("utf-8"))
+    if git == 'ts':
+        print(process.stdout.decode("utf-8"))
     # We want to capture where these results came from. GitHub, and Branch in the file
     print("[+] Opening " + SNOW_ROOT + CONFIG['general']['results'] + output_file)
     # Read The Json Data
@@ -744,7 +745,9 @@ if __name__ == '__main__':
 
     if args.s3:
         os.environ["ENABLE_S3"] = True
-
+    if args.git:
+        global git
+        git = args.git
     if args.mode == "daily":
         if args.repo or args.git:
             print("Daily mode does not support extra args. Ignoring them.")
