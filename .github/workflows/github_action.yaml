@@ -24,6 +24,12 @@ jobs:
           path: snow/repo
           fetch-depth: 0
 
+      - name: move repository code to correct dir
+        run: |
+          cd ${{ env.working-directory }}
+          mkdir -p repositories/${{ github.event.repository.name }}
+          mv repo/{*,.[^.]*,..?*} repositories/${{ github.event.repository.name }}
+
       - name: Install python3
         uses: actions/setup-python@v2
         with:
@@ -37,6 +43,4 @@ jobs:
       - name: Run semgrep
         run: |
           cd ${{ env.working-directory }}
-          mkdir -p repositories/${{ github.event.repository.name }}
-          mv repo/* repo/.* repositories/${{ github.event.repository.name }}
           python3 run_semgrep.py -m pr -g ts -r ${{ github.event.repository.name }}
