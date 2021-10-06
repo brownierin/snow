@@ -1,6 +1,14 @@
 name: "static analysis"
 
-on: workflow_call
+on: 
+  workflow_call:
+    secrets:
+      SNOW_ALERT_WEBHOOK: 
+        required: true
+      CHECKPOINT_TOKEN: 
+        required: true
+      TEST: 
+        required: true
 
 jobs:
   scan-with-semgrep:
@@ -8,8 +16,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       working-directory: snow
-      SNOW_ALERT_WEBHOOK: '${{ secrets.SNOW_ALERT_WEBHOOK }}'
-
+      SNOW_ALERT_WEBHOOK: ${{ secrets.SNOW_ALERT_WEBHOOK }}
+      CHECKPOINT_TOKEN: ${{ secrets.CHECKPOINT_TOKEN }}
+      TEST: ${{ secrets.TEST }}
     steps:
       - name: Clone snow code
         uses: actions/checkout@v2
