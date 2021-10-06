@@ -10,24 +10,6 @@ def send(content):
     data = {"text": content}
 
     try: 
-        length = len(os.environ.get("SNOW_ALERT_WEBHOOK"))
-        print(f"[+] The webhook url length is: {length}")
-    except Exception as e:
-        print("[+] The webhook url length is 0")
-
-    try:
-        length = len(os.environ.get("CHECKPOINT_TOKEN"))
-        print(f"[+] The checkpoint token length is: {length}")
-    except Exception as e:
-        print("[+] The checkpoint token length is 0")
-
-    try:
-        length = len(os.environ.get("TEST"))
-        print(f"[+] The test token length is: {length}")
-    except Exception as e:
-        print("[+] The test token length is 0")
-
-    try: 
         url = os.environ["SNOW_ALERT_WEBHOOK"]
     except Exception as e:
         print(f"[-] Webhook URL isn't set! Error is: {e}")
