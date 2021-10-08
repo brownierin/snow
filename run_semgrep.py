@@ -21,6 +21,8 @@ import datetime
 import aws.upload_to_s3 as s3
 import webhooks
 
+
+env = os.getenv("env")
 # Get config file and read.
 CONFIG = configparser.ConfigParser()
 if env != "snow-test":
@@ -28,7 +30,6 @@ if env != "snow-test":
 else:
     CONFIG.read('config-test.cfg')
 
-env = os.getenv("env")
 
 # Global Variables
 SNOW_ROOT = os.getenv('PWD')
@@ -677,19 +678,24 @@ def run_semgrep_pr(repo):
     # what is shown on GitHub (rains, agenda, missions, etc). We will loop through the enabled files until we find the
     # associated language to the repo.
     repo_language = ""
-    for language in os.listdir("languages"):
-        if env != 'snow-test':
-            enabled_filename = '/enabled'
-        else:
-            enabled_filename = '/enabled-test'
-        with open("languages/" + language + enabled_filename) as file:
-            for line in file:
-                line = line.rstrip()
-                if line == repo:
-                    repo_language = language
-                    # Right now this script only supports one language at a time, but we can add more here in the future.
-                    print(f"[+] {repo} is written in {language}")
-            file.close()
+
+    for language in CONFIG.sections():
+        
+        if language.find('language-') != -1:
+            if env != 'snow-test':
+                enabled_filename = 'enabled'
+            else:
+                enabled_filename = 'enabled-test'
+            filename = f"{LANGUAGES_DIR}/{CONFIG[language]['language']}/{enabled_filename}"
+            with open(filename) as f:
+                content = f.read().splitlines()
+                for line in content:
+                    if line == repo:
+                        repo_language = CONFIG[language]['language']
+                        # Right now this script only supports one language at a time, but we can add more here in the future.
+                        print(f"[+] {repo} is written in {language}")
+                f.close()
+
     if repo_language == "":
         raise Exception(f"[!!] No language found in snow for repo {repo} check with #triage-prodsec!")
     config_language = "language-" + repo_language

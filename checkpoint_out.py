@@ -34,11 +34,11 @@ def semgrep_path_to_relative_path(path):
     return path.split("/", 2)[-1]
 
 def create_checkpoint_results_json(results):
+    set_filenames()
     with open(checkpoint_json_out, "w", encoding="utf-8") as f:
         json.dump(results, f, ensure_ascii=False, indent=4)
 
 def convert(fp_removed_filename, original_filename, comparison_filename):
-    set_filenames()
     print(f"[+] Checkpoint artifacts dir: {cibot_artifact_dir}")
     fp_removed_data = open_json(fp_removed_filename)
     comparison_data = open_json(comparison_filename)
