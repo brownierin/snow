@@ -23,7 +23,12 @@ import webhooks
 
 # Get config file and read.
 CONFIG = configparser.ConfigParser()
-CONFIG.read('config.cfg')
+if env != "snow-test":
+    CONFIG.read('config.cfg')
+else:
+    CONFIG.read('config-test.cfg')
+
+env = os.getenv("env")
 
 # Global Variables
 SNOW_ROOT = os.getenv('PWD')
@@ -610,7 +615,11 @@ def run_semgrep_pr(repo):
     # associated language to the repo.
     repo_language = ""
     for language in os.listdir("languages"):
-        with open("languages/" + language + "/enabled") as file:
+        if env != 'snow-test':
+            enabled_filename = '/enabled'
+        else:
+            enabled_filename = '/enabled-test'
+        with open("languages/" + language + enabled_filename) as file:
             for line in file:
                 line = line.rstrip()
                 if line == repo:
