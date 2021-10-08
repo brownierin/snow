@@ -18,6 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       working-directory: snow
+      env: snow-test
       SNOW_ALERT_WEBHOOK: ${{ secrets.SNOW_ALERT_WEBHOOK }}
       CHECKPOINT_TOKEN: ${{ secrets.CHECKPOINT_TOKEN }}
       SNOW_AWS_ACCESS_KEY_ID: ${{ secrets.SNOW_AWS_ACCESS_KEY_ID }}
