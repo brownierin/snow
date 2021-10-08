@@ -39,6 +39,7 @@ def create_checkpoint_results_json(results):
         json.dump(results, f, ensure_ascii=False, indent=4)
 
 def convert(fp_removed_filename, original_filename, comparison_filename):
+    set_filenames()
     print(f"[+] Checkpoint artifacts dir: {cibot_artifact_dir}")
     fp_removed_data = open_json(fp_removed_filename)
     comparison_data = open_json(comparison_filename)
