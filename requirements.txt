@@ -2,5 +2,5 @@ future-fstrings==1.2.0
 tokenize-rt==3.2.0
 pyyaml==5.4.1
 pytest==6.2.4
-boto3
+boto3==1.18.57
 requests
