@@ -23,7 +23,6 @@ import webhooks
 
 
 env = os.getenv("env")
-# Get config file and read.
 CONFIG = configparser.ConfigParser()
 if env != "snow-test":
     CONFIG.read('config.cfg')
@@ -32,6 +31,7 @@ else:
 
 
 # Global Variables
+global_exit_code = 0
 SNOW_ROOT = os.getenv('PWD')
 if CONFIG['general']['run_local_semgrep'] != "False":
     SNOW_ROOT = CONFIG['general']['run_local_semgrep']
@@ -53,6 +53,7 @@ FORKED_REPOS = {
     "fbthrift"      : "https://github.com/facebook/fbthrift.git"
 }
 
+
 def cleanup_workspace():
     print('[+] Begin workspace cleanup')
     mode = int('775', base=8)
@@ -61,12 +62,11 @@ def cleanup_workspace():
     os.makedirs(REPOSITORIES_DIR, mode=mode, exist_ok=True)
     print('[+] End workspace cleanup')
 
-global_exit_code = 0
 
-# Changes the exit code of the program without exiting the program.
 def set_exit_code(code):
     global global_exit_code
     global_exit_code = code
+
 
 def clean_results_dir():
     """
@@ -93,9 +93,10 @@ def get_repo_list():
     Grabs all enabled repository names across all languages
     """
     repos = []
+    enabled_filename = set_enabled_filename()
     for language in CONFIG.sections():
         if language.find('language-') != -1:
-            filename = LANGUAGES_DIR + CONFIG[language]['language'] + '/enabled'
+            filename = f"{LANGUAGES_DIR}{CONFIG[language]['language']}/{enabled_filename}"
             with open(filename) as f:
                 enabled = f.read().splitlines()
             repos = repos + [repo for repo in enabled]
@@ -138,6 +139,7 @@ def check_digest(digest, version):
 
 def run_command(command):
     return subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+
 
 def git_pull_repo(repo_path):
     try:
@@ -238,7 +240,8 @@ def download_repos():
         git_repo_url = "https://slack-github.com/"
         if language.find('language-') != -1:
             print(f"[!!] Downloading {language} repos")
-            filename = LANGUAGES_DIR + CONFIG[language]['language'] + '/enabled'
+            enabled_filename = set_enabled_filename()
+            filename = f"{LANGUAGES_DIR}{CONFIG[language]['language']}/{enabled_filename}"
             with open(filename) as f:
                 content = f.read().splitlines()
             for repo in content:
@@ -257,9 +260,12 @@ def download_repos():
                     git_forked_repos(repo, language, git_sha, git_repo_url)
 
 
+def process_results():
+    print('test')
+
+
 def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
-    git_sha = git_sha.rstrip()
-    print('[+] Scanning repo: ' + repo)
+    print(f'[+] Scanning repo: {repo}')
     output_file = f"{language}-{repo}-{git_sha[:7]}.json"
     semgrep_command = (
         f"docker run --user \"$(id -u):$(id -g)\" --rm "
@@ -271,45 +277,53 @@ def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
         f"{CONFIG['general']['repositories'][1:]}{repo}"
     )
     print(f"[+] Docker scan command:\n {semgrep_command}")
-    print("[+] Semgrep scan results")
+    print(f"[+] Running Semgrep")
     process = subprocess.run(semgrep_command, shell=True, stdout=subprocess.PIPE)
     # Results here should be sent to a new function for us to work with!
     if git != 'ts':
+        print("[+] Semgrep scan results")
         print(process.stdout.decode("utf-8"))
-    # We want to capture where these results came from. GitHub, and Branch in the file
-    print("[+] Opening " + SNOW_ROOT + CONFIG['general']['results'] + output_file)
-    # Read The Json Data
-    with open(SNOW_ROOT + CONFIG['general']['results'] + output_file, ) as file:
-        git_repo_branch = git_sha
+
+    output_file_path = f"{RESULTS_DIR}{output_file}"
+    print(f"[+] Opening {output_file_path}")
+
+    with open(output_file_path, 'r') as file:
+        """
+        Update the metadata on the scan result
+        """
         data = json.load(file)
         data.update({"metadata": {
             "GitHubRepo": git_repo_url,
-            "branch": git_repo_branch,
+            "branch": git_sha,
             "repoName": repo,
             "language" : language,
             "timestamp" : datetime.datetime.now(tz=datetime.timezone.utc).isoformat()
         }})
-    # Write to the same file
-    with open(SNOW_ROOT + CONFIG['general']['results'] + output_file, 'w') as file:
+        file.close()
+    with open(output_file_path, 'w') as file:
         json.dump(data, file, sort_keys=True, indent=4)
 
-    # fprm stands for false positives removed
+    """
+    Note: "fprm" stands for false positives removed
+    """
     fp_diff_outfile = f"{language}-{repo}-{git_sha[:7]}-fprm.json"
     fp_file = f"{SNOW_ROOT}/languages/{language}/false_positives/{repo}_false_positives.json"
 
-    # Add hash identifier to the json result
-    # and remove false positives from the output file
-    if os.path.exists(RESULTS_DIR+output_file):
-        add_hash_id(RESULTS_DIR+output_file, 4, 1, "hash_id")
+    """
+    Add hash identifier to the json result
+    and remove false positives from the output file
+    """    
+    if os.path.exists(output_file_path):
+        add_hash_id(output_file_path, 4, 1, "hash_id")
         comparison.remove_false_positives(
-                                            RESULTS_DIR+output_file,
+                                            output_file_path,
                                             fp_file,
                                             RESULTS_DIR+fp_diff_outfile
                                         )
 
     git_branch_cmd = f"git -C {REPOSITORIES_DIR}/{repo} branch --show-current"
-    process = subprocess.run(git_branch_cmd, shell=True, stdout=subprocess.PIPE)
-    branch = process.stdout.decode('utf-8').rstrip()
+    process = run_command(git_branch_cmd)
+    branch = process.stdout.decode('utf-8')
     print(f"[+] Current branch: {branch}")
 
     if branch == "master":
@@ -409,14 +423,13 @@ def alert_channel():
         semgrep_errors = False
         alert_json, error_json = {}, {}
         high, normal, total_vulns = 0, 0, 0
+        
         #Get the high priority config
-
         high_priority_rules_check_id = CONFIG['high-priority']['high_priority_rules_check_id'].split('\n')
         high_priority_rules_message = CONFIG['high-priority']['high_priority_rules_message'].split('\n')
 
-        # Iterate through the /results file
         for semgrep_output_file in semgrep_output_files:
-            print("Reading JSON Output File " + semgrep_output_file)
+            print(f"Reading output file: {semgrep_output_file}")
             # Parse the json file and collect any results present
             with open(RESULTS_DIR + semgrep_output_file) as file:
                 data = json.load(file)
@@ -659,14 +672,40 @@ def webhook_alerts(data):
         print(f"[-] Webhook failed to send: error is {e}")
 
 
+def set_enabled_filename():
+    if env != 'snow-test':
+        return 'enabled'
+    else:
+        return 'enabled-test'
+
+def find_repo_language(repo):
+    # Right now this script only supports one language at a time
+    # We can add more here in the future.
+    repo_language = ""
+    for language in CONFIG.sections():
+        if language.find('language-') != -1:
+            enabled_filename = set_enabled_filename()
+            filename = f"{LANGUAGES_DIR}/{CONFIG[language]['language']}/{enabled_filename}"
+            with open(filename) as f:
+                content = f.read().splitlines()
+                for line in content:
+                    if line == repo:
+                        print(f"[+] {repo} is written in {CONFIG[language]['language']}")
+                        f.close()
+                        return CONFIG[language]['language']
+    if repo_language == "":
+        raise Exception(f"[!!] No language found in snow for repo {repo} check with #triage-prodsec!")
+
+
 def run_semgrep_pr(repo):
-    # Delete all directories that would have old repos, or results from the last run as the build boxes may persist from previous runs.
     cleanup_workspace() if git == "ghe" else print("[+] Skipping cleanup")
+
     mode = int('775', base=8)
     repo_dir = REPOSITORIES_DIR + repo
     os.makedirs(repo_dir, mode=mode, exist_ok=True)
     print(f"[+] Repository dir is at: {repo_dir}")
-    # Grab the PR code, move it to the repository with it's own directory
+
+    # Grab the PR code, move it to the repository with its own directory
     # We do this as it mimics the same environment configuration as the daily scan so we can re-use the code.
     # Move everything into 'SNOW/repositories/'. run_semgrep.py scans by looking for the repo name in the repositories/ directory.
     if git == 'ghe':
@@ -677,28 +716,8 @@ def run_semgrep_pr(repo):
     # Every repo in SNOW is tied to a language in the enabled file. The repo name has to be exactly the same as
     # what is shown on GitHub (rains, agenda, missions, etc). We will loop through the enabled files until we find the
     # associated language to the repo.
-    repo_language = ""
-
-    for language in CONFIG.sections():
-        
-        if language.find('language-') != -1:
-            if env != 'snow-test':
-                enabled_filename = 'enabled'
-            else:
-                enabled_filename = 'enabled-test'
-            filename = f"{LANGUAGES_DIR}/{CONFIG[language]['language']}/{enabled_filename}"
-            with open(filename) as f:
-                content = f.read().splitlines()
-                for line in content:
-                    if line == repo:
-                        repo_language = CONFIG[language]['language']
-                        # Right now this script only supports one language at a time, but we can add more here in the future.
-                        print(f"[+] {repo} is written in {language}")
-                f.close()
-
-    if repo_language == "":
-        raise Exception(f"[!!] No language found in snow for repo {repo} check with #triage-prodsec!")
-    config_language = "language-" + repo_language
+    repo_language = find_repo_language(repo)
+    config_language = f"language-{repo_language}"
 
     if git == "ghe":
         git_repo_url = "https://slack-github.com/"
@@ -713,8 +732,9 @@ def run_semgrep_pr(repo):
     # As HEAD is on the current branch, it will retrieve the branch sha.
     git_sha_branch = os.environ.get('CIBOT_COMMIT_HEAD')
     git_sha_branch_short = git_sha_branch[:7]
+
     # Make sure you are on the branch to scan by switching to it.
-    process = subprocess.run("git -C " + repo_dir + " checkout -f " + git_sha_branch, shell=True, check=True,stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    process = run_command(f"git -C {repo_dir} checkout -f {git_sha_branch}")
     print(f"[+] Branch SHA: {git_sha_branch}")
     scan_repo(repo, repo_language, config_language, git_repo_url, git_sha_branch_short)
 
@@ -733,13 +753,10 @@ def run_semgrep_pr(repo):
         print("[-] Master and HEAD are equal. Need to compare against two different SHAs! We won't scan.")
         sys.exit(0)
 
-    # Switch repo to master, so we scan that.
+    # Scan and process master
     process = run_command(f"git -C {repo_dir} checkout -f {git_sha_master}")
-    print("[+] Master Checkout: " + process.stdout.decode("utf-8"))
+    print(f"[+] Master Checkout: {process.stdout.decode('utf-8')}")
     scan_repo(repo, repo_language, config_language, git_repo_url, git_sha_master_short)
-
-    # Pass in the branch and master to compare for new vulnerabilities. Output file in format language-repo-sha_master-sha_branch.json
-    # IE: golang-rains-6466c2e6e900cdd9e8a501a695a3fc1025402d9a-2e29dd81fe30efca60694aa999f5b444fd5b829c.json
 
     old_output = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master_short}.json"
     new_output = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_branch_short}.json"
@@ -747,12 +764,14 @@ def run_semgrep_pr(repo):
     comparison.compare_to_last_run(old_output, new_output, output_filename)
     
     # If there any vulnerabilities detected, remove the false positives.
-    # Note: False positives would rarely be removed because it would most likely be caught in the above diff check
+    # Note: False positives would rarely be removed because it would most 
+    # likely be caught in the above diff check
     # Save as a new filename appending -parsed.json to the end.
-    # IE: golang-rains-6466c2e6e900cdd9e8a501a695a3fc1025402d9a-2e29dd81fe30efca60694aa999f5b444fd5b829c-parsed.json
+    # IE: golang-rains-6466c2e-2e29dd8-parsed.json
     json_filename = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master_short}-{git_sha_branch_short}.json"
     parsed_filename = f"{RESULTS_DIR}{repo_language}-{repo}-{git_sha_master_short}-{git_sha_branch_short}-parsed.json"
     fp_file = f"{SNOW_ROOT}/languages/{repo_language}/false_positives/{repo}_false_positives.json"
+
     comparison.remove_false_positives(json_filename, fp_file, parsed_filename)
 
     process = run_command(f"git -C {repo_dir} checkout -f {git_sha_branch}")
@@ -762,7 +781,6 @@ def run_semgrep_pr(repo):
 
     with open(parsed_filename) as fileParsed:
         data = json.load(fileParsed)
-        # No vulnerabilities would be checking for an empty array.
 
     checkpoint_out.convert(parsed_filename, json_filename, parsed_filename)
 
