@@ -2,5 +2,5 @@ future-fstrings
 tokenize-rt
 pyyaml
 pytest
-boto3
+boto3==1.18.57
 requests
