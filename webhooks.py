@@ -8,7 +8,11 @@ import os
 def send(content):
     headers = {"Content-Type": "application/json"}
     data = {"text": content}
-    url = os.environ.get("SNOW_ALERT_WEBHOOK")
+
+    try: 
+        url = os.environ["SNOW_ALERT_WEBHOOK"]
+    except Exception as e:
+        print(f"[-] Webhook URL isn't set! Error is: {e}")
 
     try:
         r = requests.post(url, headers=headers, json=data)

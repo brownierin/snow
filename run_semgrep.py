@@ -21,9 +21,15 @@ import datetime
 import aws.upload_to_s3 as s3
 import webhooks
 
+
+env = os.getenv("env")
 # Get config file and read.
 CONFIG = configparser.ConfigParser()
-CONFIG.read('config.cfg')
+if env != "snow-test":
+    CONFIG.read('config.cfg')
+else:
+    CONFIG.read('config-test.cfg')
+
 
 # Global Variables
 SNOW_ROOT = os.getenv('PWD')
@@ -268,7 +274,8 @@ def scan_repo(repo, language, configlanguage, git_repo_url, git_sha):
     print("[+] Semgrep scan results")
     process = subprocess.run(semgrep_command, shell=True, stdout=subprocess.PIPE)
     # Results here should be sent to a new function for us to work with!
-    print(process.stdout.decode("utf-8"))
+    if git != 'ts':
+        print(process.stdout.decode("utf-8"))
     # We want to capture where these results came from. GitHub, and Branch in the file
     print("[+] Opening " + SNOW_ROOT + CONFIG['general']['results'] + output_file)
     # Read The Json Data
@@ -652,16 +659,18 @@ def webhook_alerts(data):
         print(f"[-] Webhook failed to send: error is {e}")
 
 
-def run_semgrep_pr(repo, git):
+def run_semgrep_pr(repo):
     # Delete all directories that would have old repos, or results from the last run as the build boxes may persist from previous runs.
-    cleanup_workspace()
+    cleanup_workspace() if git == "ghe" else print("[+] Skipping cleanup")
     mode = int('775', base=8)
-    os.makedirs(REPOSITORIES_DIR + repo, mode=mode, exist_ok=True)
+    repo_dir = REPOSITORIES_DIR + repo
+    os.makedirs(repo_dir, mode=mode, exist_ok=True)
+    print(f"[+] Repository dir is at: {repo_dir}")
     # Grab the PR code, move it to the repository with it's own directory
     # We do this as it mimics the same environment configuration as the daily scan so we can re-use the code.
     # Move everything into 'SNOW/repositories/'. run_semgrep.py scans by looking for the repo name in the repositories/ directory.
     if git == 'ghe':
-        subprocess.run("mv ../* ../.* " +REPOSITORIES_DIR + repo, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        subprocess.run("mv ../* ../.* " + repo_dir, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
     get_docker_image()
 
@@ -669,20 +678,28 @@ def run_semgrep_pr(repo, git):
     # what is shown on GitHub (rains, agenda, missions, etc). We will loop through the enabled files until we find the
     # associated language to the repo.
     repo_language = ""
-    for language in os.listdir("languages"):
-        with open("languages/" + language + "/enabled") as file:
-            for line in file:
-                line = line.rstrip()
-                if line == repo:
-                    repo_language = language
-                    # Right now this script only supports one language at a time, but we can add more here in the future.
-                    print(repo + " is of language " + language)
-            file.close()
+
+    for language in CONFIG.sections():
+        
+        if language.find('language-') != -1:
+            if env != 'snow-test':
+                enabled_filename = 'enabled'
+            else:
+                enabled_filename = 'enabled-test'
+            filename = f"{LANGUAGES_DIR}/{CONFIG[language]['language']}/{enabled_filename}"
+            with open(filename) as f:
+                content = f.read().splitlines()
+                for line in content:
+                    if line == repo:
+                        repo_language = CONFIG[language]['language']
+                        # Right now this script only supports one language at a time, but we can add more here in the future.
+                        print(f"[+] {repo} is written in {language}")
+                f.close()
+
     if repo_language == "":
-        raise Exception(f"No language found in snow for repo {repo} check with #triage-prodsec!")
+        raise Exception(f"[!!] No language found in snow for repo {repo} check with #triage-prodsec!")
     config_language = "language-" + repo_language
 
-    # We really only support ghe right now, as tinyspeck doesn't really hook up with Checkpoint at this time.
     if git == "ghe":
         git_repo_url = "https://slack-github.com/"
     elif git == "ts":
@@ -697,27 +714,28 @@ def run_semgrep_pr(repo, git):
     git_sha_branch = os.environ.get('CIBOT_COMMIT_HEAD')
     git_sha_branch_short = git_sha_branch[:7]
     # Make sure you are on the branch to scan by switching to it.
-    process = subprocess.run("git -C " + REPOSITORIES_DIR + repo + " checkout -f " + git_sha_branch, shell=True, check=True,stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    print("Branch Checkout: " + process.stdout.decode("utf-8"))
+    process = subprocess.run("git -C " + repo_dir + " checkout -f " + git_sha_branch, shell=True, check=True,stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    print(f"[+] Branch SHA: {git_sha_branch}")
     scan_repo(repo, repo_language, config_language, git_repo_url, git_sha_branch_short)
-    print(f"{git_sha_branch} sha branch")
 
     if git == 'ts':
-        master_ref = open('.git/refs/heads/master', 'r')
-        os.environ['CIBOT_COMMIT_MASTER'] = master_ref.read()
+        cmd = run_command(f"git -C {repo_dir} branch --list --remote origin/master")
+        master_ref = run_command(f"git -C {repo_dir} rev-parse refs/remotes/origin/master")
+        os.environ['CIBOT_COMMIT_MASTER'] = master_ref.stdout.decode("utf-8")
         os.environ['CIBOT_ARTIFACT_DIR'] = RESULTS_DIR
+        print(f"[+] Artifacts dir is: {os.environ['CIBOT_ARTIFACT_DIR']}")
 
     git_sha_master = os.environ.get('CIBOT_COMMIT_MASTER')
     git_sha_master_short = git_sha_master[:7]
-    print(f"{git_sha_master} sha master")
+    print(f"[+] Master SHA: {git_sha_master}")
 
     if git_sha_branch == git_sha_master:
         print("[-] Master and HEAD are equal. Need to compare against two different SHAs! We won't scan.")
         sys.exit(0)
 
     # Switch repo to master, so we scan that.
-    process = subprocess.run("git -C " + REPOSITORIES_DIR + repo + " checkout -f "+ git_sha_master, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    print("Master Checkout: " + process.stdout.decode("utf-8"))
+    process = run_command(f"git -C {repo_dir} checkout -f {git_sha_master}")
+    print("[+] Master Checkout: " + process.stdout.decode("utf-8"))
     scan_repo(repo, repo_language, config_language, git_repo_url, git_sha_master_short)
 
     # Pass in the branch and master to compare for new vulnerabilities. Output file in format language-repo-sha_master-sha_branch.json
@@ -737,8 +755,8 @@ def run_semgrep_pr(repo, git):
     fp_file = f"{SNOW_ROOT}/languages/{repo_language}/false_positives/{repo}_false_positives.json"
     comparison.remove_false_positives(json_filename, fp_file, parsed_filename)
 
-    process = subprocess.run("git -C " + REPOSITORIES_DIR + repo + " checkout -f " + git_sha_branch, shell=True, check=True,stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    print("Branch Checkout: " + process.stdout.decode("utf-8"))
+    process = run_command(f"git -C {repo_dir} checkout -f {git_sha_branch}")
+    print("[+] Branch Checkout: " + process.stdout.decode("utf-8"))
     add_hash_id(json_filename, 4, 1, "hash_id")
     add_hash_id(parsed_filename, 4, 1, "hash_id")
 
@@ -748,7 +766,7 @@ def run_semgrep_pr(repo, git):
 
     checkpoint_out.convert(parsed_filename, json_filename, parsed_filename)
 
-    if git == 'ts':
+    if os.getenv("ENABLE_S3"):
         bucket = CONFIG['general']['s3_bucket']
         filenames = [
             parsed_filename, 
@@ -799,15 +817,21 @@ if __name__ == '__main__':
         "--git",
         help="the github url you wish to scan, supported options ghe (github enterprise) and ts (tinyspeck)",
     )
+    parser.add_argument("--s3", help="upload to s3", action='store_true')
 
     args = parser.parse_args()
 
+    if args.s3:
+        os.environ["ENABLE_S3"] = True
+    if args.git:
+        global git
+        git = args.git
     if args.mode == "daily":
         if args.repo or args.git:
             print("Daily mode does not support extra args. Ignoring them.")
         run_semgrep_daily()
     elif args.mode == "pr":
-        run_semgrep_pr(args.repo, args.git)
+        run_semgrep_pr(args.repo)
     elif args.mode == "version":
         exit_code = get_docker_image(args.mode)
         print(exit_code)
