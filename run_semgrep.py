@@ -41,6 +41,8 @@ if CONFIG['general']['run_local_semgrep'] != "False":
 LANGUAGES_DIR = SNOW_ROOT + CONFIG['general']['languages_dir']
 RESULTS_DIR = SNOW_ROOT + CONFIG['general']['results']
 REPOSITORIES_DIR = SNOW_ROOT + CONFIG['general']['repositories']
+commit_head_env = CONFIG['general']['commit_head']
+artifact_dir_env = CONFIG['general']['artifact_dir']
 github_enterprise_url = CONFIG['general']['github_enterprise_url']
 github_com_url = CONFIG['general']['github_com_url']
 org_name = CONFIG['general']['org_name']
@@ -643,13 +645,7 @@ def run_semgrep_pr(repo):
     # Grab the PR code, move it to the repository with its own directory
     # We do this as it mimics the same environment configuration as the daily scan so we can re-use the code.
     # Move everything into 'SNOW/repositories/'. run_semgrep.py scans by looking for the repo name in the repositories/ directory.
-    if git == 'ghe':
-        subprocess.run(
-            "mv ../* ../.* " + repo_dir,
-            shell=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-        )
+    slack.move_repo_dir(repo_dir, git)
 
     get_docker_image()
 
@@ -657,11 +653,10 @@ def run_semgrep_pr(repo):
     config_language = f"language-{repo_language}"
     git_repo_url = set_github_url()
 
-    if git == 'ghc':
-        os.environ['CIBOT_COMMIT_HEAD'] = os.environ.get('GITHUB_SHA')
+    slack.commit_head(git)
 
     # As HEAD is on the current branch, it will retrieve the branch sha.
-    git_sha_branch = os.environ.get('CIBOT_COMMIT_HEAD')
+    git_sha_branch = os.environ.get(commit_head_env)
     git_sha_branch_short = git_sha_branch[:7]
 
     # Make sure you are on the branch to scan by switching to it.
@@ -669,18 +664,16 @@ def run_semgrep_pr(repo):
     print(f"[+] Branch SHA: {git_sha_branch}")
     scan_repo(repo, repo_language, git_repo_url, git_sha_branch_short)
 
-    if git == 'ghc':
-        cmd = run_command(f"git -C {repo_dir} branch --list --remote origin/master")
-        master_ref = run_command(
-            f"git -C {repo_dir} rev-parse refs/remotes/origin/master"
-        )
-        os.environ['CIBOT_COMMIT_MASTER'] = master_ref.stdout.decode("utf-8")
-        os.environ['CIBOT_ARTIFACT_DIR'] = RESULTS_DIR
-        print(f"[+] Artifacts dir is: {os.environ['CIBOT_ARTIFACT_DIR']}")
-
-    git_sha_master = os.environ.get('CIBOT_COMMIT_MASTER')
+    cmd = run_command(f"git -C {repo_dir} branch --list --remote origin/master")
+    git_sha_master = run_command(
+        f"git -C {repo_dir} rev-parse refs/remotes/origin/master"
+    ).stdout.decode('utf-8')
     git_sha_master_short = git_sha_master[:7]
     print(f"[+] Master SHA: {git_sha_master}")
+
+    if git == 'ghc':
+        os.environ[artifact_dir_env] = RESULTS_DIR
+        print(f"[+] Artifacts dir is: {os.environ[artifact_dir_env]}")
 
     if git_sha_branch == git_sha_master:
         print(
@@ -814,7 +807,9 @@ if __name__ == '__main__':
     else:
         parser.print_help()
 
-    # Exit the program with the expected exit code.
-    # If a non-blocking error occured during the execution of this program,
-    # "global_exit_code" will be change to "1". Otherwise it will stay at "0".
+    """
+    Exit the program with the expected exit code.
+    If a non-blocking error occured during the execution of this program,
+    "global_exit_code" will be change to "1". Otherwise it will stay at "0".
+    """
     sys.exit(global_exit_code)
