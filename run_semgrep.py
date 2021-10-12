@@ -48,8 +48,12 @@ ghe_org_name = CONFIG['general']['ghe_org_name']
 with open(f"{SNOW_ROOT}/{CONFIG['general']['forked_repos']}") as file:
     FORKED_REPOS = json.load(file)
     file.close()
+print_text = CONFIG['general']['print_text']
 high_alert_text = CONFIG['alerts']['high_alert_text']
-print(high_alert_text)
+banner = CONFIG['alerts']['banner']
+normal_alert_text = CONFIG['alerts']['normal_alert_text']
+no_vulns_text = CONFIG['alerts']['no_vulns_text']
+errors_text = CONFIG['alerts']['errors_text']
 
 
 def clean_workspace():
@@ -283,7 +287,7 @@ def scan_repos():
         """
         cmd = "git remote show origin | grep 'HEAD branch' | sed 's/.*: //'"
         default_branch_name = run_command(cmd).stdout.decode('utf-8')
-        print(f"Default branch name: {default_branch_name}")
+        print(f"[+] Default branch name: {default_branch_name.strip()}")
         get_sha_process = run_command(f"git -C {REPOSITORIES_DIR}{repo} rev-parse HEAD")
         git_sha = get_sha_process.stdout.decode("utf-8").rstrip()
         git_repo_url = set_github_url()
@@ -401,7 +405,7 @@ def scan_repo(repo, language, git_repo_url, git_sha):
     results = process.stdout.decode("utf-8")
     if git != 'ghc':
         print("[+] Semgrep scan results:")
-        if print_text:
+        if print_text == "true":
             print(results)
     add_metadata(repo, language, git_repo_url, git_sha, output_file)
     return results, output_file
@@ -550,52 +554,30 @@ def alert_channel():
     normal = total_vulns - high
 
     # Print the Semgrep daily run banner and vulnerability counts
-    text = (
-        ":snowflake:*Daily :block-s: :block-e: :block-m: :block-g: :block-r:"
-        " :block-e: :block-p: Scan Report*:snowflake: \n"
-        " :blob-throw-snow-left:*Rules Triggered*:blob-throw-snow-right:\n"
-        f"---High: {str(high)}\n"
-        f"---Normal: {str(normal)} "
-    )
-    webhook_alerts(text)
+    banner_and_count = f"{banner}---High: {str(high)}\n---Normal: {str(normal)} "
+    webhook_alerts(banner_and_count)
     if total_vulns > 0:
-        # Fire High Banner
-        text = (
-            ":fire: :fire: :fire: :fire: :fire: :fire:\n"
-            ":fire::block-h: :block-i: :block-g: :block-h:  :fire:\n"
-            ":fire: :fire: :fire: :fire: :fire: :fire:"
-        )
-        webhook_alerts(text)
-        for repo in alert_json:
-            for vuln in alert_json[repo]['high']:
-                webhook_alerts(vuln)
-                time.sleep(1)
+        if high > 0:
+            webhook_alerts(high_alert_text)
+            for repo in alert_json:
+                for vuln in alert_json[repo]['high']:
+                    webhook_alerts(vuln)
+                    time.sleep(1)
 
-        # Snowflake Normal Banner
-        normal_banner = (
-            ":snowflake::snowflake::snowflake::snowflake::snowflake::snowflake::snowflake::snowflake::snowflake:\n:snowflake:"
-            " :block-n: :block-o: :block-r: :block-m: :block-a: :block-l:"
-            " :snowflake:\n"
-            " :snowflake::snowflake::snowflake::snowflake::snowflake::snowflake::snowflake::snowflake::snowflake:"
-        )
-        webhook_alerts(normal_banner)
-        for repo in alert_json:
-            for vuln in alert_json[repo]['normal']:
-                webhook_alerts(vuln)
-                time.sleep(1)
+        if normal > 0:
+            webhook_alerts(normal_alert_text)
+            for repo in alert_json:
+                for vuln in alert_json[repo]['normal']:
+                    webhook_alerts(vuln)
+                    time.sleep(1)
 
     elif not error_json:
         # ALL HAIL THE GLORIOUS NO VULNS BANNER
-        text = """:black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square:\n:black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::black_square::sun-turtle::sun-turtle::black_square::black_square::black_square::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::black_square::sun-turtle::sun-turtle::sun-turtle::black_square:\n:black_square::sun-turtle::sun-turtle::black_square::black_square::sun-turtle::black_square::sun-turtle::black_square::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::sun-turtle::black_square::black_square::sun-turtle::black_square::sun-turtle::black_square::black_square::black_square::black_square:\n:black_square::sun-turtle::black_square::sun-turtle::black_square::sun-turtle::black_square::sun-turtle::black_square::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::sun-turtle::black_square::sun-turtle::black_square::black_square::sun-turtle::sun-turtle::black_square::black_square:\n:black_square::sun-turtle::black_square::black_square::sun-turtle::sun-turtle::black_square::sun-turtle::black_square::black_square::sun-turtle::black_square::black_square::black_square::black_square::sun-turtle::black_square::sun-turtle::black_square::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::black_square::sun-turtle::sun-turtle::black_square::black_square::black_square::black_square::sun-turtle::black_square:\n:black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::black_square::sun-turtle::sun-turtle::black_square::black_square::black_square::black_square::black_square::black_square::sun-turtle::black_square::black_square::black_square::black_square::sun-turtle::sun-turtle::sun-turtle::black_square::black_square::sun-turtle::sun-turtle::sun-turtle::black_square::sun-turtle::black_square::black_square::black_square::sun-turtle::black_square::sun-turtle::sun-turtle::sun-turtle::black_square::black_square:\n:black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square::black_square:"""
-        webhook_alerts(text)
+        webhook_alerts(no_vulns_text)
     if semgrep_errors:
         # Right now we're purposely not outputting errors. It's noisy.
         # TODO: Make a pretty output once cleaned.
-        errors = (
-            ":test-error: There were errors this run. Check Jenkins"
-            " https://jenkins.tinyspeck.com/job/security-semgrep-prodsec"
-        )
-        webhook_alerts(errors)
+        webhook_alerts(errors_text)
 
 
 def webhook_alerts(data):
