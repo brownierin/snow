@@ -57,4 +57,4 @@ jobs:
       - name: Run semgrep
         run: |
           cd ${{ env.working-directory }}
-          python3 run_semgrep.py -m pr -g ts -r ${{ github.event.repository.name }}
+          python3 run_semgrep.py -m pr -g ghc -r ${{ github.event.repository.name }}
