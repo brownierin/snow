@@ -1,6 +1,7 @@
 name: "Static Analysis Daily Scan"
 
-on: 
+on:
+  push:
   schedule:
     - cron: '*/5 * * * *'
 
