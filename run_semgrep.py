@@ -509,9 +509,6 @@ def alert_channel():
     This method iterates through the /results directory.
     It reads the JSON files and outputs alerts to Slack through a webhook.
     """
-
-    # Send alerts to the Slack channel only when the Jenkins job is production.
-
     semgrep_output_files = os.listdir(RESULTS_DIR)
     semgrep_errors = False
     alert_json, error_json = {}, {}
@@ -780,8 +777,8 @@ if __name__ == '__main__':
         "-g",
         "--git",
         help=(
-            "the github url you wish to scan, supported options ghe (github enterprise)"
-            " and ghc (githib.com)"
+            "the github url you wish to scan. Supported options: ghe (github"
+            " enterprise) and ghc (githib.com)"
         ),
         required=True,
     )
