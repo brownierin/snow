@@ -758,6 +758,8 @@ def run_semgrep_daily():
         current_jenkins_job = jenkins.get_job_name()
         if current_jenkins_job.lower() == CONFIG['general']['jenkins_prod_job'].lower():
             alert_channel()
+    elif git == 'ghc':
+        alert_channel()
     # Upload the results to checkpoint
     set_exit_code(checkpoint.upload_daily_scan_results_to_checkpoint())
 
