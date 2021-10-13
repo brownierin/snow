@@ -6,7 +6,7 @@ on:
 
 jobs:
   static_analysis:
-    uses: tinyspeck/snow/.github/workflows/daily_scan.yaml@v1
+    uses: tinyspeck/snow/.github/workflows/daily_scan.yaml@dry-it-up
     secrets:       
       SNOW_ALERT_WEBHOOK: ${{ secrets.SNOW_ALERT_WEBHOOK }}
       CHECKPOINT_TOKEN: ${{ secrets.CHECKPOINT_TOKEN }}
