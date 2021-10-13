@@ -35,6 +35,7 @@ jobs:
       - name: get prior commit hash
         run: |
           cd ${{ env.working-directory }}
+          git fetch
           git checkout master@{yesterday}
           export commit=$(git rev-parse HEAD)
 
