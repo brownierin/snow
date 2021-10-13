@@ -2,7 +2,7 @@ name: "Static Analysis Daily Scan"
 
 on: 
   schedule:
-    - cron: '4 6 * * *'
+    - cron: '8 6 * * *'
 
 jobs:
   static_analysis:
