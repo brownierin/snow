@@ -58,3 +58,9 @@ jobs:
         run: |
           cd ${{ env.working-directory }}
           python3 run_semgrep.py -m pr -g ghc -r ${{ github.event.repository.name }}
+
+      - name: Archive scan results
+        uses: actions/upload-artifact@v2
+        with:
+            name: results folder
+            path: results/*
