@@ -5,7 +5,7 @@ on:
     - cron: '8 6 * * *'
 
 jobs:
-  static_analysis:
+  daily_static_analysis:
     uses: tinyspeck/snow/.github/workflows/daily_scan.yaml@dry-it-up
     secrets:       
       SNOW_ALERT_WEBHOOK: ${{ secrets.SNOW_ALERT_WEBHOOK }}
