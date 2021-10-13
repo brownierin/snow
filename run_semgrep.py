@@ -19,7 +19,7 @@ from pathlib import Path
 
 import slack
 import webhooks
-import process_hash_ids as comparison
+import comparison
 import aws.upload_to_s3 as s3
 import checkpoint_out as checkpoint
 import ci.jenkins as jenkins
