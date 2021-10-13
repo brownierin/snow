@@ -1,8 +1,9 @@
-name: "Static Analysis PR Scan"
+name: "Static Analysis Daily Scan"
 
 on: 
   schedule:
     - cron: '57, 5, *, *, *'
+  push
 
 jobs:
   static_analysis:
