@@ -1,8 +1,4 @@
-import json
-import argparse
-import os
-# Temporarily disabled the import requires Python 3.5.9 and the local server runs on Python 3.5.2.
-#import logging
+#!/usr/bin/env python3
 
 """
 How to run
@@ -14,6 +10,9 @@ This script has two purposes:
         run with -c and the required commands.
 
 """
+import json
+import argparse
+import os
 
 
 def open_json(filename):
@@ -36,7 +35,10 @@ def open_false_positives(filename):
 
     # When the false positive file doesn't exists we throw an error as this should never occur.
     if not os.path.exists(filename):
-        raise Exception("The false positive file '{}' doesn't exists. Verify that the project isn't missing it's false_positives.json file.".format(filename))
+        raise Exception(
+            "The false positive file '{}' doesn't exists. Verify that the project isn't"
+            " missing it's false_positives.json file.".format(filename)
+        )
 
     data = open_json(filename)
     for fp in data:
@@ -82,7 +84,7 @@ def compare_to_last_run(old_output, new_output, output_filename):
     for new_issue_hash in new_hashes:
         if new_issue_hash in old_hashes:
             new["results"].remove(new_hashes[new_issue_hash])
-                    
+
     write_json(output_filename, new)
     return new
 
@@ -130,7 +132,6 @@ if __name__ == "__main__":
         help="remove false positives from scan results",
     )
     args = parser.parse_args()
-    #logging.basicConfig(level=logging.WARN)
     if args.remove_false_positives and (
         args.fp_filename is None
         or args.json_filename is None
