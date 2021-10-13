@@ -35,8 +35,8 @@ jobs:
       - name: get prior commit hash
         run: |
           cd ${{ env.working-directory }}
-          git fetch
-          git checkout master@{yesterday}
+          DATE=$(date -d yesterday)
+          git rev-list -1 --before="$DATE" dry-it-up
           export commit=$(git rev-parse HEAD)
 
       - name: Download artifacts
