@@ -32,22 +32,6 @@ jobs:
           path: snow
           fetch-depth: 0
 
-      - name: get prior commit hash
-        run: |
-          cd ${{ env.working-directory }}
-          DATE=$(date -d yesterday)
-          git rev-list -1 --before="$DATE" dry-it-up
-          export commit=$(git rev-parse HEAD)
-
-      - name: Download artifacts
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          workflow: daily_scan.yaml
-          name: results-folder
-          commit: ${{ env.commit }}
-
-
-
       - name: Check out repository code
         uses: actions/checkout@v2
         with:
@@ -60,6 +44,21 @@ jobs:
           cd ${{ env.working-directory }}
           mkdir -p repositories/${{ github.event.repository.name }}
           mv repo/.[!.]* repositories/${{ github.event.repository.name }}
+
+      - name: get prior commit hash
+        run: |
+          cd ${{ env.working-directory }}/repositories/${{ github.event.repository.name }}
+          DATE=$(date -d yesterday)
+          BRANCH=$(git remote show origin | sed -n '/HEAD branch/s/.*: //p')
+          git rev-list -1 --before="$DATE" $BRANCH
+          export commit=$(git rev-parse HEAD)
+
+      - name: Download artifacts
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: daily_scan.yaml
+          name: results-folder
+          commit: ${{ env.commit }}
 
       - name: Install python3
         uses: actions/setup-python@v2
