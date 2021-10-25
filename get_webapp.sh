@@ -6,6 +6,8 @@ webapp_repo=$WORKSPACE/snow/repositories/webapp/
 webapp_url=git@slack-github.com:slack/webapp
 ref=/mnt/persist/https___slack_github_com_slack_webapp
 
+mkdir -p $WORKSPACE/snow/repositories
+
 if [ ! -d $webapp_repo ]
 then
     echo "[+] clone webapp from reference"
