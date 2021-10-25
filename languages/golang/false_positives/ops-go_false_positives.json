@@ -648,5 +648,13 @@
         "reason": "gaz is internal-facing only and exposure of pprof data is acceptable",
         "jira": "CLOUDC-1046",
         "risk": "Low"
+    },
+    "fb0ff13bce11026bf5a72b4dec407081164437d618ac89ed997a6ca94f22f8ff": {
+        "message": "A security scan detected use of a potentially unsafe method to execute a command.  If user controlled input is passed to the exec.Command() function, an attacker may be able to inject code that will execute in the underlying server's system shell, resulting in total compromise of the application and possibly other applications running in the same environment.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "cmds/userman/shell.go#55",
+        "reason": "",
+        "jira": "",
+        "risk": ""
     }
 }
