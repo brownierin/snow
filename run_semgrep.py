@@ -16,6 +16,10 @@ import re
 import glob
 import datetime
 from pathlib import Path
+from progress.spinner import Spinner
+import threading
+import time
+
 
 import slack
 import webhooks
@@ -383,6 +387,12 @@ def process_results(output_file):
         print("[!!] Not enough runs for comparison")
 
 
+def run_docker(command):
+    # Not using run_command here because we want to ignore the exit code of semgrep.
+    process = subprocess.run(command, shell=True, stdout=subprocess.PIPE)
+    return process.stdout.decode("utf-8")
+
+
 def scan_repo(repo, language, git_repo_url, git_sha):
     """
     Scans the repo with semgrep and adds metadata
@@ -402,11 +412,19 @@ def scan_repo(repo, language, git_repo_url, git_sha):
     )
     print(f"[+] Docker scan command:\n {semgrep_command}")
     print(f"[+] Running Semgrep")
-    # Not using run_command here because we want to ignore the exit code of semgrep.
-    process = subprocess.run(semgrep_command, shell=True, stdout=subprocess.PIPE)
-    results = process.stdout.decode("utf-8")
+
+    # progress counter
+    spinner = Spinner(message="Elapsed time: %(elapsed_td)s ", suffix="\n")
+    x = threading.Thread(target=run_docker, args=(semgrep_command,))
+    x.start()
+    time.sleep(4)
+    while x.is_alive():
+        time.sleep(1)
+        spinner.next()
+    results = x.join()
+
     if git != 'ghc':
-        print("[+] Semgrep scan results:")
+        print("\n[+] Semgrep scan results:")
         if print_text == "true":
             print(results)
     add_metadata(repo, language, git_repo_url, git_sha, output_file)
@@ -606,11 +624,10 @@ def find_repo_language(repo):
     """
     Every repo in SNOW is tied to a language in the enabled file.
     The repo name must be exactly the same as what is shown on GitHub.
-    We will loop through the enabled files until we find the
-    associated language to the repo.
-    Note: Right now this script only supports one language per repo.
+    We will loop through the enabled files until we find all languages
+    associated with the repo.
     """
-    repo_language = ""
+    repo_language = []
     for language in CONFIG.sections():
         if language.find('language-') != -1:
             enabled_filename = set_enabled_filename()
@@ -621,14 +638,15 @@ def find_repo_language(repo):
                 for line in content:
                     if line == repo:
                         print(f"[+] {repo} is written in {language}")
-                        repo_language = language
+                        repo_language.append(language)
                 f.close()
-            return repo_language
-    if repo_language == "":
+    if not repo_language:
         raise Exception(
             f"[!!] No language found in snow for repo {repo}. "
             "Check in with #triage-prodsec!"
         )
+    print(f'[+] repo languages are: {repo_language}')
+    return repo_language
 
 
 def run_semgrep_pr(repo):
@@ -647,7 +665,8 @@ def run_semgrep_pr(repo):
     get_docker_image()
 
     repo_language = find_repo_language(repo)
-    config_language = f"language-{repo_language}"
+    for lang in repo_language:
+        config_languages = [f"language-{lang}" for lang in repo_language]
     git_repo_url = set_github_url()
 
     slack.commit_head(git)
@@ -659,7 +678,9 @@ def run_semgrep_pr(repo):
     # Make sure you are on the branch to scan by switching to it.
     process = run_command(f"git -C {repo_dir} checkout -f {git_sha_branch}")
     print(f"[+] Branch SHA: {git_sha_branch}")
-    scan_repo(repo, repo_language, git_repo_url, git_sha_branch_short)
+    for lang in repo_language:
+        print(f'[+] repo language is {lang}')
+        scan_repo(repo, lang, git_repo_url, git_sha_branch_short)
 
     cmd = run_command(f"git -C {repo_dir} branch --list --remote origin/master")
     git_sha_master = run_command(
@@ -682,53 +703,59 @@ def run_semgrep_pr(repo):
     cmd = f"git -C {repo_dir} checkout -f {git_sha_master}"
     process = run_command(cmd)
     print(f"[+] Master Checkout: {process.stdout.decode('utf-8')}")
-    scan_repo(repo, repo_language, git_repo_url, git_sha_master_short)
+    for lang in repo_language:
+        scan_repo(repo, lang, git_repo_url, git_sha_master_short)
+        prefix = f"{RESULTS_DIR}{lang}-{repo}-"
+        master_out = f"{prefix}{git_sha_master_short}.json"
+        branch_out = f"{prefix}{git_sha_branch_short}.json"
+        comparison_out = f"{prefix}{git_sha_master_short}-{git_sha_branch_short}.json"
+        comparison.compare_to_last_run(master_out, branch_out, comparison_out)
 
-    prefix = f"{RESULTS_DIR}{repo_language}-{repo}-"
-    master_out = f"{prefix}{git_sha_master_short}.json"
-    branch_out = f"{prefix}{git_sha_branch_short}.json"
-    comparison_out = f"{prefix}{git_sha_master_short}-{git_sha_branch_short}.json"
-    comparison.compare_to_last_run(master_out, branch_out, comparison_out)
+        # If there any vulnerabilities detected, remove the false positives.
+        # Note: False positives would rarely be removed because it would most
+        # likely be caught in the above diff check
+        # Save as a new filename appending -parsed.json to the end.
+        # IE: golang-rains-6466c2e-2e29dd8-parsed.json
+        json_filename = f"{prefix}{git_sha_master_short}-{git_sha_branch_short}.json"
+        parsed_filename = (
+            f"{prefix}{git_sha_master_short}-{git_sha_branch_short}-parsed.json"
+        )
+        fp_file = (
+            f"{SNOW_ROOT}/languages/{lang}/false_positives/{repo}_false_positives.json"
+        )
 
-    # If there any vulnerabilities detected, remove the false positives.
-    # Note: False positives would rarely be removed because it would most
-    # likely be caught in the above diff check
-    # Save as a new filename appending -parsed.json to the end.
-    # IE: golang-rains-6466c2e-2e29dd8-parsed.json
-    json_filename = f"{prefix}{git_sha_master_short}-{git_sha_branch_short}.json"
-    parsed_filename = (
-        f"{prefix}{git_sha_master_short}-{git_sha_branch_short}-parsed.json"
-    )
-    fp_file = f"{SNOW_ROOT}/languages/{repo_language}/false_positives/{repo}_false_positives.json"
+        comparison.remove_false_positives(json_filename, fp_file, parsed_filename)
 
-    comparison.remove_false_positives(json_filename, fp_file, parsed_filename)
+        process = run_command(f"git -C {repo_dir} checkout -f {git_sha_branch}")
+        print("[+] Branch Checkout: " + process.stdout.decode("utf-8"))
+        add_hash_id(json_filename, 4, 1, "hash_id")
+        add_hash_id(parsed_filename, 4, 1, "hash_id")
 
-    process = run_command(f"git -C {repo_dir} checkout -f {git_sha_branch}")
-    print("[+] Branch Checkout: " + process.stdout.decode("utf-8"))
-    add_hash_id(json_filename, 4, 1, "hash_id")
-    add_hash_id(parsed_filename, 4, 1, "hash_id")
+        with open(parsed_filename) as fileParsed:
+            data = json.load(fileParsed)
 
-    with open(parsed_filename) as fileParsed:
-        data = json.load(fileParsed)
+        checkpoint.convert(parsed_filename, json_filename, parsed_filename)
 
-    checkpoint.convert(parsed_filename, json_filename, parsed_filename)
+        if os.getenv("ENABLE_S3"):
+            bucket = CONFIG['general']['s3_bucket']
+            filenames = [
+                parsed_filename,
+                json_filename,
+                old_output,
+                new_output,
+                output_filename,
+            ]
+            s3.upload_files(filenames, bucket)
 
-    if os.getenv("ENABLE_S3"):
-        bucket = CONFIG['general']['s3_bucket']
-        filenames = [
-            parsed_filename,
-            json_filename,
-            old_output,
-            new_output,
-            output_filename,
-        ]
-        s3.upload_files(filenames, bucket)
+        content = create_results_blob(data)
+        print(content)
+        webhook_alerts(content)
+        if not data['results'] and global_exit_code == 0:
+            global_exit_code = 0
+        else:
+            global_exit_code = 1
 
-    content = create_results_blob(data)
-    print(content)
-    webhook_alerts(content)
-
-    exit(0) if not data['results'] else exit(1)
+    exit(global_exit_code)
 
 
 def create_results_blob(data):
