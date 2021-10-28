@@ -126,36 +126,27 @@ def create_checkpoint_results_json(results):
         json.dump(results, f, ensure_ascii=False, indent=4)
 
 
-def convert(fp_removed_filename, original_filename, comparison_filename):
-    set_filenames()
-    print(f"[+] Checkpoint artifacts dir: {cibot_artifact_dir}")
-    fp_removed_data = open_json(fp_removed_filename)
-    comparison_data = open_json(comparison_filename)
-    original_data = open_json(original_filename)
-    is_failure = (
-        "results" in fp_removed_data.keys() and len(fp_removed_data["results"]) > 0
-    )
+def human_readable(is_failure, fp_removed_data):
+    with open(checkpoint_text_result, "a+", encoding="utf-8") as f:
+        existing_text = f.read()
+        if existing_text:
+            if "Tests passed" in existing_text and not is_failure:
+                # If the tests previously passed and are still passing,
+                # we don't need to do anything
+                return
+            elif "Tests passed" in existing_text and is_failure:
+                # If the tests previously passed but are now failing,
+                # we want to remove the file contents and only show failures
+                f.seek(0)
+                f.truncate(0)
+            elif "Tests failed" in existing_text and not is_failure:
+                # If there are no more failures, we don't need to append
+                # any data to the file
+                return
+            elif "Tests failed" in existing_text and is_failure:
+                # results should now append automatically
+                print('[+] Tests failed, appending to checkpoint report')
 
-    checkpoint_output = json.dumps(
-        {"original": original_data, "comparison": comparison_data}
-    )
-
-    # Copy the original results as artifact for archival purpose
-    shutil.copy(fp_removed_filename, checkpoint_fprm_out)
-    shutil.copy(original_filename, checkpoint_original_out)
-
-    # Mark the test case "semgrep-scan-non-blocking" as "failed" or "pass" depending on whether we have findings or not.
-    out = [
-        {
-            "level": "failure" if is_failure else "pass",
-            "case": "semgrep-scan-non-blocking",
-            "output": checkpoint_output,
-        }
-    ]
-    create_checkpoint_results_json(out)
-
-    # Generate a human readable version of the results so that people can see what vulnerabilities were found.
-    with open(checkpoint_text_result, "w", encoding="utf-8") as f:
         content = "########################\n"
         content += "# Vulnerability report #\n"
         content += "########################\n"
@@ -205,6 +196,40 @@ def convert(fp_removed_filename, original_filename, comparison_filename):
             content += "----------------------"
 
         f.write(content)
+
+
+def convert(fp_removed_filename, original_filename, comparison_filename):
+    set_filenames()
+    print(f"[+] Checkpoint artifacts dir: {cibot_artifact_dir}")
+    fp_removed_data = open_json(fp_removed_filename)
+    comparison_data = open_json(comparison_filename)
+    original_data = open_json(original_filename)
+    is_failure = (
+        "results" in fp_removed_data.keys() and len(fp_removed_data["results"]) > 0
+    )
+
+    checkpoint_output = json.dumps(
+        {"original": original_data, "comparison": comparison_data}
+    )
+
+    # Copy the original results as artifact for archival purpose
+    shutil.copy(fp_removed_filename, checkpoint_fprm_out)
+    shutil.copy(original_filename, checkpoint_original_out)
+
+    # Mark the test case "semgrep-scan-non-blocking" as "failed"
+    # or "pass" depending on whether we have findings or not.
+    out = [
+        {
+            "level": "failure" if is_failure else "pass",
+            "case": "semgrep-scan-non-blocking",
+            "output": checkpoint_output,
+        }
+    ]
+    create_checkpoint_results_json(out)
+
+    # Generate a human readable version of the results so that
+    # people can see what vulnerabilities were found.
+    human_readable(is_failure, fp_removed_data)
 
 
 def upload_test_result_to_checkpoint(
