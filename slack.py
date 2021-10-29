@@ -3,6 +3,7 @@
 
 import os
 import sys
+import subprocess
 from run_semgrep import run_command
 
 

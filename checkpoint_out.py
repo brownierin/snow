@@ -24,9 +24,7 @@ RESULTS_DIR = os.getenv('PWD') + CONFIG['general']['results']
 
 
 def uberproxy_curl_installed():
-    process = subprocess.Popen(
-        ["slack", "help"], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL
-    )
+    process = subprocess.Popen(["slack", "help"], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
     return "uberproxy-curl" in process.stdout.read().decode("utf-8")
 
 
@@ -45,10 +43,7 @@ def call_checkpoint_api(url, post_params, tsauth_auth_token=None):
     try:
         if tsauth_auth_token is None:
             raw_result = uberproxy_curl(
-                url=CHECKPOINT_API_URL + url,
-                method="POST",
-                headers=headers,
-                content=json.dumps(post_params),
+                url=CHECKPOINT_API_URL + url, method="POST", headers=headers, content=json.dumps(post_params)
             )
 
             return json.loads(raw_result)
@@ -56,9 +51,7 @@ def call_checkpoint_api(url, post_params, tsauth_auth_token=None):
             # External authentication requires a TSAuth token.
             headers["Authorization"] = f"Bearer {tsauth_auth_token}"
 
-            r = requests.post(
-                url=CHECKPOINT_API_URL + url, headers=headers, json=post_params
-            )
+            r = requests.post(url=CHECKPOINT_API_URL + url, headers=headers, json=post_params)
 
             return r.json()
     except Exception as e:
@@ -79,9 +72,7 @@ def uberproxy_curl(url, method, headers={}, content=None):
     for header_key in headers:
         cmdline += ["-H", f"{header_key}: {headers[header_key]}"]
 
-    process = subprocess.Popen(
-        cmdline, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL
-    )
+    process = subprocess.Popen(cmdline, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
 
     return process.stdout.read()
 
@@ -132,13 +123,9 @@ def convert(fp_removed_filename, original_filename, comparison_filename):
     fp_removed_data = open_json(fp_removed_filename)
     comparison_data = open_json(comparison_filename)
     original_data = open_json(original_filename)
-    is_failure = (
-        "results" in fp_removed_data.keys() and len(fp_removed_data["results"]) > 0
-    )
+    is_failure = "results" in fp_removed_data.keys() and len(fp_removed_data["results"]) > 0
 
-    checkpoint_output = json.dumps(
-        {"original": original_data, "comparison": comparison_data}
-    )
+    checkpoint_output = json.dumps({"original": original_data, "comparison": comparison_data})
 
     # Copy the original results as artifact for archival purpose
     shutil.copy(fp_removed_filename, checkpoint_fprm_out)
@@ -146,11 +133,7 @@ def convert(fp_removed_filename, original_filename, comparison_filename):
 
     # Mark the test case "semgrep-scan-non-blocking" as "failed" or "pass" depending on whether we have findings or not.
     out = [
-        {
-            "level": "failure" if is_failure else "pass",
-            "case": "semgrep-scan-non-blocking",
-            "output": checkpoint_output,
-        }
+        {"level": "failure" if is_failure else "pass", "case": "semgrep-scan-non-blocking", "output": checkpoint_output}
     ]
     create_checkpoint_results_json(out)
 
@@ -164,73 +147,78 @@ def convert(fp_removed_filename, original_filename, comparison_filename):
         if not is_failure:
             content += "Tests passed. No new vulnerability identified.\n\n"
         else:
-            content += (
-                "Tests failed. See the information below for more information.\n\n"
-            )
+            content += "Tests failed. See the information below for more information.\n\n"
 
             for issue in fp_removed_data["results"]:
                 path_in_project = semgrep_path_to_relative_path(issue["path"])
                 command_mark_as_fp = "slack request-not-vulnerable "
                 command_mark_as_fp += f"--hash_id={issue['hash_id']} "
-                command_mark_as_fp += (
-                    f"--location=\"{path_in_project}#{issue['start']['line']}\" "
-                )
-                command_mark_as_fp += (
-                    f"--language={fp_removed_data['metadata']['language']} "
-                )
-                command_mark_as_fp += (
-                    f"--repo_name={fp_removed_data['metadata']['repoName']} "
-                )
+                command_mark_as_fp += f"--location=\"{path_in_project}#{issue['start']['line']}\" "
+                command_mark_as_fp += f"--language={fp_removed_data['metadata']['language']} "
+                command_mark_as_fp += f"--repo_name={fp_removed_data['metadata']['repoName']} "
                 command_mark_as_fp += "--message=\"{}\" ".format(
-                    issue['extra']['message']
-                    .replace('\"', '\'')
-                    .replace('`', '\'')
-                    .replace('\n', ' ')
+                    issue['extra']['message'].replace('\"', '\'').replace('`', '\'').replace('\n', ' ')
                 )
                 command_mark_as_fp += f"--check_id={issue['check_id']} "
 
                 content += "----------------------\n"
                 content += "Rule : {}\n".format(issue["check_id"])
-                content += "Location : {}\n".format(
-                    path_in_project + ":" + str(issue["start"]["line"])
-                )
+                content += "Location : {}\n".format(path_in_project + ":" + str(issue["start"]["line"]))
                 content += "Affected lines : {}\n".format(issue["extra"]["lines"])
                 content += "Message : {}\n".format(issue["extra"]["message"])
                 content += "\n"
-                content += (
-                    "Request to be marked as not vulnerable (command line) : {}\n"
-                    .format(command_mark_as_fp)
-                )
+                content += "Request to be marked as not vulnerable (command line) : {}\n".format(command_mark_as_fp)
 
             content += "----------------------"
 
         f.write(content)
 
 
+def upload_pr_scan(branch, master):
+    current_time = int(time.time())
+
+    originals = set()
+    for file in glob.glob(f"{RESULTS_DIR}/*.json"):
+        prefix = file.split('-')[0:-1]
+        originals.append(f"{prefix}.json")
+
+    for semgrep_output_file in originals:
+        with open(semgrep_output_file, "r") as f:
+            semgrep_content = json.load(f)
+
+        comparison_filename = semgrep_output_file.replace(".json", "-parsed.json")
+        if os.path.exists(comparison_filename):
+            with open(comparison_filename, "r") as f:
+                semgrep_comparison_content = json.load(f)
+        else:
+            semgrep_comparison_content = {"results": []}
+
+        is_failure = len(semgrep_content["results"]) > 0
+        output_data = json.dumps({"original": semgrep_content, "comparison": semgrep_comparison_content})
+
+        exit_code = upload_test_result_to_checkpoint(
+            test_name=f"semgrep-scan-pr",
+            output_data=output_data,
+            repo=f'ghc/tinyspeck/{semgrep_content["metadata"]["repoName"]}',
+            date_started=current_time,
+            date_finished=current_time,
+            branch="master",
+            commit_head=branch,
+            commit_master=master,
+            is_failure=is_failure,
+        )
+    return exit_code
+
+
 def upload_test_result_to_checkpoint(
-    test_name,
-    output_data,
-    repo,
-    date_started,
-    date_finished,
-    branch,
-    commit_head,
-    commit_master,
-    is_failure,
+    test_name, output_data, repo, date_started, date_finished, branch, commit_head, commit_master, is_failure
 ):
     tsauth_auth_token = get_tsauth_auth_token()
 
-    if (
-        not tsauth_auth_token or tsauth_auth_token.strip() == ""
-    ) and not uberproxy_curl_installed():
+    if (not tsauth_auth_token or tsauth_auth_token.strip() == "") and not uberproxy_curl_installed():
         text = """:banger-alert: :snowflake:Daily :block-s: :block-e: :block-m: :block-g: :block-r: :block-e: :block-p: Scan Error:snowflake::banger-alert:\nTSAuth token couldn't be found. We can't upload results to checkpoint !"""
-        cmd = (
-            f"echo \"{text}\" | slack --channel={CONFIG['general']['alertchannel']}"
-            " --cat --user=SNOW "
-        )
-        subprocess.run(
-            cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
-        )
+        cmd = f"echo \"{text}\" | slack --channel={CONFIG['general']['alertchannel']} --cat --user=SNOW "
+        subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         print(
             "No TSAuth token found. The results of this scan won't be uploaded to"
             " checkpoint. Please reach out to #triage-prodsec if you see this error"
@@ -268,17 +256,13 @@ def upload_test_result_to_checkpoint(
     call_result = call_checkpoint_api(url_stub, test_results, tsauth_auth_token)
 
     if call_result["ok"] == False:
-        clean_error_results = (
-            call_result['error'].replace('\"', '').replace('`', '').replace('$', '')
-        )
+        clean_error_results = call_result['error'].replace('\"', '').replace('`', '').replace('$', '')
         text = """:banger-alert: :snowflake:Daily :block-s: :block-e: :block-m: :block-g: :block-r: :block-e: :block-p: Scan Error:snowflake::banger-alert:\nCheckpoint results upload failed: """
         cmd = (
             f"echo \"{text}{clean_error_results}\" | slack"
             f" --channel={CONFIG['general']['alertchannel']} --cat --user=SNOW "
         )
-        subprocess.run(
-            cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
-        )
+        subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
         print(f"Error while uploading results to checkpoint : {call_result['error']}")
         return 1
@@ -288,13 +272,12 @@ def upload_test_result_to_checkpoint(
 def upload_daily_scan_results_to_checkpoint():
     current_time = int(time.time())
 
-    for semgrep_output_file in glob.glob(f"{RESULTS_DIR}/*.json"):
-        # Upload only the original results to checkpoint
-        if semgrep_output_file.endswith("-fprm.json") or semgrep_output_file.endswith(
-            "-comparison.json"
-        ):
-            continue
+    originals = set()
+    for file in glob.glob(f"{RESULTS_DIR}/*.json"):
+        prefix = file.split('-')[0:-1]
+        originals.append(f"{prefix}.json")
 
+    for semgrep_output_file in originals:
         with open(semgrep_output_file, "r") as f:
             semgrep_content = json.load(f)
 
@@ -306,9 +289,7 @@ def upload_daily_scan_results_to_checkpoint():
             semgrep_comparison_content = {"results": []}
 
         is_failure = len(semgrep_content["results"]) > 0
-        output_data = json.dumps(
-            {"original": semgrep_content, "comparison": semgrep_comparison_content}
-        )
+        output_data = json.dumps({"original": semgrep_content, "comparison": semgrep_comparison_content})
 
         exit_code = upload_test_result_to_checkpoint(
             test_name=f"semgrep-scan-daily-{jenkins.get_job_enviroment()}",
@@ -325,17 +306,11 @@ def upload_daily_scan_results_to_checkpoint():
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description="Converts a semgrep JSON result to checkpoint json out"
-    )
+    parser = argparse.ArgumentParser(description="Converts a semgrep JSON result to checkpoint json out")
     parser.add_argument(
-        "-f",
-        "--false_positive_out",
-        help="json comparison file from semgrep output with false positives removed",
+        "-f", "--false_positive_out", help="json comparison file from semgrep output with false positives removed"
     )
     parser.add_argument("-o", "--original_out", help="json file from semgrep output")
-    parser.add_argument(
-        "-c", "--comparison_out", help="json file comparison from semgrep output"
-    )
+    parser.add_argument("-c", "--comparison_out", help="json file comparison from semgrep output")
     args = parser.parse_args()
     convert(args.false_positive_out, args.original_out, args.comparison_out)

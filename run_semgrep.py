@@ -27,10 +27,10 @@ import ci.jenkins as jenkins
 
 env = os.getenv("env")
 CONFIG = configparser.ConfigParser()
-if env != "snow-test":
-    CONFIG.read('config.cfg')
-else:
+if env == "snow-test":
     CONFIG.read('config-test.cfg')
+else:
+    CONFIG.read('config.cfg')
 
 
 # Global Variables
@@ -49,7 +49,6 @@ org_name = CONFIG['general']['org_name']
 ghe_org_name = CONFIG['general']['ghe_org_name']
 with open(f"{SNOW_ROOT}/{CONFIG['general']['forked_repos']}") as file:
     FORKED_REPOS = json.load(file)
-    file.close()
 print_text = CONFIG['general']['print_text']
 high_alert_text = CONFIG['alerts']['high_alert_text']
 banner = CONFIG['alerts']['banner']
@@ -334,7 +333,6 @@ def add_metadata(repo, language, git_repo_url, git_sha, output_file):
             }
         }
         data.update(metadata)
-        file.close()
 
     with open(output_file_path, 'w') as file:
         json.dump(data, file, sort_keys=True, indent=4)
@@ -389,13 +387,14 @@ def scan_repo(repo, language, git_repo_url, git_sha):
     Returns the results and output file path
     """
     print(f'[+] Scanning repo: {repo}')
-    configlanguage = f"language-{language}"
+    config_lang = f"language-{language}"
+    print(f'[+] Configuration lang string is {config_lang}')
     output_file = f"{language}-{repo}-{git_sha[:7]}.json"
     semgrep_command = (
         "docker run --user \"$(id -u):$(id -g)\" --rm "
         f"-v {SNOW_ROOT}:/src returntocorp/semgrep:{CONFIG['general']['version']} "
-        f"{CONFIG[configlanguage]['config']} "
-        f"{CONFIG[configlanguage]['exclude']} "
+        f"{CONFIG[config_lang]['config']} "
+        f"{CONFIG[config_lang]['exclude']} "
         "--json --dangerously-allow-arbitrary-code-execution-from-rules "
         f"-o /src{CONFIG['general']['results']}{output_file} "
         f"{CONFIG['general']['repositories'][1:]}{repo}"
@@ -435,7 +434,6 @@ def add_hash_id(jsonFile, start_line, end_line, name):
 
     with open(jsonFile, "r") as file:
         data = json.load(file)
-        file.close()
 
     for issue in data["results"]:
         # Check issue metadata
@@ -460,7 +458,6 @@ def add_hash_id(jsonFile, start_line, end_line, name):
 
     with open(jsonFile, "w+") as file:
         file.write(json.dumps(data))
-        file.close()
 
 
 def process_one_result(result, github_url, repo_name, github_branch):
@@ -587,10 +584,10 @@ def webhook_alerts(data):
 
 
 def set_enabled_filename():
-    if env != 'snow-test':
-        return 'enabled'
-    else:
+    if env == 'snow-test':
         return 'enabled-test'
+    else:
+        return 'enabled'
 
 
 def set_github_url():
@@ -611,19 +608,23 @@ def find_repo_language(repo):
     Note: Right now this script only supports one language per repo.
     """
     repo_language = ""
-    for language in CONFIG.sections():
-        if language.find('language-') != -1:
+    for entry in CONFIG.sections():
+        if entry.find('language-') != -1:
             enabled_filename = set_enabled_filename()
-            language = CONFIG[language]['language']
-            filename = f"{LANGUAGES_DIR}/{language}/{enabled_filename}"
+            language = CONFIG[entry]['language']
+            print(f"[+] entry language is {language}")
+            filename = f"{LANGUAGES_DIR}{language}/{enabled_filename}"
+            print(filename)
             with open(filename) as f:
                 content = f.read().splitlines()
                 for line in content:
                     if line == repo:
                         print(f"[+] {repo} is written in {language}")
                         repo_language = language
-                f.close()
-            return repo_language
+                        return repo_language
+    print(f'[+] repo-lang is {repo_language}')
+    f = open(f"{LANGUAGES_DIR}golang/{enabled_filename}", 'r')
+    print(f'[+] {f.read()}')
     if repo_language == "":
         raise Exception(
             f"[!!] No language found in snow for repo {repo}. "
@@ -662,9 +663,14 @@ def run_semgrep_pr(repo):
     scan_repo(repo, repo_language, git_repo_url, git_sha_branch_short)
 
     cmd = run_command(f"git -C {repo_dir} branch --list --remote origin/master")
-    git_sha_master = run_command(
-        f"git -C {repo_dir} rev-parse refs/remotes/origin/master"
-    ).stdout.decode('utf-8')
+    try:
+        cmd = f"git -C {repo_dir} rev-parse refs/remotes/origin/master"
+        git_sha_master = subprocess.run(cmd, shell=True, stderr=subprocess.STDOUT)
+        git_sha_master = git_sha_master.stdout.decode('utf-8')
+    except subprocess.CalledProcessError:
+        cmd = f"git -C {repo_dir} rev-parse master"
+        git_sha_master = run_command(cmd)
+        git_sha_master = git_sha_master.stdout.decode('utf-8').strip()
     git_sha_master_short = git_sha_master[:7]
     print(f"[+] Master SHA: {git_sha_master}")
 
@@ -712,6 +718,9 @@ def run_semgrep_pr(repo):
         data = json.load(fileParsed)
 
     checkpoint.convert(parsed_filename, json_filename, parsed_filename)
+    if git == 'ghc':
+        exit_code = checkpoint.upload_pr_scan(git_sha_branch, git_sha_master)
+        global_exit_code = 0 if exit_code == 0 else exit_code
 
     if os.getenv("ENABLE_S3"):
         bucket = CONFIG['general']['s3_bucket']
@@ -728,7 +737,7 @@ def run_semgrep_pr(repo):
     print(content)
     webhook_alerts(content)
 
-    exit(0) if not data['results'] else exit(1)
+    gloabl_exit_code = 0 if not data['results'] else 1
 
 
 def create_results_blob(data):
