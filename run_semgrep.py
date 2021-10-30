@@ -47,7 +47,6 @@ FORKED_REPOS = {
     "unreleased"    : "https://github.com/electron/unreleased.git",
     "secor"         : "https://github.com/pinterest/secor.git",
     "trop"          : "https://github.com/electron/trop.git",
-    "hive"          : "https://github.com/apache/hive.git",
     "kafka"         : "https://github.com/apache/kafka.git",
     "apache-ranger" : "https://github.com/apache/ranger.git",
     "fbthrift"      : "https://github.com/facebook/fbthrift.git"
