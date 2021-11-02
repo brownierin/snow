@@ -7,7 +7,7 @@
 export PWDTLD=$(pwd)
 cd repositories
 rm -rf snow
-git clone git@github.com:tinyspeck/snow.git
+git clone git@github.com:slackhq/snow.git
 cd $PWDTLD
 
 export BRANCH_NAME=$(git -C repositories/snow branch --show-current)

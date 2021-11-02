@@ -1,4 +1,4 @@
-name: "static analysis"
+name: "Static Analysis Daily Scan"
 
 on: 
   workflow_call:
@@ -23,6 +23,7 @@ jobs:
       CHECKPOINT_TOKEN: ${{ secrets.CHECKPOINT_TOKEN }}
       SNOW_AWS_ACCESS_KEY_ID: ${{ secrets.SNOW_AWS_ACCESS_KEY_ID }}
       SNOW_AWS_SECRET_ACCESS_KEY: ${{ secrets.SNOW_AWS_SECRET_ACCESS_KEY }}
+      commit: commit_hash
     steps:
       - name: Clone snow code
         uses: actions/checkout@v2
@@ -44,6 +45,21 @@ jobs:
           mkdir -p repositories/${{ github.event.repository.name }}
           mv repo/.[!.]* repositories/${{ github.event.repository.name }}
 
+      - name: get prior commit hash
+        run: |
+          cd ${{ env.working-directory }}/repositories/${{ github.event.repository.name }}
+          DATE=$(date -d yesterday)
+          BRANCH=$(git remote show origin | sed -n '/HEAD branch/s/.*: //p')
+          git rev-list -1 --before="$DATE" $BRANCH
+          export commit=$(git rev-parse HEAD)
+
+      - name: Download artifacts
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: daily_scan.yaml
+          name: results-folder
+          commit: ${{ env.commit }}
+
       - name: Install python3
         uses: actions/setup-python@v2
         with:
@@ -62,5 +78,5 @@ jobs:
       - name: Archive scan results
         uses: actions/upload-artifact@v2
         with:
-            name: results folder
+            name: results-folder
             path: results/*

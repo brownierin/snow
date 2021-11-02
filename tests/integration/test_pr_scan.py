@@ -1,3 +1,5 @@
+# -*- coding: future_fstrings -*-
+
 import os
 import shutil
 import json
@@ -12,7 +14,8 @@ TEST SETUP UTILITY - START
 SNOW_ROOT = os.path.realpath(os.path.dirname(os.path.realpath(__file__)) + "/../../")
 TEST_FOLDER = os.path.dirname(os.path.realpath(__file__))
 
-def setup_test_case(test_name, language, false_postive = {}):
+
+def setup_test_case(test_name, language, false_postive={}):
     # Ensure the repositories folder exists
     if not os.path.exists(f"{SNOW_ROOT}/repositories/"):
         os.mkdir(f"{SNOW_ROOT}/repositories/")
@@ -24,7 +27,7 @@ def setup_test_case(test_name, language, false_postive = {}):
     # previous run. We shouldn't keep it.
     if os.path.exists(temp_folder):
         shutil.rmtree(temp_folder)
-    
+
     os.mkdir(temp_folder)
 
     # Create an empty git local repo
@@ -36,19 +39,22 @@ def setup_test_case(test_name, language, false_postive = {}):
         subprocess.run(f"cp -r {source_folder}/{subfolder}/* {temp_folder}", shell=True)
         subprocess.run(f"git -C {temp_folder} add .", shell=True)
         subprocess.run(f"git -C {temp_folder} commit -m {subfolder}", shell=True)
-        commit_hash = subprocess.Popen(f"git -C {temp_folder} show -s --format=%H", stdout=subprocess.PIPE, shell=True).stdout.read()
+        commit_hash = subprocess.Popen(
+            f"git -C {temp_folder} show -s --format=%H", stdout=subprocess.PIPE, shell=True
+        ).stdout.read()
         commit_hash = commit_hash.strip()
         revision[subfolder] = commit_hash
 
     # Make the temp project "enabled"
     with open(f"{SNOW_ROOT}/languages/{language}/enabled", "a") as f:
         f.write(test_name + "\n")
-    
+
     # Create the false positives file of the temp project
     with open(f"{SNOW_ROOT}/languages/{language}/false_positives/{test_name}_false_positives.json", "w") as f:
-        json.dump(false_postive , f, indent=4)
+        json.dump(false_postive, f, indent=4)
 
     return revision
+
 
 def take_down_case(test_name, language):
     # Clean temp project
@@ -65,6 +71,7 @@ def take_down_case(test_name, language):
 
     # Remove the false postives file
     os.remove(f"{SNOW_ROOT}/languages/{language}/false_positives/{test_name}_false_positives.json")
+
 
 def do_scan(test_name, pr_commit, master_commit):
     with tempfile.TemporaryDirectory() as checkpoint_out_dir:
@@ -94,8 +101,9 @@ def do_scan(test_name, pr_commit, master_commit):
             for artefact in os.listdir(checkpoint_out_dir):
                 with open(f"{checkpoint_out_dir}/{artefact}", "r") as f:
                     checkpoint_out_result[artefact] = f.read()
-            
+
             return checkpoint_out_result
+
 
 """
 TEST SETUP UTILITY - START - END
@@ -130,6 +138,7 @@ def test_pr_scan_base_case():
 
     take_down_case(test_name, test_lang)
 
+
 # Test case where master contains one vulnerability and pr contains a new one
 def test_pr_scan_report_new_vuln_only():
     test_name = "pr_scan_report_new_vuln_only"
@@ -149,11 +158,14 @@ def test_pr_scan_report_new_vuln_only():
     output = json.loads(checkpoint_result[0]["output"])
 
     assert len(output["comparison"]["results"]) == 1
-    assert output["comparison"]["results"][0]["check_id"] == "languages.golang.r2c.go.lang.security.bad-tmp-file-creation"
+    assert (
+        output["comparison"]["results"][0]["check_id"] == "languages.golang.r2c.go.lang.security.bad-tmp-file-creation"
+    )
 
     assert checkpoint_output["exit_code"] > 0
 
     take_down_case(test_name, test_lang)
+
 
 # Test case where the pr contains no new vulnerability that isn't in master
 def test_pr_scan_no_new_vuln():
@@ -179,19 +191,20 @@ def test_pr_scan_no_new_vuln():
 
     take_down_case(test_name, test_lang)
 
+
 # Test case with false positive to suppress
 def test_pr_with_false_positives():
     test_name = "pr_with_false_positives"
     test_lang = "golang"
 
     false_positives = {
-        "5809d6e3655e6771ffdf271998e39ab7545553e858d2c95817603f262d88a404" : {
+        "5809d6e3655e6771ffdf271998e39ab7545553e858d2c95817603f262d88a404": {
             "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
             "check_id": "languages.golang.slack.potential-code-execution-1",
             "location": "test.go",
             "reason": "Test FP",
             "jira": "PRODSEC-XYZ",
-            "risk": "Informational"
+            "risk": "Informational",
         }
     }
 

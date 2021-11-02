@@ -1,10 +1,13 @@
-name: "Static Analysis PR Scan"
+name: "Static Analysis Daily Scan"
 
-on: [push, pull_request]
+on:
+  push:
+  schedule:
+    - cron: '*/5 * * * *'
 
 jobs:
-  static_analysis:
-    uses: tinyspeck/snow/.github/workflows/github_action.yaml@dry-it-up
+  daily_static_analysis:
+    uses: tinyspeck/snow/.github/workflows/daily_scan.yaml@dry-it-up
     secrets:       
       SNOW_ALERT_WEBHOOK: ${{ secrets.SNOW_ALERT_WEBHOOK }}
       CHECKPOINT_TOKEN: ${{ secrets.CHECKPOINT_TOKEN }}

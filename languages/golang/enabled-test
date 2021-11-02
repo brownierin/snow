@@ -1,0 +1,4 @@
+pr_scan_base_case
+pr_scan_report_new_vuln_only
+pr_scan_no_new_vuln
+pr_with_false_positives
