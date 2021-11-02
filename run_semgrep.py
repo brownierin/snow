@@ -42,6 +42,7 @@ LANGUAGES_DIR = SNOW_ROOT + CONFIG['general']['languages_dir']
 RESULTS_DIR = SNOW_ROOT + CONFIG['general']['results']
 REPOSITORIES_DIR = SNOW_ROOT + CONFIG['general']['repositories']
 commit_head_env = CONFIG['general']['commit_head']
+master_commit_env = CONFIG['general']['master_commit']
 artifact_dir_env = CONFIG['general']['artifact_dir']
 github_enterprise_url = CONFIG['general']['github_enterprise_url']
 github_com_url = CONFIG['general']['github_com_url']
@@ -72,7 +73,8 @@ def clean_workspace():
 
 def set_exit_code(code):
     global global_exit_code
-    global_exit_code = code
+    if code > 0:
+        global_exit_code = code
 
 
 def clean_results_dir():
@@ -103,9 +105,7 @@ def get_repo_list():
     enabled_filename = set_enabled_filename()
     for language in CONFIG.sections():
         if language.find('language-') != -1:
-            filename = (
-                f"{LANGUAGES_DIR}{CONFIG[language]['language']}/{enabled_filename}"
-            )
+            filename = f"{LANGUAGES_DIR}{CONFIG[language]['language']}/{enabled_filename}"
             with open(filename) as f:
                 enabled = f.read().splitlines()
             repos = repos + [repo for repo in enabled]
@@ -146,21 +146,13 @@ def download_semgrep(version):
 
 
 def check_digest(digest, version):
-    command = (
-        f"docker inspect --format='{{.RepoDigests}}' returntocorp/semgrep:{version}"
-    )
+    command = f"docker inspect --format='{{.RepoDigests}}' returntocorp/semgrep:{version}"
     process = run_command(command)
     return digest.find((process.stdout).decode("utf-8"))
 
 
 def run_command(command):
-    return subprocess.run(
-        command,
-        shell=True,
-        check=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-    )
+    return subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
 
 def git_pull_repo(repo_path):
@@ -174,9 +166,7 @@ def git_pull_repo(repo_path):
     A pull can also fail if we're in a headless state. The
     checkout below fixes this.
     """
-    symref_process = run_command(
-        f"git -C {repo_path} remote show origin | sed -n '/HEAD branch/s/.*: //p'"
-    )
+    symref_process = run_command(f"git -C {repo_path} remote show origin | sed -n '/HEAD branch/s/.*: //p'")
     default_branch = symref_process.stdout.decode("utf-8")
     try:
         run_command(f"git -C {repo_path} checkout {default_branch}")
@@ -212,10 +202,7 @@ def git_forked_repos(repo, language, git_sha, git_repo_url):
     print(f"[+] Repository is forked from {forked_repo}.")
 
     # fetch the upstream repo
-    command = (
-        f"git -C {repo_path} remote | grep -q '^forked$' || "
-        f"git -C {repo_path} remote add forked {forked_repo}"
-    )
+    command = f"git -C {repo_path} remote | grep -q '^forked$' || git -C {repo_path} remote add forked {forked_repo}"
     run_command(command)
     run_command(f"git -C {repo_path} fetch forked")
 
@@ -228,10 +215,7 @@ def git_forked_repos(repo, language, git_sha, git_repo_url):
     cmd = f"git -C {repo_path} merge-base {git_sha} forked/{remote_master_name}"
     merge_base_process = run_command(cmd)
     forked_commit_id = merge_base_process.stdout.decode("utf-8").strip()
-    print(
-        f"[+] Using the commit id {forked_commit_id} as the "
-        "commit the repo is forked from."
-    )
+    print(f"[+] Using the commit id {forked_commit_id} as the commit the repo is forked from.")
 
     """
     In this special case, we haven't pushed any custom code into the forked 
@@ -327,9 +311,7 @@ def add_metadata(repo, language, git_repo_url, git_sha, output_file):
                 "branch": git_sha,
                 "repoName": repo,
                 "language": language,
-                "timestamp": datetime.datetime.now(
-                    tz=datetime.timezone.utc
-                ).isoformat(),
+                "timestamp": datetime.datetime.now(tz=datetime.timezone.utc).isoformat(),
             }
         }
         data.update(metadata)
@@ -353,9 +335,7 @@ def process_results(output_file):
     """
     fp_diff_outfile = f"{language}-{repo}-{git_sha_short}-fprm.json"
     fp_diff_file_path = RESULTS_DIR + fp_diff_outfile
-    fp_file = (
-        f"{SNOW_ROOT}/languages/{language}/false_positives/{repo}_false_positives.json"
-    )
+    fp_file = f"{SNOW_ROOT}/languages/{language}/false_positives/{repo}_false_positives.json"
 
     """
     Remove false positives from the results
@@ -388,7 +368,6 @@ def scan_repo(repo, language, git_repo_url, git_sha):
     """
     print(f'[+] Scanning repo: {repo}')
     config_lang = f"language-{language}"
-    print(f'[+] Configuration lang string is {config_lang}')
     output_file = f"{language}-{repo}-{git_sha[:7]}.json"
     semgrep_command = (
         "docker run --user \"$(id -u):$(id -g)\" --rm "
@@ -448,9 +427,7 @@ def add_hash_id(jsonFile, start_line, end_line, name):
         if issue["extra"]["lines"] in base_code:
             base_hash = issue["check_id"] + "|" + file_path + "|" + base_code
         else:
-            base_hash = (
-                issue["check_id"] + "|" + file_path + "|" + issue["extra"]["lines"]
-            )
+            base_hash = issue["check_id"] + "|" + file_path + "|" + issue["extra"]["lines"]
 
         res = bytes(base_hash, "utf-8")
         hash_digest = hashlib.sha256(res).hexdigest()
@@ -473,12 +450,8 @@ def process_one_result(result, github_url, repo_name, github_branch):
 
     # Because single line js files exists we truncate the length of the line
     code_lines = result["extra"]["lines"][:300]
-    high_priority_rules_check_id = CONFIG['high-priority'][
-        'high_priority_rules_check_id'
-    ].split('\n')
-    high_priority_rules_message = CONFIG['high-priority'][
-        'high_priority_rules_message'
-    ].split('\n')
+    high_priority_rules_check_id = CONFIG['high-priority']['high_priority_rules_check_id'].split('\n')
+    high_priority_rules_message = CONFIG['high-priority']['high_priority_rules_message'].split('\n')
     code_url = f"{github_url}/blob/{github_branch}/{code_path}#L{str(line_start)}"
     priority = "normal"
     result_builder = (
@@ -614,7 +587,6 @@ def find_repo_language(repo):
             language = CONFIG[entry]['language']
             print(f"[+] entry language is {language}")
             filename = f"{LANGUAGES_DIR}{language}/{enabled_filename}"
-            print(filename)
             with open(filename) as f:
                 content = f.read().splitlines()
                 for line in content:
@@ -623,13 +595,8 @@ def find_repo_language(repo):
                         repo_language = language
                         return repo_language
     print(f'[+] repo-lang is {repo_language}')
-    f = open(f"{LANGUAGES_DIR}golang/{enabled_filename}", 'r')
-    print(f'[+] {f.read()}')
     if repo_language == "":
-        raise Exception(
-            f"[!!] No language found in snow for repo {repo}. "
-            "Check in with #triage-prodsec!"
-        )
+        raise Exception(f"[!!] No language found in snow for repo {repo}. Check in with #triage-prodsec!")
 
 
 def run_semgrep_pr(repo):
@@ -662,15 +629,14 @@ def run_semgrep_pr(repo):
     print(f"[+] Branch SHA: {git_sha_branch}")
     scan_repo(repo, repo_language, git_repo_url, git_sha_branch_short)
 
-    cmd = run_command(f"git -C {repo_dir} branch --list --remote origin/master")
-    try:
-        cmd = f"git -C {repo_dir} rev-parse refs/remotes/origin/master"
-        git_sha_master = subprocess.run(cmd, shell=True, stderr=subprocess.STDOUT)
-        git_sha_master = git_sha_master.stdout.decode('utf-8')
-    except subprocess.CalledProcessError:
+    run_command(f"git -C {repo_dir} branch --list --remote origin/master")
+    if os.environ.get(master_commit_env):
+        git_sha_master = os.environ.get(master_commit_env)
+    else:
         cmd = f"git -C {repo_dir} rev-parse master"
-        git_sha_master = run_command(cmd)
+        git_sha_master = subprocess.run(cmd, shell=True, stderr=subprocess.STDOUT)
         git_sha_master = git_sha_master.stdout.decode('utf-8').strip()
+
     git_sha_master_short = git_sha_master[:7]
     print(f"[+] Master SHA: {git_sha_master}")
 
@@ -679,10 +645,7 @@ def run_semgrep_pr(repo):
         print(f"[+] Artifacts dir is: {os.environ[artifact_dir_env]}")
 
     if git_sha_branch == git_sha_master:
-        print(
-            "[-] Master and HEAD are equal. Need to compare against two different SHAs!"
-            " We won't scan."
-        )
+        print("[-] Master and HEAD are equal. Need to compare against two different SHAs! We won't scan.")
         sys.exit(0)
 
     cmd = f"git -C {repo_dir} checkout -f {git_sha_master}"
@@ -702,9 +665,7 @@ def run_semgrep_pr(repo):
     # Save as a new filename appending -parsed.json to the end.
     # IE: golang-rains-6466c2e-2e29dd8-parsed.json
     json_filename = f"{prefix}{git_sha_master_short}-{git_sha_branch_short}.json"
-    parsed_filename = (
-        f"{prefix}{git_sha_master_short}-{git_sha_branch_short}-parsed.json"
-    )
+    parsed_filename = f"{prefix}{git_sha_master_short}-{git_sha_branch_short}-parsed.json"
     fp_file = f"{SNOW_ROOT}/languages/{repo_language}/false_positives/{repo}_false_positives.json"
 
     comparison.remove_false_positives(json_filename, fp_file, parsed_filename)
@@ -720,24 +681,18 @@ def run_semgrep_pr(repo):
     checkpoint.convert(parsed_filename, json_filename, parsed_filename)
     if git == 'ghc':
         exit_code = checkpoint.upload_pr_scan(git_sha_branch, git_sha_master)
-        global_exit_code = 0 if exit_code == 0 else exit_code
+        set_exit_code(exit_code)
 
     if os.getenv("ENABLE_S3"):
         bucket = CONFIG['general']['s3_bucket']
-        filenames = [
-            parsed_filename,
-            json_filename,
-            old_output,
-            new_output,
-            output_filename,
-        ]
+        filenames = [parsed_filename, json_filename, old_output, new_output, output_filename]
         s3.upload_files(filenames, bucket)
 
     content = create_results_blob(data)
     print(content)
     webhook_alerts(content)
 
-    gloabl_exit_code = 0 if not data['results'] else 1
+    set_exit_code(0) if not data['results'] else set_exit_code(1)
 
 
 def create_results_blob(data):
@@ -774,23 +729,13 @@ def run_semgrep_daily():
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(
-        description="Runs Semgrep, either in daily scan or pull request mode."
-    )
-    parser.add_argument(
-        "-m",
-        "--mode",
-        help="the mode you wish to run semgrep, daily or pr",
-        required=True,
-    )
+    parser = argparse.ArgumentParser(description="Runs Semgrep, either in daily scan or pull request mode.")
+    parser.add_argument("-m", "--mode", help="the mode you wish to run semgrep, daily or pr", required=True)
     parser.add_argument("-r", "--repo", help="the name of the git repo")
     parser.add_argument(
         "-g",
         "--git",
-        help=(
-            "the github url you wish to scan. Supported options: ghe (github"
-            " enterprise) and ghc (githib.com)"
-        ),
+        help="the github url you wish to scan. Supported options: ghe (github enterprise) and ghc (githib.com)",
         required=True,
     )
     parser.add_argument("--s3", help="upload to s3", action='store_true')
