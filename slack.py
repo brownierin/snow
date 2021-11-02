@@ -4,7 +4,7 @@
 import os
 import sys
 import subprocess
-from run_semgrep import run_command
+import run_semgrep as runner
 
 
 def slack_repo(repo, git_repo, repo_path, repo_dir):
@@ -17,23 +17,16 @@ def slack_repo(repo, git_repo, repo_path, repo_dir):
             )
         print("[+] Updating webapp")
         command = (
-            f"git -C {repo_path} "
-            "fetch --tags --force --progress "
-            f"-- {git_repo} +refs/heads/*:refs/remotes/origin1/*"
+            f"git -C {repo_path} fetch --tags --force --progress -- {git_repo} +refs/heads/*:refs/remotes/origin1/*"
         )
-        process = run_command(command)
+        process = runner.run_command(command)
     else:
         return
 
 
 def move_repo_dir(repo_dir, git):
     if git == 'ghe':
-        subprocess.run(
-            "mv ../* ../.* " + repo_dir,
-            shell=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-        )
+        subprocess.run("mv ../* ../.* " + repo_dir, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
 
 def commit_head(git):

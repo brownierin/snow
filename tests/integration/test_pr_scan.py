@@ -37,8 +37,6 @@ def setup_test_case(test_name, language, false_postive={}):
     # Create all the revision of the local repo
     for subfolder in sorted(os.listdir(source_folder)):
         subprocess.run(f"cp -r {source_folder}/{subfolder}/* {temp_folder}", shell=True)
-        test_branch = time.time().split('.')[0]
-        subprocess.run(f"git -C {temp_folder} checkout -b {test_branch}", shell=True)
         subprocess.run(f"git -C {temp_folder} add .", shell=True)
         subprocess.run(f"git -C {temp_folder} commit -m {subfolder}", shell=True)
         commit_hash = subprocess.Popen(
