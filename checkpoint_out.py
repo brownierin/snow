@@ -11,6 +11,7 @@ import glob
 import subprocess
 import chardet
 import ci.jenkins as jenkins
+import webhooks
 
 env = os.getenv("env")
 CONFIG = configparser.ConfigParser()
@@ -61,7 +62,18 @@ def call_checkpoint_api(url, post_params, tsauth_auth_token=None):
         To simplify error handling, we return an object that indicates a failure.
         All the error logic can be handled by the callee of this function.
         """
+        send_webhook(post_params)
         return {"ok": False, "error": str(e)}
+
+
+def send_webhook(post_params):
+    repo = post_params["test_run"]["repo"]
+    master = post_params["test_run"]["commit_master"]
+    branch = post_params["test_run"]["commit_head"]
+    content = (
+        f"Uploading to checkpoint failed!\nGo check {repo} for branch commit {branch}\nversus master commit {master}"
+    )
+    webhooks.send(content)
 
 
 def uberproxy_curl(url, method, headers={}, content=None):
