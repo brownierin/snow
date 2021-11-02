@@ -9,6 +9,7 @@ import configparser
 import time
 import glob
 import subprocess
+import chardet
 import ci.jenkins as jenkins
 
 env = os.getenv("env")
@@ -46,7 +47,8 @@ def call_checkpoint_api(url, post_params, tsauth_auth_token=None):
                 url=CHECKPOINT_API_URL + url, method="POST", headers=headers, content=json.dumps(post_params)
             )
 
-            return json.loads(raw_result)
+            result = json.loads(raw_result.decode(chardet.detect(raw_result)["encoding"]))
+            return result
         else:
             # External authentication requires a TSAuth token.
             headers["Authorization"] = f"Bearer {tsauth_auth_token}"
@@ -180,7 +182,10 @@ def upload_pr_scan(branch, master):
     originals = set()
     for file in glob.glob(f"{RESULTS_DIR}/*.json"):
         prefix = file.split('-')[0:-1]
-        originals.append(f"{prefix}.json")
+        prefix = '-'.join(prefix)
+        # Only upload files from the master and branch scans
+        if branch[:7] in prefix or master[:7] in prefix:
+            originals.add(f"{prefix}.json")
 
     for semgrep_output_file in originals:
         with open(semgrep_output_file, "r") as f:
@@ -264,7 +269,7 @@ def upload_test_result_to_checkpoint(
         )
         subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
-        print(f"Error while uploading results to checkpoint : {call_result['error']}")
+        print(f"Error while uploading results to checkpoint: {call_result['error']}")
         return 1
     return 0
 
