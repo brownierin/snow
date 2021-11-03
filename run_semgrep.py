@@ -63,6 +63,9 @@ def clean_workspace():
     If results are persisted between runs, this method
     cleans up the results dir
     """
+    if no_cleanup:
+        print('[+] Skipping workspace cleanup!')
+        return
     print('[+] Begin workspace cleanup')
     mode = int('775', base=8)
     os.makedirs(RESULTS_DIR, mode=mode, exist_ok=True)
@@ -580,7 +583,6 @@ def find_repo_language(repo):
         if entry.find('language-') != -1:
             enabled_filename = set_enabled_filename()
             language = CONFIG[entry]['language']
-            print(f"[+] entry language is {language}")
             filename = f"{LANGUAGES_DIR}{language}/{enabled_filename}"
             with open(filename) as f:
                 content = f.read().splitlines()
@@ -734,6 +736,7 @@ if __name__ == '__main__':
         required=True,
     )
     parser.add_argument("--s3", help="upload to s3", action='store_true')
+    parser.add_argument("--no-cleanup", help="skip cleanup", action='store_true')
 
     args = parser.parse_args()
 
@@ -742,6 +745,9 @@ if __name__ == '__main__':
     if args.git:
         global git
         git = args.git
+    if args.no_cleanup:
+        global no_cleanup
+        no_cleanup = True
     if args.mode == "daily":
         if args.repo:
             print("[-] Daily mode does not support repo args. Ignoring them.")
