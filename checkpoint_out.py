@@ -10,6 +10,7 @@ import time
 import glob
 import subprocess
 import chardet
+import re
 import ci.jenkins as jenkins
 import webhooks
 
@@ -190,14 +191,18 @@ def convert(fp_removed_filename, original_filename, comparison_filename):
 
 def upload_pr_scan(branch, master):
     current_time = int(time.time())
-
+    regex = r"-[a-f,0-9]{7}-"
     originals = set()
+
     for file in glob.glob(f"{RESULTS_DIR}/*.json"):
-        prefix = file.split('-')[0:-1]
-        prefix = '-'.join(prefix)
-        # Only upload files from the master and branch scans
-        if branch[:7] in prefix or master[:7] in prefix:
-            originals.add(f"{prefix}.json")
+        modified = re.findall(regex, file)
+        if modified:
+            prefix = file.split('-')[0:-1]
+            prefix = '-'.join(prefix)
+
+            # Only upload files from the master and branch scans
+            if branch[:7] in file or master[:7] in file:
+                originals.add(f"{prefix}.json")
 
     for semgrep_output_file in originals:
         with open(semgrep_output_file, "r") as f:
@@ -288,12 +293,15 @@ def upload_test_result_to_checkpoint(
 
 def upload_daily_scan_results_to_checkpoint():
     current_time = int(time.time())
-
+    regex = r"-[a-f,0-9]{7}-"
     originals = set()
+
     for file in glob.glob(f"{RESULTS_DIR}/*.json"):
-        prefix = file.split('-')[0:-1]
-        prefix = '-'.join(prefix)
-        originals.add(f"{prefix}.json")
+        modified = re.findall(regex, file)
+        if modified:
+            prefix = file.split('-')[0:-1]
+            prefix = '-'.join(prefix)
+            originals.add(f"{prefix}.json")
 
     for semgrep_output_file in originals:
         with open(semgrep_output_file, "r") as f:
