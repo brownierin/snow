@@ -37,7 +37,7 @@ def open_false_positives(filename):
     if not os.path.exists(filename):
         raise Exception(
             "The false positive file '{}' doesn't exists. Verify that the project isn't"
-            " missing it's false_positives.json file.".format(filename)
+            " missing its false_positives.json file.".format(filename)
         )
 
     data = open_json(filename)
@@ -90,61 +90,29 @@ def compare_to_last_run(old_output, new_output, output_filename):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description="Removes false positives from the final semgrep report."
+    parser = argparse.ArgumentParser(description="Removes false positives from the final semgrep report.")
+    parser.add_argument(
+        "-fp", "--fp_filename", help="the list of false positives for a given repository. required for -r"
     )
     parser.add_argument(
-        "-fp",
-        "--fp_filename",
-        help="the list of false positives for a given repository. required for -r",
+        "-i", "--json_filename", help="the semgrep json data after hashes are assigned. required for -r"
     )
+    parser.add_argument("-o", "--parsed_filename", help="the resulting output filename. required for -r")
+    parser.add_argument("-od", "--output_diff", help="the file diff results are saved in. required for -c")
+    parser.add_argument("-in", "--input_new", help="the file for the latest scan. required for -c")
+    parser.add_argument("-io", "--input_old", help="the file for the previous scan to compare to. required for -c")
+    parser.add_argument("-c", "--compare", action="store_true", help="compare a previous run to a new run")
     parser.add_argument(
-        "-i",
-        "--json_filename",
-        help="the semgrep json data after hashes are assigned. required for -r",
-    )
-    parser.add_argument(
-        "-o", "--parsed_filename", help="the resulting output filename. required for -r"
-    )
-    parser.add_argument(
-        "-od",
-        "--output_diff",
-        help="the file diff results are saved in. required for -c",
-    )
-    parser.add_argument(
-        "-in", "--input_new", help="the file for the latest scan. required for -c"
-    )
-    parser.add_argument(
-        "-io",
-        "--input_old",
-        help="the file for the previous scan to compare to. required for -c",
-    )
-    parser.add_argument(
-        "-c",
-        "--compare",
-        action="store_true",
-        help="compare a previous run to a new run",
-    )
-    parser.add_argument(
-        "-r",
-        "--remove_false_positives",
-        action="store_true",
-        help="remove false positives from scan results",
+        "-r", "--remove_false_positives", action="store_true", help="remove false positives from scan results"
     )
     args = parser.parse_args()
     if args.remove_false_positives and (
-        args.fp_filename is None
-        or args.json_filename is None
-        or args.parsed_filename is None
+        args.fp_filename is None or args.json_filename is None or args.parsed_filename is None
     ):
         parser.error("-r requires -fp, -i, and -o.")
     elif args.remove_false_positives:
-        remove_false_positives(
-            args.json_filename, args.fp_filename, args.parsed_filename
-        )
-    if args.compare and (
-        args.input_new is None or args.input_old is None or args.output_diff is None
-    ):
+        remove_false_positives(args.json_filename, args.fp_filename, args.parsed_filename)
+    if args.compare and (args.input_new is None or args.input_old is None or args.output_diff is None):
         parser.error("-c requires -io, -in, and -od.")
     elif args.compare:
         compare_to_last_run(args.input_old, args.input_new, args.output_diff)
