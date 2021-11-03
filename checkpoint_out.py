@@ -204,6 +204,10 @@ def upload_pr_scan(branch, master):
             if branch[:7] in file or master[:7] in file:
                 originals.add(f"{prefix}.json")
 
+    for file in originals:
+        if not os.path.exists(file):
+            originals.remove(file)
+
     for semgrep_output_file in originals:
         with open(semgrep_output_file, "r") as f:
             semgrep_content = json.load(f)
@@ -302,6 +306,10 @@ def upload_daily_scan_results_to_checkpoint():
             prefix = file.split('-')[0:-1]
             prefix = '-'.join(prefix)
             originals.add(f"{prefix}.json")
+
+    for file in originals:
+        if not os.path.exists(file):
+            originals.remove(file)
 
     for semgrep_output_file in originals:
         with open(semgrep_output_file, "r") as f:
