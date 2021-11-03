@@ -745,9 +745,9 @@ if __name__ == '__main__':
     if args.git:
         global git
         git = args.git
-    if args.no_cleanup:
-        global no_cleanup
-        no_cleanup = True
+    global no_cleanup
+    no_cleanup = True if args.no_cleanup else False
+
     if args.mode == "daily":
         if args.repo:
             print("[-] Daily mode does not support repo args. Ignoring them.")
