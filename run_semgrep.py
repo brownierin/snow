@@ -63,6 +63,9 @@ def clean_workspace():
     If results are persisted between runs, this method
     cleans up the results dir
     """
+    if no_cleanup:
+        print('[+] Skipping workspace cleanup!')
+        return
     print('[+] Begin workspace cleanup')
     mode = int('775', base=8)
     os.makedirs(RESULTS_DIR, mode=mode, exist_ok=True)
@@ -172,7 +175,7 @@ def git_pull_repo(repo_path):
         run_command(f"git -C {repo_path} checkout {default_branch}")
         run_command(f"git -C {repo_path} pull")
     except:
-        run_command(f"git -C {repo_path} reset --hard origin/{main_branch}")
+        run_command(f"git -C {repo_path} reset --hard origin/{default_branch}")
         run_command(f"git -C {repo_path} pull")
 
 
@@ -182,9 +185,9 @@ def git_ops(repo):
     org = ghe_org_name if git == 'ghe' else org_name
     git_repo = f"git@{git_url}:{org}/{repo}.git"
 
-    slack.slack_repo(repo, git_repo, repo_path, REPOSITORIES_DIR)
-
-    if os.path.isdir(f"{repo_path}"):
+    if slack.is_webapp(repo):
+        slack.slack_repo(repo, git_repo, repo_path, REPOSITORIES_DIR)
+    elif os.path.isdir(f"{repo_path}"):
         print(f"[+] Updating repo: {repo}")
         git_pull_repo(repo_path)
     else:
@@ -281,7 +284,7 @@ def scan_repos():
         Scan the repo and perform the comparison
         """
         results, output_file = scan_repo(repo, language, git_repo_url, git_sha)
-        process_results(output_file)
+        process_results(output_file, repo, language, git_sha[:7])
 
         """
         Special repos are repos that are forked from open-source libraries or projects.
@@ -323,17 +326,12 @@ def add_metadata(repo, language, git_repo_url, git_sha, output_file):
         add_hash_id(output_file_path, 4, 1, "hash_id")
 
 
-def process_results(output_file):
+def process_results(output_file, repo, language, sha):
     output_file_path = f"{RESULTS_DIR}{output_file}"
-    values = output_file.split('-')
-    language = values[0]
-    repo = values[1]
-    git_sha_short = values[2]
-
     """
     Note: "fprm" stands for false positives removed
     """
-    fp_diff_outfile = f"{language}-{repo}-{git_sha_short}-fprm.json"
+    fp_diff_outfile = f"{language}-{repo}-{sha}-fprm.json"
     fp_diff_file_path = RESULTS_DIR + fp_diff_outfile
     fp_file = f"{SNOW_ROOT}/languages/{language}/false_positives/{repo}_false_positives.json"
 
@@ -585,7 +583,6 @@ def find_repo_language(repo):
         if entry.find('language-') != -1:
             enabled_filename = set_enabled_filename()
             language = CONFIG[entry]['language']
-            print(f"[+] entry language is {language}")
             filename = f"{LANGUAGES_DIR}{language}/{enabled_filename}"
             with open(filename) as f:
                 content = f.read().splitlines()
@@ -739,6 +736,7 @@ if __name__ == '__main__':
         required=True,
     )
     parser.add_argument("--s3", help="upload to s3", action='store_true')
+    parser.add_argument("--no-cleanup", help="skip cleanup", action='store_true')
 
     args = parser.parse_args()
 
@@ -747,6 +745,9 @@ if __name__ == '__main__':
     if args.git:
         global git
         git = args.git
+    global no_cleanup
+    no_cleanup = True if args.no_cleanup else False
+
     if args.mode == "daily":
         if args.repo:
             print("[-] Daily mode does not support repo args. Ignoring them.")
