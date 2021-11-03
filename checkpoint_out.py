@@ -292,7 +292,8 @@ def upload_daily_scan_results_to_checkpoint():
     originals = set()
     for file in glob.glob(f"{RESULTS_DIR}/*.json"):
         prefix = file.split('-')[0:-1]
-        originals.append(f"{prefix}.json")
+        prefix = '-'.join(prefix)
+        originals.add(f"{prefix}.json")
 
     for semgrep_output_file in originals:
         with open(semgrep_output_file, "r") as f:
