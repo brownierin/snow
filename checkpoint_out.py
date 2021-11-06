@@ -11,6 +11,7 @@ import glob
 import subprocess
 import chardet
 import re
+import requests
 import ci.jenkins as jenkins
 import webhooks
 
