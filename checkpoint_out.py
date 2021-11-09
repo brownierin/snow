@@ -259,8 +259,8 @@ def upload_test_result_to_checkpoint(
             "commit_master": commit_master,
             "date_started": date_started,
             "date_finished": date_finished,
-            "cibot_worker": None,  # Empty, this job is not ran as a CI job
-            "ci_job_link": None,  # Empty, this job is not ran as a CI job
+            "cibot_worker": "",  # Empty, this job is not ran as a CI job
+            "ci_job_link": "",  # Empty, this job is not ran as a CI job
             "branch": branch,
             "check_flakiness": False,
         },
@@ -268,10 +268,10 @@ def upload_test_result_to_checkpoint(
             {
                 "case": test_name,
                 "level": "failure" if is_failure else "pass",
-                "owner": [None],  # Empty value, not used
+                "owner": [""],  # Empty value, not used
                 "duration": 0,  # Default value, we don't store any performance metrics for daily scan
                 "output": output_data,
-                "filename": None,  # Empty value, the results aren't specific to a file
+                "filename": "",  # Empty value, the results aren't specific to a file
                 "line": 0,  # Empty value, the results aren't specific to a file
             }
         ],
