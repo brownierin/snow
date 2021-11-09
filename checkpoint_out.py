@@ -10,6 +10,8 @@ import time
 import glob
 import subprocess
 import chardet
+import re
+import requests
 import ci.jenkins as jenkins
 import webhooks
 
@@ -20,7 +22,6 @@ if env != "snow-test":
 else:
     CONFIG.read('config-test.cfg')
 CHECKPOINT_API_URL = CONFIG['general']['checkpoint_api_url']
-CHECKPOINT_TOKEN_ENV = CONFIG['general']['checkpoint_token_env']
 TSAUTH_TOKEN_ENV = CONFIG['general']['tsauth_token_env']
 RESULTS_DIR = os.getenv('PWD') + CONFIG['general']['results']
 
@@ -41,12 +42,11 @@ def call_checkpoint_api(url, post_params, tsauth_auth_token=None):
     local environment which has the uberproxy-curl command
     """
     headers = {"Content-Type": "application/json"}
+    url = f"{CHECKPOINT_API_URL}{url}"
 
     try:
         if tsauth_auth_token is None:
-            raw_result = uberproxy_curl(
-                url=CHECKPOINT_API_URL + url, method="POST", headers=headers, content=json.dumps(post_params)
-            )
+            raw_result = uberproxy_curl(url=url, method="POST", headers=headers, content=json.dumps(post_params))
 
             result = json.loads(raw_result.decode(chardet.detect(raw_result)["encoding"]))
             return result
@@ -54,7 +54,9 @@ def call_checkpoint_api(url, post_params, tsauth_auth_token=None):
             # External authentication requires a TSAuth token.
             headers["Authorization"] = f"Bearer {tsauth_auth_token}"
 
-            r = requests.post(url=CHECKPOINT_API_URL + url, headers=headers, json=post_params)
+            r = requests.post(url=url, headers=headers, json=post_params)
+            if os.environ.get('env') == 'snow-test':
+                print(r.text)
 
             return r.json()
     except Exception as e:
@@ -190,14 +192,20 @@ def convert(fp_removed_filename, original_filename, comparison_filename):
 
 def upload_pr_scan(branch, master):
     current_time = int(time.time())
-
+    regex = r"-[a-f,0-9]{7}-"
     originals = set()
+
     for file in glob.glob(f"{RESULTS_DIR}/*.json"):
-        prefix = file.split('-')[0:-1]
-        prefix = '-'.join(prefix)
-        # Only upload files from the master and branch scans
-        if branch[:7] in prefix or master[:7] in prefix:
-            originals.add(f"{prefix}.json")
+        modified = re.findall(regex, file)
+        if modified:
+            prefix = file.split('-')[0:-1]
+            prefix = '-'.join(prefix)
+
+            # Only upload files from the master and branch scans
+            if branch[:7] in file or master[:7] in file:
+                originals.add(f"{prefix}.json")
+
+    originals = rm_from_set(originals)
 
     for semgrep_output_file in originals:
         with open(semgrep_output_file, "r") as f:
@@ -286,13 +294,27 @@ def upload_test_result_to_checkpoint(
     return 0
 
 
+def rm_from_set(originals):
+    loop = originals.copy()
+    for file in loop:
+        if not os.path.exists(file):
+            originals.remove(file)
+    return originals
+
+
 def upload_daily_scan_results_to_checkpoint():
     current_time = int(time.time())
-
+    regex = r"-[a-f,0-9]{7}-"
     originals = set()
+
     for file in glob.glob(f"{RESULTS_DIR}/*.json"):
-        prefix = file.split('-')[0:-1]
-        originals.append(f"{prefix}.json")
+        modified = re.findall(regex, file)
+        if modified:
+            prefix = file.split('-')[0:-1]
+            prefix = '-'.join(prefix)
+            originals.add(f"{prefix}.json")
+
+    originals = rm_from_set(originals)
 
     for semgrep_output_file in originals:
         with open(semgrep_output_file, "r") as f:
