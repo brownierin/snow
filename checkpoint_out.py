@@ -22,7 +22,6 @@ if env != "snow-test":
 else:
     CONFIG.read('config-test.cfg')
 CHECKPOINT_API_URL = CONFIG['general']['checkpoint_api_url']
-CHECKPOINT_TOKEN_ENV = CONFIG['general']['checkpoint_token_env']
 TSAUTH_TOKEN_ENV = CONFIG['general']['tsauth_token_env']
 RESULTS_DIR = os.getenv('PWD') + CONFIG['general']['results']
 
@@ -43,12 +42,11 @@ def call_checkpoint_api(url, post_params, tsauth_auth_token=None):
     local environment which has the uberproxy-curl command
     """
     headers = {"Content-Type": "application/json"}
+    url = f"{CHECKPOINT_API_URL}{url}"
 
     try:
         if tsauth_auth_token is None:
-            raw_result = uberproxy_curl(
-                url=CHECKPOINT_API_URL + url, method="POST", headers=headers, content=json.dumps(post_params)
-            )
+            raw_result = uberproxy_curl(url=url, method="POST", headers=headers, content=json.dumps(post_params))
 
             result = json.loads(raw_result.decode(chardet.detect(raw_result)["encoding"]))
             return result
@@ -56,7 +54,8 @@ def call_checkpoint_api(url, post_params, tsauth_auth_token=None):
             # External authentication requires a TSAuth token.
             headers["Authorization"] = f"Bearer {tsauth_auth_token}"
 
-            r = requests.post(url=CHECKPOINT_API_URL + url, headers=headers, json=post_params)
+            r = requests.post(url=url, headers=headers, json=post_params)
+            print(r.text)
 
             return r.json()
     except Exception as e:
@@ -260,8 +259,8 @@ def upload_test_result_to_checkpoint(
             "commit_master": commit_master,
             "date_started": date_started,
             "date_finished": date_finished,
-            "cibot_worker": "",  # Empty, this job is not ran as a CI job
-            "ci_job_link": "",  # Empty, this job is not ran as a CI job
+            "cibot_worker": None,  # Empty, this job is not ran as a CI job
+            "ci_job_link": None,  # Empty, this job is not ran as a CI job
             "branch": branch,
             "check_flakiness": False,
         },
@@ -269,10 +268,10 @@ def upload_test_result_to_checkpoint(
             {
                 "case": test_name,
                 "level": "failure" if is_failure else "pass",
-                "owner": [""],  # Empty value, not used
+                "owner": [None],  # Empty value, not used
                 "duration": 0,  # Default value, we don't store any performance metrics for daily scan
                 "output": output_data,
-                "filename": "",  # Empty value, the results aren't specific to a file
+                "filename": None,  # Empty value, the results aren't specific to a file
                 "line": 0,  # Empty value, the results aren't specific to a file
             }
         ],
