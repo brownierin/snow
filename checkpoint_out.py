@@ -55,7 +55,8 @@ def call_checkpoint_api(url, post_params, tsauth_auth_token=None):
             headers["Authorization"] = f"Bearer {tsauth_auth_token}"
 
             r = requests.post(url=url, headers=headers, json=post_params)
-            print(r.text)
+            if os.environ.get('env') == 'snow-test':
+                print(r.text)
 
             return r.json()
     except Exception as e:
