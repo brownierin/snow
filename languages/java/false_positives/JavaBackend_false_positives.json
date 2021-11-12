@@ -1,5 +1,6 @@
 {
-    "2a60eb429f05a0b9f042787b8dbad05c87f15cba924a55cfa6b67e646c22d1fe": {
+    "2a60eb429f05a0b9f042787b8dbad05c87f15cba924a55cfa6b67e646c22d1fe":
+    {
         "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
         "check_id": "languages.java.slack.java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/MessageServer/src/slack/util/restart/PickRandomActiveChannelServer.java#L35-L35",
@@ -7,7 +8,8 @@
         "jira": "PRODSEC-3164",
         "risk": "Informational"
     },
-    "1d9b659727f96928033aa057929ed9f8c05b655a3bf1bbe4e7dc822179484e14": {
+    "1d9b659727f96928033aa057929ed9f8c05b655a3bf1bbe4e7dc822179484e14":
+    {
         "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
         "check_id": "languages.java.slack.java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/MessageServer/src/slack/util/restart/PickRandomActiveTimerServer.java#L37-L37",
@@ -15,7 +17,8 @@
         "jira": "PRODSEC-3164",
         "risk": "Informational"
     },
-    "203313fb64fd874b6ca2cecc884951834804f27162792e601ed2fa4b945738c7": {
+    "203313fb64fd874b6ca2cecc884951834804f27162792e601ed2fa4b945738c7":
+    {
         "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
         "check_id": "languages.java.slack.java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/MessageServer/src/slack/util/restart/PickRandomAdminServer.java#L39-L39",
@@ -23,7 +26,8 @@
         "jira": "PRODSEC-3164",
         "risk": "Informational"
     },
-    "0c1af7eba739958dbd1ab0ded056f4f7ece0d11aab7ba835534c7d40e2be809d": {
+    "0c1af7eba739958dbd1ab0ded056f4f7ece0d11aab7ba835534c7d40e2be809d":
+    {
         "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
         "check_id": "languages.java.slack.java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/MessageServer/src/ts/stats/StatsdClient.java#L61-L61",
@@ -31,7 +35,8 @@
         "jira": "PRODSEC-3164",
         "risk": "Informational"
     },
-    "12d15753ad14cf84d8bf7674846434d424c9d95a072a7fa5618a913b56d5eeb8": {
+    "12d15753ad14cf84d8bf7674846434d424c9d95a072a7fa5618a913b56d5eeb8":
+    {
         "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
         "check_id": "languages.java.slack.java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/MessageServer/src/ts/stats/PercentileData.java#L65-L65",
@@ -39,7 +44,8 @@
         "jira": "PRODSEC-3164",
         "risk": "Informational"
     },
-    "280e66bb697bd1f8e238a4eb2858394520bf19e30d6e3383dfbe67cd9af7aee9": {
+    "280e66bb697bd1f8e238a4eb2858394520bf19e30d6e3383dfbe67cd9af7aee9":
+    {
         "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
         "check_id": "languages.java.slack.java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/MessageServer/src/slack/cs/CSClientBase.java#L212-L212",
@@ -47,7 +53,8 @@
         "jira": "PRODSEC-3164",
         "risk": "Informational"
     },
-    "424118a54d93ba72acfd091b9e2758c0a4a0e2a4ca5b1c587d458a4ef7a3a4bf": {
+    "424118a54d93ba72acfd091b9e2758c0a4a0e2a4ca5b1c587d458a4ef7a3a4bf":
+    {
         "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
         "check_id": "languages.java.slack.java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/MessageServer/src/ts/stats/prometheus/PrometheusHistogram.java#L100-L100",
@@ -55,7 +62,8 @@
         "jira": "PRODSEC-3164",
         "risk": "Informational"
     },
-    "1de1cdb1f43a1a0d40b9eed8c5c90e2e45e2bb26708e6362cb22c88db1918bf8": {
+    "1de1cdb1f43a1a0d40b9eed8c5c90e2e45e2bb26708e6362cb22c88db1918bf8":
+    {
         "message": "Rule 'languages.java.r2c-ci-rules.java.lang.security.audit.crypto.weak-hash.use-of-sha1' triggered.",
         "check_id": "languages.java.r2c-ci-rules.java.lang.security.audit.crypto.weak-hash.use-of-sha1",
         "location": "https://slack-github.com//slack/JavaBackend/blob/1a646f5088c30eb0039838a9d662d51d0ff86cdc/MessageServer/src/ts/net/SimpleWSClient.java#L427-L427",
@@ -63,7 +71,8 @@
         "jira": "PRODSEC-3164",
         "risk": "Informational"
     },
-    "e12f5ec8c5428b6331faffc3c5b2579a7595a90d8b7fad6d8eb7284933c2f566": {
+    "e12f5ec8c5428b6331faffc3c5b2579a7595a90d8b7fad6d8eb7284933c2f566":
+    {
         "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
         "check_id": "languages.java.slack.java.lang.predictable-prng-01",
         "location": "https://slack-github.com//slack/JavaBackend/blob/1a646f5088c30eb0039838a9d662d51d0ff86cdc/MessageServer/src/ts/net/SimpleWSClient.java#L82-L82",
@@ -71,7 +80,8 @@
         "jira": "PRODSEC-3164",
         "risk": "Informational"
     },
-    "64c382652231cabbfb85ac4df0d2f663d0b39ed6cdd2c3132300b3df1159ac5d": {
+    "64c382652231cabbfb85ac4df0d2f663d0b39ed6cdd2c3132300b3df1159ac5d":
+    {
         "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
         "check_id": "languages.java.slack.java.lang.predictable-prng-01",
         "location": "https://slack-github.com//slack/JavaBackend/blob/1a646f5088c30eb0039838a9d662d51d0ff86cdc/MessageServer/src/slack/util/restart/PickRandomItsServer.java#L34-L34",
@@ -79,7 +89,8 @@
         "jira": "PRODSEC-3164",
         "risk": "Informational"
     },
-    "a08a96722194336a00edefa73282c602debb206e4e5856cb3d25c0640b1b08f7": {
+    "a08a96722194336a00edefa73282c602debb206e4e5856cb3d25c0640b1b08f7":
+    {
         "message": "Rule 'languages.java.r2c-ci-rules.java.lang.security.audit.crypto.weak-hash.use-of-md5' triggered.",
         "check_id": "languages.java.r2c-ci-rules.java.lang.security.audit.crypto.weak-hash.use-of-md5",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/MessageServer/src/ts/util/Sys.java#L929-L929",
@@ -87,7 +98,8 @@
         "jira": "PRODSEC-3165",
         "risk": "Low"
     },
-    "c0fbbc07dbe00234fca3b8cbeb4da7e895000665a4f8e1b33d22d4d21bb8ce18": {
+    "c0fbbc07dbe00234fca3b8cbeb4da7e895000665a4f8e1b33d22d4d21bb8ce18":
+    {
         "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
         "check_id": "languages.java.slack.java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/ChannelServerCanHandleSpecifiedMessageRate.java#L42-L42",
@@ -95,7 +107,8 @@
         "jira": "",
         "risk": "False Positive"
     },
-    "2de20a53dca8fc90d0818aa40877cca788620c1a9fa7edb41acaec30b2ce085b": {
+    "2de20a53dca8fc90d0818aa40877cca788620c1a9fa7edb41acaec30b2ce085b":
+    {
         "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
         "check_id": "languages.java.slack.java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/ChannelServerCanHandleSpecifiedNumberOfChannels.java#L171-L171",
@@ -103,7 +116,8 @@
         "jira": "",
         "risk": "False Positive"
     },
-    "9226f27ed293d718aea5e987776e7ba7ef7a59325e9289cb709755090c760863": {
+    "9226f27ed293d718aea5e987776e7ba7ef7a59325e9289cb709755090c760863":
+    {
         "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
         "check_id": "languages.java.slack.java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/ChannelServerCanHandleSpecifiedSubscriptionSize.java#L135-L135",
@@ -111,7 +125,8 @@
         "jira": "",
         "risk": "False Positive"
     },
-    "f4c5f55d8020af35ad0bd91dcf0b91935ede173c07f23e2b4e4bcdfbff9188e2": {
+    "f4c5f55d8020af35ad0bd91dcf0b91935ede173c07f23e2b4e4bcdfbff9188e2":
+    {
         "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
         "check_id": "languages.java.slack.java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/GSPresenceVisibilityDev.java#L31-L31",
@@ -119,7 +134,8 @@
         "jira": "",
         "risk": "False Positive"
     },
-    "46a4defa3e7420ec342d30bcaa3e9ee4640928b15b48004af879c3bb96af1c5f": {
+    "46a4defa3e7420ec342d30bcaa3e9ee4640928b15b48004af879c3bb96af1c5f":
+    {
         "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
         "check_id": "languages.java.slack.java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/LoadTestBase.java#L252-L252",
@@ -127,7 +143,8 @@
         "jira": "",
         "risk": "False Positive"
     },
-    "bd98a33dcde243aefe1b1729080dc6403fd9902c79cad6be27c0576f6db715f6": {
+    "bd98a33dcde243aefe1b1729080dc6403fd9902c79cad6be27c0576f6db715f6":
+    {
         "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
         "check_id": "languages.java.slack.java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/LoadTestBase.java#L631-L631",
@@ -135,7 +152,8 @@
         "jira": "",
         "risk": "False Positive"
     },
-    "cc418a64dc3ae5cc759669fac6ade766b6ee9c351fe81b90090ee27b64edd0a4": {
+    "cc418a64dc3ae5cc759669fac6ade766b6ee9c351fe81b90090ee27b64edd0a4":
+    {
         "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
         "check_id": "languages.java.slack.java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/experimental/GSPresenceLoad.java#L124-L124",
@@ -143,7 +161,8 @@
         "jira": "PRODSEC-3164",
         "risk": "False Positive"
     },
-    "5056f9e39495b3fb802a8d40a61f6ccd8045e02d119b6e1c7aaababcacf7d032": {
+    "5056f9e39495b3fb802a8d40a61f6ccd8045e02d119b6e1c7aaababcacf7d032":
+    {
         "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
         "check_id": "languages.java.slack.java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/experimental/GSPresenceLoad.java#L248-L248",
@@ -151,7 +170,8 @@
         "jira": "",
         "risk": "False Positive"
     },
-    "5b57d32973f06a7162f99791d62ab3e72771205de7c75c4f3517f6bbe0bc7f54": {
+    "5b57d32973f06a7162f99791d62ab3e72771205de7c75c4f3517f6bbe0bc7f54":
+    {
         "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
         "check_id": "languages.java.slack.java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/experimental/GSPresenceLoad.java#L264-L264",
@@ -159,7 +179,8 @@
         "jira": "",
         "risk": "False Positive"
     },
-    "3756d899f3481c84a9596c960feb384ae6fce60b2b52ed38b51becd4815eb1bf": {
+    "3756d899f3481c84a9596c960feb384ae6fce60b2b52ed38b51becd4815eb1bf":
+    {
         "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
         "check_id": "languages.java.slack.java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/experimental/GSPresenceLoad.java#L282-L282",
@@ -167,7 +188,8 @@
         "jira": "",
         "risk": "False Positive"
     },
-    "7964c41f5ca5b96b850427fddafa25d04c93efaf0db239daf232b0b1a3283a7d": {
+    "7964c41f5ca5b96b850427fddafa25d04c93efaf0db239daf232b0b1a3283a7d":
+    {
         "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
         "check_id": "languages.java.slack.java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/experimental/GSWebsocketLoad.java#L56-L56",
@@ -175,7 +197,8 @@
         "jira": "",
         "risk": "False Positive"
     },
-    "5cc089510bfd1e111cc791490d8834e2649e34700926f827870b243b21d3581f": {
+    "5cc089510bfd1e111cc791490d8834e2649e34700926f827870b243b21d3581f":
+    {
         "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
         "check_id": "languages.java.slack.java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/experimental/Presence10KEndpoint1.java#L56-L56",
@@ -183,7 +206,8 @@
         "jira": "",
         "risk": "False Positive"
     },
-    "d84d552a812e8112fa03f86b6f9a5d149c31991f27b26ecf74a690ad0c7aa2de": {
+    "d84d552a812e8112fa03f86b6f9a5d149c31991f27b26ecf74a690ad0c7aa2de":
+    {
         "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
         "check_id": "languages.java.slack.java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/experimental/PresenceServerLoadTestDriver.java#L181-L181",
@@ -191,7 +215,8 @@
         "jira": "",
         "risk": "False Positive"
     },
-    "9a2299c8752fc9422b02d402e850a3aff9be6c0218b9bfa473c353844482ad07": {
+    "9a2299c8752fc9422b02d402e850a3aff9be6c0218b9bfa473c353844482ad07":
+    {
         "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
         "check_id": "languages.java.slack.java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/infra/DeadPigLoadTestCluster.java#L76-L76",
@@ -199,7 +224,8 @@
         "jira": "",
         "risk": "False Positive"
     },
-    "6323b1c4cf7667442cf9e85f90aefd6013c3a5bf6d9a2040f13c38862b64275b": {
+    "6323b1c4cf7667442cf9e85f90aefd6013c3a5bf6d9a2040f13c38862b64275b":
+    {
         "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
         "check_id": "languages.java.slack.java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/infra/DeadPigLoadTestCluster.java#L115-L115",
@@ -207,7 +233,8 @@
         "jira": "",
         "risk": "False Positive"
     },
-    "4da0713002567319cd3cc2e9d47ccebf4e99263978b941ba4ef9ce01c5135928": {
+    "4da0713002567319cd3cc2e9d47ccebf4e99263978b941ba4ef9ce01c5135928":
+    {
         "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
         "check_id": "languages.java.slack.java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/LoadTests/src/slack/loadtests/PresenceServerCanHandleSpecifiedNumberOfUsers.java#L119-L119",
@@ -215,7 +242,8 @@
         "jira": "",
         "risk": "False Positive"
     },
-    "5155c0b5ae4dde8f241cee35a876ac184208d07c93274abcb03c1e79c8e6717b": {
+    "5155c0b5ae4dde8f241cee35a876ac184208d07c93274abcb03c1e79c8e6717b":
+    {
         "message": "texthere",
         "check_id": "checidhere",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/MessageServer/src/ts/util/Sys.java#L929-L929",
@@ -223,7 +251,8 @@
         "jira": "PRODSEC-3144",
         "risk": "Informational"
     },
-    "d8c76c6871a3a1347cdd2bb1f205d96a34c40d628787a2193b5f62fe4847266b": {
+    "d8c76c6871a3a1347cdd2bb1f205d96a34c40d628787a2193b5f62fe4847266b":
+    {
         "message": "Rule Triggered - use-of-md5",
         "check_id": "use-of-md5",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/MessageServer/src/ts/net/SimpleWSClient.java#L427-L427",
@@ -231,7 +260,8 @@
         "jira": "PRODSEC-3144",
         "risk": "Informational"
     },
-    "7185c644df7eda7e9e09e64a001bc895ec371081433f0b543d9f6c909094a315": {
+    "7185c644df7eda7e9e09e64a001bc895ec371081433f0b543d9f6c909094a315":
+    {
         "message": "Rule Triggered - use-of-sha1",
         "check_id": "use-of-sha1",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/MessageServer/src/slack/cs/CSClientBase.java#L212-L212",
@@ -239,7 +269,8 @@
         "jira": "PRODSEC-3144",
         "risk": "Informational"
     },
-    "ebb88d053d5352ce26f059335b9b80c1d54c8171d8298ef7fecc7a138893f2cc": {
+    "ebb88d053d5352ce26f059335b9b80c1d54c8171d8298ef7fecc7a138893f2cc":
+    {
         "message": "Rule Triggered - predictable-prng",
         "check_id": "checidhere",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/MessageServer/src/ts/stats/prometheus/PrometheusHistogram.java#L100-L100",
@@ -247,7 +278,8 @@
         "jira": "PRODSEC-3144",
         "risk": "Informational"
     },
-    "8033885e7869024666d3ca3e36f5eafcb8f755b81b7a4fdca4ab4fc4bf38312f": {
+    "8033885e7869024666d3ca3e36f5eafcb8f755b81b7a4fdca4ab4fc4bf38312f":
+    {
         "message": "predictable-prng",
         "check_id": "Rule Triggered - predictable-prng",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/MessageServer/src/slack/util/restart/PickRandomActiveChannelServer.java#L35-L35",
@@ -255,7 +287,8 @@
         "jira": "PRODSEC-3145",
         "risk": "Informational"
     },
-    "cdd48ed91b68522d31c625e8b516fb54eee805c92ff1da97aec2efab61319389": {
+    "cdd48ed91b68522d31c625e8b516fb54eee805c92ff1da97aec2efab61319389":
+    {
         "message": "predictable-prng",
         "check_id": "Rule Triggered - predictable-prng",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/MessageServer/src/slack/util/restart/PickRandomActiveTimerServer.java#L37-L37",
@@ -263,7 +296,8 @@
         "jira": "PRODSEC-3145",
         "risk": "Low"
     },
-    "8a2b54fc73233976c1ccda2c93bc64b04d034cdb47e7b41938cb88f8052232da": {
+    "8a2b54fc73233976c1ccda2c93bc64b04d034cdb47e7b41938cb88f8052232da":
+    {
         "message": "predictable-prng",
         "check_id": "Rule Triggered - predictable-prng",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/MessageServer/src/slack/util/restart/PickRandomAdminServer.java#L39-L39",
@@ -271,7 +305,8 @@
         "jira": "PRODSEC-3145",
         "risk": "Low"
     },
-    "56efa0a4fe73b1d4c903a6ce4315ed259ecf502487e462cab6a44b2b6c8cf065": {
+    "56efa0a4fe73b1d4c903a6ce4315ed259ecf502487e462cab6a44b2b6c8cf065":
+    {
         "message": "predictable-prng",
         "check_id": "Rule Triggered - predictable-prng",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/MessageServer/src/ts/stats/StatsdClient.java#L61-L61",
@@ -279,12 +314,22 @@
         "jira": "PRODSEC-3145",
         "risk": "Low"
     },
-    "036bd5f8d105c5a086aac11040be691c437cda0d8f303a8e28f303e9c1b880f3": {
+    "036bd5f8d105c5a086aac11040be691c437cda0d8f303a8e28f303e9c1b880f3":
+    {
         "message": "predictable-prng",
         "check_id": "Rule Triggered - predictable-prng",
         "location": "https://slack-github.com/slack/JavaBackend/blob/master/MessageServer/src/ts/net/SimpleWSClient.java#L82-L82",
         "reason": "Was fixed per https://slack-github.com/slack/JavaBackend/commit/1f9bef9bb1eb2a91adbdd3e2187a1872e03ebb19",
         "jira": "PRODSEC-3145",
         "risk": "Low"
+    },
+    "b8084ee16d22e1eec1b3dd5fab8d2a2b3a50efd90506ed61d78e206907adbef9":
+    {
+        "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
+        "check_id": "languages.java.slack.java.lang.predictable-prng-01",
+        "location": "https://slack-github.com/slack/JavaBackend/blob/1d836032060b38ba48c5e6f8c1416c2bbfff523e/MessageServer/src/org/scribe/services/TimestampServiceImpl.java#L49-L49",
+        "reason": "The random used is not used for generating timestamps",
+        "jira": "PRODSEC-3388",
+        "risk": "informational"
     }
 }

@@ -1,10 +1,29 @@
 {
-    "1e7aab7d62154861370f0c1adbde6808dca070c1e86943e0c1dcc63c3c325dc0": {
+    "1e7aab7d62154861370f0c1adbde6808dca070c1e86943e0c1dcc63c3c325dc0":
+    {
         "message": "Rule 'languages.javascript.slack.javascript.potential-sqli-01' triggered.",
         "check_id": "languages.javascript.slack.javascript.potential-sqli-01",
         "location": "https://slack-github.com//slack/app-onedrive/blob/33b9fff3d787bcbc4df07386671eb1ad12988b31/src/api/domains/domain-repo.ts#L191-L191",
         "reason": "SQL query concatenated with prepared statement.",
         "jira": "PRODSEC-3166",
         "risk": "Low"
+    },
+    "c7eaf07b0907f3141c3300d1c053c0bc04368de74688656a921cd8f0c22fdaf8":
+    {
+        "message": "Rule 'CHECKIDS' triggered.",
+        "check_id": "CHECKIDS",
+        "location": "https://slack-github.com/slack/app-onedrive/blob/6b024ccacb8f8d19a5cae668be5f294ee64dacae/src/api/users/user-repo.ts#L86-L86",
+        "reason": "This is internally controlled SQL execution",
+        "jira": "PRODSEC-3385",
+        "risk": "informational"
+    },
+    "9a42cc1a9215144ba7bc5b55bb4bf2f1258d658caa292bb085a69838788431da":
+    {
+        "message": "Rule 'CHECKIDS' triggered.",
+        "check_id": "CHECKIDS",
+        "location": "https://slack-github.com/slack/app-onedrive/blob/6b024ccacb8f8d19a5cae668be5f294ee64dacae/src/api/users/user-repo.ts#L88-L88",
+        "reason": "This is internally controlled SQL execution",
+        "jira": "PRODSEC-3385",
+        "risk": "informational"
     }
 }
