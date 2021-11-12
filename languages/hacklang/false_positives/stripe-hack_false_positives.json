@@ -4,8 +4,8 @@
         "message": "Rule 'languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/stripe-hack/blob/2645cf88b47419882e377a446d04f0fc299f9628/lib/HttpClient/CurlClient.hack#L216-L216",
-        "reason": "This is internally controlled SQL execution",
+        "reason": "The variable passed to exec is internally controlled",
         "jira": "PRODSEC-3395",
-        "risk": "low"
+        "risk": "informational"
     }
 }

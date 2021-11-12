@@ -4,7 +4,7 @@
         "message": "Rule 'languages.javascript.slack.javascript.potential-sqli-01' triggered.",
         "check_id": "languages.javascript.slack.javascript.potential-sqli-01",
         "location": "https://slack-github.com/slack/app-teams-calls/blob/933b91e6e0d88ae3420b60648413cee41aec7767/src/lib/app-slack-ms-users/src/user-repo.js#L61-L61",
-        "reason": "This is internally controlled SQL execution",
+        "reason": "This is non exploitable SQL",
         "jira": "PRODSEC-3386",
         "risk": "informational"
     }
