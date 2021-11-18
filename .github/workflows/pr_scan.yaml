@@ -67,14 +67,16 @@ jobs:
 
       - name: Build PR comment
         id: pr_comment
-        uses: juliangruber/read-file-action@v1
+        uses: actions/github-script@v5
         with:
-          path: ${{ env.working-directory }}/results/results_blob.txt    
+          script: |
+            var fr = new FileReader();
+            fr.readAsText(${{ env.working-directory }}/results/results_blob.txt)
 
       - name: Create a comment with scan results
         uses: actions/github-script@v5
         with:
           script: |
-            github.rest.issues.createComment({
-              ${{ steps.test.outputs.result }}
+            github.rest.issue.createComment({
+              ${{ steps.pr_comment.outputs.result }}
             })
