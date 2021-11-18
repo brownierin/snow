@@ -71,10 +71,10 @@ jobs:
         with:
           path: ${{ env.working-directory }}/results/results_blob.txt    
 
-      - name: Comment on PR
-        uses: marocchino/sticky-pull-request-comment@v2
+      - name: Create a comment with scan results
+        uses: actions/github-script@v5
         with:
-          recreate: true
-          message: |
-            ${{ steps.test.outputs.result }}
-
+          script: |
+            github.rest.issues.createComment({
+              ${{ steps.test.outputs.result }}
+            })
