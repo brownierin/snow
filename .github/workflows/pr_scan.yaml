@@ -64,3 +64,15 @@ jobs:
         with:
             name: results folder
             path: results/*
+
+      - name: Build PR comment
+        id: pr_comment
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: ${{ env.working-directory }}/results/results_blob.txt    
+
+      - name: Comment on PR
+        uses: marocchino/sticky-pull-request-comment@v2
+          recreate: true
+          message: |
+            ${{ steps.test.outputs.result }}

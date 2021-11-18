@@ -688,6 +688,8 @@ def run_semgrep_pr(repo):
     content = create_results_blob(data)
     print(content)
     webhook_alerts(content)
+    with open(f'{RESULTS_DIR}results_blob.txt', 'w+') as file:
+        file.write(content)
 
     set_exit_code(0) if not data['results'] else set_exit_code(1)
 
