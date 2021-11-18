@@ -1,9 +1,6 @@
 name: "Static Analysis PR Scan"
 
-on: 
-  push:
-  pull_request:
-  workflow_dispatch:
+on: [push, pull_request, workflow_dispatch]
 
 jobs:
   static_analysis:
