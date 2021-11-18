@@ -11,6 +11,7 @@ on:
         required: false
       SNOW_AWS_SECRET_ACCESS_KEY:
         required: false
+  workflow_dispatch:
 
 jobs:
   scan-with-semgrep:

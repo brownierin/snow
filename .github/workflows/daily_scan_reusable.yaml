@@ -4,10 +4,11 @@ on:
   push:
   schedule:
     - cron: '* * * * *'
+  workflow_dispatch:
 
 jobs:
   daily_static_analysis:
-    uses: elb-test-org/snow/.github/workflows/daily_scan.yaml@master
+    uses: elb-test-org/snow/.github/workflows/daily_scan.yaml@copy_of_master
     secrets:       
       SNOW_ALERT_WEBHOOK: ${{ secrets.SNOW_ALERT_WEBHOOK }}
       CHECKPOINT_TOKEN: ${{ secrets.CHECKPOINT_TOKEN }}

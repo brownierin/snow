@@ -1,10 +1,13 @@
 name: "Static Analysis PR Scan"
 
-on: [push, pull_request]
+on: 
+  push:
+  pull_request:
+  workflow_dispatch:
 
 jobs:
   static_analysis:
-    uses: elb-test-org/snow/.github/workflows/pr_scan_reusable.yaml@master
+    uses: elb-test-org/snow/.github/workflows/pr_scan_reusable.yaml@copy_of_master
     secrets:       
       SNOW_ALERT_WEBHOOK: ${{ secrets.SNOW_ALERT_WEBHOOK }}
       CHECKPOINT_TOKEN: ${{ secrets.CHECKPOINT_TOKEN }}
