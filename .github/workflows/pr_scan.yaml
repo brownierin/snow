@@ -1,4 +1,4 @@
-name: "static analysis"
+name: "SNOW static analysis PR scan"
 
 on: 
   workflow_call:
@@ -62,7 +62,7 @@ jobs:
       - name: Archive scan results
         uses: actions/upload-artifact@v2
         with:
-            name: results folder
+            name: results_folder
             path: results/*
 
       - name: Build PR comment

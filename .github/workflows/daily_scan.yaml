@@ -1,4 +1,4 @@
-name: "Static Analysis Daily Scan"
+name: "SNOW static analysis daily scan"
 
 on: 
   workflow_call:
