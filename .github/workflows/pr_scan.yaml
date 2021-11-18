@@ -28,7 +28,7 @@ jobs:
       - name: Clone snow code
         uses: actions/checkout@v2
         with:
-          repository: 'elb-test-org/snow'
+          repository: 'tinyspeck/snow'
           path: snow
           fetch-depth: 0
 
@@ -68,11 +68,8 @@ jobs:
 
       - name: Build PR comment
         id: pr_comment
-        uses: actions/github-script@v5
-        with:
-          script: |
-            var fr = new FileReader();
-            fr.readAsText(${{ env.working-directory }}/results/results_blob.txt)
+        run: |
+          cat ${{ env.working-directory }}/results/results_blob.txt
 
       - name: Create a comment with scan results
         uses: actions/github-script@v5
