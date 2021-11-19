@@ -229,7 +229,7 @@
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/orchestrator/blob/2b927424ec4c181f5c2e7cb4c0fc43d15ab9fa37/go/inst/instance_topology_dao.go#L947-L947",
-        "reason": "languages.golang.r2c.go.lang.security.bad-tmp-file-creation",
+        "reason": "This passes in context.background which is not an exploitable string",
         "jira": "PRODSEC-3393",
         "risk": "low"
     },
@@ -238,7 +238,7 @@
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/orchestrator/blob/2b927424ec4c181f5c2e7cb4c0fc43d15ab9fa37/go/os/process.go#L86-L86",
-        "reason": "languages.golang.slack.potential-code-execution-1",
+        "reason": "The exec takes string values passed from the config file. ",
         "jira": "PRODSEC-3393",
         "risk": "low"
     }

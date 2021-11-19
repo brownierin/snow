@@ -745,7 +745,7 @@
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/tf-smart-plan/gov_creds.go#L25-L25",
-        "reason": "This is internally controlled SQL execution or tmp file",
+        "reason": "Exec does not take input that is exploitable",
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
@@ -754,7 +754,7 @@
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/term/prompt.go#L32-L32",
-        "reason": "This is internally controlled SQL execution or tmp file",
+        "reason": "Exec does not take external input",
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
@@ -763,7 +763,7 @@
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/bedrock-pipeline/kubectl.go#L21-L21",
-        "reason": "This is internally controlled SQL execution or tmp file",
+        "reason": "This is code is tooling for users already on a server",
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
@@ -772,7 +772,7 @@
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/gitchen/kitchen_cli.go#L38-L38",
-        "reason": "This is internally controlled SQL execution or tmp file",
+        "reason": "This is code is tooling for users already on a server",
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
@@ -781,7 +781,7 @@
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/bedrock/docker.go#L36-L36",
-        "reason": "This is internally controlled SQL execution or tmp file",
+        "reason": "This is code is tooling for users already on a server",
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
@@ -790,7 +790,7 @@
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/bedrock/docker.go#L49-L49",
-        "reason": "This is internally controlled SQL execution or tmp file",
+        "reason": "This is code is tooling for users already on a server",
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
@@ -799,7 +799,7 @@
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/bedrock/docker.go#L87-L87",
-        "reason": "This is internally controlled SQL execution or tmp file",
+        "reason": "This is code is tooling for users already on a server",
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
@@ -808,7 +808,7 @@
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/bedrock/docker.go#L98-L98",
-        "reason": "This is internally controlled SQL execution or tmp file",
+        "reason": "This is code is tooling for users already on a server",
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
@@ -817,7 +817,7 @@
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/bedrock/docker.go#L109-L109",
-        "reason": "This is internally controlled SQL execution or tmp file",
+        "reason": "This is code is tooling for users already on a server",
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
@@ -826,7 +826,7 @@
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/bedrock/cmd_launch_task.go#L414-L419",
-        "reason": "This is internally controlled SQL execution or tmp file",
+        "reason": "This is code is tooling for users already on a server",
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
@@ -835,7 +835,7 @@
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/bedrock/cmd_launch.go#L522-L522",
-        "reason": "This is internally controlled SQL execution or tmp file",
+        "reason": "This is code is tooling for users already on a server",
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
@@ -844,7 +844,7 @@
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/bedrock/cmd_build.go#L815-L815",
-        "reason": "This is internally controlled SQL execution or tmp file",
+        "reason": "This is code is tooling for users already on a server",
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
@@ -853,7 +853,7 @@
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/bedrock/cmd_build.go#L826-L826",
-        "reason": "This is internally controlled SQL execution or tmp file",
+        "reason": "This is code is tooling for users already on a server",
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
@@ -862,7 +862,7 @@
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/bedrock/cmd_build.go#L835-L835",
-        "reason": "This is internally controlled SQL execution or tmp file",
+        "reason": "This is code is tooling for users already on a server",
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
@@ -871,7 +871,7 @@
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/bedrock/cmd_sync.go#L917-L917",
-        "reason": "This is internally controlled SQL execution or tmp file",
+        "reason": "This is code is tooling for users already on a server",
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
@@ -880,7 +880,7 @@
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/bedrock/cmd_build.go#L947-L947",
-        "reason": "This is internally controlled SQL execution or tmp file",
+        "reason": "This is code is tooling for users already on a server",
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
@@ -889,7 +889,7 @@
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/kube-test-cluster/roll.go#L248-L248",
-        "reason": "This is internally controlled SQL execution or tmp file",
+        "reason": "This helps generate a random time to kick off a schedule, I don't see this being a vulnerability",
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
@@ -900,16 +900,16 @@
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/tsauth/login.go#L60-L66",
         "reason": "This is internally controlled SQL execution or tmp file",
         "jira": "PRODSEC-3390",
-        "risk": "informational"
+        "risk": "low"
     },
     "7a34023b5b9e545cffa745f80755f3d4236ce57a951f89d598432a0a8a85be7a":
     {
         "message": "Rule 'languages.golang.r2c.go.lang.security.bad-tmp-file-creation' triggered.",
         "check_id": "languages.golang.r2c.go.lang.security.bad-tmp-file-creation",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/lambdas/whitecastle_watcher/lambda.go#L358-L358",
-        "reason": "This is internally controlled SQL execution or tmp file",
+        "reason": "This is an internally controlled tmp file creation that appends success to the current file",
         "jira": "PRODSEC-3390",
-        "risk": "informational"
+        "risk": "low"
     },
     "4147942c8078e38647a6d32004e92d9695e1d4842c73598270bc3119b7930b2f":
     {
@@ -943,7 +943,7 @@
         "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.unescaped-data-in-url' triggered.",
         "check_id": "languages.golang.r2c.go.lang.security.audit.net.unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/gaz/show_node.go#L51-L51",
-        "reason": "An internal attacker would need to exploit this with elevated privledges. ",
+        "reason": "An internal attacker would need to exploit this with elevated privileges. ",
         "jira": "PRODSEC-3396",
         "risk": "low"
     },
@@ -952,7 +952,7 @@
         "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.unescaped-data-in-url' triggered.",
         "check_id": "languages.golang.r2c.go.lang.security.audit.net.unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/gaz/kaz_template_helpers.go#L132-L133",
-        "reason": "An internal attacker would need to exploit this with elevated privledges. ",
+        "reason": "An internal attacker would need to exploit this with elevated privileges. ",
         "jira": "PRODSEC-3396",
         "risk": "low"
     },
@@ -961,7 +961,7 @@
         "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.unescaped-data-in-url' triggered.",
         "check_id": "languages.golang.r2c.go.lang.security.audit.net.unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/gaz/kaz_template_helpers.go#L156-L157",
-        "reason": "An internal attacker would need to exploit this with elevated privledges. ",
+        "reason": "An internal attacker would need to exploit this with elevated privileges. ",
         "jira": "PRODSEC-3396",
         "risk": "low"
     },
@@ -970,7 +970,7 @@
         "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.unescaped-data-in-url' triggered.",
         "check_id": "languages.golang.r2c.go.lang.security.audit.net.unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/gaz/kaz_template_helpers.go#L199-L200",
-        "reason": "An internal attacker would need to exploit this with elevated privledges. ",
+        "reason": "An internal attacker would need to exploit this with elevated privileges. ",
         "jira": "PRODSEC-3396",
         "risk": "low"
     },
@@ -979,7 +979,7 @@
         "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.unescaped-data-in-url' triggered.",
         "check_id": "languages.golang.r2c.go.lang.security.audit.net.unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/gaz/kaz_template_helpers.go#L205-L206",
-        "reason": "An internal attacker would need to exploit this with elevated privledges. ",
+        "reason": "An internal attacker would need to exploit this with elevated privileges. ",
         "jira": "PRODSEC-3396",
         "risk": "low"
     },
@@ -988,7 +988,7 @@
         "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.unescaped-data-in-url' triggered.",
         "check_id": "languages.golang.r2c.go.lang.security.audit.net.unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/gaz/kaz_template_helpers.go#L246-L247",
-        "reason": "An internal attacker would need to exploit this with elevated privledges. ",
+        "reason": "An internal attacker would need to exploit this with elevated privileges. ",
         "jira": "PRODSEC-3396",
         "risk": "low"
     },
@@ -997,7 +997,7 @@
         "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.unescaped-data-in-url' triggered.",
         "check_id": "languages.golang.r2c.go.lang.security.audit.net.unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/gaz/kaz_template_helpers.go#L275-L276",
-        "reason": "An internal attacker would need to exploit this with elevated privledges. ",
+        "reason": "An internal attacker would need to exploit this with elevated privileges. ",
         "jira": "PRODSEC-3396",
         "risk": "low"
     }

@@ -13,17 +13,17 @@
         "message": "Rule 'languages.javascript.slack.javascript.potential-sqli-01' triggered.",
         "check_id": "languages.javascript.slack.javascript.potential-sqli-01",
         "location": "https://slack-github.com/slack/app-onedrive/blob/6b024ccacb8f8d19a5cae668be5f294ee64dacae/src/api/users/user-repo.ts#L86-L86",
-        "reason": "This is not exploitable SQL",
+        "reason": "SQL injection is not exploitable, variables passed in are slack controlled",
         "jira": "PRODSEC-3385",
-        "risk": "informational"
+        "risk": "low"
     },
     "9a42cc1a9215144ba7bc5b55bb4bf2f1258d658caa292bb085a69838788431da":
     {
         "message": "Rule 'languages.javascript.slack.javascript.potential-sqli-01' triggered.",
         "check_id": "languages.javascript.slack.javascript.potential-sqli-01",
         "location": "https://slack-github.com/slack/app-onedrive/blob/6b024ccacb8f8d19a5cae668be5f294ee64dacae/src/api/users/user-repo.ts#L88-L88",
-        "reason": "This is not exploitable SQL",
+        "reason": "SQL injection is not exploitable, variables passed in are slack controlled",
         "jira": "PRODSEC-3385",
-        "risk": "informational"
+        "risk": "low"
     }
 }

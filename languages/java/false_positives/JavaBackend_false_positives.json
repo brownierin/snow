@@ -328,7 +328,7 @@
         "message": "Rule 'languages.java.slack.java.lang.predictable-prng-01' triggered.",
         "check_id": "languages.java.slack.java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/JavaBackend/blob/1d836032060b38ba48c5e6f8c1416c2bbfff523e/MessageServer/src/org/scribe/services/TimestampServiceImpl.java#L49-L49",
-        "reason": "The random used is not used for generating timestamps",
+        "reason": "Random is not used for any security crypto purposes",
         "jira": "PRODSEC-3388",
         "risk": "informational"
     }

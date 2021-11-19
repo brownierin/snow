@@ -4,9 +4,9 @@
         "message": "Rule 'languages.python.r2c.python.lang.security.audit.dangerous-subprocess-use' triggered.",
         "check_id": "languages.python.r2c.python.lang.security.audit.dangerous-subprocess-use",
         "location": "https://slack-github.com/slack/slack-verta/blob/1a4ca54e39e619f8e21e127bda2f02c8f022072c/zf-demo/spam/s3_model_downloader.py#L140-L140",
-        "reason": "This is internally controlled SQL execution",
+        "reason": "Internally controlled model name is passed to popen and is non exploitable. ",
         "jira": "PRODSEC-3397",
-        "risk": "informational"
+        "risk": "low"
     },
     "6d4c0b4e8a670e6e4a069e1d8816f0e219f8f739075d46162a0952c7b5710af4":
     {
