@@ -4,12 +4,16 @@ on:
   workflow_call:
     secrets:
       SNOW_ALERT_WEBHOOK: 
+        description: Slack webhook URL for pushing results
         required: true
-      CHECKPOINT_TOKEN: 
+      CHECKPOINT_TOKEN:
+        description: TSAuth token for uploading results to checkpoint
         required: true
       SNOW_AWS_ACCESS_KEY_ID:
+        description: AWS access key for the snow account
         required: false
       SNOW_AWS_SECRET_ACCESS_KEY:
+        description: AWS secret key for the snow account
         required: false
   workflow_dispatch:
 
