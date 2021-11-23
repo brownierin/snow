@@ -63,7 +63,6 @@ jobs:
         run: |
           cd ${{ env.working-directory }}
           env=snow-test python3 run_semgrep.py -m pr -g ghc -r ${{ github.event.repository.name }}
-          exit 0
 
       - name: Archive scan results
         uses: actions/upload-artifact@v2

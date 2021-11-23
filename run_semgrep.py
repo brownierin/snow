@@ -693,6 +693,8 @@ def run_semgrep_pr(repo):
         file.write(content)
 
     set_exit_code(0) if not data['results'] else set_exit_code(1)
+    if git == 'ghc':
+        exit(0)
 
 
 def create_results_blob(data):
