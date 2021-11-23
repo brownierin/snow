@@ -5,3 +5,4 @@ future-fstrings
 pyyaml
 pytest
 requests
+chardet
