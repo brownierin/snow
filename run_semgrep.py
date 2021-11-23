@@ -687,7 +687,7 @@ def run_semgrep_pr(repo):
         s3.upload_files(filenames, bucket)
 
     content = create_results_blob(data)
-    print(content)
+    # print(content)
     webhook_alerts(content)
     with open(f'{RESULTS_DIR}results_blob.txt', 'w+') as file:
         file.write(content)
