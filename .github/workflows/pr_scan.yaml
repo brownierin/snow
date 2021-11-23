@@ -69,7 +69,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
             name: results_folder
-            path: results/*
+            path: ${{ env.working-directory}}/results/*
 
       - name: Build PR comment
         id: pr_comment
