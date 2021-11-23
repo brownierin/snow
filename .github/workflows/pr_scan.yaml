@@ -1,7 +1,6 @@
 name: "SNOW static analysis PR scan"
 
 on:
-  pull_request:
   workflow_call:
     secrets:
       SNOW_ALERT_WEBHOOK: 
