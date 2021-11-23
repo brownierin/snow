@@ -60,14 +60,14 @@ jobs:
           python3 -m pip install -r requirements-github.txt
 
       - name: Run semgrep
-        id: run_semgrep
+        id: run-semgrep
         run: |
           cd ${{ env.working-directory }}
           env=snow-test python3 run_semgrep.py -m pr -g ghc -r ${{ github.event.repository.name }}
           echo $(pwd)
-          echo $(ls -al results)
+          echo $(cat results/results_blob.txt)
           results=$(cat results/results_blob.txt)
-          echo "::set-output name=pretty_results::$results"
+          echo "::set-output name=pretty::$results"
 
       - name: Archive scan results
         uses: actions/upload-artifact@v2
@@ -77,7 +77,7 @@ jobs:
 
       - name: Print pretty output
         run: |
-          echo ${{ steps.run_semgrep.outputs.pretty_results }}
+          echo ${{ steps.run-semgrep.outputs.pretty }}
 
       - name: Create a comment with scan results
         if: ${{ !github.event.issue.pull_request }}
