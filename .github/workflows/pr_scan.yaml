@@ -75,7 +75,7 @@ jobs:
 
       - name: Print pretty output
         run: |
-          echo ${{ steps.run_semgrep.outputs.pretty_results }}
+          echo $(cat results/results_blob.txt)
 
       - name: Create a comment with scan results
         if: ${{ !github.event.issue.pull_request }}
