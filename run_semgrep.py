@@ -630,6 +630,8 @@ def run_semgrep_pr(repo):
     if os.environ.get(master_commit_env):
         git_sha_master = os.environ.get(master_commit_env)
     else:
+        remotes = run_command(f"git -C {repo_dir} remote -v").stdout.decode("utf-8")
+        print(remotes)
         cmd = f"git -C {repo_dir} show -s --format='%H' master"
         git_sha_master = subprocess.run(cmd, shell=True, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
         git_sha_master = git_sha_master.stdout.decode('utf-8').strip()
