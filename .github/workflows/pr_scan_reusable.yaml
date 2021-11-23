@@ -4,7 +4,7 @@ on: [workflow_dispatch, push, pull_request]
 
 jobs:
   static_analysis:
-    uses: tinyspeck/snow/.github/workflows/pr_scan_reusable.yaml@master_copy
+    uses: tinyspeck/snow/.github/workflows/pr_scan.yaml@master_copy
     secrets:       
       SNOW_ALERT_WEBHOOK: ${{ secrets.SNOW_ALERT_WEBHOOK }}
       CHECKPOINT_TOKEN: ${{ secrets.CHECKPOINT_TOKEN }}
