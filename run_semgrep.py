@@ -621,20 +621,22 @@ def run_semgrep_pr(repo):
     git_sha_branch = os.environ.get(commit_head_env)
     git_sha_branch_short = git_sha_branch[:7]
 
+    git = f"git -C {repo_dir}"
     # Make sure you are on the branch to scan by switching to it.
-    process = run_command(f"git -C {repo_dir} checkout -f {git_sha_branch}")
+    process = run_command(f"{git} checkout -f {git_sha_branch}")
     print(f"[+] Branch SHA: {git_sha_branch}")
     scan_repo(repo, repo_language, git_repo_url, git_sha_branch_short)
 
-    run_command(f"git -C {repo_dir} branch --list --remote origin/master")
+    run_command(f"{git} branch --list --remote origin/master")
     if os.environ.get(master_commit_env):
         git_sha_master = os.environ.get(master_commit_env)
     else:
-        run_command(f"git -C {repo_dir} checkout origin/master")
-        cmd = f"git -C {repo_dir} show -s --format='%H' master"
+        checkout = run_command(f"{git} checkout origin/master")
+        print(checkout.stdout.decode('utf-8'))
+        cmd = f"{git} show -s --format='%H' origin/master"
         git_sha_master = subprocess.run(cmd, shell=True, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
         git_sha_master = git_sha_master.stdout.decode('utf-8').strip()
-        run_command(f"git -C {repo_dir} checkout -f {git_sha_branch}")
+        run_command(f"{git} checkout -f {git_sha_branch}")
 
     git_sha_master_short = git_sha_master[:7]
     print(f"[+] Master SHA: {git_sha_master}")
@@ -647,7 +649,7 @@ def run_semgrep_pr(repo):
         print("[-] Master and HEAD are equal. Need to compare against two different SHAs! We won't scan.")
         sys.exit(0)
 
-    cmd = f"git -C {repo_dir} checkout -f {git_sha_master}"
+    cmd = f"{git} checkout -f {git_sha_master}"
     process = run_command(cmd)
     print(f"[+] Master Checkout: {process.stdout.decode('utf-8')}")
     scan_repo(repo, repo_language, git_repo_url, git_sha_master_short)
@@ -669,7 +671,7 @@ def run_semgrep_pr(repo):
 
     comparison.remove_false_positives(json_filename, fp_file, parsed_filename)
 
-    process = run_command(f"git -C {repo_dir} checkout -f {git_sha_branch}")
+    process = run_command(f"{git} checkout -f {git_sha_branch}")
     print("[+] Branch Checkout: " + process.stdout.decode("utf-8"))
     add_hash_id(json_filename, 4, 1, "hash_id")
     add_hash_id(parsed_filename, 4, 1, "hash_id")
