@@ -64,8 +64,6 @@ jobs:
         run: |
           cd ${{ env.working-directory }}
           env=snow-test python3 run_semgrep.py -m pr -g ghc -r ${{ github.event.repository.name }}
-          echo $(pwd)
-          echo $(cat results/results_blob.txt)
           results=$(cat results/results_blob.txt)
           echo "::set-output name=pretty::$results"
 
@@ -89,5 +87,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: "${{ steps.run_semgrep.outputs.pretty_results }}"
+              body: "${{ steps.run_semgrep.outputs.pretty }}"
             })
