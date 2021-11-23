@@ -706,8 +706,21 @@ def create_results_blob(data):
         =============New vulnerabilities Detected.=============
         =======================================================
         Please review the following output. Reach out to #triage-prodsec with questions.
-        {json.dumps(data['results'], indent=4)}
         """
+
+        for result in data['results']:
+            content += prettyprint(result)
+
+    return content
+
+
+def prettyprint(result):
+    content = f"""
+        Rule name: {result['check_id']}
+        Affected file: {result['path']}:{result['start']['line']}
+        Code: `{result['extra']['lines']}`
+        Fix: {result['extra']['message']}\n
+    """
     return content
 
 
