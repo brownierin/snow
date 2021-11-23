@@ -372,7 +372,7 @@ def scan_repo(repo, language, git_repo_url, git_sha):
         f"-v {SNOW_ROOT}:/src returntocorp/semgrep:{CONFIG['general']['version']} "
         f"{CONFIG[config_lang]['config']} "
         f"{CONFIG[config_lang]['exclude']} "
-        "--json --dangerously-allow-arbitrary-code-execution-from-rules "
+        "--json --metrics off "
         f"-o /src{CONFIG['general']['results']}{output_file} "
         f"{CONFIG['general']['repositories'][1:]}{repo}"
     )
