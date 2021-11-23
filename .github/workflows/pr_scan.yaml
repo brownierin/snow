@@ -73,6 +73,10 @@ jobs:
             name: results_folder
             path: ${{ env.working-directory}}/results/*
 
+      - name: Print pretty output
+        run: |
+          echo ${{ steps.run_semgrep.outputs.pretty_results }}
+
       - name: Create a comment with scan results
         if: ${{ !github.event.issue.pull_request }}
         uses: actions/github-script@v5
