@@ -73,12 +73,8 @@ jobs:
 
       - name: Build PR comment
         id: pr_comment
-        if: 
         run: |
-          if ${{ github.event.issue.pull_request }}
-            then
-              echo "Pull request"
-          fi
+          echo ${{ github.event.issue.pull_request }}
           cat ${{ env.working-directory }}/results/results_blob.txt
 
       - name: Create a comment with scan results
