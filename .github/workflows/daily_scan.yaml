@@ -68,12 +68,12 @@ jobs:
       - name: Install python3
         uses: actions/setup-python@v2
         with:
-          python-version: 3.5.10
+          python-version: 3.9.9
 
       - name: install requirements
         run: |
           cd ${{ env.working-directory }}
-          python3 -m pip install -r requirements.txt
+          python3 -m pip install -r requirements-github.txt
 
       - name: Run semgrep
         run: |
