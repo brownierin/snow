@@ -29,7 +29,7 @@ RESULTS_DIR = os.getenv('PWD') + CONFIG['general']['results']
 def uberproxy_curl_installed():
     try:
         process = subprocess.Popen(["slack", "help"], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
-    except subprocess.CalledProcessError:
+    except (subprocess.CalledProcessError, FileNotFoundError):
         return False
     return True
 
