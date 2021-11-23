@@ -64,6 +64,8 @@ jobs:
         run: |
           cd ${{ env.working-directory }}
           env=snow-test python3 run_semgrep.py -m pr -g ghc -r ${{ github.event.repository.name }}
+          echo $(pwd)
+          echo $(ls -al results)
           results=$(cat results/results_blob.txt)
           echo "::set-output name=pretty_results::$results"
 
