@@ -632,6 +632,7 @@ def run_semgrep_pr(repo):
     else:
         remotes = run_command(f"git -C {repo_dir} remote -v").stdout.decode("utf-8")
         print(remotes)
+        run_command(f"git -C {repo_dir} fetch origin")
         cmd = f"git -C {repo_dir} show -s --format='%H' master"
         git_sha_master = subprocess.run(cmd, shell=True, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
         git_sha_master = git_sha_master.stdout.decode('utf-8').strip()
