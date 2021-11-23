@@ -706,7 +706,7 @@ def create_results_blob(data):
         =============New vulnerabilities Detected.=============
         =======================================================
         Please review the following output. Reach out to #triage-prodsec with questions.
-        {json.loads(data['results'], indent=4)}
+        {json.dumps(data['results'], indent=4)}
         """
     return content
 
