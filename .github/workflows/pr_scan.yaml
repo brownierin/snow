@@ -75,6 +75,7 @@ jobs:
 
       - name: Print pretty output
         run: |
+          ls -al $PWD/results
           echo ${{ steps.run-semgrep.outputs.pretty }}
 
       - name: Create a comment with scan results
