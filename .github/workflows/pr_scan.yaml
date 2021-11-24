@@ -64,12 +64,8 @@ jobs:
         run: |
           cd ${{ env.working-directory }}
           env=snow-test python3 run_semgrep.py -m pr -g ghc -r ${{ github.event.repository.name }}
-          # cat_results=$(cat results/results_blob.txt)
-          # cat_results="${cat_results//'%'/'%25'}"
-          # cat_results="${cat_results//$'\n'/'%0A'}"
-          # cat_results="${cat_results//$'\r'/'%0D'}"
-          cat_results=$(cat results/results_blob.txt | python3 control_to_json.py"
-          echo "RESULTS=${cat_results}" >> $GITHUB_ENV
+          export BODY=$(python3 control_to_json.py)
+          echo "RESULTS=${BODY}" >> $GITHUB_ENV
           # echo "RESULTS<<EOF" >> $GITHUB_ENV
           # echo "${cat_results}" >> $GITHUB_ENV
           # echo "EOF" >> $GITHUB_ENV
