@@ -701,9 +701,7 @@ def create_results_blob(data):
         content = "No new vulnerabilities detected!"
     else:
         content = f"""
-        =======================================================
-        =============New vulnerabilities Detected.=============
-        =======================================================
+        === New vulnerabilities detected
         Please review the following output. Reach out to #triage-prodsec with questions.
         Found {str(len(data['results']))} findings
         """
@@ -716,9 +714,12 @@ def create_results_blob(data):
 
 def prettyprint(result):
     content = f"""
-        Rule name: {result['check_id']}
+        **Rule name**: {result['check_id']}
         Affected file: {result['path']}:{result['start']['line']}
-        Code: {result['extra']['lines']}
+        Code:
+        ```
+        {result['extra']['lines']}
+        ```
         Fix: {result['extra']['message']}
     """
     return content
