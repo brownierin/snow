@@ -709,7 +709,7 @@ def create_results_blob(data):
         """
         count = 1
         for result in data['results']:
-            content += f"### Finding ${count}"
+            content += f"### Finding #{count}"
             content += prettyprint(result)
             count += 1
 
