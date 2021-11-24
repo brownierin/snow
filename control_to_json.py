@@ -1,15 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: future_fstrings -*-
-# import sys
-
-# results = sys.stdin.read()
-
-# results = results.replace("\\", "\\\\").replace("\"", "\\\"")
-# results = results.replace("\n", "\\n").replace("\t", "\\t")
-# results = results.replace("`", '\`')
-
-# return results
-
 
 import json
 import os
