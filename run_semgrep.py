@@ -711,7 +711,7 @@ def create_results_blob(data):
         for result in data['results']:
             content += prettyprint(result)
 
-    return content.replace('\t', '')
+    return content.replace('  ', '')
 
 
 def prettyprint(result):
