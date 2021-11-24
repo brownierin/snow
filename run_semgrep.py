@@ -718,8 +718,8 @@ def prettyprint(result):
     content = f"""
         Rule name: {result['check_id']}
         Affected file: {result['path']}:{result['start']['line']}
-        Code: `{result['extra']['lines']}`
-        Fix: {result['extra']['message']}\n
+        Code: {result['extra']['lines']}
+        Fix: {result['extra']['message']}
     """
     return content
 
