@@ -701,8 +701,10 @@ def create_results_blob(data):
         content = "No new vulnerabilities detected!"
     else:
         content = f"""
-        ===New vulnerabilities detected
-        Please review the following output. Reach out to #triage-prodsec with questions.
+        New vulnerabilities detected
+        ============================
+        Please review the following output.
+        Reach out to #triage-prodsec with questions.
         Found {str(len(data['results']))} findings
         """
 
