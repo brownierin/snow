@@ -700,17 +700,16 @@ def create_results_blob(data):
     if not data['results']:
         content = "No new vulnerabilities detected!"
     else:
-        # content = f"""
-        # =======================================================
-        # =============New vulnerabilities Detected.=============
-        # =======================================================
-        # Please review the following output. Reach out to #triage-prodsec with questions.
-        # Found {str(len(data['results']))} findings
-        # """
+        content = f"""
+        =======================================================
+        =============New vulnerabilities Detected.=============
+        =======================================================
+        Please review the following output. Reach out to #triage-prodsec with questions.
+        Found {str(len(data['results']))} findings
+        """
 
-        # for result in data['results']:
-        #     content += prettyprint(result)
-        content = "kittens"
+        for result in data['results']:
+            content += prettyprint(result)
 
     return content
 
