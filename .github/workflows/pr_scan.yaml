@@ -64,7 +64,7 @@ jobs:
         run: |
           cd ${{ env.working-directory }}
           env=snow-test python3 run_semgrep.py -m pr -g ghc -r ${{ github.event.repository.name }}
-          cat_results=$(cat results/results_blob.txt) | python3 -c 'import json; json.dumps(sys.stdin.read())'
+          cat_results=$(cat results/results_blob.txt | python3 -c 'import json; import sys; print(json.dumps(sys.stdin.read()))')
           echo "RESULTS=${cat_results}" >> $GITHUB_ENV
 
       - name: Archive scan results
