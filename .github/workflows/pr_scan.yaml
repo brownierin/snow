@@ -64,9 +64,8 @@ jobs:
         run: |
           cd ${{ env.working-directory }}
           env=snow-test python3 run_semgrep.py -m pr -g ghc -r ${{ github.event.repository.name }}
-          echo 'RESULTS<<EOF' >> $GITHUB_ENV
-          cat results/results_blob.txt >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
+          cat_results=$(cat results/results_blob.txt)
+          echo 'RESULTS=${cat_results}' >> $GITHUB_ENV
 
       - name: Archive scan results
         uses: actions/upload-artifact@v2
