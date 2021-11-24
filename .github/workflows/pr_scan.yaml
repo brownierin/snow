@@ -69,7 +69,7 @@ jobs:
           # cat_results="${cat_results//$'\n'/'%0A'}"
           # cat_results="${cat_results//$'\r'/'%0D'}"
           # echo "RESULTS=${cat_results}" >> $GITHUB_ENV
-          cat_results=$(cat results/results_blob.txt | python3 -c 'import sys; print(sys.stdin.read().replace("\\","\\\\").replace("\"","\\\"").replace("\n","\\n")).replace("`", "\`").replace("\t", "\\t")' )\n"
+          cat_results=$(cat results/results_blob.txt | python3 control_to_json.py"
           echo "RESULTS<<EOF" >> $GITHUB_ENV
           echo "${cat_results}" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
