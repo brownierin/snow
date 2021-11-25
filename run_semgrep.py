@@ -379,7 +379,7 @@ def scan_repo(repo, language, git_repo_url, git_sha):
     print(f"[+] Docker scan command:\n {semgrep_command}")
     print(f"[+] Running Semgrep")
     # Not using run_command here because we want to ignore the exit code of semgrep.
-    process = subprocess.run(semgrep_command, shell=True, stdout=subprocess.PIPE)
+    process = subprocess.run(semgrep_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     results = process.stdout.decode("utf-8")
     if git != 'ghc':
         print("[+] Semgrep scan results:")
@@ -621,17 +621,18 @@ def run_semgrep_pr(repo):
     git_sha_branch = os.environ.get(commit_head_env)
     git_sha_branch_short = git_sha_branch[:7]
 
+    git_dir = f"git -C {repo_dir}"
     # Make sure you are on the branch to scan by switching to it.
-    process = run_command(f"git -C {repo_dir} checkout -f {git_sha_branch}")
+    process = run_command(f"{git_dir} checkout -f {git_sha_branch}")
     print(f"[+] Branch SHA: {git_sha_branch}")
     scan_repo(repo, repo_language, git_repo_url, git_sha_branch_short)
 
-    run_command(f"git -C {repo_dir} branch --list --remote origin/master")
+    run_command(f"{git_dir} branch --list --remote origin/master")
     if os.environ.get(master_commit_env):
         git_sha_master = os.environ.get(master_commit_env)
     else:
-        cmd = f"git -C {repo_dir} rev-parse master"
-        git_sha_master = subprocess.run(cmd, shell=True, stderr=subprocess.STDOUT)
+        cmd = f"{git_dir} show -s --format='%H' origin/master"
+        git_sha_master = subprocess.run(cmd, shell=True, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
         git_sha_master = git_sha_master.stdout.decode('utf-8').strip()
 
     git_sha_master_short = git_sha_master[:7]
@@ -645,7 +646,7 @@ def run_semgrep_pr(repo):
         print("[-] Master and HEAD are equal. Need to compare against two different SHAs! We won't scan.")
         sys.exit(0)
 
-    cmd = f"git -C {repo_dir} checkout -f {git_sha_master}"
+    cmd = f"{git_dir} checkout -f {git_sha_master}"
     process = run_command(cmd)
     print(f"[+] Master Checkout: {process.stdout.decode('utf-8')}")
     scan_repo(repo, repo_language, git_repo_url, git_sha_master_short)
@@ -667,7 +668,7 @@ def run_semgrep_pr(repo):
 
     comparison.remove_false_positives(json_filename, fp_file, parsed_filename)
 
-    process = run_command(f"git -C {repo_dir} checkout -f {git_sha_branch}")
+    process = run_command(f"{git_dir} checkout -f {git_sha_branch}")
     print("[+] Branch Checkout: " + process.stdout.decode("utf-8"))
     add_hash_id(json_filename, 4, 1, "hash_id")
     add_hash_id(parsed_filename, 4, 1, "hash_id")
@@ -686,10 +687,13 @@ def run_semgrep_pr(repo):
         s3.upload_files(filenames, bucket)
 
     content = create_results_blob(data)
-    print(content)
     webhook_alerts(content)
+    with open(f'{RESULTS_DIR}results_blob.txt', 'w+') as file:
+        file.write(content)
 
     set_exit_code(0) if not data['results'] else set_exit_code(1)
+    if git == 'ghc':
+        exit(0)
 
 
 def create_results_blob(data):
@@ -697,12 +701,28 @@ def create_results_blob(data):
         content = "No new vulnerabilities detected!"
     else:
         content = f"""
-        =======================================================
-        =============New vulnerabilities Detected.=============
-        =======================================================
-        Please review the following output. Reach out to #triage-prodsec with questions.
-        {data['results']}
+        New vulnerabilities detected
+        ============================
+        Please review the following output.
+        Reach out to #triage-prodsec with questions.
+        Found {str(len(data['results']))} findings
         """
+        count = 1
+        for result in data['results']:
+            content += f"### Finding #{count}"
+            content += prettyprint(result)
+            count += 1
+
+    return content.replace('  ', '')
+
+
+def prettyprint(result):
+    content = f"""
+        Rule name: {result['check_id']}
+        Affected file: {result['path']}:{result['start']['line']}
+        Code: `{result['extra']['lines']}`
+        Fix: {result['extra']['message']}\n
+    """
     return content
 
 

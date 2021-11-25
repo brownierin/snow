@@ -1,16 +1,21 @@
-name: "Static Analysis Daily Scan"
+name: "SNOW static analysis daily scan"
 
 on: 
   workflow_call:
     secrets:
       SNOW_ALERT_WEBHOOK: 
+        description: Slack webhook URL for pushing results
         required: true
-      CHECKPOINT_TOKEN: 
+      CHECKPOINT_TOKEN:
+        description: TSAuth token for uploading results to checkpoint
         required: true
       SNOW_AWS_ACCESS_KEY_ID:
+        description: AWS access key for the snow account
         required: false
       SNOW_AWS_SECRET_ACCESS_KEY:
+        description: AWS secret key for the snow account
         required: false
+  workflow_dispatch:
 
 jobs:
   scan-with-semgrep:
@@ -63,17 +68,17 @@ jobs:
       - name: Install python3
         uses: actions/setup-python@v2
         with:
-          python-version: 3.5.10
+          python-version: 3.9.9
 
       - name: install requirements
         run: |
           cd ${{ env.working-directory }}
-          python3 -m pip install -r requirements.txt
+          python3 -m pip install -r requirements-github.txt
 
       - name: Run semgrep
         run: |
           cd ${{ env.working-directory }}
-          python3 run_semgrep.py -m pr -g ghc -r ${{ github.event.repository.name }}
+          env=snow-test python3 run_semgrep.py -m pr -g ghc -r ${{ github.event.repository.name }}
 
       - name: Archive scan results
         uses: actions/upload-artifact@v2

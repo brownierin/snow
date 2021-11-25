@@ -27,8 +27,11 @@ RESULTS_DIR = os.getenv('PWD') + CONFIG['general']['results']
 
 
 def uberproxy_curl_installed():
-    process = subprocess.Popen(["slack", "help"], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
-    return "uberproxy-curl" in process.stdout.read().decode("utf-8")
+    try:
+        process = subprocess.Popen(["slack", "help"], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return False
+    return True
 
 
 def get_tsauth_auth_token():
