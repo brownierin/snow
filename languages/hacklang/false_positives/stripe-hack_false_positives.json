@@ -1,1 +1,11 @@
-{}
+{
+    "a2ad6b6014d9ae2d9bac6b484664542e8c519866db5dfe76cdc86f6e24beee9d":
+    {
+        "message": "Rule 'languages.hacklang.slack.slack.hack.shell' triggered.",
+        "check_id": "languages.hacklang.slack.slack.hack.shell",
+        "location": "https://slack-github.com/slack/stripe-hack/blob/2645cf88b47419882e377a446d04f0fc299f9628/lib/HttpClient/CurlClient.hack#L216-L216",
+        "reason": "The variable passed to exec is internally controlled",
+        "jira": "PRODSEC-3395",
+        "risk": "informational"
+    }
+}

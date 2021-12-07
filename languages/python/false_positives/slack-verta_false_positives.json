@@ -1,1 +1,119 @@
-{}
+{
+    "e482cbe84103cb2d962454f2ced03954002022b4ff8a4df8332cb5936735e140":
+    {
+        "message": "Rule 'languages.python.r2c.python.lang.security.audit.dangerous-subprocess-use' triggered.",
+        "check_id": "languages.python.r2c.python.lang.security.audit.dangerous-subprocess-use",
+        "location": "https://slack-github.com/slack/slack-verta/blob/1a4ca54e39e619f8e21e127bda2f02c8f022072c/zf-demo/spam/s3_model_downloader.py#L140-L140",
+        "reason": "Internally controlled model name is passed to popen and is non exploitable. ",
+        "jira": "PRODSEC-3397",
+        "risk": "low"
+    },
+    "6d4c0b4e8a670e6e4a069e1d8816f0e219f8f739075d46162a0952c7b5710af4":
+    {
+        "message": "Rule 'languages.python.r2c.python.lang.security.deserialization.avoid-pyyaml-load' triggered.",
+        "check_id": "languages.python.r2c.python.lang.security.deserialization.avoid-pyyaml-load",
+        "location": "https://slack-github.com/slack/slack-verta/blob/1a4ca54e39e619f8e21e127bda2f02c8f022072c/models/recommend/2-apply-dev/run.py#L24-L24",
+        "reason": "The files loaded are internally controlled and require elevated permission in order to modify them. This attacks our infrastructure then backend slack. ",
+        "jira": "PRODSEC-3398",
+        "risk": "medium"
+    },
+    "004caa5e521bd25540adf7c56c1b8caee653bef843c430e5acab6c9704cd63d9":
+    {
+        "message": "Rule 'languages.python.r2c.python.lang.security.deserialization.avoid-pyyaml-load' triggered.",
+        "check_id": "languages.python.r2c.python.lang.security.deserialization.avoid-pyyaml-load",
+        "location": "https://slack-github.com/slack/slack-verta/blob/1a4ca54e39e619f8e21e127bda2f02c8f022072c/models/spam/2-apply-dev/run.py#L24-L24",
+        "reason": "The files loaded are internally controlled and require elevated permission in order to modify them. This attacks our infrastructure then backend slack. ",
+        "jira": "PRODSEC-3398",
+        "risk": "medium"
+    },
+    "f240f4e2df376331cf67ff122a52de42444e138404a655cf6b1a64a8ef9d05c5":
+    {
+        "message": "Rule 'languages.python.r2c.python.lang.security.deserialization.avoid-pyyaml-load' triggered.",
+        "check_id": "languages.python.r2c.python.lang.security.deserialization.avoid-pyyaml-load",
+        "location": "https://slack-github.com/slack/slack-verta/blob/1a4ca54e39e619f8e21e127bda2f02c8f022072c/models/slack-connect-spam/5-apply-prod/run.py#L24-L24",
+        "reason": "The files loaded are internally controlled and require elevated permission in order to modify them. This attacks our infrastructure then backend slack. ",
+        "jira": "PRODSEC-3398",
+        "risk": "medium"
+    },
+    "24425bdc6e0585632629e8817a3a359469a7d01ec9a781d7d3356099ffac4875":
+    {
+        "message": "Rule 'languages.python.r2c.python.lang.security.deserialization.avoid-pyyaml-load' triggered.",
+        "check_id": "languages.python.r2c.python.lang.security.deserialization.avoid-pyyaml-load",
+        "location": "https://slack-github.com/slack/slack-verta/blob/1a4ca54e39e619f8e21e127bda2f02c8f022072c/models/slack-connect-spam/2-apply-dev/run.py#L24-L24",
+        "reason": "The files loaded are internally controlled and require elevated permission in order to modify them. This attacks our infrastructure then backend slack. ",
+        "jira": "PRODSEC-3398",
+        "risk": "medium"
+    },
+    "6370569cad274199188d920e23eeae19dfab2c9f6ade6d67ab87be0f88f65388":
+    {
+        "message": "Rule 'languages.python.r2c.python.lang.security.deserialization.avoid-pyyaml-load' triggered.",
+        "check_id": "languages.python.r2c.python.lang.security.deserialization.avoid-pyyaml-load",
+        "location": "https://slack-github.com/slack/slack-verta/blob/1a4ca54e39e619f8e21e127bda2f02c8f022072c/models/recommend/5-apply-prod/run.py#L25-L25",
+        "reason": "The files loaded are internally controlled and require elevated permission in order to modify them. This attacks our infrastructure then backend slack. ",
+        "jira": "PRODSEC-3398",
+        "risk": "medium"
+    },
+    "c5ef0f21e7d1cee6d83e6eb0df17952d565a1912f01b3d70661f4eecb447d50c":
+    {
+        "message": "Rule 'languages.python.r2c.python.lang.security.deserialization.avoid-pyyaml-load' triggered.",
+        "check_id": "languages.python.r2c.python.lang.security.deserialization.avoid-pyyaml-load",
+        "location": "https://slack-github.com/slack/slack-verta/blob/1a4ca54e39e619f8e21e127bda2f02c8f022072c/models/spam/5-apply-prod/run.py#L25-L25",
+        "reason": "The files loaded are internally controlled and require elevated permission in order to modify them. This attacks our infrastructure then backend slack. ",
+        "jira": "PRODSEC-3398",
+        "risk": "medium"
+    },
+    "4d98dcbf01d1cc3236e51423d78a683017b77c5b558af29a541481eedb030d1b":
+    {
+        "message": "Rule 'languages.python.r2c.python.lang.security.deserialization.avoid-pyyaml-load' triggered.",
+        "check_id": "languages.python.r2c.python.lang.security.deserialization.avoid-pyyaml-load",
+        "location": "https://slack-github.com/slack/slack-verta/blob/1a4ca54e39e619f8e21e127bda2f02c8f022072c/models/universal-sentence-encoder/5-apply-prod/run.py#L26-L26",
+        "reason": "The files loaded are internally controlled and require elevated permission in order to modify them. This attacks our infrastructure then backend slack. ",
+        "jira": "PRODSEC-3398",
+        "risk": "medium"
+    },
+    "1c7abfd948b8d8875c9b39606d52fc6e389d8c6aed3f352e317dcffca53714a3":
+    {
+        "message": "Rule 'languages.python.r2c.python.lang.security.deserialization.avoid-pyyaml-load' triggered.",
+        "check_id": "languages.python.r2c.python.lang.security.deserialization.avoid-pyyaml-load",
+        "location": "https://slack-github.com/slack/slack-verta/blob/1a4ca54e39e619f8e21e127bda2f02c8f022072c/models/universal-sentence-encoder-5/5-apply-prod/run.py#L26-L26",
+        "reason": "The files loaded are internally controlled and require elevated permission in order to modify them. This attacks our infrastructure then backend slack. ",
+        "jira": "PRODSEC-3398",
+        "risk": "medium"
+    },
+    "42a56559a4e49d0c7af22f267c13b259f9a3d4553d5c83943b9117b7ff5722a0":
+    {
+        "message": "Rule 'languages.python.r2c.python.lang.security.deserialization.avoid-pyyaml-load' triggered.",
+        "check_id": "languages.python.r2c.python.lang.security.deserialization.avoid-pyyaml-load",
+        "location": "https://slack-github.com/slack/slack-verta/blob/1a4ca54e39e619f8e21e127bda2f02c8f022072c/models/universal-sentence-encoder/2-apply-dev/run.py#L26-L26",
+        "reason": "The files loaded are internally controlled and require elevated permission in order to modify them. This attacks our infrastructure then backend slack. ",
+        "jira": "PRODSEC-3398",
+        "risk": "medium"
+    },
+    "c2ac929ad8e0defe71e2786f414dc851b81dc07aa3eb73348d1c56806eeb4686":
+    {
+        "message": "Rule 'languages.python.r2c.python.lang.security.deserialization.avoid-pyyaml-load' triggered.",
+        "check_id": "languages.python.r2c.python.lang.security.deserialization.avoid-pyyaml-load",
+        "location": "https://slack-github.com/slack/slack-verta/blob/1a4ca54e39e619f8e21e127bda2f02c8f022072c/models/universal-sentence-encoder-5/2-apply-dev/run.py#L26-L26",
+        "reason": "The files loaded are internally controlled and require elevated permission in order to modify them. This attacks our infrastructure then backend slack. ",
+        "jira": "PRODSEC-3398",
+        "risk": "medium"
+    },
+    "0813c7feaa324ea703c440a8c7b981f46ca7c439fde0bc5b19c293b6f2003dc4":
+    {
+        "message": "Rule 'languages.python.r2c.python.lang.security.deserialization.avoid-pyyaml-load' triggered.",
+        "check_id": "languages.python.r2c.python.lang.security.deserialization.avoid-pyyaml-load",
+        "location": "https://slack-github.com/slack/slack-verta/blob/1a4ca54e39e619f8e21e127bda2f02c8f022072c/models/section-recommend-channel-predictor/5-apply-prod/run.py#L26-L26",
+        "reason": "The files loaded are internally controlled and require elevated permission in order to modify them. This attacks our infrastructure then backend slack. ",
+        "jira": "PRODSEC-3398",
+        "risk": "medium"
+    },
+    "84f6fb94c8cdb9babfd665bec924083b6810fe72a77843d861ca3d63d6c127fb":
+    {
+        "message": "Rule 'languages.python.r2c.python.lang.security.deserialization.avoid-pyyaml-load' triggered.",
+        "check_id": "languages.python.r2c.python.lang.security.deserialization.avoid-pyyaml-load",
+        "location": "https://slack-github.com/slack/slack-verta/blob/1a4ca54e39e619f8e21e127bda2f02c8f022072c/models/section-recommend-channel-predictor/2-apply-dev/run.py#L26-L26",
+        "reason": "The files loaded are internally controlled and require elevated permission in order to modify them. This attacks our infrastructure then backend slack. ",
+        "jira": "PRODSEC-3398",
+        "risk": "medium"
+    }
+}

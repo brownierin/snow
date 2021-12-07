@@ -1,1 +1,11 @@
-{}
+{
+    "54876e14bae5c614cc17e726e0f8798c4c48956159af5c618e64ea4e901c4eb1":
+    {
+        "message": "Rule 'languages.golang.r2c-ci-rules.go.lang.security.audit.crypto.bad_imports.insecure-module-used' triggered.",
+        "check_id": "languages.golang.r2c-ci-rules.go.lang.security.audit.crypto.bad_imports.insecure-module-used",
+        "location": "https://slack-github.com/slack/slauth/blob/c8a910b7a7560f46a1f8e9a55b021971704f43f1/helpers/helpers.go#L11-L11",
+        "reason": "This is dead code, jira ticket to delete",
+        "jira": "PRODSEC-3394",
+        "risk": "informational"
+    }
+}
