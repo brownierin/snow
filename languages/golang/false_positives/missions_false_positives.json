@@ -100,7 +100,7 @@
         "check_id": "string-formatted-query",
         "location": "https://slack-github.com/slack/missions/blob/d50d499e8052f13a8f2ed55c7bae0b5c041daa2d/api/cmd/migrator/migrations/008-force-one-workflow-per-app.go#L91-L91",
         "reason": "This is internal tooling used to migrate missions data that runs on the CLI",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "Informational"
     }
 }

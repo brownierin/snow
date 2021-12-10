@@ -4,7 +4,7 @@
         "check_id": "java.lang.path-validation-01",
         "location": "https://slack-github.com/slack/apache-ranger/blob/c5ac76d331cfae777888416eb494a6da722217aa/kms/src/main/java/org/apache/hadoop/crypto/key/kms/server/KMSAuthenticationFilter.java#L131-L131",
         "reason": "These should not be triggering. They are from the original source code, not code SLACK wrote on top. I am supressing these. Better fix is to figure out why SNOW isn't supressing them automatically. ",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
         "7afc5fe318dbc193f5c5d6011d74bd309582b6eb1375d2fe534031ffc9c25ab8": {
@@ -12,7 +12,7 @@
         "check_id": "java.lang.path-validation-01",
         "location": "https://slack-github.com/slack/apache-ranger/blob/c5ac76d331cfae777888416eb494a6da722217aa/kms/src/main/java/org/apache/hadoop/crypto/key/kms/server/KMSMDCFilter.java#L77-L77",
         "reason": "These should not be triggering. They are from the original source code, not code SLACK wrote on top. I am supressing these. Better fix is to figure out why SNOW isn't supressing them automatically. ",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
         "ed38fbcc44078828044aa1c5488378379848376a2fc70a00e32b1a2208385caa": {
@@ -20,7 +20,7 @@
         "check_id": "java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/apache-ranger/blob/c5ac76d331cfae777888416eb494a6da722217aa/agents-audit/src/main/java/org/apache/ranger/audit/provider/MiscUtil.java#L872-L872",
         "reason": "These should not be triggering. They are from the original source code, not code SLACK wrote on top. I am supressing these. Better fix is to figure out why SNOW isn't supressing them automatically. ",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
         "7a390b9be5179e66b43980e2bdb201069ce995136e06a3067383bea3b87371cc": {
@@ -28,7 +28,7 @@
         "check_id": "java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/apache-ranger/blob/c5ac76d331cfae777888416eb494a6da722217aa/agents-common/src/main/java/org/apache/ranger/plugin/util/RangerRESTClient.java#L120-L120",
         "reason": "These should not be triggering. They are from the original source code, not code SLACK wrote on top. I am supressing these. Better fix is to figure out why SNOW isn't supressing them automatically. ",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
 
@@ -37,7 +37,7 @@
         "check_id": "java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/apache-ranger/blob/c5ac76d331cfae777888416eb494a6da722217aa/knox-agent/src/main/java/org/apache/ranger/admin/client/RangerAdminJersey2RESTClient.java#L112-L112",
         "reason": "These should not be triggering. They are from the original source code, not code SLACK wrote on top. I am supressing these. Better fix is to figure out why SNOW isn't supressing them automatically. ",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
         "2208d0b9ebfe8ce754eaf7ac16fffb0ab2200d9b97772e78ab745e5ccd0bd9a8": {
@@ -45,7 +45,7 @@
         "check_id": "java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/apache-ranger/blob/c5ac76d331cfae777888416eb494a6da722217aa/ranger-tools/src/main/java/org/apache/ranger/policyengine/perftest/v2/RangerPolicyFactory.java#L67-L67",
         "reason": "These should not be triggering. They are from the original source code, not code SLACK wrote on top. I am supressing these. Better fix is to figure out why SNOW isn't supressing them automatically. ",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
         "9c117211cbb30212796b9f2b98b10bd021966459a17cc5c9f5e0b00294d253f0": {
@@ -53,7 +53,7 @@
         "check_id": "java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/apache-ranger/blob/c5ac76d331cfae777888416eb494a6da722217aa/ranger-tools/src/main/java/org/apache/ranger/policyengine/perftest/v2/RangerPolicyFactory.java#L67-L67",
         "reason": "These should not be triggering. They are from the original source code, not code SLACK wrote on top. I am supressing these. Better fix is to figure out why SNOW isn't supressing them automatically. ",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
         "5ab2ea84dd71410abef39887a2e231cdb9c52b4b3ff20866aeb709dc1768a446": {
@@ -61,7 +61,7 @@
         "check_id": "java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/apache-ranger/blob/c5ac76d331cfae777888416eb494a6da722217aa/security-admin/src/main/java/org/apache/ranger/service/XPolicyService.java#L486-L486",
         "reason": "These should not be triggering. They are from the original source code, not code SLACK wrote on top. I am supressing these. Better fix is to figure out why SNOW isn't supressing them automatically. ",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
             "f4e5e6be6b9f8b79494b762c7c9424c18911a5b000247eea11c8bd439dd7aa4a": {
@@ -69,7 +69,7 @@
         "check_id": "java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/apache-ranger/blob/c5ac76d331cfae777888416eb494a6da722217aa/security-admin/src/main/java/org/apache/ranger/service/XPolicyService.java#L629-L629",
         "reason": "These should not be triggering. They are from the original source code, not code SLACK wrote on top. I am supressing these. Better fix is to figure out why SNOW isn't supressing them automatically. ",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
         "b6057c61cb40186df0ffe24de4aa0458760e64bb7419297ec0c1bdec0b702eee": {
@@ -77,7 +77,7 @@
         "check_id": "java.lang.xxe-01",
         "location": "https://slack-github.com/slack/apache-ranger/blob/c5ac76d331cfae777888416eb494a6da722217aa/agents-common/src/main/java/org/apache/ranger/plugin/util/XMLUtils.java#L63-L63",
         "reason": "These should not be triggering. They are from the original source code, not code SLACK wrote on top. I am supressing these. Better fix is to figure out why SNOW isn't supressing them automatically. ",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
             "7c4e0383de7398b02f5a37952778e0e965f6d43ebbe1c646cdf90af263852a86": {
@@ -85,7 +85,7 @@
         "check_id": "java.lang.xxe-01",
         "location": "https://slack-github.com/slack/apache-ranger/blob/c5ac76d331cfae777888416eb494a6da722217aa/agents-installer/src/main/java/org/apache/ranger/utils/install/XmlConfigChanger.java#L164-L164",
         "reason": "These should not be triggering. They are from the original source code, not code SLACK wrote on top. I am supressing these. Better fix is to figure out why SNOW isn't supressing them automatically. ",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "informational"
     }
 }

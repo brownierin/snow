@@ -292,7 +292,7 @@
         "check_id": "use-of-unsafe-block",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/tun_linux.go#L114-L114",
         "reason": "Valid use of unsafe-block for Nebula",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     },
         "4479f4e9d68fc8a15e786625419636cde294ce821c25734ef0432b2cfc50a66c": {
@@ -300,7 +300,7 @@
         "check_id": "use-of-unsafe-block",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/tun_linux.go#L152-L152",
         "reason": "Valid use of unsafe-block for Nebula",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     },
         "46b305eca5616d0ac63d608ab196dd4fc24c0aabc02a33a66b0cb4914b13b11a": {
@@ -308,7 +308,7 @@
         "check_id": "use-of-unsafe-block",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/tun_linux.go#L221-L221",
         "reason": "Valid use of unsafe-block for Nebula",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     },
         "7acda931e62d1b942e099f65e9ae95e1c3851387f1dd553cbc432d83d4682732": {
@@ -316,7 +316,7 @@
         "check_id": "use-of-unsafe-block",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/tun_linux.go#L227-L227",
         "reason": "Valid use of unsafe-block for Nebula",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     },
         "9efbca5b73e3f57108c67ffd94f7babb1997e95cdfd575676f74e30dbb126994": {
@@ -324,7 +324,7 @@
         "check_id": "use-of-unsafe-block",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/tun_linux.go#L233-L233",
         "reason": "Valid use of unsafe-block for Nebula",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     },
         "db7fc548020c216c58f6d28ca1dd9855dd956e20110eb0c67751c095a762ccc1": {
@@ -332,7 +332,7 @@
         "check_id": "use-of-unsafe-block",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/tun_linux.go#L239-L239",
         "reason": "Valid use of unsafe-block for Nebula",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     },
         "94a7e54cef33978e0a9d7857ecef09ae1eaf2c9efed6e550c652a5555027298b": {
@@ -340,7 +340,7 @@
         "check_id": "use-of-unsafe-block",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/tun_linux.go#L246-L246",
         "reason": "Valid use of unsafe-block for Nebula",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     },
         "b8181693885707cf66fb29fc10ec031936e902c59e49f3eecc367d5a2365d677": {
@@ -348,7 +348,7 @@
         "check_id": "use-of-unsafe-block",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/tun_linux.go#L253-L253",
         "reason": "Valid use of unsafe-block for Nebula",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     },
         "9dc59b4576da237b69b758314bc96268589f3fa2e3cbe3908fbfcd695a281317": {
@@ -356,7 +356,7 @@
         "check_id": "use-of-unsafe-block",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/tun_linux.go#L316-L316",
         "reason": "Valid use of unsafe-block for Nebula",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     },
         "3c449baa66f7b42c35f86f2bc72c5199eeceee817b720ec99658cd20b6e74c78": {
@@ -364,7 +364,7 @@
         "check_id": "use-of-unsafe-block",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/tun_wintun_windows.go#L42-L42",
         "reason": "Valid use of unsafe-block for Nebula",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     },
         "1558c1cbe43cdf34c1bd8bd8cabc6fed67a480b2f2f611790a8bbb5f44d693ff": {
@@ -372,7 +372,7 @@
         "check_id": "use-of-unsafe-block",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/udp/udp_linux.go#L158-L158",
         "reason": "Valid use of unsafe-block for Nebula",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     },
         "a646ccd275a3269bc0fd96e454d50fec05b188e19afd317da6c4ea0a15facc75": {
@@ -380,7 +380,7 @@
         "check_id": "use-of-unsafe-block",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/udp/udp_linux.go#L179-L179",
         "reason": "Valid use of unsafe-block for Nebula",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     },
         "683f870878bbece003f6e9be8562bd7254ba60e96008ba7e6fa49d2783a29bfe": {
@@ -388,7 +388,7 @@
         "check_id": "use-of-unsafe-block",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/udp/udp_linux.go#L198-L198",
         "reason": "Valid use of unsafe-block for Nebula",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     },
         "d8e8f176b6e81a6261c650359075e7f968a3295776854bc737ee7e71c927e8fe": {
@@ -396,7 +396,7 @@
         "check_id": "use-of-unsafe-block",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/udp/udp_linux.go#L207-L207",
         "reason": "Valid use of unsafe-block for Nebula",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     },
         "5c0d66876ef048117036611e32cf2ba9e942730248f483c447b10c168fbb3910": {
@@ -404,7 +404,7 @@
         "check_id": "use-of-unsafe-block",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/udp/udp_linux.go#L210-L210",
         "reason": "Valid use of unsafe-block for Nebula",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     },
         "c99ca9026a4f06a7886d1a03f64111510196ad2c28edd621bb045b0a44851317": {
@@ -412,7 +412,7 @@
         "check_id": "use-of-unsafe-block",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/udp/udp_linux.go#L258-L258",
         "reason": "Valid use of unsafe-block for Nebula",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     },
             "31b713a6401e344cf641dcc2db55fc421aec71c55a9442e02801d9ab5161ef09": {
@@ -420,7 +420,7 @@
         "check_id": "use-of-unsafe-block",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/util/assert.go#L125-L125",
         "reason": "Valid use of unsafe-block for Nebula",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     },
         "4f44852528788ff5478784ad1b9f584c16ab8fd910319e933c4180790a9cad16": {
@@ -428,7 +428,7 @@
         "check_id": "use-of-unsafe-block",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/util/assert.go#L126-L126",
         "reason": "Valid use of unsafe-block for Nebula",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     },
         "3aeadfca942bff38657c6efcde2aba2541a95873cb3d42771f845ac7f559c7e0": {
@@ -436,7 +436,7 @@
         "check_id": "use-of-unsafe-block",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/tun_darwin.go#L111-L111",
         "reason": "Valid use of unsafe-block for Nebula",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     },
         "657d3cf704ca0e78f82d9e852f022c993a677fbc296eaa862832ef4db14e5896": {
@@ -444,7 +444,7 @@
         "check_id": "use-of-unsafe-block",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/tun_darwin.go#L127-L127",
         "reason": "Valid use of unsafe-block for Nebula",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     },
         "8bba6b3ded5c0d9cbe12df081f1041cc72ee603465a2d81889ef3ec6d31078d1": {
@@ -452,7 +452,7 @@
         "check_id": "use-of-unsafe-block",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/tun_darwin.go#L141-L141",
         "reason": "Valid use of unsafe-block for Nebula",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     },
         "25ee99409dc583146799c1635344c55cb88a4dbc193b21ed20ad20d376372b52": {
@@ -460,7 +460,7 @@
         "check_id": "use-of-unsafe-block",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/tun_darwin.go#L142-L142",
         "reason": "Valid use of unsafe-block for Nebula",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     },
         "545af76bfcf5dd3f159d74ad6cd1ddf79db11829b021002443ddc140056cf3c5": {
@@ -468,7 +468,7 @@
         "check_id": "use-of-unsafe-block",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/tun_darwin.go#L215-L215",
         "reason": "Valid use of unsafe-block for Nebula",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     },
         "701164c929e63811d7b4071d0f130d80db706731ec70d9f1d61b6958b3b20976": {
@@ -476,7 +476,7 @@
         "check_id": "use-of-unsafe-block",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/tun_darwin.go#L221-L221",
         "reason": "Valid use of unsafe-block for Nebula",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     },
         "463b1e0fce539f20bea749c89d43da906ab092bc4562de755dc49e9468fad903": {
@@ -484,7 +484,7 @@
         "check_id": "use-of-unsafe-block",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/tun_darwin.go#L227-L227",
         "reason": "Valid use of unsafe-block for Nebula",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     },
         "e9ab80572ae30d93e237ced390600d5f78885a6f10da7e2805793886e275289b": {
@@ -492,7 +492,7 @@
         "check_id": "use-of-unsafe-block",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/tun_darwin.go#L233-L233",
         "reason": "Valid use of unsafe-block for Nebula",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     },
         "1280791ea797e18e489fa58bc8955f5b899aef4ccac8dc94414746388d6079db": {
@@ -500,7 +500,7 @@
         "check_id": "use-of-unsafe-block",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/tun_darwin.go#L248-L248",
         "reason": "Valid use of unsafe-block for Nebula",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     },
         "80a8e43af11c1078b05c81e103c4f7b9c9e80da9ad2147744e5133324896b40c": {
@@ -508,7 +508,7 @@
         "check_id": "use-of-unsafe-block",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/tun_darwin.go#L283-L283",
         "reason": "Valid use of unsafe-block for Nebula",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     },
             "4194dcc6d60f2e08efeb7aee6808d6a3d163725b952aab39ac63e48784eb7315": {
@@ -516,7 +516,7 @@
         "check_id": "potential-code-execution-1",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/tun_water_windows.go#L47-L54",
         "reason": "REASONNNNNN",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "RISKRANK"
     },
             "40fa6cc64773cd690f681dcd78ff955ed309aa7b244a8b0926d4ce2f9fe9329f": {
@@ -524,7 +524,7 @@
         "check_id": "potential-code-execution-1",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/tun_water_windows.go#L58-L62",
         "reason": "Code is not executable by user input",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
             "43f716434357f20cdc2a1c3a85227359ff3f3c5db901080bf55209c12c5e9e01": {
@@ -532,7 +532,7 @@
         "check_id": "potential-code-execution-1",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/tun_water_windows.go#L73-L75",
         "reason": "Code is not executable by user input",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
             "788ad32833f80df75b1cec254ce78be31e252087434e4b8641af1c89505f86b6": {
@@ -540,7 +540,7 @@
         "check_id": "potential-integer-overflow",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/config/config.go#L200-L200",
         "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on.",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     },
             "83285934b0d456183d278944ae1fe7c2f001a3a4377cd037cc0cdb31293f40e1": {
@@ -548,7 +548,7 @@
         "check_id": "potential-integer-overflow",
         "location": "https://slack-github.com/slack/nebula/blob/1915fab619a82baf2f986655d87597f793a65c4b/udp/udp_all.go#L78-L78",
         "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on.",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "low"
     }
 }

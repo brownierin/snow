@@ -4,7 +4,7 @@
         "check_id": "java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/secor/blob/be4a103ac87facd3e53e39a120d7233d59f07334/src/main/java/com/pinterest/secor/tools/SlogKafkaProducer.java#L23-L23",
         "reason": "These should not be triggering. They are from the original source code, not code SLACK wrote on top. I am supressing these. Better fix is to figure out why SNOW isn't supressing them automatically. ",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
         "29d8713ea7da32c9e984184a954d828b6bfadd576939b551bc50042c882f0097": {
@@ -12,7 +12,7 @@
         "check_id": "java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/secor/blob/be4a103ac87facd3e53e39a120d7233d59f07334/src/main/java/com/slack/secor/stats/StatsdClient.java#L60-L60",
         "reason": "These should not be triggering. They are from the original source code, not code SLACK wrote on top. I am supressing these. Better fix is to figure out why SNOW isn't supressing them automatically. ",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
         "37ee4782a179b734c4725a19dd5e3500ab71fe2ef17af4fbc7cf59ff426c46dd": {
@@ -20,7 +20,7 @@
         "check_id": "java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/secor/blob/be4a103ac87facd3e53e39a120d7233d59f07334/src/main/java/com/slack/secor/tools/ThriftKafkaProducer.java#L27-L27",
         "reason": "These should not be triggering. They are from the original source code, not code SLACK wrote on top. I am supressing these. Better fix is to figure out why SNOW isn't supressing them automatically. ",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
         "b242f7dadb3186dffcba7aa272923f6db1324ba48988082f0057d888f2e861c9": {
@@ -28,7 +28,7 @@
         "check_id": "java.lang.predictable-prng-01",
         "location": "https://slack-github.com/slack/secor/blob/be4a103ac87facd3e53e39a120d7233d59f07334/src/main/java/com/slack/secor/tools/ThriftLog2Kafka.java#L44-L44",
         "reason": "These should not be triggering. They are from the original source code, not code SLACK wrote on top. I am supressing these. Better fix is to figure out why SNOW isn't supressing them automatically. ",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
         "beb979a5957610b8724bc1d7bf96b570794d16a9e8438eba3fe2d25be6d2c7d6": {
@@ -36,7 +36,7 @@
         "check_id": "java.lang.security.audit.crypto.weak-hash.use-of-md5",
         "location": "https://slack-github.com/slack/secor/blob/be4a103ac87facd3e53e39a120d7233d59f07334/src/main/java/com/pinterest/secor/util/FileUtil.java#L277-L277",
         "reason": "These should not be triggering. They are from the original source code, not code SLACK wrote on top. I am supressing these. Better fix is to figure out why SNOW isn't supressing them automatically. ",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "informational"
     }
 }

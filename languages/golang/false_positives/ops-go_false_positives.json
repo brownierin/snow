@@ -1006,7 +1006,7 @@
         "check_id": "unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/0b84b6228c0fe4a0500ca3a1f171467efb54763b/cmds/gaz/kaz_template_helpers.go#L133-L135",
         "reason": "Input is sanatized using PathEscape",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
         "183490c3e08acecd84e451d762220462c1cf115fccf4873edb31f12edcc63246": {
@@ -1014,7 +1014,7 @@
         "check_id": "unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/0b84b6228c0fe4a0500ca3a1f171467efb54763b/cmds/gaz/kaz_template_helpers.go#L158-L160",
         "reason": "Input is sanatized using PathEscape",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
         "16c6eeb03718ea997febdebc066d5d94aba58ea92811ae14b932605839c50cf4": {
@@ -1022,7 +1022,7 @@
         "check_id": "unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/0b84b6228c0fe4a0500ca3a1f171467efb54763b/cmds/gaz/kaz_template_helpers.go#L202-L203",
         "reason": "Input is sanatized using PathEscape",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
         "4f99e29ce8a7edcfa80f676289a621bad82cda36dd4c8307222af2dfc38e5914": {
@@ -1030,7 +1030,7 @@
         "check_id": "unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/0b84b6228c0fe4a0500ca3a1f171467efb54763b/cmds/gaz/kaz_template_helpers.go#L209-L211",
         "reason": "Input is sanatized using PathEscape",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
         "f48c456d3a8dd430cad97560b9166a745e1cd3759c56fcc71a1fb967e2e51a5d": {
@@ -1038,7 +1038,7 @@
         "check_id": "unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/0b84b6228c0fe4a0500ca3a1f171467efb54763b/cmds/gaz/kaz_template_helpers.go#L214-L217",
         "reason": "Input is sanatized using PathEscape",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
         "c6d9c885ae4b0b153ab7014301995a30314fb2ce47b386b81af80c10f656855d": {
@@ -1046,7 +1046,7 @@
         "check_id": "unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/0b84b6228c0fe4a0500ca3a1f171467efb54763b/cmds/gaz/kaz_template_helpers.go#L257-L258",
         "reason": "Input is sanatized using PathEscape",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
         "c581fbfd3e604aa65beea9d08311af02eb1b823d03ed636facfbbaa7ee367725": {
@@ -1054,7 +1054,7 @@
         "check_id": "unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/0b84b6228c0fe4a0500ca3a1f171467efb54763b/cmds/gaz/kaz_template_helpers.go#L286-L287",
         "reason": "Input is sanatized using PathEscape",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
         "371238c93e53856c31a68404e703d5ad0d1058bd49a60a7b701a9cc915ae69a6": {
@@ -1062,7 +1062,7 @@
         "check_id": "unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/0b84b6228c0fe4a0500ca3a1f171467efb54763b/cmds/gaz/show_node.go#L52-L52",
         "reason": "Input is sanatized using PathEscape",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
         "d59fae65f64f49aea8b9350e47524387529d35352cdb259ef650b015ba804c6f": {
@@ -1070,7 +1070,7 @@
         "check_id": "potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/0b84b6228c0fe4a0500ca3a1f171467efb54763b/cmds/gitchen/kitchen_cli.go#L61-L61",
         "reason": "This script expects the user to be on the box running via CLI",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
         "8440f1c3311e7aad6b06b6df74808cefda41861de5eefca74da8429bf3403eff": {
@@ -1078,7 +1078,7 @@
         "check_id": "potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/cfec4c582ecbb8c5b0ac66d829b3f77fb1195ae8/cmds/tf-smart-plan/run_module_copier.go#L23-L23",
         "reason": "Code is internal infrastructure code that is not input by end user",
-        "jira": "PRODSECTICKET",
+        "jira": "PRODSEC-3421",
         "Risk": "informational"
     }
 }
