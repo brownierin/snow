@@ -12,7 +12,6 @@ tsajira
 http-request-log-plugin
 solr-tools
 zookeeper
-netty
 kafka-graphite
 solr-plugin
 statsd-jvm-profiler
