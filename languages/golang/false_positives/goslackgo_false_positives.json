@@ -444,5 +444,77 @@
           "reason": "This checks if a file changes and reloads it if it ever does. If you caused a collision here, it would NOT load the file. Cant see this being exploitable. ",
           "jira": "PRODSEC-3142",
           "risk": "Informational"
-        }
+        },
+                "a68d41a3cdac205f1bd35cea5b6c5d934b19cade63f128524e3b74986da59b13": {
+        "message": "Rule 'potential-integer-overflow' triggered.",
+        "check_id": "potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/5a455654bd4d3f1ca863b1533a60c0e07c863cb0/common/client/grpc/resolver/resolver.go#L83-L83",
+        "reason": "Hash Changed. integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on.",
+        "jira": "PRODSECTICKET",
+        "Risk": "low"
+    },
+        "f116fae527d2f21bf47c6efa4bb825cceee6d29889f03dce1db4d85d1d71fd74": {
+        "message": "Rule 'potential-integer-overflow' triggered.",
+        "check_id": "potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/5a455654bd4d3f1ca863b1533a60c0e07c863cb0/common/client/grpc/resolver/resolver.go#L88-L88",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on.",
+        "jira": "PRODSECTICKET",
+        "Risk": "low"
+    },
+        "3145b26c89bcffb800fb599a88c3d0a7e08f5e9a3d6d7bea57905d46afa64f8f": {
+        "message": "Rule 'potential-integer-overflow' triggered.",
+        "check_id": "potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/5a455654bd4d3f1ca863b1533a60c0e07c863cb0/mayfly/accelerator/redis_to_sqs_task.go#L278-L278",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on.",
+        "jira": "PRODSECTICKET",
+        "Risk": "low"
+    },
+        "89985d4df3a2801af2226ac8e60d632e97cf151b303af327ce69f1ac51a51674": {
+        "message": "Rule 'potential-integer-overflow' triggered.",
+        "check_id": "potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/5a455654bd4d3f1ca863b1533a60c0e07c863cb0/mayfly/accelerator/redis_to_sqs_task.go#L283-L283",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on.",
+        "jira": "PRODSECTICKET",
+        "Risk": "low"
+    },
+        "bd86914a62ed1fe17fa890944593df55d8f3a549fc6180db85c0c4efe3cd708c": {
+        "message": "Rule 'potential-integer-overflow' triggered.",
+        "check_id": "potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/5a455654bd4d3f1ca863b1533a60c0e07c863cb0/mayfly/router/prommetrics/metrics.go#L335-L335",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on.",
+        "jira": "PRODSECTICKET",
+        "Risk": "low"
+    },
+        "d8c5a8452559bc6e5297726a47b8ed5c5d554b5d8a68a3b72f36ea50f7513db8": {
+        "message": "Rule 'potential-integer-overflow' triggered.",
+        "check_id": "potential-integer-overflow",
+        "location": "https://slack-github.com/slack/goslackgo/blob/5a455654bd4d3f1ca863b1533a60c0e07c863cb0/mayfly/router/prommetrics/metrics.go#L340-L340",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on.",
+        "jira": "PRODSECTICKET",
+        "Risk": "low"
+    },
+        "fc2bac5cfa30b3a102f66955aa0aa9c7c13e7595081fe60befb5aa6de508944b": {
+        "message": "Rule 'potential-integer-overflow' triggered.",
+        "check_id": "potential-integer-overflow",
+        "location": "potential-integer-overflow://slack-github.com/slack/goslackgo/blob/5a455654bd4d3f1ca863b1533a60c0e07c863cb0/mayfly/router/server/router_task.go#L391-L391",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on.",
+        "jira": "PRODSECTICKET",
+        "Risk": "low"
+    },
+        "ae9b2dcb2de6ecfeea40e06739e900387b967cc4ab60d6b8c5bf59b650d1efda": {
+        "message": "Rule 'go.lang.security.audit.crypto.bad_imports.insecure-module-used' triggered.",
+        "check_id": "go.lang.security.audit.crypto.bad_imports.insecure-module-used",
+        "location": "https://slack-github.com/slack/goslackgo/blob/5a455654bd4d3f1ca863b1533a60c0e07c863cb0/ekm/cmd/ekm/decrypt_handler.go#L569-L569",
+        "reason": "Hash Change. MD5, is used as idenfier for encryptionn keys. I don't think this is an issue, but I dont like this so closely related to crypto. ",
+        "jira": "PRODSECTICKET",
+        "Risk": "low"
+    },
+        "3604b7af6b39e92a6a7aa4b33c73b01f922b28f13b9a494358c62f4c23bca43b": {
+        "message": "Rule 'go.lang.security.audit.crypto.bad_imports.insecure-module-used' triggered.",
+        "check_id": "go.lang.security.audit.crypto.bad_imports.insecure-module-used",
+        "location": "https://slack-github.com/slack/goslackgo/blob/5a455654bd4d3f1ca863b1533a60c0e07c863cb0/mayfly/registry/registry.go#L270-L270",
+        "reason": "Hash Change. This checks if a file changes and reloads it if it ever does. If you caused a collision here, it would NOT load the file. Cant see this being exploitable.",
+        "jira": "PRODSECTICKET",
+        "Risk": "low"
+    }
 }

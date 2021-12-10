@@ -262,5 +262,94 @@
         "reason": "Test code.",
         "jira": "",
         "Risk": "False Positive"
+    },
+        "d4251335d5eb05fd03ad5453079d9dad04e30a38c5a2c0ad8efa5f476215d3e0": {
+        "message": "Rule 'use-of-unsafe-block' triggered.",
+        "check_id": "use-of-unsafe-block",
+        "location": "https://slack-github.com/slack/flannel/blob/d88005ce9f74ae1ad3d1c5154ce0d24123e93322/websocket/mask.go#L27-L27",
+        "reason": "Hash was changed. This is part of masking for Google websockets implementation. The code doesnt look to be exploitable using unsafe. https://github.com/google/inverting-proxy/blob/master/vendor/github.com/gorilla/websocket/mask.go",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+    "733425f61b3dab597c0b5c357a85715fd9b2df21578a0bbba807c879c1367855": {
+        "message": "Rule 'use-of-unsafe-block' triggered.",
+        "check_id": "use-of-unsafe-block",
+        "location": "https://slack-github.com/slack/flannel/blob/d88005ce9f74ae1ad3d1c5154ce0d24123e93322/websocket/mask.go#L41-L41",
+        "reason": "Hash was changed. This is part of masking for Google websockets implementation. The code doesnt look to be exploitable using unsafe. https://github.com/google/inverting-proxy/blob/master/vendor/github.com/gorilla/websocket/mask.go",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+    "b032bbc403d076b1f22e45c5c737e7c53da4d84a9d2407c6c54fa3660a228a63": {
+        "message": "Rule 'use-of-unsafe-block' triggered.",
+        "check_id": "use-of-unsafe-block",
+        "location": "https://slack-github.com/slack/flannel/blob/d88005ce9f74ae1ad3d1c5154ce0d24123e93322/websocket/mask.go#L46-L46",
+        "reason": "Hash was changed. This is part of masking for Google websockets implementation. The code doesnt look to be exploitable using unsafe. https://github.com/google/inverting-proxy/blob/master/vendor/github.com/gorilla/websocket/mask.go",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+    "56bf2651cbe29452fc94ffc06eb6e69e635191bdad512a561852509d80ad9a65": {
+        "message": "Rule 'potential-code-execution-1' triggered.",
+        "check_id": "potential-code-execution-1",
+        "location": "https://slack-github.com/slack/flannel/blob/d88005ce9f74ae1ad3d1c5154ce0d24123e93322/scripts/debug/consistency.go#L46-L46",
+        "reason": "Has was changed. This is a CLI debug tool for internal use",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+    "cf92ce94b2eb6afd21f6efde430551fc7b88075924c75e56bce2febbdef575e3": {
+        "message": "Rule 'potential-code-execution-1' triggered.",
+        "check_id": "potential-code-execution-1",
+        "location": "https://slack-github.com/slack/flannel/blob/d88005ce9f74ae1ad3d1c5154ce0d24123e93322/scripts/drain/drain.go#L657-L657",
+        "reason": "Has was changed. Locally run script, args passed to script internally",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+
+        "df7af2ed006d26ba7060b97e9395136dca0f65b726e4b332e3ab7eaa2b68a343": {
+        "message": "Rule 'potential-integer-overflow' triggered.",
+        "check_id": "potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/d88005ce9f74ae1ad3d1c5154ce0d24123e93322/testcontext/test_context.go#L1081-L1081",
+        "reason": "Hash changed. Integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on.",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "80ae3e33996cf517666795677b124bd2423783fcbcf1a7c9056f37d5486cfbeb": {
+        "message": "Rule 'potential-integer-overflow' triggered.",
+        "check_id": "potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/d88005ce9f74ae1ad3d1c5154ce0d24123e93322/testcontext/test_context.go#L1082-L1082",
+        "reason": "Hash changed. Integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on.",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "91bd3336b7c5d03619d68d7fbf50741d266c58fd3e6f8e64c0256a9677dd87eb": {
+        "message": "Rule 'potential-integer-overflow' triggered.",
+        "check_id": "potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/d88005ce9f74ae1ad3d1c5154ce0d24123e93322/testcontext/test_context.go#L1413-L1413",
+        "reason": "Hash changed. Integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on.",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "9b47d47f7cf91d97173452e7a451c9567e2454908fa6ebb8ba5878e288f5fb51": {
+        "message": "Rule 'potential-integer-overflow' triggered.",
+        "check_id": "potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/d88005ce9f74ae1ad3d1c5154ce0d24123e93322/testcontext/test_context.go#L1420-L1420",
+        "reason": "Hash changed. Integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on.",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "7faa43b9f790c2395cf3a3507030b1f62be8478f25ef2ba583ca246208fe9959": {
+        "message": "Rule 'potential-integer-overflow' triggered.",
+        "check_id": "potential-integer-overflow",
+        "location": "https://slack-github.com/slack/flannel/blob/d88005ce9f74ae1ad3d1c5154ce0d24123e93322/testcontext/test_context.go#L1427-L1427",
+        "reason": "Hash changed. Integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on.",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "eb652c1b69ac7d45e702cff911a355481372fc09d4dda08040e38291f96d9202": {
+        "message": "Rule 'go.lang.security.audit.crypto.bad_imports.insecure-module-used' triggered.",
+        "check_id": "go.lang.security.audit.crypto.bad_imports.insecure-module-used",
+        "location": "https://slack-github.com/slack/flannel/blob/d88005ce9f74ae1ad3d1c5154ce0d24123e93322/websocket/util.go#L17-L17",
+        "reason": "Hash change. Challenge key in code is not a secret. It comes from https://datatracker.ietf.org/doc/html/rfc6455",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
     }
 }

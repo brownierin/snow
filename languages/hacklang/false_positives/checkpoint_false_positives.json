@@ -1,1 +1,242 @@
-{}
+{
+	        "1400a0354e4fec011a0b23f7038ca95bc143cffe68a913d8aa11994968218a4f": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/cli/cibot/artifacts_publisher.hack#L31-L31",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "92c679152c980c2097593598cc06f098884a67aa0261bb5a4cb708c0eadd7f48": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/cron/background_task.php#L108-L108",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "8d5cac5e3f20b2edb6e47d14f79ae9bf68d69368bd81ede330bacb87328ee48f": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/Jenkins/lib_jenkins.hack#L507-L507",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "6d8a2d36fedde7707e42b28810167859bf1d80bd8b0e9c885638ddfba0f44db4": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_builder_helper.hack#L26-L26",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "16ed910f8f4e38597c2e2784fe5bfa7dcc4dc70928d6409997a5e98ff21677ac": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_builder_helper.hack#L66-L66",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "827255ea5a9973a21b952262540c83cba50c8a64c66f5fbc2bc0305f87fec82b": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_builder_helper.hack#L77-L77",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "de69bf8a11380ba40862ab2e8fc6752e986da6bf4946acb932d40ab18dae1577": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_builder_helper.hack#L84-L84",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "c1cf67578b6fd9e68648ce88a33b048bf5598fb73f69569f4ed0792bf27fc503": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_builder_helper.hack#L90-L90",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "8de4fe198078a7c97aa25db487db6c75509121c46048a1807a08d2b1c63c8da1": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_builder_helper.hack#L96-L96",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "c2bca3fd04a7b24e5a4330e0c0c8a06550614fe41960fa899a9b5e5015eb90d7": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_builder_helper.hack#L103-L103",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+    "e6d3e271bb4fcb333cac22228ffefd3ece9a67ad984eb8250653eb342d558518": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L67-L67",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "c4eecb0640c49c953f7780df49e6a95941efd99fef382227913e4d40a293d85a": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L179-L179",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "af0a1640caa5058d2b7bc35c8df8772d9a22a06173ee8f7d410b85272bdf146a": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L195-L195",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "7b37b1e58c01fc2689bc8fa99630776b5263ab2494df49cba48b75aba773baf6": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L198-L198",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "9f23c16ae92c9ff70e08c514bb2f4ee5eca4a10ba29d5b5c2bb95beae7ffa699": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L206-L206",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+    "36f35fa2cd3b1349db8e0547e7aac0d59608f32c9ebebce76e6dd6596dccafba": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L251-L251",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "5244f33a4292b69fc5b9703dec15226b9beea8283914960f9fad71a4e73c7bf5": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L267-L267",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "8197a5c55096eda35a92a034c9b1cd62877a0946d5a677c845fa01ad1bf0afb6": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L285-L285",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "69d564d41ab4e711a276ac5dafd86be475cec5ef9dbc23de2999c968450b7269": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L294-L294",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "5c0127b38a1a34cf04598f45c20bb72e2a9323f530241009afe3d6d32fb751c6": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L312-L312",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+    "b7d4d33014657bcaa91deb5c0ceda970124ebe9aaac74f2711ef61d436ff274f": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L323-L323",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "b39f95e2286fc802befd2e3ec997fccf56c8aedc1f9c116493c314ae50af45ce": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L344-L344",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "d6a1db94055811b102add6ff62e8409ebf678ba63ae67723e2a8276ecd70dd02": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L351-L351",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "bda92d51ffd80a54f8f733f5daca0342dd5856b73e7af9af97ac3027795a3e23": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L456-L456",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "acd6046960da96ca245859ffced3aabd6d3c3d9663221aecca6716b7b5394b51": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L460-L460",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+    "e70b568314ff79e0762ba07098d4c0ecdc436ee38091fa3e141a1fe645620956": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L464-L464",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "1917a76e6c1fe81d67ac6687bfc32ad31eb85d26af5c4d04e4340215c94d6fca": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L469-L469",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "3bd91edbe1957dc3ab691412727b914ced868172f1dea2c41aebbbd119c63cfe": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/lib_github_pulls.hack#L634-L634",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "87524e287c80427fa2b8d9b1516ff6849be3c1820d6e4320a1f4568803689a51": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/lib_test_run.hack#L232-L232",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    },
+        "aac156824b5de4a3ee3131a87b8778bd0d51f82fa2ae00a7c116a87514e0cae6": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/lunchtrain/blob/6c8bad3634dc32ec21404d91df585ca8e8c5472b/vendor/hhvm/hhvm-autoload/src/HHClientFallbackHandler.hack#L229-L229",
+        "Exec does not take user input": "Exec does not take user input",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
+    }
+}
