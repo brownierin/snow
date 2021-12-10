@@ -30,7 +30,6 @@ SikuliX1
 cloudwatch_exporter
 kayenta
 slack-data-starter
-sqlparser_ref_impl
 intellij-hack-plugin
 nano-slack-java
 kubernetes-example-java
