@@ -24,7 +24,6 @@ ImageDaemon
 cruise-control
 lucene-solr
 slack-wherehows
-sqlite-java-connect
 JavaBackend-LTF-GUI
 ms-netty4
 android-101398446
