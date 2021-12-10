@@ -147,5 +147,5 @@
         "reason": "This script is exclusively being called in the Bedrock stages for applying models to dev and prod. Not user input is used. Only infra setup/migration. ",
         "jira": "PRODSECTICKET",
         "Risk": "informational"
-    },
+    }
 }
