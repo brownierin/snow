@@ -29,7 +29,6 @@ doctorkafka
 SikuliX1
 cloudwatch_exporter
 kayenta
-grpc_web_java
 hipchat-client-android
 slack-data-starter
 sqlparser_ref_impl
