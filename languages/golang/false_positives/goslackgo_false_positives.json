@@ -501,14 +501,6 @@
         "jira": "PRODSECTICKET",
         "Risk": "low"
     },
-        "ae9b2dcb2de6ecfeea40e06739e900387b967cc4ab60d6b8c5bf59b650d1efda": {
-        "message": "Rule 'go.lang.security.audit.crypto.bad_imports.insecure-module-used' triggered.",
-        "check_id": "go.lang.security.audit.crypto.bad_imports.insecure-module-used",
-        "location": "https://slack-github.com/slack/goslackgo/blob/5a455654bd4d3f1ca863b1533a60c0e07c863cb0/ekm/cmd/ekm/decrypt_handler.go#L569-L569",
-        "reason": "Hash Change. MD5, is used as idenfier for encryptionn keys. I don't think this is an issue, but I dont like this so closely related to crypto. ",
-        "jira": "PRODSECTICKET",
-        "Risk": "low"
-    },
         "3604b7af6b39e92a6a7aa4b33c73b01f922b28f13b9a494358c62f4c23bca43b": {
         "message": "Rule 'go.lang.security.audit.crypto.bad_imports.insecure-module-used' triggered.",
         "check_id": "go.lang.security.audit.crypto.bad_imports.insecure-module-used",

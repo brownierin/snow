@@ -1072,5 +1072,13 @@
         "reason": "This script expects the user to be on the box running via CLI",
         "jira": "PRODSECTICKET",
         "Risk": "informational"
+    },
+        "8440f1c3311e7aad6b06b6df74808cefda41861de5eefca74da8429bf3403eff": {
+        "message": "Rule 'potential-code-execution-1' triggered.",
+        "check_id": "potential-code-execution-1",
+        "location": "https://slack-github.com/slack/ops-go/blob/cfec4c582ecbb8c5b0ac66d829b3f77fb1195ae8/cmds/tf-smart-plan/run_module_copier.go#L23-L23",
+        "reason": "Code is internal infrastructure code that is not input by end user",
+        "jira": "PRODSECTICKET",
+        "Risk": "informational"
     }
 }
