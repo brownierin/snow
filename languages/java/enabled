@@ -29,7 +29,6 @@ doctorkafka
 SikuliX1
 cloudwatch_exporter
 kayenta
-hipchat-client-android
 slack-data-starter
 sqlparser_ref_impl
 intellij-hack-plugin
