@@ -30,15 +30,11 @@ SikuliX1
 cloudwatch_exporter
 kayenta
 slack-data-starter
-intellij-hack-plugin
-nano-slack-java
 kubernetes-example-java
-kennel
 presto
 grafeas-plugin
 grafeas-java
 build-failure-analyzer-plugin
-slack-cert
 workday-proxy
 solr-cloud-plugin
 elasticsearch
@@ -68,9 +64,3 @@ flink
 bingql
 dr-elephant
 jmx_exporter
-
-
-
-
-
-
