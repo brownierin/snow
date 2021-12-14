@@ -94,5 +94,13 @@
         "reason": "it won't ever resolve user input other than empty or notraffic",
         "jira": "PRODSEC-3139",
         "risk": "Informational"
-      }
+      },
+        "0aca683fd5b0222e8c1c33f01e4725cf55281a6919cc079e4584dea311e064ad": {
+        "message": "Rule 'string-formatted-query' triggered.",
+        "check_id": "string-formatted-query",
+        "location": "https://slack-github.com/slack/missions/blob/d50d499e8052f13a8f2ed55c7bae0b5c041daa2d/api/cmd/migrator/migrations/008-force-one-workflow-per-app.go#L91-L91",
+        "reason": "This is internal tooling used to migrate missions data that runs on the CLI",
+        "jira": "PRODSEC-3421",
+        "Risk": "Informational"
+    }
 }

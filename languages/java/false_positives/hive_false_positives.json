@@ -1,0 +1,10 @@
+{
+        "4329d054aca4cf922cfe1d45e74b75dbfa36957331be4d383a0f7449a15506f4": {
+        "message": "Rule 'java.lang.predictable-prng-01' triggered.",
+        "check_id": "java.lang.predictable-prng-01",
+        "location": "https://slack-github.com//slack/hive/blob/25291ac38de541d1a4a7f55a698be6e5b04c134f/itests/hive-jmh/src/main/java/org/apache/hive/benchmark/serde/LazySimpleSerDeBench.java#L494-L494",
+        "reason": "These should not be triggering. They are from the original source code, not code SLACK wrote on top. I am supressing these. Better fix is to figure out why SNOW isn't supressing them automatically. ",
+        "jira": "PRODSEC-3421",
+        "Risk": "informational"
+    }
+}

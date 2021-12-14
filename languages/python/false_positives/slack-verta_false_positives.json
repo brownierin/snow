@@ -115,5 +115,37 @@
         "reason": "The files loaded are internally controlled and require elevated permission in order to modify them. This attacks our infrastructure then backend slack. ",
         "jira": "PRODSEC-3398",
         "risk": "medium"
+    },
+    "9d6a481e33f57414909f3768c65378710190bba7eb7b37081bb4f17062730881": {
+        "message": "Rule 'dangerous-subprocess-use' triggered.",
+        "check_id": "dangerous-subprocess-use",
+        "location": "https://slack-github.com/slack/slack-verta/blob/992499ba3797efac74aef9de045fc91902f6d566/models/apply_and_wait.py#L52-L56",
+        "reason": "This script is exclusively being called in the Bedrock stages for applying models to dev and prod. Not user input is used. Only infra setup/migration. ",
+        "jira": "PRODSEC-3421",
+        "Risk": "informational"
+    },
+        "804504a55d9ecb151b97e36c75473c9cfba54daef382bef850d22f67c7045c0f": {
+        "message": "Rule 'dangerous-subprocess-use' triggered.",
+        "check_id": "dangerous-subprocess-use",
+        "location": "https://slack-github.com/slack/slack-verta/blob/992499ba3797efac74aef9de045fc91902f6d566/models/apply_and_wait.py#L79-L82",
+        "reason": "This script is exclusively being called in the Bedrock stages for applying models to dev and prod. Not user input is used. Only infra setup/migration. ",
+        "jira": "PRODSEC-3421",
+        "Risk": "informational"
+    },
+        "3d5117e5bf8f7c1f54850e0f9de7fe6f4f3b715a0bacd3277500f53942a2793e": {
+        "message": "Rule 'dangerous-subprocess-use' triggered.",
+        "check_id": "dangerous-subprocess-use",
+        "location": "https://slack-github.com/slack/slack-verta/blob/992499ba3797efac74aef9de045fc91902f6d566/models/apply_and_wait.py#L98-L102",
+        "reason": "This script is exclusively being called in the Bedrock stages for applying models to dev and prod. Not user input is used. Only infra setup/migration. ",
+        "jira": "PRODSEC-3421",
+        "Risk": "informational"
+    },
+        "2373dd33c3d776c3b580deec6d362864c192141f8e8490c7c3e380f2ff7a264a": {
+        "message": "Rule 'dangerous-subprocess-use' triggered.",
+        "check_id": "dangerous-subprocess-use",
+        "location": "https://slack-github.com/slack/slack-verta/blob/992499ba3797efac74aef9de045fc91902f6d566/models/apply_and_wait.py#L125-L129",
+        "reason": "This script is exclusively being called in the Bedrock stages for applying models to dev and prod. Not user input is used. Only infra setup/migration. ",
+        "jira": "PRODSEC-3421",
+        "Risk": "informational"
     }
 }
