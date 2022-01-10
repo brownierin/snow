@@ -1,1 +1,245 @@
-{}
+{
+    "2d646372a3f86a9c3c364169219653d11231071c1585a85a11e4e32b491734d9":
+    {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/orchestrator/blob/2b927424ec4c181f5c2e7cb4c0fc43d15ab9fa37/go/http/agents_api.go#L40-L40",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on. ",
+        "jira": "PRODSEC-3392",
+        "risk": "low"
+    },
+    "83cba92c00af4d528d166e9f8854ea17a427bed260c4a3d37ef33f5a201f38cc":
+    {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/orchestrator/blob/2b927424ec4c181f5c2e7cb4c0fc43d15ab9fa37/go/http/web.go#L48-L48",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on. ",
+        "jira": "PRODSEC-3392",
+        "risk": "low"
+    },
+    "344c066456cbbadd341a7b192a450510a75103ce65d5bd48e367c28b506fd382":
+    {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/orchestrator/blob/2b927424ec4c181f5c2e7cb4c0fc43d15ab9fa37/go/inst/instance_key.go#L57-L57",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on. ",
+        "jira": "PRODSEC-3392",
+        "risk": "low"
+    },
+    "879426c54f4342e7bcfb082995d52c8cb328e2b3af6c31a45f93877add19d3ab":
+    {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/orchestrator/blob/2b927424ec4c181f5c2e7cb4c0fc43d15ab9fa37/go/inst/oracle_gtid_set_entry.go#L65-L65",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on. ",
+        "jira": "PRODSEC-3392",
+        "risk": "low"
+    },
+    "7576172ea532ee7c39ac7c37bc204aa63b85113e97215de9986e98d90dbc853b":
+    {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/orchestrator/blob/2b927424ec4c181f5c2e7cb4c0fc43d15ab9fa37/go/inst/oracle_gtid_set_entry.go#L66-L66",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on. ",
+        "jira": "PRODSEC-3392",
+        "risk": "low"
+    },
+    "3bcf16aa58a77fe9aba2faf37d035ad11b88a96b46830e6e49060d27175ac704":
+    {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/orchestrator/blob/2b927424ec4c181f5c2e7cb4c0fc43d15ab9fa37/go/inst/binlog.go#L138-L138",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on. ",
+        "jira": "PRODSEC-3392",
+        "risk": "low"
+    },
+    "be8726bf689612c73f90a1c0a74ef93b66e0a9120948a636e396e5ef86c6b3b3":
+    {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/orchestrator/blob/2b927424ec4c181f5c2e7cb4c0fc43d15ab9fa37/go/inst/instance_utils.go#L229-L229",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on. ",
+        "jira": "PRODSEC-3392",
+        "risk": "low"
+    },
+    "0437ddd5753d215b6359d31987bcb4639ec9a68cfebaabd9045c170feb1a436f":
+    {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/orchestrator/blob/2b927424ec4c181f5c2e7cb4c0fc43d15ab9fa37/go/inst/instance_utils.go#L230-L230",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on. ",
+        "jira": "PRODSEC-3392",
+        "risk": "low"
+    },
+    "8990fa5a10eea6f10cbc887b0439d52f94f447252b1312f1d9e080510912290f":
+    {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/orchestrator/blob/2b927424ec4c181f5c2e7cb4c0fc43d15ab9fa37/go/http/web.go#L200-L200",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on. ",
+        "jira": "PRODSEC-3392",
+        "risk": "low"
+    },
+    "44933b1ff4f71708b759082d4d85551538939821b6f94c36bf1317f1faedcae5":
+    {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/orchestrator/blob/2b927424ec4c181f5c2e7cb4c0fc43d15ab9fa37/go/http/web.go#L220-L220",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on. ",
+        "jira": "PRODSEC-3392",
+        "risk": "low"
+    },
+    "7ac9ad2a9fd8e9ab17d5a4e018aec587c5d0e92ec857c2a44eef6f295a355739":
+    {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/orchestrator/blob/2b927424ec4c181f5c2e7cb4c0fc43d15ab9fa37/go/http/web.go#L249-L249",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on. ",
+        "jira": "PRODSEC-3392",
+        "risk": "low"
+    },
+    "2dd3f3f67b2899f8b53904786fea92496ff35ede09c07e97f85e09fae032b0cf":
+    {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/orchestrator/blob/2b927424ec4c181f5c2e7cb4c0fc43d15ab9fa37/go/inst/instance.go#L396-L396",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on. ",
+        "jira": "PRODSEC-3392",
+        "risk": "low"
+    },
+    "18fa56237fabdbc9bd95f4f09dd05f7e6b254176a8edbcab5bb27497c09907a8":
+    {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/orchestrator/blob/2b927424ec4c181f5c2e7cb4c0fc43d15ab9fa37/go/http/api.go#L1591-L1591",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on. ",
+        "jira": "PRODSEC-3392",
+        "risk": "low"
+    },
+    "54c54361eb836f290c988f33032d7dab2c496a668d4da08cb0c1fdc89fb0d64a":
+    {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/orchestrator/blob/2b927424ec4c181f5c2e7cb4c0fc43d15ab9fa37/go/http/api.go#L2086-L2086",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on. ",
+        "jira": "PRODSEC-3392",
+        "risk": "low"
+    },
+    "6fe0e974c6644c9ee5a08fb0e0f5c547b31c78b704e834c021673327a36a8311":
+    {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/orchestrator/blob/2b927424ec4c181f5c2e7cb4c0fc43d15ab9fa37/go/http/api.go#L2316-L2316",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on. ",
+        "jira": "PRODSEC-3392",
+        "risk": "low"
+    },
+    "4b65c0774cc927e9fae18971093473d4e7fd2149e0cee0a4d4c0738c1dbdc8e6":
+    {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/orchestrator/blob/2b927424ec4c181f5c2e7cb4c0fc43d15ab9fa37/go/http/api.go#L2336-L2336",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on. ",
+        "jira": "PRODSEC-3392",
+        "risk": "low"
+    },
+    "9a7622039ce4b7c7bd0308e95432cbafd839db8b4332c528367a47442e0f7b24":
+    {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/orchestrator/blob/2b927424ec4c181f5c2e7cb4c0fc43d15ab9fa37/go/http/api.go#L2351-L2351",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on. ",
+        "jira": "PRODSEC-3392",
+        "risk": "low"
+    },
+    "09762a1ebbe503d9c2a465cadc834f1591b6aee1a6d3a660c969774e508262f1":
+    {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/orchestrator/blob/2b927424ec4c181f5c2e7cb4c0fc43d15ab9fa37/go/http/api.go#L2369-L2369",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on. ",
+        "jira": "PRODSEC-3392",
+        "risk": "low"
+    },
+    "831f894ac4f8c67a7f4b67f17325d836158c7777950be70a923558e1327bfe97":
+    {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/orchestrator/blob/2b927424ec4c181f5c2e7cb4c0fc43d15ab9fa37/go/http/api.go#L2385-L2385",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on. ",
+        "jira": "PRODSEC-3392",
+        "risk": "low"
+    },
+    "1e4475b3363e80d350f49101e6b3cc69ece59a44f88816aa2427c323050c4492":
+    {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/orchestrator/blob/2b927424ec4c181f5c2e7cb4c0fc43d15ab9fa37/go/http/api.go#L2405-L2405",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on. ",
+        "jira": "PRODSEC-3392",
+        "risk": "low"
+    },
+    "346979cdbcf18e0af8505c5f2e231af8f4cc2b9aef526eab738a58070283674c":
+    {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/orchestrator/blob/2b927424ec4c181f5c2e7cb4c0fc43d15ab9fa37/go/http/api.go#L2421-L2421",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on. ",
+        "jira": "PRODSEC-3392",
+        "risk": "low"
+    },
+    "4bfb8824b098c7370380c6640f404b043abab593d001d98b5d34a5d99bb7387e":
+    {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/orchestrator/blob/2b927424ec4c181f5c2e7cb4c0fc43d15ab9fa37/go/http/api.go#L2442-L2442",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on. ",
+        "jira": "PRODSEC-3392",
+        "risk": "low"
+    },
+    "8ef1311787b87821054a2618000ee6e4731845bb74c2aa65bf8159b669efbe44":
+    {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/orchestrator/blob/2b927424ec4c181f5c2e7cb4c0fc43d15ab9fa37/go/http/api.go#L2819-L2819",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on. ",
+        "jira": "PRODSEC-3392",
+        "risk": "low"
+    },
+    "11a7082f656b5f1e8b992d3dcd25ff6533a7ec7df4c54e9355b16173766456d6":
+    {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/orchestrator/blob/2b927424ec4c181f5c2e7cb4c0fc43d15ab9fa37/go/http/api.go#L3311-L3311",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on. ",
+        "jira": "PRODSEC-3392",
+        "risk": "low"
+    },
+    "c0c6c2668094cae6072b9933a9fc53e5d5e1ed55ea150bd4acbfdd3042b4e4bc":
+    {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/orchestrator/blob/2b927424ec4c181f5c2e7cb4c0fc43d15ab9fa37/go/http/api.go#L3361-L3361",
+        "reason": "integer overflow is only vulnerable if ran on 32 bit machines, which we do not run on. ",
+        "jira": "PRODSEC-3392",
+        "risk": "low"
+    },
+    "933835c64ea2b8e10a68a287168951b0631de9bc8c7216a3cfd2cbc756613393":
+    {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/orchestrator/blob/2b927424ec4c181f5c2e7cb4c0fc43d15ab9fa37/go/inst/instance_topology_dao.go#L947-L947",
+        "reason": "This passes in context.background which is not an exploitable string",
+        "jira": "PRODSEC-3393",
+        "risk": "low"
+    },
+    "b3b1438443d8bac8fee89fa31ea075226589da2802876d799e3f84b079e60898":
+    {
+        "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
+        "check_id": "languages.golang.slack.potential-integer-overflow",
+        "location": "https://slack-github.com/slack/orchestrator/blob/2b927424ec4c181f5c2e7cb4c0fc43d15ab9fa37/go/os/process.go#L86-L86",
+        "reason": "The exec takes string values passed from the config file. ",
+        "jira": "PRODSEC-3393",
+        "risk": "low"
+    }
+}

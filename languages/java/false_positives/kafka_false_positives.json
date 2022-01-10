@@ -1,1 +1,34 @@
-{}
+{
+		"d884f9b53bd3c5d2ef1f9ce70c08bab4f965a168d6a46710f99732d78645cebc": {
+        "message": "Rule 'java.lang.predictable-prng-01' triggered.",
+        "check_id": "java.lang.predictable-prng-01",
+        "location": "https://slack-github.com/slack/kafka/blob/bd36c3a32e4c22babf2069fc733dff5969633a89/clients/src/main/java/org/apache/kafka/clients/NetworkClient.java#L136-L136",
+        "reason": "These should not be triggering. They are from the original source code, not code SLACK wrote on top. I am supressing these. Better fix is to figure out why SNOW isn't supressing them automatically. ",
+        "jira": "PRODSEC-3421",
+        "Risk": "informational"
+    },
+        "ff3ee0b0a0f45fb618f2d7ebd8075038804a174a6e1978c02a4d20919082a00a": {
+        "message": "Rule 'java.lang.predictable-prng-01' triggered.",
+        "check_id": "java.lang.predictable-prng-01",
+        "location": "https://slack-github.com/slack/kafka/blob/bd36c3a32e4c22babf2069fc733dff5969633a89/clients/src/main/java/org/apache/kafka/clients/producer/internals/DefaultPartitioner.java#L38-L38",
+        "reason": "These should not be triggering. They are from the original source code, not code SLACK wrote on top. I am supressing these. Better fix is to figure out why SNOW isn't supressing them automatically. ",
+        "jira": "PRODSEC-3421",
+        "Risk": "informational"
+    },
+        "540967f741caa7a0374bb56133c24fb52e6ea0858260a51d54651b12a9bf422f": {
+        "message": "Rule 'java.lang.predictable-prng-01' triggered.",
+        "check_id": "java.lang.predictable-prng-01",
+        "location": "https://slack-github.com/slack/kafka/blob/bd36c3a32e4c22babf2069fc733dff5969633a89/clients/src/main/java/org/apache/kafka/common/security/kerberos/Login.java#L53-L53",
+        "reason": "These should not be triggering. They are from the original source code, not code SLACK wrote on top. I am supressing these. Better fix is to figure out why SNOW isn't supressing them automatically. ",
+        "jira": "PRODSEC-3421",
+        "Risk": "informational"
+    },
+        "6ce610c47499b7cd71d8d695f3f05602095b8fdd5f69ec68351b8b11ebb19109": {
+        "message": "Rule 'java.lang.predictable-prng-01' triggered.",
+        "check_id": "java.lang.predictable-prng-01",
+        "location": "https://slack-github.com/slack/kafka/blob/bd36c3a32e4c22babf2069fc733dff5969633a89/streams/src/main/java/org/apache/kafka/streams/processor/internals/assignment/TaskAssignor.java#L57-L57",
+        "reason": "These should not be triggering. They are from the original source code, not code SLACK wrote on top. I am supressing these. Better fix is to figure out why SNOW isn't supressing them automatically. ",
+        "jira": "PRODSEC-3421",
+        "Risk": "informational"
+    }
+}

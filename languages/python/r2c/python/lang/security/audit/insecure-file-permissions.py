@@ -5,7 +5,7 @@ os.chmod("file", 0o777)
 # ruleid:insecure-file-permissions
 os.chmod("file", 511)
 # ruleid:insecure-file-permissions
-os.chmod("file", 0x1ff)
+os.chmod("file", 0x1FF)
 # ruleid:insecure-file-permissions
 os.chmod("file", 0o776)
 # ruleid:insecure-file-permissions
@@ -38,7 +38,14 @@ os.fchmod(f, 0o654)
 # ruleid:insecure-file-permissions
 os.fchmod(f, 0o100775)
 
+
+# ok:insecure-file-permissions
+os.fchmod(f, 423)
+# ok:insecure-file-permissions
+os.fchmod(f, 0x1A1)
+
 import stat
+
 # ruleid:insecure-file-permissions
 os.chmod("file", stat.S_IRWXU | stat.S_IRGRP | stat.S_IROTH | stat.S_IWOTH | stat.S_IXOTH)
 
@@ -50,17 +57,20 @@ os.chmod("file", stat.S_IRWXU | print("GOTCHA"))
 # ruleid:insecure-file-permissions
 os.chmod("file", stat.S_IRWXO | print("GOTCHA"))
 
+
 def ensure_exec_perms(file_):
     st = os.stat(file_)
     # ruleid:insecure-file-permissions
     os.chmod(file_, st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
     return file_
 
+
 def ensure_exec_perms2(file_):
     st = os.stat(file_)
     # ruleid:insecure-file-permissions
     os.chmod(file_, st.st_mode | 0o111)
     return file_
+
 
 # ok:insecure-file-permissions
 os.chmod("file", 0o644)

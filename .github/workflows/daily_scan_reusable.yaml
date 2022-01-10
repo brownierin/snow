@@ -3,11 +3,12 @@ name: "Static Analysis Daily Scan"
 on:
   push:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '0 0 * * *'
+  workflow_dispatch:
 
 jobs:
   daily_static_analysis:
-    uses: tinyspeck/snow/.github/workflows/daily_scan.yaml@dry-it-up
+    uses: tinyspeck/snow/.github/workflows/daily_scan.yaml@master
     secrets:       
       SNOW_ALERT_WEBHOOK: ${{ secrets.SNOW_ALERT_WEBHOOK }}
       CHECKPOINT_TOKEN: ${{ secrets.CHECKPOINT_TOKEN }}

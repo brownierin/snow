@@ -1,10 +1,13 @@
 name: "Static Analysis PR Scan"
 
-on: [push, pull_request]
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [ opened, synchronize ]
 
 jobs:
   static_analysis:
-    uses: tinyspeck/snow/.github/workflows/github_action.yaml@dry-it-up
+    uses: tinyspeck/snow/.github/workflows/pr_scan.yaml@master
     secrets:       
       SNOW_ALERT_WEBHOOK: ${{ secrets.SNOW_ALERT_WEBHOOK }}
       CHECKPOINT_TOKEN: ${{ secrets.CHECKPOINT_TOKEN }}

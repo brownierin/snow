@@ -1,1 +1,11 @@
-{}
+{
+    "efa24865b2b55861c9a4459c2df049ccd59b51ed3127c65e3ed4a2c81aaccb67":
+    {
+        "message": "Rule 'languages.javascript.slack.javascript.hardcoded-mysql-creds-01' triggered.",
+        "check_id": "languages.javascript.slack.javascript.hardcoded-mysql-creds-01",
+        "location": "https://slack-github.com/slack/biz/blob/07f3da2f46f3dc3d1865e669a6b6704bd075134b/scripts/migrate-object.js#L44-L50",
+        "reason": "local test config",
+        "jira": "PRODSEC-3399",
+        "risk": "informational"
+    }
+}
