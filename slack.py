@@ -23,7 +23,7 @@ def slack_repo(repo, git_repo, repo_path, repo_dir):
     process = runner.run_command(command)
 
 
-def move_repo_dir(repo_dir, git):
+def copy_repo_dir(repo_dir, git):
     if git == "ghe":
         subprocess.run(f"cp ../* ../.* {repo_dir}", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
