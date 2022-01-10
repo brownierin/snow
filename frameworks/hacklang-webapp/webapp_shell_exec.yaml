@@ -1,0 +1,29 @@
+rules:
+  - id: slack.hack.shell
+    languages: [hack]
+    message: |-
+      At Slack, we try to avoid shelling out when possible. Sometimes, however, it's unavoidable.
+      For these cases, we created lib_exec. Please use exec_ok and reach out to #triage-prodsec for a code review.
+    fix: >-
+      If you can't avoid shelling out, please use exec_ok and
+      ask for a code review in #triage-prodsec.
+      lib_exec source: https://slack-github.com/slack/webapp/blob/master/include/security/lib_exec.php
+    patterns:
+      - pattern: $FUNC(...)
+      - metavariable-pattern:
+          metavariable: $FUNC
+          patterns:
+            - pattern-either:
+              - pattern: curl_exec
+              - pattern: curl_multi_exec
+              - pattern: exec
+              - pattern: passthru
+              - pattern: proc_open
+              - pattern: shell_exec
+              - pattern: system
+              - pattern: exec_ok_unsafe
+            - pattern-not: exec_ok
+              # note: we're currently filtering out exec_ok by assuming we're using lib_exec.
+              # This isn't great, as we may miss unsafe functions also called exec_ok.
+              # We're working on a solution for this (potentially different namespacing for lib_exec)
+    severity: ERROR

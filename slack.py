@@ -24,10 +24,10 @@ def slack_repo(repo, git_repo, repo_path, repo_dir):
 
 
 def move_repo_dir(repo_dir, git):
-    if git == 'ghe':
-        subprocess.run("mv ../* ../.* " + repo_dir, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    if git == "ghe":
+        subprocess.run(f"cp ../* ../.* {repo_dir}", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
 
 def commit_head(git):
-    if git == 'ghc':
-        os.environ['CIBOT_COMMIT_HEAD'] = os.environ.get('GITHUB_SHA')
+    if git == "ghc":
+        os.environ["CIBOT_COMMIT_HEAD"] = os.environ.get("GITHUB_SHA")

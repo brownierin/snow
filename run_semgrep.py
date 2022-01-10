@@ -28,34 +28,34 @@ import ci.jenkins as jenkins
 env = os.getenv("env")
 CONFIG = configparser.ConfigParser()
 if env == "snow-test":
-    CONFIG.read('config-test.cfg')
+    CONFIG.read("config-test.cfg")
 else:
-    CONFIG.read('config.cfg')
+    CONFIG.read("config.cfg")
 
 
 # Global Variables
 global_exit_code = 0
-SNOW_ROOT = os.getenv('PWD')
-if CONFIG['general']['run_local_semgrep'] != "False":
-    SNOW_ROOT = CONFIG['general']['run_local_semgrep']
-LANGUAGES_DIR = SNOW_ROOT + CONFIG['general']['languages_dir']
-RESULTS_DIR = SNOW_ROOT + CONFIG['general']['results']
-REPOSITORIES_DIR = SNOW_ROOT + CONFIG['general']['repositories']
-commit_head_env = CONFIG['general']['commit_head']
-master_commit_env = CONFIG['general']['master_commit']
-artifact_dir_env = CONFIG['general']['artifact_dir']
-github_enterprise_url = CONFIG['general']['github_enterprise_url']
-github_com_url = CONFIG['general']['github_com_url']
-org_name = CONFIG['general']['org_name']
-ghe_org_name = CONFIG['general']['ghe_org_name']
+SNOW_ROOT = os.getenv("PWD")
+if CONFIG["general"]["run_local_semgrep"] != "False":
+    SNOW_ROOT = CONFIG["general"]["run_local_semgrep"]
+LANGUAGES_DIR = SNOW_ROOT + CONFIG["general"]["languages_dir"]
+RESULTS_DIR = SNOW_ROOT + CONFIG["general"]["results"]
+REPOSITORIES_DIR = SNOW_ROOT + CONFIG["general"]["repositories"]
+commit_head_env = CONFIG["general"]["commit_head"]
+master_commit_env = CONFIG["general"]["master_commit"]
+artifact_dir_env = CONFIG["general"]["artifact_dir"]
+github_enterprise_url = CONFIG["general"]["github_enterprise_url"]
+github_com_url = CONFIG["general"]["github_com_url"]
+org_name = CONFIG["general"]["org_name"]
+ghe_org_name = CONFIG["general"]["ghe_org_name"]
 with open(f"{SNOW_ROOT}/{CONFIG['general']['forked_repos']}") as file:
     FORKED_REPOS = json.load(file)
-print_text = CONFIG['general']['print_text']
-high_alert_text = CONFIG['alerts']['high_alert_text']
-banner = CONFIG['alerts']['banner']
-normal_alert_text = CONFIG['alerts']['normal_alert_text']
-no_vulns_text = CONFIG['alerts']['no_vulns_text']
-errors_text = CONFIG['alerts']['errors_text']
+print_text = CONFIG["general"]["print_text"]
+high_alert_text = CONFIG["alerts"]["high_alert_text"]
+banner = CONFIG["alerts"]["banner"]
+normal_alert_text = CONFIG["alerts"]["normal_alert_text"]
+no_vulns_text = CONFIG["alerts"]["no_vulns_text"]
+errors_text = CONFIG["alerts"]["errors_text"]
 
 
 def clean_workspace():
@@ -64,14 +64,14 @@ def clean_workspace():
     cleans up the results dir
     """
     if no_cleanup:
-        print('[+] Skipping workspace cleanup!')
+        print("[+] Skipping workspace cleanup!")
         return
-    print('[+] Begin workspace cleanup')
-    mode = int('775', base=8)
+    print("[+] Begin workspace cleanup")
+    mode = int("775", base=8)
     os.makedirs(RESULTS_DIR, mode=mode, exist_ok=True)
     clean_results_dir()
     os.makedirs(REPOSITORIES_DIR, mode=mode, exist_ok=True)
-    print('[+] End workspace cleanup')
+    print("[+] End workspace cleanup")
 
 
 def set_exit_code(code):
@@ -107,7 +107,7 @@ def get_repo_list():
     repos = []
     enabled_filename = set_enabled_filename()
     for language in CONFIG.sections():
-        if language.find('language-') != -1:
+        if language.find("language-") != -1:
             filename = f"{LANGUAGES_DIR}{CONFIG[language]['language']}/{enabled_filename}"
             with open(filename) as f:
                 enabled = f.read().splitlines()
@@ -121,8 +121,8 @@ def get_docker_image(mode=None):
     If mode = version, checks if semgrep has an update available
     and returns 1 if so
     """
-    version = CONFIG['general']['version']
-    digest = CONFIG['general']['digest']
+    version = CONFIG["general"]["version"]
+    digest = CONFIG["general"]["digest"]
 
     download_semgrep(version)
     print("[+] Verifying Semgrep")
@@ -181,8 +181,8 @@ def git_pull_repo(repo_path):
 
 def git_ops(repo):
     repo_path = f"{REPOSITORIES_DIR}{repo}"
-    git_url = set_github_url().split('https://')[1]
-    org = ghe_org_name if git == 'ghe' else org_name
+    git_url = set_github_url().split("https://")[1]
+    org = ghe_org_name if git == "ghe" else org_name
     git_repo = f"git@{git_url}:{org}/{repo}.git"
 
     if slack.is_webapp(repo):
@@ -274,7 +274,7 @@ def scan_repos():
         Get the default branch name
         """
         cmd = "git remote show origin | grep 'HEAD branch' | sed 's/.*: //'"
-        default_branch_name = run_command(cmd).stdout.decode('utf-8')
+        default_branch_name = run_command(cmd).stdout.decode("utf-8")
         print(f"[+] Default branch name: {default_branch_name.strip()}")
         get_sha_process = run_command(f"git -C {REPOSITORIES_DIR}{repo} rev-parse HEAD")
         git_sha = get_sha_process.stdout.decode("utf-8").rstrip()
@@ -303,7 +303,7 @@ def add_metadata(repo, language, git_repo_url, git_sha, output_file):
     configlanguage = f"language-{language}"
     print(f"[+] Opening {output_file_path}")
 
-    with open(output_file_path, 'r') as file:
+    with open(output_file_path, "r") as file:
         """
         Update the metadata on the scan result
         """
@@ -319,7 +319,7 @@ def add_metadata(repo, language, git_repo_url, git_sha, output_file):
         }
         data.update(metadata)
 
-    with open(output_file_path, 'w') as file:
+    with open(output_file_path, "w") as file:
         json.dump(data, file, sort_keys=True, indent=4)
 
     if os.path.exists(output_file_path):
@@ -359,32 +359,65 @@ def process_results(output_file, repo, language, sha):
         print("[!!] Not enough runs for comparison")
 
 
+def build_scan_command(config_lang, output_file, repo):
+    user_id = run_command("id -u").stdout.decode("utf-8").strip()
+    group_id = run_command("id -g").stdout.decode("utf-8").strip()
+    cmd = [
+        "docker",
+        "run",
+        "--rm",
+        "--user",
+        f"{user_id}:{group_id}",
+        "-v",
+        f"{SNOW_ROOT}:/src",
+        f"returntocorp/semgrep:{CONFIG['general']['version']}",
+        f"{CONFIG[config_lang]['config']}",
+    ]
+    for x in f"{CONFIG[config_lang]['exclude']}".split(" "):
+        if x:
+            cmd.append(x)
+    remainder = [
+        "--json",
+        "--metrics",
+        "off",
+        f"-o",
+        f"/src{CONFIG['general']['results']}{output_file}",
+        f"{CONFIG['general']['repositories'][1:]}{repo}",
+    ]
+    for remains in remainder:
+        cmd.append(remains)
+    if slack.is_webapp(repo):
+        cmd.insert(-1, "--config=/src/frameworks/hacklang-webapp/")
+    return cmd
+
+
 def scan_repo(repo, language, git_repo_url, git_sha):
     """
     Scans the repo with semgrep and adds metadata
     Returns the results and output file path
     """
-    print(f'[+] Scanning repo: {repo}')
+    print(f"[+] Scanning repo: {repo}")
     config_lang = f"language-{language}"
     output_file = f"{language}-{repo}-{git_sha[:7]}.json"
-    semgrep_command = (
-        "docker run --user \"$(id -u):$(id -g)\" --rm "
-        f"-v {SNOW_ROOT}:/src returntocorp/semgrep:{CONFIG['general']['version']} "
-        f"{CONFIG[config_lang]['config']} "
-        f"{CONFIG[config_lang]['exclude']} "
-        "--json --metrics off "
-        f"-o /src{CONFIG['general']['results']}{output_file} "
-        f"{CONFIG['general']['repositories'][1:]}{repo}"
-    )
+
+    semgrep_command = build_scan_command(config_lang, output_file, repo)
     print(f"[+] Docker scan command:\n {semgrep_command}")
     print(f"[+] Running Semgrep")
+
     # Not using run_command here because we want to ignore the exit code of semgrep.
-    process = subprocess.run(semgrep_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    results = process.stdout.decode("utf-8")
-    if git != 'ghc':
+    # Using Popen to avoid buffer errors with Docker child processes
+    with subprocess.Popen(semgrep_command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, bufsize=1) as process:
+        print(process.stdout.read().decode("ascii"))
+        print("\n")
+
+    output_file_path = f"{RESULTS_DIR}/{output_file}"
+    with open(output_file_path) as f:
+        findings = json.load(f)
+        results = json.dumps(findings, indent=4)
+
+    if git != "ghc" or print_text == "true":
         print("[+] Semgrep scan results:")
-        if print_text == "true":
-            print(results)
+        print(results)
     add_metadata(repo, language, git_repo_url, git_sha, output_file)
     return results, output_file
 
@@ -444,12 +477,12 @@ def process_one_result(result, github_url, repo_name, github_branch):
     path always gives us /repositories/<repo>/dir/filename.py
     We do not want /repositories/ or <repo> as this is not valid for a GitHub url
     """
-    code_path = result["path"].split('/', 2)[2:][0]
+    code_path = result["path"].split("/", 2)[2:][0]
 
     # Because single line js files exists we truncate the length of the line
     code_lines = result["extra"]["lines"][:300]
-    high_priority_rules_check_id = CONFIG['high-priority']['high_priority_rules_check_id'].split('\n')
-    high_priority_rules_message = CONFIG['high-priority']['high_priority_rules_message'].split('\n')
+    high_priority_rules_check_id = CONFIG["high-priority"]["high_priority_rules_check_id"].split("\n")
+    high_priority_rules_message = CONFIG["high-priority"]["high_priority_rules_message"].split("\n")
     code_url = f"{github_url}/blob/{github_branch}/{code_path}#L{str(line_start)}"
     priority = "normal"
     result_builder = (
@@ -527,14 +560,14 @@ def alert_channel():
         if high > 0:
             webhook_alerts(high_alert_text)
             for repo in alert_json:
-                for vuln in alert_json[repo]['high']:
+                for vuln in alert_json[repo]["high"]:
                     webhook_alerts(vuln)
                     time.sleep(1)
 
         if normal > 0:
             webhook_alerts(normal_alert_text)
             for repo in alert_json:
-                for vuln in alert_json[repo]['normal']:
+                for vuln in alert_json[repo]["normal"]:
                     webhook_alerts(vuln)
                     time.sleep(1)
 
@@ -555,10 +588,10 @@ def webhook_alerts(data):
 
 
 def set_enabled_filename():
-    if env == 'snow-test':
-        return 'enabled-test'
+    if env == "snow-test":
+        return "enabled-test"
     else:
-        return 'enabled'
+        return "enabled"
 
 
 def set_github_url():
@@ -580,9 +613,9 @@ def find_repo_language(repo):
     """
     repo_language = ""
     for entry in CONFIG.sections():
-        if entry.find('language-') != -1:
+        if entry.find("language-") != -1:
             enabled_filename = set_enabled_filename()
-            language = CONFIG[entry]['language']
+            language = CONFIG[entry]["language"]
             filename = f"{LANGUAGES_DIR}{language}/{enabled_filename}"
             with open(filename) as f:
                 content = f.read().splitlines()
@@ -591,7 +624,7 @@ def find_repo_language(repo):
                         print(f"[+] {repo} is written in {language}")
                         repo_language = language
                         return repo_language
-    print(f'[+] repo-lang is {repo_language}')
+    print(f"[+] repo-lang is {repo_language}")
     if repo_language == "":
         raise Exception(f"[!!] No language found in snow for repo {repo}. Check in with #triage-prodsec!")
 
@@ -599,14 +632,15 @@ def find_repo_language(repo):
 def run_semgrep_pr(repo):
     clean_workspace() if git == "ghe" else print("[+] Skipping cleanup")
 
-    mode = int('775', base=8)
+    mode = int("775", base=8)
     repo_dir = REPOSITORIES_DIR + repo
     os.makedirs(repo_dir, mode=mode, exist_ok=True)
     print(f"[+] Repository dir is at: {repo_dir}")
 
-    # Grab the PR code, move it to the repository with its own directory
+    # Grab the PR code, copy it to the repository with its own directory
     # We do this as it mimics the same environment configuration as the daily scan so we can re-use the code.
-    # Move everything into 'SNOW/repositories/'. run_semgrep.py scans by looking for the repo name in the repositories/ directory.
+    # Copy everything into 'SNOW/repositories/'. run_semgrep.py scans by looking for the repo name in the repositories/ directory.
+    # We're not moving it in case you run this locally and mess up your filesystem
     slack.move_repo_dir(repo_dir, git)
 
     get_docker_image()
@@ -633,12 +667,12 @@ def run_semgrep_pr(repo):
     else:
         cmd = f"{git_dir} show -s --format='%H' origin/master"
         git_sha_master = subprocess.run(cmd, shell=True, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
-        git_sha_master = git_sha_master.stdout.decode('utf-8').strip()
+        git_sha_master = git_sha_master.stdout.decode("utf-8").strip()
 
     git_sha_master_short = git_sha_master[:7]
     print(f"[+] Master SHA: {git_sha_master}")
 
-    if git == 'ghc':
+    if git == "ghc":
         os.environ[artifact_dir_env] = RESULTS_DIR
         print(f"[+] Artifacts dir is: {os.environ[artifact_dir_env]}")
 
@@ -677,27 +711,27 @@ def run_semgrep_pr(repo):
         data = json.load(fileParsed)
 
     checkpoint.convert(parsed_filename, json_filename, parsed_filename)
-    if git == 'ghc':
+    if git == "ghc":
         exit_code = checkpoint.upload_pr_scan(git_sha_branch, git_sha_master)
         set_exit_code(exit_code)
 
     if os.getenv("ENABLE_S3"):
-        bucket = CONFIG['general']['s3_bucket']
+        bucket = CONFIG["general"]["s3_bucket"]
         filenames = [parsed_filename, json_filename, old_output, new_output, output_filename]
         s3.upload_files(filenames, bucket)
 
     content = create_results_blob(data)
     webhook_alerts(content)
-    with open(f'{RESULTS_DIR}results_blob.txt', 'w+') as file:
+    with open(f"{RESULTS_DIR}results_blob.txt", "w+") as file:
         file.write(content)
 
-    set_exit_code(0) if not data['results'] else set_exit_code(1)
-    if git == 'ghc':
+    set_exit_code(0) if not data["results"] else set_exit_code(1)
+    if git == "ghc":
         exit(0)
 
 
 def create_results_blob(data):
-    if not data['results']:
+    if not data["results"]:
         content = "No new vulnerabilities detected!"
     else:
         content = f"""
@@ -708,12 +742,12 @@ def create_results_blob(data):
         Found {str(len(data['results']))} findings
         """
         count = 1
-        for result in data['results']:
+        for result in data["results"]:
             content += f"### Finding #{count}"
             content += prettyprint(result)
             count += 1
 
-    return content.replace('  ', '')
+    return content.replace("  ", "")
 
 
 def prettyprint(result):
@@ -735,17 +769,17 @@ def run_semgrep_daily():
     download_repos()
     scan_repos()
     # Output alerts to Slack
-    if git == 'ghe':
+    if git == "ghe":
         current_jenkins_job = jenkins.get_job_name()
-        if current_jenkins_job.lower() == CONFIG['general']['jenkins_prod_job'].lower():
+        if current_jenkins_job.lower() == CONFIG["general"]["jenkins_prod_job"].lower():
             alert_channel()
-    elif git == 'ghc':
+    elif git == "ghc":
         alert_channel()
     # Upload the results to checkpoint
     set_exit_code(checkpoint.upload_daily_scan_results_to_checkpoint())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Runs Semgrep, either in daily scan or pull request mode.")
     parser.add_argument("-m", "--mode", help="the mode you wish to run semgrep, daily or pr", required=True)
     parser.add_argument("-r", "--repo", help="the name of the git repo")
@@ -755,8 +789,8 @@ if __name__ == '__main__':
         help="the github url you wish to scan. Supported options: ghe (github enterprise) and ghc (githib.com)",
         required=True,
     )
-    parser.add_argument("--s3", help="upload to s3", action='store_true')
-    parser.add_argument("--no-cleanup", help="skip cleanup", action='store_true')
+    parser.add_argument("--s3", help="upload to s3", action="store_true")
+    parser.add_argument("--no-cleanup", help="skip cleanup", action="store_true")
 
     args = parser.parse_args()
 
