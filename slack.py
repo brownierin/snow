@@ -4,6 +4,8 @@
 import os
 import sys
 import subprocess
+import shutil
+
 import run_semgrep as runner
 
 
@@ -25,7 +27,12 @@ def slack_repo(repo, git_repo, repo_path, repo_dir):
 
 def copy_repo_dir(repo_dir, git):
     if git == "ghe":
-        subprocess.run(f"cp ../* ../.* {repo_dir}", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        repo = repo_dir.split("/")[-1]
+        print(f"[+] Check if {repo_dir} exists")
+        if os.path.exists(repo_dir):
+            shutil.rmtree(repo_dir)
+        print("[+] Copying codebase to snow/repositories")
+        shutil.copytree(f"../{repo}/", f"{repo_dir}")
 
 
 def commit_head(git):
