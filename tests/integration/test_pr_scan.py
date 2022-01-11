@@ -84,8 +84,8 @@ def do_scan(test_name, pr_commit, master_commit):
 
             shutil.copytree(SNOW_ROOT, snow_dir, ignore=shutil.ignore_patterns("repositories"))
             os.mkdir(f"{snow_dir}/repositories/")
-            shutil.copytree(f"{SNOW_ROOT}/repositories/{test_name}", f"{snow_dir}/repositories/{test_name}")
             shutil.copytree(repo_origin_dir, repo_dir)
+            shutil.copytree(f"{SNOW_ROOT}/repositories/{test_name}", f"{repo_dir}/{test_name}")
 
             cmd_env = os.environ.copy()
             cmd_env["CIBOT_REPO"] = f"https://slack-github.com/slack/{test_name}.git"
