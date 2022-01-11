@@ -25,7 +25,8 @@ def slack_repo(repo, git_repo, repo_path, repo_dir):
 
 def copy_repo_dir(repo_dir, git):
     if git == "ghe":
-        subprocess.run(f"cp ../* ../.* {repo_dir}", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        repo = repo_dir.split("/")[-1]
+        process = runner.run_command(f"cp -R ../{repo}/ {repo_dir}")
 
 
 def commit_head(git):
