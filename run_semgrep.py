@@ -631,6 +631,7 @@ def find_repo_language(repo):
 
 def run_semgrep_pr(repo):
     clean_workspace() if git == "ghe" else print("[+] Skipping cleanup")
+    print(f"[+] PWD is: {run_command('pwd').stdout.decode('utf-8')}")
 
     mode = int("775", base=8)
     repo_dir = REPOSITORIES_DIR + repo
