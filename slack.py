@@ -25,16 +25,6 @@ def slack_repo(repo, git_repo, repo_path, repo_dir):
     process = runner.run_command(command)
 
 
-def copy_repo_dir(repo_dir, git):
-    if git == "ghe":
-        repo = repo_dir.split("/")[-1]
-        print(f"[+] Check if {repo_dir} exists")
-        if os.path.exists(repo_dir):
-            shutil.rmtree(repo_dir)
-        print("[+] Copying codebase to snow/repositories")
-        shutil.copytree(f"../{repo}/", f"{repo_dir}")
-
-
 def commit_head(git):
     if git == "ghc":
         os.environ["CIBOT_COMMIT_HEAD"] = os.environ.get("GITHUB_SHA")
