@@ -16,12 +16,21 @@ if [[ "$CIBOT_REPO" == *"$SUB"* ]]; then
   REPO_NAME=`echo $CIBOT_REPO | awk -F[/.] '{print tolower($7)}'`
 fi
 
+cd ..
+
+mv checkout $REPO_NAME
+mkdir checkout
+
 #Move the SNOW directory to the repo root, as this is required for SNOW to run. 
 #SNOW should already be downloaded per the slack.json configuration in the global test. 
-mv ../repos/snow/ .
+echo copy snow
+cp -R repos/snow/ checkout/snow
+echo copy repo_name
+mkdir -p checkout/snow/repositories/$REPO_NAME
+cp -R repos/$REPO_NAME checkout/snow/repositories
 
 #Script needs to be run in the SNOW dir
-cd snow
+cd checkout/snow
 
 #Run pre-install.sh as we need f-strings to work
 ./pre-install.sh
