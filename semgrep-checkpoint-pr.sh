@@ -27,7 +27,7 @@ echo copy snow
 cp -R repos/snow/ checkout/snow
 echo copy repo_name
 mkdir -p checkout/snow/repositories/$REPO_NAME
-cp -R repos/$REPO_NAME checkout/snow/repositories
+cp -R $REPO_NAME checkout/snow/repositories
 
 #Script needs to be run in the SNOW dir
 cd checkout/snow

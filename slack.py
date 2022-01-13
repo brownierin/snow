@@ -23,6 +23,7 @@ def slack_repo(repo, git_repo, repo_path, repo_dir):
     command = f"git -C {repo_path} fetch --tags --force --progress -- {git_repo} +refs/heads/*:refs/remotes/origin1/*"
     process = runner.run_command(command)
 
+
 def commit_head(git):
     if git == "ghc":
         os.environ["CIBOT_COMMIT_HEAD"] = os.environ.get("GITHUB_SHA")
