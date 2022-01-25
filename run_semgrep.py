@@ -116,7 +116,7 @@ def get_repo_list():
             with open(filename) as f:
                 enabled = f.read().splitlines()
             repos = repos + [repo for repo in enabled]
-    return repos
+    return set(repos)
 
 
 def get_docker_image(mode=None):
@@ -272,7 +272,7 @@ def scan_repos():
     """
     repos = get_repo_list()
     for repo in repos:
-        language = find_repo_language(repo)
+        languages = find_repo_language(repo)
 
         """
         Get the default branch name
@@ -287,8 +287,8 @@ def scan_repos():
         """
         Scan the repo and perform the comparison
         """
-        results, output_file = scan_repo(repo, language, git_repo_url, git_sha)
-        process_results(output_file, repo, language, git_sha[:7])
+        results, output_file = scan_repo(repo, languages, git_repo_url, git_sha)
+        process_results(output_file, repo, languages, git_sha[:7])
 
         """
         Special repos are repos that are forked from open-source libraries or projects.
@@ -296,7 +296,7 @@ def scan_repos():
         between our current version and the original version it's forked from.
         """
         if repo in FORKED_REPOS:
-            git_forked_repos(repo, language, git_sha, git_repo_url)
+            git_forked_repos(repo, languages, git_sha, git_repo_url)
 
 
 def add_metadata(repo, language, git_repo_url, git_sha, output_file):
@@ -330,26 +330,28 @@ def add_metadata(repo, language, git_repo_url, git_sha, output_file):
         add_hash_id(output_file_path, 4, 1, "hash_id")
 
 
-def process_results(output_file, repo, language, sha):
+def process_results(output_file, repo, languages, sha):
     output_file_path = f"{RESULTS_DIR}{output_file}"
+    lang_str = "-".join(languages)
     """
     Note: "fprm" stands for false positives removed
     """
-    fp_diff_outfile = f"{language}-{repo}-{sha}-fprm.json"
+    fp_diff_outfile = f"{lang_str}-{repo}-{sha}-fprm.json"
     fp_diff_file_path = RESULTS_DIR + fp_diff_outfile
-    fp_file = f"{SNOW_ROOT}/languages/{language}/false_positives/{repo}_false_positives.json"
+    for lang in languages:
+        fp_file = f"{SNOW_ROOT}/languages/{lang}/false_positives/{repo}_false_positives.json"
 
-    """
-    Remove false positives from the results
-    """
-    if os.path.exists(output_file_path):
-        comparison.remove_false_positives(output_file_path, fp_file, fp_diff_file_path)
+        """
+        Remove false positives from the results
+        """
+        if os.path.exists(output_file_path):
+            comparison.remove_false_positives(output_file_path, fp_file, fp_diff_file_path)
 
     """
     Sort result files by most recent
     Get the second most recent result with fprm in it
     """
-    selected_paths = list(glob.glob(f"{RESULTS_DIR}{language}-{repo}-*-fprm.json"))
+    selected_paths = list(glob.glob(f"{RESULTS_DIR}{lang_str}-{repo}-*-fprm.json"))
     selected_paths = sorted(selected_paths, key=os.path.getmtime)
     comparison_result = f"{fp_diff_file_path.split('-fprm')[0]}-comparison.json"
     print(f"[+] Comparison result is stored at: {comparison_result}")
@@ -406,18 +408,18 @@ def run_docker(cmd):
         print("\n")
 
 
-def scan_repo(repo, language, git_repo_url, git_sha):
+def scan_repo(repo, languages, git_repo_url, git_sha):
     """
     Scans the repo with semgrep and adds metadata
     Returns the results and output file path
     """
     print(f"[+] Scanning repo: {repo}")
-    config_lang = [f"language-{lang}" for lang in config_lang]
-    output_file = f"{'-'.join(language)}-{repo}-{git_sha[:7]}.json"
+    config_lang = [f"language-{lang}" for lang in languages]
+    output_file = f"{'-'.join(languages)}-{repo}-{git_sha[:7]}.json"
     output_file_path = f"{RESULTS_DIR}/{output_file}"
 
     semgrep_command = build_scan_command(config_lang, output_file, repo)
-    print(f"[+] Docker scan command:\n {semgrep_command}")
+    print(f"[+] Docker scan command:\n{' '.join(semgrep_command)}")
     print(f"[+] Running Semgrep")
 
     # progress counter
@@ -435,9 +437,9 @@ def scan_repo(repo, language, git_repo_url, git_sha):
         results = json.dumps(findings, indent=4)
 
     if git != "ghc" or print_text == "true":
-        print("[+] Semgrep scan results:")
+        print("\n[+] Semgrep scan results:")
         print(results)
-    add_metadata(repo, language, git_repo_url, git_sha, output_file)
+    add_metadata(repo, f"{'-'.join(languages)}", git_repo_url, git_sha, output_file)
     return results, output_file
 
 
@@ -639,11 +641,10 @@ def find_repo_language(repo):
                 content = f.read().splitlines()
                 for line in content:
                     if line == repo:
-                        print(f"[+] {repo} is written in {language}")
                         repo_language.append(language)
     if not repo_language:
         raise Exception(f"[!!] No language found in snow for repo {repo}. " "Check in with #triage-prodsec!")
-    print(f"[+] repo languages are: {repo_language}")
+    print(f"[+] repo languages are: {', '.join(repo_language)}")
     return repo_language
 
 
