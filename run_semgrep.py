@@ -369,8 +369,8 @@ def build_scan_command(config_lang, output_file, repo):
     configs = []
 
     for lang in config_lang:
-        configs.append(f"{CONFIG[config_lang]['config']}")
-        for x in f"{CONFIG[config_lang]['exclude']}".split(" "):
+        configs.append(f"{CONFIG[lang]['config']}")
+        for x in f"{CONFIG[lang]['exclude']}".split(" "):
             if x:
                 configs.append(x)
 
@@ -412,8 +412,8 @@ def scan_repo(repo, language, git_repo_url, git_sha):
     Returns the results and output file path
     """
     print(f"[+] Scanning repo: {repo}")
-    config_lang = f"language-{language}"
-    output_file = f"{language}-{repo}-{git_sha[:7]}.json"
+    config_lang = [f"language-{lang}" for lang in config_lang]
+    output_file = f"{'-'.join(language)}-{repo}-{git_sha[:7]}.json"
     output_file_path = f"{RESULTS_DIR}/{output_file}"
 
     semgrep_command = build_scan_command(config_lang, output_file, repo)
