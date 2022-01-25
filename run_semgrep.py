@@ -655,12 +655,6 @@ def run_semgrep_pr(repo):
     os.makedirs(repo_dir, mode=mode, exist_ok=True)
     print(f"[+] Repository dir is at: {repo_dir}")
 
-    # Grab the PR code, copy it to the repository with its own directory
-    # We do this as it mimics the same environment configuration as the daily scan so we can re-use the code.
-    # Copy everything into 'SNOW/repositories/'. run_semgrep.py scans by looking for the repo name in the repositories/ directory.
-    # We're not moving it in case you run this locally and mess up your filesystem
-    slack.move_repo_dir(repo_dir, git)
-
     get_docker_image()
 
     git_repo_url = set_github_url()

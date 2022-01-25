@@ -79,7 +79,7 @@ def do_scan(test_name, pr_commit, master_commit):
             os.mkdir(snow_fake_dir + "/repos/")
 
             snow_dir = f"{snow_fake_dir}/repos/snow/"
-            repo_dir = f"{snow_fake_dir}/current/"
+            repo_dir = f"{snow_fake_dir}/checkout/"
             repo_origin_dir = f"{SNOW_ROOT}/repositories/{test_name}/"
 
             shutil.copytree(SNOW_ROOT, snow_dir, ignore=shutil.ignore_patterns("repositories"))
@@ -92,8 +92,11 @@ def do_scan(test_name, pr_commit, master_commit):
             cmd_env["CIBOT_ARTIFACT_DIR"] = checkpoint_out_dir
             cmd_env["CIBOT_COMMIT_HEAD"] = pr_commit
             cmd_env["CIBOT_COMMIT_MASTER"] = master_commit
+            cmd_env["WORKSPACE"] = snow_fake_dir
 
-            process = subprocess.run(["../repos/snow/semgrep-checkpoint-pr.sh"], env=cmd_env, cwd=repo_dir)
+            process = subprocess.run(
+                [f"{snow_fake_dir}/repos/snow/semgrep-checkpoint-pr.sh"], env=cmd_env, cwd=repo_dir
+            )
 
             checkpoint_out_result = {}
             checkpoint_out_result["exit_code"] = process.returncode
