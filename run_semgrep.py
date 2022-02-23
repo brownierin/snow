@@ -401,7 +401,7 @@ def scan_repo(repo, language, git_repo_url, git_sha):
     output_file = f"{language}-{repo}-{git_sha[:7]}.json"
 
     semgrep_command = build_scan_command(config_lang, output_file, repo)
-    print(f"[+] Docker scan command:\n {semgrep_command}")
+    print(f"[+] Docker scan command:\n {' '.join(semgrep_command)}")
     print(f"[+] Running Semgrep")
 
     # Not using run_command here because we want to ignore the exit code of semgrep.
