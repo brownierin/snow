@@ -2,7 +2,7 @@ rules:
   - id: slack.hack.shell
     languages: [hack]
     message: |-
-      At Slack, we try to avoid shelling out when possible. Sometimes, however, it's unavoidable. For these cases, we created lib_exec. Please use exec_ok and reach out to #triage-prodsec for a code review.
+      At Slack, we try to avoid shelling out when possible. Sometimes, however, it's unavoidable. For these cases, reach out to #triage-prodsec for a code review.
     fix: >-
       If you can't avoid shelling out, ask for a code review in #triage-prodsec. For non-webapp repositories, work is underway on porting lib_exec for safe shellouts.
     patterns:
