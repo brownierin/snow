@@ -1,0 +1,23 @@
+rules:
+  - id: slack.hack.shell
+    languages: [hack]
+    message: |-
+      At Slack, we try to avoid shelling out when possible. Sometimes, however, it's unavoidable. For these cases, reach out to #triage-prodsec for a code review.
+    fix: >-
+      If you can't avoid shelling out, ask for a code review in #triage-prodsec. For non-webapp repositories, work is underway on porting lib_exec for safe shellouts.
+    patterns:
+      - pattern: $FUNC(...)
+      - metavariable-pattern:
+          metavariable: $FUNC
+          patterns:
+            - pattern-either:
+              - pattern: curl_exec
+              - pattern: curl_multi_exec
+              - pattern: exec
+              - pattern: passthru
+              - pattern: proc_open
+              - pattern: shell_exec
+              - pattern: system
+              - pattern: exec_ok_unsafe
+              - pattern: exec_ok
+    severity: ERROR
