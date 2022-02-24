@@ -387,6 +387,11 @@ def build_scan_command(config_lang, output_file, repo):
     for remains in remainder:
         cmd.append(remains)
     if slack.is_webapp(repo):
+        for item in cmd:
+            if "--config=/src/languages/hacklang" in item:
+                new_item = "--config=/src/languages/hacklang/generics"
+                cmd.remove(item)
+                cmd.insert(-1, new_item)
         cmd.insert(-1, "--config=/src/frameworks/hacklang-webapp/")
     return cmd
 
