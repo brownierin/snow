@@ -1,1 +1,250 @@
-{}
+{
+    "a585750d1e090eb011156851cb80fcd290d2461808e631139aee34d790946c8b": {
+        "message": "Rule 'slack.hack.open-redirect' triggered.",
+        "check_id": "slack.hack.open-redirect",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/controllers/org_install_oauth_redirect.hack#L20-L20",
+        "reason": "False positive. The function api_apps_install_url_for_any_app_type only returns Slack URL.",
+        "jira": "PRODSEC-3525",
+        "Risk": "informational"
+    },
+    "1e252612c3a67d369e45e1846c265cda5c8bb5741335d8d468d9b5b6549b580b": {
+        "message": "Rule 'slack.hack.open-redirect' triggered.",
+        "check_id": "slack.hack.open-redirect",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/include/saml/lib_saml.hack#L1466-L1466",
+        "reason": "False positive. This is part of the SAML specification.",
+        "jira": "PRODSEC-3525",
+        "Risk": "informational"
+    },
+    "acc6c1bc25e057c760f67e803d2cf93c11a1c17d5ce7b28a7fa9276c96b984cf": {
+        "message": "Rule 'slack.hack.open-redirect' triggered.",
+        "check_id": "slack.hack.open-redirect",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/include/sso/lib_sso.hack#L336-L336",
+        "reason": "False positive. This only redirects to Slack generated URL.",
+        "jira": "PRODSEC-3525",
+        "Risk": "informational"
+    },
+    "516e0da5085ef5b2f0f096065240db3d62d9c24abf5f727bb499b553668bf0a6": {
+        "message": "Rule 'slack.hack.open-redirect' triggered.",
+        "check_id": "slack.hack.open-redirect",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/include/sso/lib_sso.hack#L1497-L1497",
+        "reason": "True positive, but not exploitable in practice as the redirect url is a signed value and can't be forged.",
+        "jira": "PRODSEC-3525",
+        "Risk": "informational"
+    },
+    "f8e0e141ca22df646a9c54117443a52644027236fef725b69d52efe6b71e5c81": {
+        "message": "Rule 'slack.hack.open-redirect' triggered.",
+        "check_id": "slack.hack.open-redirect",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/include/sso/lib_sso_handle_api.hack#L96-L96",
+        "reason": "False positive. This only redirects to Slack generated URL.",
+        "jira": "PRODSEC-3525",
+        "Risk": "informational"
+    },
+    "cd6f369b22d2f0debe3df9e624113cbf1aa29b033064eb3675e13599605f2036": {
+        "message": "Rule 'slack.hack.open-redirect' triggered.",
+        "check_id": "slack.hack.open-redirect",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/include/sso/lib_sso_handle_failure.hack#L125-L125",
+        "reason": "False positive. The redir url can only be the configured SSO failure URL. This is by design for SSO authentication.",
+        "jira": "PRODSEC-3525",
+        "Risk": "informational"
+    },
+    "a157a8411fbc923c98c1150021b379b391a336edf274459e3ba312838a595fd0": {
+        "message": "Rule 'slack.hack.open-redirect' triggered.",
+        "check_id": "slack.hack.open-redirect",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/include/sso/lib_sso_handle_failure.hack#L148-L148",
+        "reason": "False positive. The redir url can only be the configured SSO failure URL. This is by design for SSO authentication.",
+        "jira": "PRODSEC-3525",
+        "Risk": "informational"
+    },
+    "5abd1e0ac69011d081e05241602e5500b9ee4b6be4b43719a19230107457ee8f": {
+        "message": "Rule 'slack.hack.open-redirect' triggered.",
+        "check_id": "slack.hack.open-redirect",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/include/sso/lib_sso_handle_failure.hack#L163-L163",
+        "reason": "False positive. The redir url can only be the configured SSO failure URL. This is by design for SSO authentication.",
+        "jira": "PRODSEC-3525",
+        "Risk": "informational"
+    },
+    "4081eb50e2696221ea390f1305d2701a39e8121726e8e03c0cb58993183aa007": {
+        "message": "Rule 'slack.hack.open-redirect' triggered.",
+        "check_id": "slack.hack.open-redirect",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/include/sso/lib_sso_handle_invite.hack#L54-L54",
+        "reason": "True positive, but not exploitable in practice as the redirect url is a signed value and can't be forged.",
+        "jira": "PRODSEC-3525",
+        "Risk": "informational"
+    },
+    "5669d89d4283fd5f01316197fa8c230949c5b57a18865434d08aaafe4ae21da6": {
+        "message": "Rule 'slack.hack.open-redirect' triggered.",
+        "check_id": "slack.hack.open-redirect",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/include/sso/lib_sso_handle_invite.hack#L58-L58",
+        "reason": "True positive, but not exploitable in practice as the redirect url is a signed value and can't be forged.",
+        "jira": "PRODSEC-3525",
+        "Risk": "informational"
+    },
+    "e70cae280da6949bd7e8c73bf6b44f7ab0e0228b438b34ce8ede1b012e24ec2e": {
+        "message": "Rule 'slack.hack.open-redirect' triggered.",
+        "check_id": "slack.hack.open-redirect",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/include/sso/lib_sso_jit.hack#L383-L383",
+        "reason": "False positive. The redir url is a SAML configured URL. This is by design for SAML.",
+        "jira": "PRODSEC-3525",
+        "Risk": "informational"
+    },
+    "d2f112b08a0a4502104b8c6399e2ef7c9b78707fd9546ef5203c1b6a49523edc": {
+        "message": "Rule 'slack.hack.open-redirect' triggered.",
+        "check_id": "slack.hack.open-redirect",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/include/sso/lib_sso_jit.hack#L419-L419",
+        "reason": "False positive. The redir params is loaded from the database.",
+        "jira": "PRODSEC-3525",
+        "Risk": "informational"
+    },
+    "0687ad484febd30ff04eea2682a88d30a3fce30d3ee10ef418cb7088eb20be86": {
+        "message": "Rule 'slack.hack.open-redirect' triggered.",
+        "check_id": "slack.hack.open-redirect",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/include/sso/lib_sso_jit.hack#L495-L495",
+        "reason": "False positive. Slack URL are generated from \"teams_get_url\".",
+        "jira": "PRODSEC-3525",
+        "Risk": "informational"
+    },
+    "51f50c44f5781eb317748d716b7694d57a459df97c7833743a60699b65b0f60b": {
+        "message": "Rule 'slack.hack.open-redirect' triggered.",
+        "check_id": "slack.hack.open-redirect",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/src/oauth/handlers/OauthBaseHandler.hack#L236-L236",
+        "reason": "False positive. This is part of the OAuth protocol. The value come from the configuration of the app.",
+        "jira": "PRODSEC-3525",
+        "Risk": "informational"
+    },
+    "a207be78c9f683a4231280fe324bfb079c17e9623f653d20ce36608ee0f28359": {
+        "message": "Rule 'frameworks.hacklang-webapp.slack.hack.shell' triggered.",
+        "check_id": "frameworks.hacklang-webapp.slack.hack.shell",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/bin/calc_coverage.hack#L17-L17",
+        "reason": "False positive. Command is a static string.",
+        "jira": "PRODSEC-3526",
+        "Risk": "informational"
+    },
+    "1edbe16e47bbf8e4b68870bbfe7292bbf3ee68fe51bc09dd382f4946d4fb0888": {
+        "message": "Rule 'frameworks.hacklang-webapp.slack.hack.shell' triggered.",
+        "check_id": "frameworks.hacklang-webapp.slack.hack.shell",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/bin/calc_coverage.hack#L91-L91",
+        "reason": "False positive. The only dynamic arguments $directory is always a static string from all code path.",
+        "jira": "PRODSEC-3526",
+        "Risk": "informational"
+    },
+    "8c8ec5ae6e550af581367249a823e24f5f641e856eefd6524da2cc99d355d46e": {
+        "message": "Rule 'frameworks.hacklang-webapp.slack.hack.shell' triggered.",
+        "check_id": "frameworks.hacklang-webapp.slack.hack.shell",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/bin/flag-diff.hack#L34-L34",
+        "reason": "True positive, but not exploitable as the script is a command line utility and exploiting it would require the attacker to already have code execution on the server.",
+        "jira": "PRODSEC-3526",
+        "Risk": "informational"
+    },
+    "b8f7d0a359c6a600eaa45f5d35c620572a37d16201d874b3204c8063469bd8bb": {
+        "message": "Rule 'frameworks.hacklang-webapp.slack.hack.shell' triggered.",
+        "check_id": "frameworks.hacklang-webapp.slack.hack.shell",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/bin/flag-diff.hack#L35-L35",
+        "reason": "True positive, but not exploitable as the script is a command line utility and exploiting it would require the attacker to already have code execution on the server.",
+        "jira": "PRODSEC-3526",
+        "Risk": "informational"
+    },
+    "d1532d2fe66a67d2938ed7fecc21753990f8085651b7bfa1db06d9d73a692f92": {
+        "message": "Rule 'frameworks.hacklang-webapp.slack.hack.shell' triggered.",
+        "check_id": "frameworks.hacklang-webapp.slack.hack.shell",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/bin/flag-json.hack#L27-L31",
+        "reason": "True positive, but not exploitable as the script is a command line utility and exploiting it would require the attacker to already have code execution on the server.",
+        "jira": "PRODSEC-3526",
+        "Risk": "informational"
+    },
+    "f154edcaa5ff84fbafd5468795227eb1bd84d9482f2b7d822c62ab49f8c0a445": {
+        "message": "Rule 'frameworks.hacklang-webapp.slack.hack.shell' triggered.",
+        "check_id": "frameworks.hacklang-webapp.slack.hack.shell",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/cli/graphql/generate.hack#L28-L32",
+        "reason": "False positive. All variable used in the command have static value.",
+        "jira": "PRODSEC-3526",
+        "Risk": "informational"
+    },
+    "6d4e06c92ce7035e8a6d407621f28ae1485bfb3cbf145cf8865c0e892d66d8a7": {
+        "message": "Rule 'frameworks.hacklang-webapp.slack.hack.shell' triggered.",
+        "check_id": "frameworks.hacklang-webapp.slack.hack.shell",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/cli/graphql/generate.hack#L44-L48",
+        "reason": "False positive. All variable used in the command have static value.",
+        "jira": "PRODSEC-3526",
+        "Risk": "informational"
+    },
+    "a3824891f682cdc239294d5d7cd5bd193e103eef88bfd3d52e289790c2c33053": {
+        "message": "Rule 'frameworks.hacklang-webapp.slack.hack.shell' triggered.",
+        "check_id": "frameworks.hacklang-webapp.slack.hack.shell",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/include/aws/chime/CurlClient.hack#L132-L132",
+        "reason": "False positive. curl_exec != command execution. ",
+        "jira": "PRODSEC-3526",
+        "Risk": "informational"
+    },
+    "d0aaafe36a9d9080a7069bb98d7799adac6f530939145f7673e0a164a81a931c": {
+        "message": "Rule 'frameworks.hacklang-webapp.slack.hack.shell' triggered.",
+        "check_id": "frameworks.hacklang-webapp.slack.hack.shell",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/src/experiments/daos/LocalDbDao.hack#L41-L41",
+        "reason": "False positive. This is a PDO exec function. It has nothing to do with command execution.",
+        "jira": "PRODSEC-3526",
+        "Risk": "informational"
+    },
+    "5e87f6f615b6021a5005c80828f14acc8acfcbafe58a60abfaa9af65cba38942": {
+        "message": "Rule 'frameworks.hacklang-webapp.slack.hack.shell' triggered.",
+        "check_id": "frameworks.hacklang-webapp.slack.hack.shell",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/src/experiments/services/LocalDbBuilder.hack#L138-L138",
+        "reason": "False positive. This is a PDO exec function. It has nothing to do with command execution.",
+        "jira": "PRODSEC-3526",
+        "Risk": "informational"
+    },
+    "2caaac0ef560e7c039dc20c16b8c4756fb2ed63e82628b1eec957a22e68ff1e9": {
+        "message": "Rule 'frameworks.hacklang-webapp.slack.hack.shell' triggered.",
+        "check_id": "frameworks.hacklang-webapp.slack.hack.shell",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/src/experiments/services/LocalDbBuilder.hack#L192-L192",
+        "reason": "False positive. This is a PDO exec function. It has nothing to do with command execution.",
+        "jira": "PRODSEC-3526",
+        "Risk": "informational"
+    },
+    "e4235bb3315d9ca715135e201b1568b4ef091837992d381565b9eaa8c0a3b055": {
+        "message": "Rule 'frameworks.hacklang-webapp.slack.hack.shell' triggered.",
+        "check_id": "frameworks.hacklang-webapp.slack.hack.shell",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/src/slackcloud/__private/CurlClient.hack#L216-L216",
+        "reason": "False positive. curl_exec != command execution. ",
+        "jira": "PRODSEC-3526",
+        "Risk": "informational"
+    },
+    "0707d2e526b06475c8f4bae9aaea19c7dfca4077b54d8238342ac0948f8a46e9": {
+        "message": "Rule 'frameworks.hacklang-webapp.slack.hack.shell' triggered.",
+        "check_id": "frameworks.hacklang-webapp.slack.hack.shell",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/vendor/facebook/hack-codegen/src/HackfmtFormatter.hack#L36-L40",
+        "reason": "False positive. All dynamic value are \"escapeshellarg\".",
+        "jira": "PRODSEC-3526",
+        "Risk": "informational"
+    },
+    "a85abfdaa3b0c12f9c675685561c2e992d9fd6885631e98fafe161f98708a38d": {
+        "message": "Rule 'frameworks.hacklang-webapp.slack.hack.shell' triggered.",
+        "check_id": "frameworks.hacklang-webapp.slack.hack.shell",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/vendor/hhvm/hhast/src/__Private/execute_async.hack#L25-L25",
+        "reason": "False positive. All dynamic value are \"escapeshellarg\".",
+        "jira": "PRODSEC-3526",
+        "Risk": "informational"
+    },
+    "6eb25b04650b840e0871ce66c7f5843b6ae05c194ee8b5724bc49b6094669311": {
+        "message": "Rule 'frameworks.hacklang-webapp.slack.hack.shell' triggered.",
+        "check_id": "frameworks.hacklang-webapp.slack.hack.shell",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/vendor/hhvm/hhast/src/__Private/get_typechecker_errors.hack#L48-L52",
+        "reason": "False positive. All dynamic value are \"escapeshellarg\".",
+        "jira": "PRODSEC-3526",
+        "Risk": "informational"
+    },
+    "2c1589528dc951c0c47ce798b63f448a9ec0db90e79c80f9593f576f609549c1": {
+        "message": "Rule 'frameworks.hacklang-webapp.slack.hack.shell' triggered.",
+        "check_id": "frameworks.hacklang-webapp.slack.hack.shell",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/vendor/hhvm/hhvm-autoload/src/HHClientFallbackHandler.hack#L230-L230",
+        "reason": "False positive. All dynamic value are \"escapeshellarg\".",
+        "jira": "PRODSEC-3526",
+        "Risk": "informational"
+    },
+    "5e05a128210fdb3d97f5fad2d7a6368e96be9c25a5fe53455671480165ef3ba9": {
+        "message": "Rule 'frameworks.hacklang-webapp.slack.hack.shell' triggered.",
+        "check_id": "frameworks.hacklang-webapp.slack.hack.shell",
+        "location": "https://slack-github.com/slack/webapp/blob/d6ce9d5f81ebe3083e053444d047e0968b3a2d81/vendor/slack/stripe-hack/lib/HttpClient/CurlClient.hack#L216-L216",
+        "reason": "False positive. curl_exec != command execution. ",
+        "jira": "PRODSEC-3526",
+        "Risk": "informational"
+    }
+}

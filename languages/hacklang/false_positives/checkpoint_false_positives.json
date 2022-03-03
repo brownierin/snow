@@ -1,5 +1,5 @@
 {
-	        "1400a0354e4fec011a0b23f7038ca95bc143cffe68a913d8aa11994968218a4f": {
+    "1400a0354e4fec011a0b23f7038ca95bc143cffe68a913d8aa11994968218a4f": {
         "message": "Rule 'slack.hack.shell' triggered.",
         "check_id": "slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/cli/cibot/artifacts_publisher.hack#L31-L31",
@@ -7,7 +7,7 @@
         "jira": "PRODSECTICKET",
         "Risk": "informational"
     },
-        "92c679152c980c2097593598cc06f098884a67aa0261bb5a4cb708c0eadd7f48": {
+    "92c679152c980c2097593598cc06f098884a67aa0261bb5a4cb708c0eadd7f48": {
         "message": "Rule 'slack.hack.shell' triggered.",
         "check_id": "slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/cron/background_task.php#L108-L108",
@@ -15,7 +15,7 @@
         "jira": "PRODSECTICKET",
         "Risk": "informational"
     },
-        "8d5cac5e3f20b2edb6e47d14f79ae9bf68d69368bd81ede330bacb87328ee48f": {
+    "8d5cac5e3f20b2edb6e47d14f79ae9bf68d69368bd81ede330bacb87328ee48f": {
         "message": "Rule 'slack.hack.shell' triggered.",
         "check_id": "slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/Jenkins/lib_jenkins.hack#L507-L507",
@@ -23,7 +23,7 @@
         "jira": "PRODSECTICKET",
         "Risk": "informational"
     },
-        "6d8a2d36fedde7707e42b28810167859bf1d80bd8b0e9c885638ddfba0f44db4": {
+    "6d8a2d36fedde7707e42b28810167859bf1d80bd8b0e9c885638ddfba0f44db4": {
         "message": "Rule 'slack.hack.shell' triggered.",
         "check_id": "slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_builder_helper.hack#L26-L26",
@@ -31,7 +31,7 @@
         "jira": "PRODSECTICKET",
         "Risk": "informational"
     },
-        "16ed910f8f4e38597c2e2784fe5bfa7dcc4dc70928d6409997a5e98ff21677ac": {
+    "16ed910f8f4e38597c2e2784fe5bfa7dcc4dc70928d6409997a5e98ff21677ac": {
         "message": "Rule 'slack.hack.shell' triggered.",
         "check_id": "slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_builder_helper.hack#L66-L66",
@@ -39,7 +39,7 @@
         "jira": "PRODSECTICKET",
         "Risk": "informational"
     },
-        "827255ea5a9973a21b952262540c83cba50c8a64c66f5fbc2bc0305f87fec82b": {
+    "827255ea5a9973a21b952262540c83cba50c8a64c66f5fbc2bc0305f87fec82b": {
         "message": "Rule 'slack.hack.shell' triggered.",
         "check_id": "slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_builder_helper.hack#L77-L77",
@@ -47,7 +47,7 @@
         "jira": "PRODSECTICKET",
         "Risk": "informational"
     },
-        "de69bf8a11380ba40862ab2e8fc6752e986da6bf4946acb932d40ab18dae1577": {
+    "de69bf8a11380ba40862ab2e8fc6752e986da6bf4946acb932d40ab18dae1577": {
         "message": "Rule 'slack.hack.shell' triggered.",
         "check_id": "slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_builder_helper.hack#L84-L84",
@@ -55,7 +55,7 @@
         "jira": "PRODSECTICKET",
         "Risk": "informational"
     },
-        "c1cf67578b6fd9e68648ce88a33b048bf5598fb73f69569f4ed0792bf27fc503": {
+    "c1cf67578b6fd9e68648ce88a33b048bf5598fb73f69569f4ed0792bf27fc503": {
         "message": "Rule 'slack.hack.shell' triggered.",
         "check_id": "slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_builder_helper.hack#L90-L90",
@@ -63,7 +63,7 @@
         "jira": "PRODSECTICKET",
         "Risk": "informational"
     },
-        "8de4fe198078a7c97aa25db487db6c75509121c46048a1807a08d2b1c63c8da1": {
+    "8de4fe198078a7c97aa25db487db6c75509121c46048a1807a08d2b1c63c8da1": {
         "message": "Rule 'slack.hack.shell' triggered.",
         "check_id": "slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_builder_helper.hack#L96-L96",
@@ -71,7 +71,7 @@
         "jira": "PRODSECTICKET",
         "Risk": "informational"
     },
-        "c2bca3fd04a7b24e5a4330e0c0c8a06550614fe41960fa899a9b5e5015eb90d7": {
+    "c2bca3fd04a7b24e5a4330e0c0c8a06550614fe41960fa899a9b5e5015eb90d7": {
         "message": "Rule 'slack.hack.shell' triggered.",
         "check_id": "slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_builder_helper.hack#L103-L103",
@@ -87,7 +87,7 @@
         "jira": "PRODSECTICKET",
         "Risk": "informational"
     },
-        "c4eecb0640c49c953f7780df49e6a95941efd99fef382227913e4d40a293d85a": {
+    "c4eecb0640c49c953f7780df49e6a95941efd99fef382227913e4d40a293d85a": {
         "message": "Rule 'slack.hack.shell' triggered.",
         "check_id": "slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L179-L179",
@@ -95,7 +95,7 @@
         "jira": "PRODSECTICKET",
         "Risk": "informational"
     },
-        "af0a1640caa5058d2b7bc35c8df8772d9a22a06173ee8f7d410b85272bdf146a": {
+    "af0a1640caa5058d2b7bc35c8df8772d9a22a06173ee8f7d410b85272bdf146a": {
         "message": "Rule 'slack.hack.shell' triggered.",
         "check_id": "slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L195-L195",
@@ -103,7 +103,7 @@
         "jira": "PRODSECTICKET",
         "Risk": "informational"
     },
-        "7b37b1e58c01fc2689bc8fa99630776b5263ab2494df49cba48b75aba773baf6": {
+    "7b37b1e58c01fc2689bc8fa99630776b5263ab2494df49cba48b75aba773baf6": {
         "message": "Rule 'slack.hack.shell' triggered.",
         "check_id": "slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L198-L198",
@@ -111,7 +111,7 @@
         "jira": "PRODSECTICKET",
         "Risk": "informational"
     },
-        "9f23c16ae92c9ff70e08c514bb2f4ee5eca4a10ba29d5b5c2bb95beae7ffa699": {
+    "9f23c16ae92c9ff70e08c514bb2f4ee5eca4a10ba29d5b5c2bb95beae7ffa699": {
         "message": "Rule 'slack.hack.shell' triggered.",
         "check_id": "slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L206-L206",
@@ -127,7 +127,7 @@
         "jira": "PRODSECTICKET",
         "Risk": "informational"
     },
-        "5244f33a4292b69fc5b9703dec15226b9beea8283914960f9fad71a4e73c7bf5": {
+    "5244f33a4292b69fc5b9703dec15226b9beea8283914960f9fad71a4e73c7bf5": {
         "message": "Rule 'slack.hack.shell' triggered.",
         "check_id": "slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L267-L267",
@@ -135,7 +135,7 @@
         "jira": "PRODSECTICKET",
         "Risk": "informational"
     },
-        "8197a5c55096eda35a92a034c9b1cd62877a0946d5a677c845fa01ad1bf0afb6": {
+    "8197a5c55096eda35a92a034c9b1cd62877a0946d5a677c845fa01ad1bf0afb6": {
         "message": "Rule 'slack.hack.shell' triggered.",
         "check_id": "slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L285-L285",
@@ -143,7 +143,7 @@
         "jira": "PRODSECTICKET",
         "Risk": "informational"
     },
-        "69d564d41ab4e711a276ac5dafd86be475cec5ef9dbc23de2999c968450b7269": {
+    "69d564d41ab4e711a276ac5dafd86be475cec5ef9dbc23de2999c968450b7269": {
         "message": "Rule 'slack.hack.shell' triggered.",
         "check_id": "slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L294-L294",
@@ -151,7 +151,7 @@
         "jira": "PRODSECTICKET",
         "Risk": "informational"
     },
-        "5c0127b38a1a34cf04598f45c20bb72e2a9323f530241009afe3d6d32fb751c6": {
+    "5c0127b38a1a34cf04598f45c20bb72e2a9323f530241009afe3d6d32fb751c6": {
         "message": "Rule 'slack.hack.shell' triggered.",
         "check_id": "slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L312-L312",
@@ -167,7 +167,7 @@
         "jira": "PRODSECTICKET",
         "Risk": "informational"
     },
-        "b39f95e2286fc802befd2e3ec997fccf56c8aedc1f9c116493c314ae50af45ce": {
+    "b39f95e2286fc802befd2e3ec997fccf56c8aedc1f9c116493c314ae50af45ce": {
         "message": "Rule 'slack.hack.shell' triggered.",
         "check_id": "slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L344-L344",
@@ -175,7 +175,7 @@
         "jira": "PRODSECTICKET",
         "Risk": "informational"
     },
-        "d6a1db94055811b102add6ff62e8409ebf678ba63ae67723e2a8276ecd70dd02": {
+    "d6a1db94055811b102add6ff62e8409ebf678ba63ae67723e2a8276ecd70dd02": {
         "message": "Rule 'slack.hack.shell' triggered.",
         "check_id": "slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L351-L351",
@@ -183,7 +183,7 @@
         "jira": "PRODSECTICKET",
         "Risk": "informational"
     },
-        "bda92d51ffd80a54f8f733f5daca0342dd5856b73e7af9af97ac3027795a3e23": {
+    "bda92d51ffd80a54f8f733f5daca0342dd5856b73e7af9af97ac3027795a3e23": {
         "message": "Rule 'slack.hack.shell' triggered.",
         "check_id": "slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L456-L456",
@@ -191,7 +191,7 @@
         "jira": "PRODSECTICKET",
         "Risk": "informational"
     },
-        "acd6046960da96ca245859ffced3aabd6d3c3d9663221aecca6716b7b5394b51": {
+    "acd6046960da96ca245859ffced3aabd6d3c3d9663221aecca6716b7b5394b51": {
         "message": "Rule 'slack.hack.shell' triggered.",
         "check_id": "slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L460-L460",
@@ -207,7 +207,7 @@
         "jira": "PRODSECTICKET",
         "Risk": "informational"
     },
-        "1917a76e6c1fe81d67ac6687bfc32ad31eb85d26af5c4d04e4340215c94d6fca": {
+    "1917a76e6c1fe81d67ac6687bfc32ad31eb85d26af5c4d04e4340215c94d6fca": {
         "message": "Rule 'slack.hack.shell' triggered.",
         "check_id": "slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L469-L469",
@@ -215,7 +215,7 @@
         "jira": "PRODSECTICKET",
         "Risk": "informational"
     },
-        "3bd91edbe1957dc3ab691412727b914ced868172f1dea2c41aebbbd119c63cfe": {
+    "3bd91edbe1957dc3ab691412727b914ced868172f1dea2c41aebbbd119c63cfe": {
         "message": "Rule 'slack.hack.shell' triggered.",
         "check_id": "slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/lib_github_pulls.hack#L634-L634",
@@ -223,7 +223,7 @@
         "jira": "PRODSECTICKET",
         "Risk": "informational"
     },
-        "87524e287c80427fa2b8d9b1516ff6849be3c1820d6e4320a1f4568803689a51": {
+    "87524e287c80427fa2b8d9b1516ff6849be3c1820d6e4320a1f4568803689a51": {
         "message": "Rule 'slack.hack.shell' triggered.",
         "check_id": "slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0e047ff75d1e1daf64e8b68d5096585651ab548d/src/lib_test_run.hack#L232-L232",
@@ -231,16 +231,15 @@
         "jira": "PRODSECTICKET",
         "Risk": "informational"
     },
-        "4c71851d48280d4e5e50dc7c1ed696b18d5f2dd038823e31593ea1fb9a064525": {
+    "4c71851d48280d4e5e50dc7c1ed696b18d5f2dd038823e31593ea1fb9a064525": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/xhp/whoami_page.hack#L12-L12",
         "reason": "Exec does not take user input",
         "jira": " PRODSEC-3387",
         "Risk": "informational"
-    }
-    ,
-        "7eb89946277955873a641ae38a6c3821eb0d92b04015044a56eac4ddedfb2964": {
+    },
+    "7eb89946277955873a641ae38a6c3821eb0d92b04015044a56eac4ddedfb2964": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_builder_helper.hack#L26-L26",
@@ -248,7 +247,7 @@
         "jira": " PRODSEC-3387",
         "Risk": "informational"
     },
-        "9663b8415e5fc583e97a7bbd239146dc080eabe7c3939c4eaea623e97f5c2652": {
+    "9663b8415e5fc583e97a7bbd239146dc080eabe7c3939c4eaea623e97f5c2652": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/Api/VendGitReferenceRepoUrlApiHandler.hack#L31-L31",
@@ -256,7 +255,7 @@
         "jira": " PRODSEC-3387",
         "Risk": "informational"
     },
-        "e6a0ec0ae6f7d87ccbe590e4eb4330427a42407b30681e36e3f89766d6c92f8b": {
+    "e6a0ec0ae6f7d87ccbe590e4eb4330427a42407b30681e36e3f89766d6c92f8b": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/cli/cibot/artifacts_publisher.hack#L31-L31",
@@ -264,7 +263,7 @@
         "jira": " PRODSEC-3387",
         "Risk": "informational"
     },
-        "f8deeda28406cab2138a56824a4fc2ec115f492c0b6b2102ff67356d0cdcb24a": {
+    "f8deeda28406cab2138a56824a4fc2ec115f492c0b6b2102ff67356d0cdcb24a": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_builder_helper.hack#L36-L36",
@@ -272,7 +271,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "91636c1d17044696cf86f7bce9305564e53e0931bb0218b7dc7a3886d41c70dd": {
+    "91636c1d17044696cf86f7bce9305564e53e0931bb0218b7dc7a3886d41c70dd": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L67-L67",
@@ -280,7 +279,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "a7df41b725c2fd0b90ae9bc77d7910b085f66c8c8f33440f9bfe5b9c829d7e16": {
+    "a7df41b725c2fd0b90ae9bc77d7910b085f66c8c8f33440f9bfe5b9c829d7e16": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/Envs/Jobs/EnvsDnsDelete.hack#L58-L58",
@@ -288,7 +287,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "b49f7ae088720f4fc3d9fdd5567f6f465d9e546868f9d53fcbbf52b20486c409": {
+    "b49f7ae088720f4fc3d9fdd5567f6f465d9e546868f9d53fcbbf52b20486c409": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L71-L71",
@@ -296,7 +295,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "6452deb6402f64e755e861841967016ec6bd6149f44fe48adddd1464fb80a9fc": {
+    "6452deb6402f64e755e861841967016ec6bd6149f44fe48adddd1464fb80a9fc": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L74-L74",
@@ -304,7 +303,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "3631eaf9bf554dd81264fe3045ebeb3b1a9c0c755ebdaf80c245c87842072106": {
+    "3631eaf9bf554dd81264fe3045ebeb3b1a9c0c755ebdaf80c245c87842072106": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/Envs/Jobs/EnvsDnsUpdate.hack#L71-L71",
@@ -312,16 +311,15 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "0a2a514124cc7bcb12ff460ee2e72664249a4a64f585a689374126153d51cb60": {
+    "0a2a514124cc7bcb12ff460ee2e72664249a4a64f585a689374126153d51cb60": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_builder_helper.hack#L66-L66",
         "reason": "Exec does not take user input",
         "jira": "PRODSEC-3387",
         "Risk": "informational"
-    }
-    ,
-        "74d0afe91c63b9adbaa116d33f40aa9f8b4dae5465dc2251bd1011c3f91d983b": {
+    },
+    "74d0afe91c63b9adbaa116d33f40aa9f8b4dae5465dc2251bd1011c3f91d983b": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L77-L77",
@@ -329,7 +327,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "7ea7c3bea0cf196e283fbb6b87a6fe2fff2e084c0adf3f922bb516e781e07c85": {
+    "7ea7c3bea0cf196e283fbb6b87a6fe2fff2e084c0adf3f922bb516e781e07c85": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L80-L80",
@@ -337,7 +335,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "f756d3d281fa23a7dec27c81120e6632f1b18e0ab87babcd62930d3720804d57": {
+    "f756d3d281fa23a7dec27c81120e6632f1b18e0ab87babcd62930d3720804d57": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L83-L83",
@@ -345,7 +343,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "d6d49285467b1286b5757b746784223952bcb4671fdc25b3e216d305e28cff50": {
+    "d6d49285467b1286b5757b746784223952bcb4671fdc25b3e216d305e28cff50": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/RegressionRuns/lib_regression_runs.hack#L77-L77",
@@ -353,7 +351,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "d749698e4ad32e43d1342e63d769d913e750030f17a7b69ee69ad1fee7a132f0": {
+    "d749698e4ad32e43d1342e63d769d913e750030f17a7b69ee69ad1fee7a132f0": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L86-L86",
@@ -361,7 +359,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "9e71b670c07314dea4b30a9c8855e9359924a0c36dd6bd824b57d3559eb40334": {
+    "9e71b670c07314dea4b30a9c8855e9359924a0c36dd6bd824b57d3559eb40334": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_builder_helper.hack#L77-L77",
@@ -369,7 +367,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "dbdfb77cd711430e34c18300e8bbb762c50e8e68f3a1732a8b6c7b51b9a5e2b8": {
+    "dbdfb77cd711430e34c18300e8bbb762c50e8e68f3a1732a8b6c7b51b9a5e2b8": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_builder_helper.hack#L84-L84",
@@ -377,7 +375,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "4c98efdf564794987637f6baef75a0566a01aa6bbd9c9f346700b66a935d191b": {
+    "4c98efdf564794987637f6baef75a0566a01aa6bbd9c9f346700b66a935d191b": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/Experimental/AWS/lib_aws.hack#L130-L130",
@@ -385,7 +383,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "043fbdc824115f8d24ea3c6b4baa5f62c7e225b105250a91a2f0db73f2b9fea2": {
+    "043fbdc824115f8d24ea3c6b4baa5f62c7e225b105250a91a2f0db73f2b9fea2": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_builder_helper.hack#L90-L90",
@@ -393,16 +391,15 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "7b08a0b457d660c200d9be002d027bf502d07e52b436cf101cc0bbd7d58a6367": {
+    "7b08a0b457d660c200d9be002d027bf502d07e52b436cf101cc0bbd7d58a6367": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/Envs/ASGScaleEventJob.hack#L133-L133",
         "reason": "Exec does not take user input",
         "jira": "PRODSEC-3387",
         "Risk": "informational"
-    }
-    ,
-        "79eaf55c5a8fe6ac70917a30526edc6fc224330a8d01e033b4ec615d7cfd4305": {
+    },
+    "79eaf55c5a8fe6ac70917a30526edc6fc224330a8d01e033b4ec615d7cfd4305": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_builder_helper.hack#L96-L96",
@@ -410,7 +407,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "17694226b2a659b728d3043b845dce767addafe3193725db1c95302ea743cb77": {
+    "17694226b2a659b728d3043b845dce767addafe3193725db1c95302ea743cb77": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_builder_helper.hack#L103-L103",
@@ -418,7 +415,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "d8b2222779eed66722e490103551e363dd0f8f42334693b7963f05dfb208c72a": {
+    "d8b2222779eed66722e490103551e363dd0f8f42334693b7963f05dfb208c72a": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot.hack#L124-L124",
@@ -426,7 +423,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "641b02bd77f6cb176096018361967b65a1a178c73a1003e9bb24d0a2c086d33c": {
+    "641b02bd77f6cb176096018361967b65a1a178c73a1003e9bb24d0a2c086d33c": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L160-L160",
@@ -434,7 +431,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "e5885ab39b4fcc69a2bea2aa7b5b19f972d85a380f45c034c386e9d1ff5f598a": {
+    "e5885ab39b4fcc69a2bea2aa7b5b19f972d85a380f45c034c386e9d1ff5f598a": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L166-L166",
@@ -442,7 +439,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "c5333d08fc464d82dca0f60bdf7f248b0a9a8ceca70d532f6d3cf72ed56ac69b": {
+    "c5333d08fc464d82dca0f60bdf7f248b0a9a8ceca70d532f6d3cf72ed56ac69b": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L179-L179",
@@ -450,7 +447,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "08bd5bc41def3b19d4f24b62772b6b4e0ff28662728859ce8b84ed67c3810777": {
+    "08bd5bc41def3b19d4f24b62772b6b4e0ff28662728859ce8b84ed67c3810777": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/lib_test_run.hack#L232-L232",
@@ -458,7 +455,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "c0985d05b5d1c38c1f3121dbd1224fbde5b23f7b47a47def5d51b10956baeb4a": {
+    "c0985d05b5d1c38c1f3121dbd1224fbde5b23f7b47a47def5d51b10956baeb4a": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L187-L187",
@@ -466,7 +463,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "fbe5575f07c9ae72fbd3905d448c5bb43204c3926d2ac80ce9ff499136cdec41": {
+    "fbe5575f07c9ae72fbd3905d448c5bb43204c3926d2ac80ce9ff499136cdec41": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L195-L195",
@@ -474,7 +471,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "caa52e697297f821dec6c78b125c071944e05be9d8ac682871e11a3bbf22d29f": {
+    "caa52e697297f821dec6c78b125c071944e05be9d8ac682871e11a3bbf22d29f": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L198-L198",
@@ -482,7 +479,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "78d111e1e656fe629fb9b5b741f2f3703ef7e838c33d7c142e08764e3b9e5ebe": {
+    "78d111e1e656fe629fb9b5b741f2f3703ef7e838c33d7c142e08764e3b9e5ebe": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L206-L206",
@@ -490,7 +487,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "187baf6014a6a9b1b4725a44fe29a8fb125ffc9e8606c41fdcdb430b37ea5c0a": {
+    "187baf6014a6a9b1b4725a44fe29a8fb125ffc9e8606c41fdcdb430b37ea5c0a": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L224-L224",
@@ -498,7 +495,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "dff2dce7ae81bdaa60ca8aa56c1521905d71a7fc460cc0047563d9ce42ff714b": {
+    "dff2dce7ae81bdaa60ca8aa56c1521905d71a7fc460cc0047563d9ce42ff714b": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L226-L226",
@@ -506,7 +503,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "af00eda559a523a05a0c26bbf2cada15a3558fbcaafa2a4c90a960d9e5360112": {
+    "af00eda559a523a05a0c26bbf2cada15a3558fbcaafa2a4c90a960d9e5360112": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L233-L233",
@@ -514,7 +511,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "5243d8985e805576ccf1345846c85297c46daf82313ccab6bea299b800c563a5": {
+    "5243d8985e805576ccf1345846c85297c46daf82313ccab6bea299b800c563a5": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L251-L251",
@@ -522,7 +519,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "2445c6ca6b7883dd353da8ad0523edc2a92cf91ab2816d35d03720d2db396a03": {
+    "2445c6ca6b7883dd353da8ad0523edc2a92cf91ab2816d35d03720d2db396a03": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L256-L256",
@@ -530,7 +527,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "27a89e86ee87ec05f4dd37d49b77b4e9af2150f68961f9a67a9c6ebabaec0f00": {
+    "27a89e86ee87ec05f4dd37d49b77b4e9af2150f68961f9a67a9c6ebabaec0f00": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L258-L258",
@@ -538,7 +535,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "13b22d5d73e3e0faf79d3c4c027a2d18ca5ac7d006a3f74691e6812cd1912aa2": {
+    "13b22d5d73e3e0faf79d3c4c027a2d18ca5ac7d006a3f74691e6812cd1912aa2": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L267-L267",
@@ -546,7 +543,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "6bfafe0d7639de02608acc1fd66635bcc93d6af5f82f68eec65e1897e9414929": {
+    "6bfafe0d7639de02608acc1fd66635bcc93d6af5f82f68eec65e1897e9414929": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L285-L285",
@@ -554,7 +551,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "57346b5604396e40b9b50f9d5dd605a5ddddd468b2a51b2a18e479e1c2b85df8": {
+    "57346b5604396e40b9b50f9d5dd605a5ddddd468b2a51b2a18e479e1c2b85df8": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L294-L294",
@@ -562,7 +559,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "e2666ffeac062ea9de4c3fdf4a39da091ec8b133c92c731cf1ed1d82b4e2932f": {
+    "e2666ffeac062ea9de4c3fdf4a39da091ec8b133c92c731cf1ed1d82b4e2932f": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L296-L296",
@@ -570,7 +567,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "9166de436e737f582a44427197eb02c4171dd0b8f2f39795e8ab0a884becdce3": {
+    "9166de436e737f582a44427197eb02c4171dd0b8f2f39795e8ab0a884becdce3": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/vendor/slack/hack-commons-itools/src/lib_murron_client.hack#L342-L342",
@@ -578,7 +575,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "f888364e28de5d61b8a9d1c6d3a14822020ca0eda70fff55940f00d2c1f612d6": {
+    "f888364e28de5d61b8a9d1c6d3a14822020ca0eda70fff55940f00d2c1f612d6": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L312-L312",
@@ -586,7 +583,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "c2b9d9ed2b2045489dd8e8ba909ffccc096645872e151eae4473cdfa74886581": {
+    "c2b9d9ed2b2045489dd8e8ba909ffccc096645872e151eae4473cdfa74886581": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L319-L319",
@@ -594,7 +591,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "3a0e3d3c2a2a89043edf687fc3721470305bd568a300df20265d0371a268f1c4": {
+    "3a0e3d3c2a2a89043edf687fc3721470305bd568a300df20265d0371a268f1c4": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L323-L323",
@@ -602,7 +599,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "1dca7c0cfe9542c133b19ea3faac3940b9b64ce5164e6cc9febabbb6a984409a": {
+    "1dca7c0cfe9542c133b19ea3faac3940b9b64ce5164e6cc9febabbb6a984409a": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L331-L331",
@@ -610,7 +607,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "cc0bd810096694cf103d1a0f590691c5d8e8b3cbf7c09c9690ab9eb03ef3d3c5": {
+    "cc0bd810096694cf103d1a0f590691c5d8e8b3cbf7c09c9690ab9eb03ef3d3c5": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/vendor/hhvm/hhast/src/__Private/MigrationCLI.hack#L429-L437",
@@ -618,7 +615,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "3aaca5feb0ed962afa5b47182a5a4142001150ee258920799e415df5b7b698ce": {
+    "3aaca5feb0ed962afa5b47182a5a4142001150ee258920799e415df5b7b698ce": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L344-L344",
@@ -626,7 +623,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "85823de58ade1286c590934a2126235e06a968332ab9ccd8a5cb4925232b6aa2": {
+    "85823de58ade1286c590934a2126235e06a968332ab9ccd8a5cb4925232b6aa2": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L351-L351",
@@ -634,16 +631,15 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "2b3ccba73f5a495929cee9fdc022e4829fa6910af3075f9623716dbf816bf412": {
+    "2b3ccba73f5a495929cee9fdc022e4829fa6910af3075f9623716dbf816bf412": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/vendor/hhvm/hhast/src/__Private/MigrationCLI.hack#L465-L465",
         "reason": "Exec does not take user input",
         "jira": "PRODSEC-3387",
         "Risk": "informational"
-    }
-    ,
-        "e6120bab64456454a1c0f7928ec1cb7f889b1180140ff69a93868c56aaa5df1d": {
+    },
+    "e6120bab64456454a1c0f7928ec1cb7f889b1180140ff69a93868c56aaa5df1d": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/Jenkins/lib_jenkins.hack#L507-L507",
@@ -651,7 +647,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "a4437ab6f1e93096b86fa7d1da693afe2409e06886ff2dd769515eb7d6b445ca": {
+    "a4437ab6f1e93096b86fa7d1da693afe2409e06886ff2dd769515eb7d6b445ca": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L456-L456",
@@ -659,7 +655,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "f195c75de7c4372466a915c038360d412491381b120bc16132334d52c9d3d495": {
+    "f195c75de7c4372466a915c038360d412491381b120bc16132334d52c9d3d495": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L460-L460",
@@ -667,7 +663,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "46d6fbe3a552b5e2dc17563fbf3521f63e06766b3ea79e71a85b130cba74e18f": {
+    "46d6fbe3a552b5e2dc17563fbf3521f63e06766b3ea79e71a85b130cba74e18f": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L464-L464",
@@ -675,7 +671,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "5e2524d169749bede53cabcf98d1b21c23cbe1db2dd4c9cc79a47ae1628490aa": {
+    "5e2524d169749bede53cabcf98d1b21c23cbe1db2dd4c9cc79a47ae1628490aa": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L469-L469",
@@ -683,7 +679,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "f24ab5b01d9734de86510e93f8620e4019d7f68c6d639489422682b6da80d141": {
+    "f24ab5b01d9734de86510e93f8620e4019d7f68c6d639489422682b6da80d141": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/lib_github_pulls.hack#L634-L634",
@@ -691,7 +687,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "cd17c6caff2a5c6f5660d76238f6c21b9050ea13e51d8b1f03a3fe5810260692": {
+    "cd17c6caff2a5c6f5660d76238f6c21b9050ea13e51d8b1f03a3fe5810260692": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L536-L536",
@@ -699,7 +695,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "3e381d23ba0d20259eef50ac552af910e6369a2570a3f8d138e7cc708c5650e2": {
+    "3e381d23ba0d20259eef50ac552af910e6369a2570a3f8d138e7cc708c5650e2": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/Checkpoint/CIBot/lib_cibot_runner_helper.hack#L544-L544",
@@ -707,7 +703,7 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "93c49651382fd201330a61cd7e123d8b7bc6f4460ebe74a4cb065c832c0d277c": {
+    "93c49651382fd201330a61cd7e123d8b7bc6f4460ebe74a4cb065c832c0d277c": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/lib_cibot_run.hack#L776-L776",
@@ -715,12 +711,52 @@
         "jira": "PRODSEC-3387",
         "Risk": "informational"
     },
-        "82269b5f34bdbafc9da154e80f84304a66ef85fdd35903c3a55025d09d98949f": {
+    "82269b5f34bdbafc9da154e80f84304a66ef85fdd35903c3a55025d09d98949f": {
         "message": "languages.hacklang.slack.slack.hack.shell' triggered.",
         "check_id": "languages.hacklang.slack.slack.hack.shell",
         "location": "https://slack-github.com/slack/checkpoint/blob/0cba7c9a1f896aacb78de5e1ac5b9194f7fa5b8d/src/lib_cibot_run.hack#L797-L797",
         "reason": "Exec does not take user input",
         "jira": "PRODSEC-3387",
+        "Risk": "informational"
+    },
+    "812ec73304d9d4f5a93c83017e4b63bcb214edfc638a16fe95097330ab7e3fa8": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/32ee005113c659554fcfa27d9f4b337177f7e45a/src/Checkpoint/CIBot/Jenkins/lib_jenkins.hack#L547-L547",
+        "reason": "False positive. curl_exec != command execution. ",
+        "jira": "PRODSEC-3521",
+        "Risk": "informational"
+    },
+    "cd3b97c0253d368bd178fcbb978cff1a1d6ab864be6fc3c3b8527b52b9a6a051": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/32ee005113c659554fcfa27d9f4b337177f7e45a/vendor/facebook/hack-codegen/src/HackfmtFormatter.hack#L36-L40",
+        "reason": "False positive. All dynamic value are \"escapeshellarg\".",
+        "jira": "PRODSEC-3521",
+        "Risk": "informational"
+    },
+    "fddffdc69baefcb3fd5abcaa5531708d2d1df77f30b37ffb23dc566fbc938997": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/32ee005113c659554fcfa27d9f4b337177f7e45a/vendor/hhvm/hhast/src/__Private/ParserQueue.hack#L19-L19",
+        "reason": "False positive. execute_async is an internal function that is safe to use as it automatically escapes arguments",
+        "jira": "PRODSEC-3521",
+        "Risk": "informational"
+    },
+    "972257e2a85e5c183aaf130e4e2bf7c42a251657245fff801296fb41ea6dfd89": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/32ee005113c659554fcfa27d9f4b337177f7e45a/vendor/hhvm/hhast/src/__Private/execute_async.hack#L25-L25",
+        "reason": "False positive. All dynamic value are \"escapeshellarg\".",
+        "jira": "PRODSEC-3521",
+        "Risk": "informational"
+    },
+    "7fe7d611f4e81f9128ac9eb7fba98caa81560de1a2aae45fe13ce615961ad9cf": {
+        "message": "Rule 'slack.hack.shell' triggered.",
+        "check_id": "slack.hack.shell",
+        "location": "https://slack-github.com/slack/checkpoint/blob/32ee005113c659554fcfa27d9f4b337177f7e45a/vendor/hhvm/hhast/src/__Private/get_typechecker_errors.hack#L48-L52",
+        "reason": "False positive. All dynamic value are \"escapeshellarg\".",
+        "jira": "PRODSEC-3521",
         "Risk": "informational"
     }
 }
