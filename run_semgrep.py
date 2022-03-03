@@ -172,11 +172,44 @@ def git_pull_repo(repo_path):
     symref_process = run_command(f"git -C {repo_path} remote show origin | sed -n '/HEAD branch/s/.*: //p'")
     default_branch = symref_process.stdout.decode("utf-8")
     try:
+        pull(repo_path, default_branch) or reset(repo_path, default_branch) or force_redownload(repo_path)
+    except Exception as e:
+        raise e
+
+
+def force_redownload(repo_path):
+    repo = repo_path.split("/")[-1]
+    try:
+        rm_dir(repo_path)
+        git_ops(repo)
+    except Exception as e:
+        print(e)
+    else:
+        return True
+
+
+def rm_dir(repo_path):
+    shutil.rmtree(repo_path)
+
+
+def pull(repo_path, default_branch):
+    try:
         run_command(f"git -C {repo_path} checkout {default_branch}")
         run_command(f"git -C {repo_path} pull")
-    except:
+    except Exception as e:
+        print(e)
+    else: 
+        return True
+
+
+def reset(repo_path, default_branch):
+    try:
         run_command(f"git -C {repo_path} reset --hard origin/{default_branch}")
         run_command(f"git -C {repo_path} pull")
+    except Exception as e:
+        print(e)
+    else:
+        return True
 
 
 def git_ops(repo):
