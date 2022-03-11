@@ -24,18 +24,17 @@ import aws.upload_to_s3 as s3
 import checkpoint_out as checkpoint
 import ci.jenkins as jenkins
 
-
+SNOW_ROOT = os.path.dirname(os.path.realpath(__file__))
 env = os.getenv("env")
 CONFIG = configparser.ConfigParser()
 if env == "snow-test":
-    CONFIG.read("config-test.cfg")
+    CONFIG.read(f"{SNOW_ROOT}/config-test.cfg")
 else:
-    CONFIG.read("config.cfg")
+    CONFIG.read(f"{SNOW_ROOT}/config.cfg")
 
 
 # Global Variables
 global_exit_code = 0
-SNOW_ROOT = os.getenv("PWD")
 if CONFIG["general"]["run_local_semgrep"] != "False":
     SNOW_ROOT = CONFIG["general"]["run_local_semgrep"]
 LANGUAGES_DIR = SNOW_ROOT + CONFIG["general"]["languages_dir"]
@@ -515,21 +514,20 @@ def process_one_result(result, github_url, repo_name, github_branch):
     path always gives us /repositories/<repo>/dir/filename.py
     We do not want /repositories/ or <repo> as this is not valid for a GitHub url
     """
-    code_path = result["path"].split("/", 2)[2:][0]
+    code_path = result["path"].split("/", 2)[2]
 
     # Because single line js files exists we truncate the length of the line
     code_lines = result["extra"]["lines"][:300]
     high_priority_rules_check_id = CONFIG["high-priority"]["high_priority_rules_check_id"].split("\n")
     high_priority_rules_message = CONFIG["high-priority"]["high_priority_rules_message"].split("\n")
-    code_url = f"{github_url}/blob/{github_branch}/{code_path}#L{str(line_start)}"
+    code_url = f"{github_url}/{repo_name}/tree/{github_branch}/{code_path}#L{str(line_start)}"
     priority = "normal"
     result_builder = (
-        f"*Security Vulnerability Detected in {repo_name}*\n"
-        f":exclamation:*Rule ID:* {check_id}\n"
-        f":speech_balloon: *Message:* {message}\n"
+        f"*Security Vulnerability Detected in {repo_name}*"
+        f":exclamation:*Rule ID:* {check_id}"
+        f":speech_balloon: *Message:* {message}"
         f":link:*Link*: {code_url}"
-        f"\n:coding_horror: *Code:*\n\`\`\`{code_lines}"
-        "\`\`\`"
+        f":coding_horror: *Code:*```{code_lines}```"
     )
     total_vulns = 1
     if check_id in high_priority_rules_check_id:
@@ -564,9 +562,9 @@ def alert_channel():
             alert_json.update({repo_name: {"normal": [], "high": []}})
             github_url = data["metadata"]["GitHubRepo"]
             if github_url == github_enterprise_url:
-                github_url = github_url + ghe_org_name
+                github_url = f"{github_url}/ghe_org_name"
             elif github_url == github_com_url:
-                github_url = github_url + org_name
+                github_url = f"{github_url}/org_name"
             github_branch = data["metadata"]["branch"]
 
             if results:

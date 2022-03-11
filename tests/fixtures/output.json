@@ -1,0 +1,61 @@
+{
+    "errors": [],
+    "metadata": {
+        "GitHubRepo": "https://slack-github.com",
+        "branch": "86ffb74618094b8fca31730f2e3648879dd81492",
+        "language": "golang",
+        "repoName": "malware-service",
+        "timestamp": "2022-03-10T18:36:00.912136+00:00"
+    },
+    "results": [
+        {
+            "check_id": "languages.golang.r2c-ci-rules.go.lang.security.audit.crypto.bad_imports.insecure-module-used",
+            "end": {
+                "col": 19,
+                "line": 99,
+                "offset": 2509
+            },
+            "extra": {
+                "is_ignored": false,
+                "lines": "\thash := md5.New()",
+                "message": "Detected use of an insecure cryptographic hashing method. The detected method is known to be broken and relatively easily compromised. Please see the Application Security cryptographic guidelines for development Guru card for reference on acceptable cryptographic hashing algorithms https://slack-github.com/slack/docs/tree/master/security/product_security/cryptography_guidance .",
+                "metadata": {
+                    "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+                    "owasp": "A9: Using Components with Known Vulnerabilities",
+                    "references": [
+                        "https://godoc.org/golang.org/x/crypto/sha3",
+                        "https://slack-github.com/slack/docs/tree/master/security/product_security/cryptography_guidance"
+                    ],
+                    "source-rule-url": "https://github.com/securego/gosec"
+                },
+                "metavars": {
+                    "$FUNC": {
+                        "abstract_content": "New",
+                        "end": {
+                            "col": 17,
+                            "line": 99,
+                            "offset": 2507
+                        },
+                        "start": {
+                            "col": 14,
+                            "line": 99,
+                            "offset": 2504
+                        },
+                        "unique_id": {
+                            "md5sum": "2a87928bac7a141f4df95c7b0db47a5a",
+                            "type": "AST"
+                        }
+                    }
+                },
+                "severity": "WARNING"
+            },
+            "path": "repositories/malware-service/malware/filetypes.go",
+            "start": {
+                "col": 10,
+                "line": 99,
+                "offset": 2500
+            },
+            "hash_id": "52a89b4e36ec1806cd665970fea14b4c8c73bac13dfc85eed9c3622092150853"
+        }
+    ]
+}

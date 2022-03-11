@@ -17,10 +17,11 @@ import webhooks
 
 env = os.getenv("env")
 CONFIG = configparser.ConfigParser()
+dir_path = os.path.dirname(os.path.realpath(__file__))
 if env != "snow-test":
-    CONFIG.read('config.cfg')
+    CONFIG.read(f"{dir_path}/config.cfg")
 else:
-    CONFIG.read('config-test.cfg')
+    CONFIG.read(f"{dir_path}/config-test.cfg")
 CHECKPOINT_API_URL = CONFIG['general']['checkpoint_api_url']
 TSAUTH_TOKEN_ENV = CONFIG['general']['tsauth_token_env']
 RESULTS_DIR = os.getenv('PWD') + CONFIG['general']['results']
