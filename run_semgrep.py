@@ -570,8 +570,8 @@ def alert_channel():
             github_branch = data["metadata"]["branch"]
 
             if results:
+                total_vulns = len(results)
                 for result in results:
-                    total_vulns = len(results)
                     processed, highs, priority = process_one_result(
                         result, github_url, repo_name, github_branch
                     )
