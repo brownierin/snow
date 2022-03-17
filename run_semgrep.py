@@ -522,14 +522,14 @@ def process_one_result(result, github_url, repo_name, github_branch):
     high_priority_rules_message = CONFIG["high-priority"]["high_priority_rules_message"].split("\n")
     code_url = f"{github_url}/{repo_name}/tree/{github_branch}/{code_path}#L{str(line_start)}"
     priority = "normal"
-    result_builder = (
-        f"*Security Vulnerability Detected in {repo_name}*"
-        f":exclamation:*Rule ID:* {check_id}"
-        f":speech_balloon: *Message:* {message}"
-        f":link:*Link*: {code_url}"
-        f":coding_horror: *Code:*```{code_lines}```"
-    )
-    total_vulns = 1
+    result_builder = f"""
+        *Security Vulnerability Detected in {repo_name}*
+        :exclamation: *Rule ID:* {check_id}
+        :speech_balloon: *Message:* {message}
+        :link:*Link*: [click me]({code_url})
+        :coding_horror: *Code:*```{code_lines}```
+    """
+
     if check_id in high_priority_rules_check_id:
         high = 1
         priority = "high"
@@ -538,8 +538,14 @@ def process_one_result(result, github_url, repo_name, github_branch):
             if high_priority_string in message:
                 high = 1
                 priority = "high"
-    return result_builder, total_vulns, high, priority
+    return result_builder, high, priority
 
+def set_github_full_url(github_url):
+    if github_url == github_enterprise_url:
+        github_url = f"{github_url}/{ghe_org_name}"
+    elif github_url == github_com_url:
+        github_url = f"{github_url}/{org_name}"
+    return github_url
 
 def alert_channel():
     """
@@ -560,20 +566,16 @@ def alert_channel():
             errors = data["errors"]
             repo_name = data["metadata"]["repoName"]
             alert_json.update({repo_name: {"normal": [], "high": []}})
-            github_url = data["metadata"]["GitHubRepo"]
-            if github_url == github_enterprise_url:
-                github_url = f"{github_url}/ghe_org_name"
-            elif github_url == github_com_url:
-                github_url = f"{github_url}/org_name"
+            github_url = set_github_full_url(data["metadata"]["GitHubRepo"])
             github_branch = data["metadata"]["branch"]
 
             if results:
+                total_vulns = len(results)
                 for result in results:
-                    processed, totals, highs, priority = process_one_result(
+                    processed, highs, priority = process_one_result(
                         result, github_url, repo_name, github_branch
                     )
                     alert_json[repo_name][priority].append(processed)
-                    total_vulns += totals
                     high += highs
             """
             If semgrep has errors, mark them. This is where we would add additional 
@@ -582,15 +584,19 @@ def alert_channel():
             """
 
             print("total vulns " + str(total_vulns))
-            print("high vulns" + str(high))
-            print("normal vulns" + str(normal))
+            print("high vulns " + str(high))
+            print("normal vulns " + str(normal))
             if errors:
                 semgrep_errors = True
                 error_json.update({repo_name: errors})
     normal = total_vulns - high
 
     # Print the Semgrep daily run banner and vulnerability counts
-    banner_and_count = f"{banner}---High: {str(high)}\n---Normal: {str(normal)} "
+    banner_and_count = f"""
+        {banner}
+        ---High: {str(high)}
+        ---Normal: {str(normal)}
+        """
     webhook_alerts(banner_and_count)
     if total_vulns > 0:
         if high > 0:
