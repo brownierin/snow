@@ -15,7 +15,7 @@ line-length = 120
 name = "snow"
 version = "0.1.0"
 description = ""
-authors = ["Erin Browning <ebrowning@slack-corp.com>"]
+authors = ["Product Security @ Slack"]
 
 [tool.poetry.dependencies]
 python = "^3.6"
