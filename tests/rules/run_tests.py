@@ -14,7 +14,7 @@ from concurrent.futures import ThreadPoolExecutor
 from checkpoint_out import create_checkpoint_results_json
 
 CONFIG = configparser.ConfigParser()
-CONFIG.read('config.cfg')
+CONFIG.read('config/prod.cfg')
 
 def scan_folder(folder, configlanguage, output_file):
     semgrep_command =  "docker run --user \"$(id -u):$(id -g)\" --rm "

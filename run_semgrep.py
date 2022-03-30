@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# -*- coding: future_fstrings -*-
+
 
 import pprint
 import subprocess
@@ -28,9 +28,9 @@ SNOW_ROOT = os.path.dirname(os.path.realpath(__file__))
 env = os.getenv("env")
 CONFIG = configparser.ConfigParser()
 if env == "snow-test":
-    CONFIG.read(f"{SNOW_ROOT}/config-test.cfg")
+    CONFIG.read(f"{SNOW_ROOT}/config/test.cfg")
 else:
-    CONFIG.read(f"{SNOW_ROOT}/config.cfg")
+    CONFIG.read(f"{SNOW_ROOT}/config/prod.cfg")
 
 
 # Global Variables
