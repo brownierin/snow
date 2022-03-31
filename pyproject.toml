@@ -1,7 +1,7 @@
 [project]
 name = "snow"
 description = "Static analysis tooling for Semgrep"
-requires-python = "^3.6"
+requires-python = "^3.6.2"
 authors = [
     {"name" = "Erin Browning", "email" = "ebrowning@slack-corp.com"},
     {"name" = "Tim Faraci", "email" = "tfaraci@slack-corp.com"},
@@ -18,7 +18,7 @@ description = ""
 authors = ["Product Security @ Slack"]
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = "^3.6.2"
 PyYAML = "^6.0"
 boto3 = "^1.21.29"
 requests = "^2.27.1"
