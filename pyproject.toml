@@ -26,6 +26,7 @@ chardet = "^4.0.0"
 
 [tool.poetry.dev-dependencies]
 pytest = ">7.0"
+black = ">0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
