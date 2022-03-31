@@ -7,10 +7,10 @@ import configparser
 
 env = os.getenv("env")
 CONFIG = configparser.ConfigParser()
-if env != "snow-test":
-    CONFIG.read('config/prod.cfg')
-else:
+if env == "snow-test":
     CONFIG.read('config/test.cfg')
+else:
+    CONFIG.read('config/prod.cfg')
 
 
 def get_job_name():
