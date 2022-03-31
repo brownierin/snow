@@ -4,9 +4,11 @@
 import os
 import sys
 import subprocess
+import logging
 
 import run_semgrep as runner
 
+logging.getLogger(__name__)
 
 def is_webapp(repo):
     return True if repo == "webapp" else False
@@ -19,7 +21,7 @@ def slack_repo(repo, git_repo, repo_path, repo_dir):
             f" Perhaps\n     with: GIT_LFS_SKIP_SMUDGE=1 git -C {repo_dir}"
             f" clone {git_repo} --depth 1"
         )
-    print(f"[+] Updating repo: {repo}")
+    logging.info(f"Updating repo: {repo}")
     command = f"git -C {repo_path} fetch --tags --force --progress -- {git_repo} +refs/heads/*:refs/remotes/origin1/*"
     process = runner.run_command(command)
 
