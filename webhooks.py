@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-# -*- coding: future_fstrings -*-
 
 import requests
 import os
+import logging
 
+logging.getLogger(__name__)
 
 def send(content):
     headers = {"Content-Type": "application/json"}
@@ -12,7 +13,7 @@ def send(content):
     try: 
         url = os.environ["SNOW_ALERT_WEBHOOK"]
     except Exception as e:
-        print(f"[-] Webhook URL isn't set! Error is: {e}")
+        logging.exception(f"Webhook URL isn't set! Error is: {e}")
 
     try:
         r = requests.post(url, headers=headers, json=data)

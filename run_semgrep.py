@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: future_fstrings -*-
 
 import pprint
 import subprocess
@@ -15,6 +14,8 @@ import requests
 import re
 import glob
 import datetime
+import logging.config
+import logging
 from pathlib import Path
 
 import slack
@@ -28,9 +29,9 @@ SNOW_ROOT = os.path.dirname(os.path.realpath(__file__))
 env = os.getenv("env")
 CONFIG = configparser.ConfigParser()
 if env == "snow-test":
-    CONFIG.read(f"{SNOW_ROOT}/config-test.cfg")
+    CONFIG.read(f"{SNOW_ROOT}/config/test.cfg")
 else:
-    CONFIG.read(f"{SNOW_ROOT}/config.cfg")
+    CONFIG.read(f"{SNOW_ROOT}/config/prod.cfg")
 
 
 # Global Variables
@@ -63,14 +64,14 @@ def clean_workspace():
     cleans up the results dir
     """
     if no_cleanup:
-        print("[+] Skipping workspace cleanup!")
+        logging.info("Skipping workspace cleanup!")
         return
-    print("[+] Begin workspace cleanup")
+    logging.info("Begin workspace cleanup")
     mode = int("775", base=8)
     os.makedirs(RESULTS_DIR, mode=mode, exist_ok=True)
     clean_results_dir()
     os.makedirs(REPOSITORIES_DIR, mode=mode, exist_ok=True)
-    print("[+] End workspace cleanup")
+    logging.info("End workspace cleanup")
 
 
 def set_exit_code(code):
@@ -95,7 +96,7 @@ def clean_results_dir():
                 try:
                     os.remove(file)
                 except FileNotFoundError:
-                    print(f"[!!] Cannot clean result file. File not found! {file}")
+                    logging.warning(f"[!!] Cannot clean result file. File not found! {file}")
                     continue
 
 
@@ -124,26 +125,26 @@ def get_docker_image(mode=None):
     digest = CONFIG["general"]["digest"]
 
     download_semgrep(version)
-    print("[+] Verifying Semgrep")
+    logging.info("Verifying Semgrep")
     digest_check_scan = check_digest(digest, version)
 
     if mode == "version":
         download_semgrep("latest")
         digest_check_update = check_digest(digest, "latest")
         if digest_check_update == -1:
-            print("[!!] A new version of semgrep is available.")
+            logging.info("[!!] A new version of semgrep is available.")
             return 1
         else:
-            print("[+] Semgrep is up to date.")
+            logging.info("Semgrep is up to date.")
             return 0
     else:
         if digest_check_scan != -1:
             raise Exception("[!!] Digest mismatch!")
-        print("[+] Semgrep downloaded and verified")
+        logging.info("Semgrep downloaded and verified")
 
 
 def download_semgrep(version):
-    print(f"[+] Downloading Semgrep {version}")
+    logging.info(f"Downloading Semgrep {version}")
     run_command(f"docker pull returntocorp/semgrep:{version}")
 
 
@@ -182,7 +183,7 @@ def force_redownload(repo_path):
         rm_dir(repo_path)
         git_ops(repo)
     except Exception as e:
-        print(e)
+        logging.exception(e)
     else:
         return True
 
@@ -196,7 +197,7 @@ def pull(repo_path, default_branch):
         run_command(f"git -C {repo_path} checkout {default_branch}")
         run_command(f"git -C {repo_path} pull")
     except Exception as e:
-        print(e)
+        logging.exception(e)
     else: 
         return True
 
@@ -206,7 +207,7 @@ def reset(repo_path, default_branch):
         run_command(f"git -C {repo_path} reset --hard origin/{default_branch}")
         run_command(f"git -C {repo_path} pull")
     except Exception as e:
-        print(e)
+        logging.exception(e)
     else:
         return True
 
@@ -220,12 +221,12 @@ def git_ops(repo):
     if slack.is_webapp(repo):
         slack.slack_repo(repo, git_repo, repo_path, REPOSITORIES_DIR)
     elif os.path.isdir(f"{repo_path}"):
-        print(f"[+] Updating repo: {repo}")
+        logging.info(f"Updating repo: {repo}")
         git_pull_repo(repo_path)
     else:
+        logging.info(f"Cloning {repo}")
         clone_command = f"git -C {REPOSITORIES_DIR} clone {git_repo}"
         clone = run_command(clone_command)
-        print(clone.stdout.decode("utf-8"))
 
 
 def git_forked_repos(repo, language, git_sha, git_repo_url):
@@ -234,7 +235,7 @@ def git_forked_repos(repo, language, git_sha, git_repo_url):
 
     # Setup the upstream repo as a remote
     forked_repo = FORKED_REPOS[repo]
-    print(f"[+] Repository is forked from {forked_repo}.")
+    logging.info(f"Repository is forked from {forked_repo}.")
 
     # fetch the upstream repo
     command = f"git -C {repo_path} remote | grep -q '^forked$' || git -C {repo_path} remote add forked {forked_repo}"
@@ -250,7 +251,7 @@ def git_forked_repos(repo, language, git_sha, git_repo_url):
     cmd = f"git -C {repo_path} merge-base {git_sha} forked/{remote_master_name}"
     merge_base_process = run_command(cmd)
     forked_commit_id = merge_base_process.stdout.decode("utf-8").strip()
-    print(f"[+] Using the commit id {forked_commit_id} as the commit the repo is forked from.")
+    logging.info(f"Using the commit id {forked_commit_id} as the commit the repo is forked from.")
 
     """
     In this special case, we haven't pushed any custom code into the forked 
@@ -258,7 +259,7 @@ def git_forked_repos(repo, language, git_sha, git_repo_url):
     Note: startswith is used in case the git_sha is a shortened commit hash.
     """
     if forked_commit_id.startswith(git_sha):
-        print(
+        logging.info(
             f"[+] We have detected that this repository doesn't contain any custom"
             f" commits. Returning no findings because of this."
         )
@@ -307,7 +308,7 @@ def scan_repos():
         """
         cmd = "git remote show origin | grep 'HEAD branch' | sed 's/.*: //'"
         default_branch_name = run_command(cmd).stdout.decode("utf-8")
-        print(f"[+] Default branch name: {default_branch_name.strip()}")
+        logging.info(f"Default branch name: {default_branch_name.strip()}")
         get_sha_process = run_command(f"git -C {REPOSITORIES_DIR}{repo} rev-parse HEAD")
         git_sha = get_sha_process.stdout.decode("utf-8").rstrip()
         git_repo_url = set_github_url()
@@ -333,7 +334,7 @@ def add_metadata(repo, language, git_repo_url, git_sha, output_file):
     """
     output_file_path = f"{RESULTS_DIR}{output_file}"
     configlanguage = f"language-{language}"
-    print(f"[+] Opening {output_file_path}")
+    logging.info(f"Opening {output_file_path}")
 
     with open(output_file_path, "r") as file:
         """
@@ -380,15 +381,15 @@ def process_results(output_file, repo, language, sha):
     selected_paths = list(glob.glob(f"{RESULTS_DIR}{language}-{repo}-*-fprm.json"))
     selected_paths = sorted(selected_paths, key=os.path.getmtime)
     comparison_result = f"{fp_diff_file_path.split('-fprm')[0]}-comparison.json"
-    print(f"[+] Comparison result is stored at: {comparison_result}")
+    logging.info(f"Comparison result is stored at: {comparison_result}")
 
     if len(selected_paths) >= 2:
         old = selected_paths[-2]
-        print(f"[+] Old file is: {old}")
-        print(f"[+] Comparing {old} and {fp_diff_outfile}")
+        logging.info(f"Old file is: {old}")
+        logging.info(f"Comparing {old} and {fp_diff_outfile}")
         comparison.compare_to_last_run(old, fp_diff_file_path, comparison_result)
     else:
-        print("[!!] Not enough runs for comparison")
+        logging.warning("[!!] Not enough runs for comparison")
 
 
 def build_scan_command(config_lang, output_file, repo):
@@ -433,19 +434,18 @@ def scan_repo(repo, language, git_repo_url, git_sha):
     Scans the repo with semgrep and adds metadata
     Returns the results and output file path
     """
-    print(f"[+] Scanning repo: {repo}")
+    logging.info(f"Scanning repo: {repo}")
     config_lang = f"language-{language}"
     output_file = f"{language}-{repo}-{git_sha[:7]}.json"
 
     semgrep_command = build_scan_command(config_lang, output_file, repo)
-    print(f"[+] Docker scan command:\n {' '.join(semgrep_command)}")
-    print(f"[+] Running Semgrep")
+    logging.info(f"Docker scan command:\n {' '.join(semgrep_command)}")
+    logging.info(f"Running Semgrep")
 
     # Not using run_command here because we want to ignore the exit code of semgrep.
     # Using Popen to avoid buffer errors with Docker child processes
     with subprocess.Popen(semgrep_command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, bufsize=1) as process:
-        print(process.stdout.read().decode("ascii"))
-        print("\n")
+        logging.info(f'{process.stdout.read().decode("ascii")}\n')
 
     output_file_path = f"{RESULTS_DIR}/{output_file}"
     with open(output_file_path) as f:
@@ -453,8 +453,7 @@ def scan_repo(repo, language, git_repo_url, git_sha):
         results = json.dumps(findings, indent=4)
 
     if git != "ghc" or print_text == "true":
-        print("[+] Semgrep scan results:")
-        print(results)
+        logging.info(f"Semgrep scan results:\n {results}")
     add_metadata(repo, language, git_repo_url, git_sha, output_file)
     return results, output_file
 
@@ -559,7 +558,7 @@ def alert_channel():
     comparison_files = [x for x in semgrep_output_files if "-comparison" in str(x)]
 
     for semgrep_output_file in comparison_files:
-        print(f"Reading output file: {semgrep_output_file}")
+        logging.info(f"Reading output file: {semgrep_output_file}")
         with open(RESULTS_DIR + semgrep_output_file) as file:
             data = json.load(file)
             results = data["results"]
@@ -583,9 +582,9 @@ def alert_channel():
             Currently making errors pretty is out scope.
             """
 
-            print("total vulns " + str(total_vulns))
-            print("high vulns " + str(high))
-            print("normal vulns " + str(normal))
+            logging.info("total vulns " + str(total_vulns))
+            logging.info("high vulns " + str(high))
+            logging.info("normal vulns " + str(normal))
             if errors:
                 semgrep_errors = True
                 error_json.update({repo_name: errors})
@@ -626,7 +625,7 @@ def webhook_alerts(data):
     try:
         webhooks.send(data)
     except Exception as e:
-        print(f"[-] Webhook failed to send: error is {e}")
+        logging.exception(f"Webhook failed to send: error is {e}")
 
 
 def set_enabled_filename():
@@ -663,21 +662,21 @@ def find_repo_language(repo):
                 content = f.read().splitlines()
                 for line in content:
                     if line == repo:
-                        print(f"[+] {repo} is written in {language}")
+                        logging.info(f"{repo} is written in {language}")
                         repo_language = language
                         return repo_language
-    print(f"[+] repo-lang is {repo_language}")
+    logging.info(f"repo-lang is {repo_language}")
     if repo_language == "":
         raise Exception(f"[!!] No language found in snow for repo {repo}. Check in with #triage-prodsec!")
 
 
 def run_semgrep_pr(repo):
-    clean_workspace() if git == "ghe" else print("[+] Skipping cleanup")
+    clean_workspace() if git == "ghe" else logging.info("Skipping cleanup")
 
     mode = int("775", base=8)
     repo_dir = REPOSITORIES_DIR + repo
     os.makedirs(repo_dir, mode=mode, exist_ok=True)
-    print(f"[+] Repository dir is at: {repo_dir}")
+    logging.info(f"Repository dir is at: {repo_dir}")
 
     get_docker_image()
 
@@ -694,7 +693,7 @@ def run_semgrep_pr(repo):
     git_dir = f"git -C {repo_dir}"
     # Make sure you are on the branch to scan by switching to it.
     process = run_command(f"{git_dir} checkout -f {git_sha_branch}")
-    print(f"[+] Branch SHA: {git_sha_branch}")
+    logging.info(f"Branch SHA: {git_sha_branch}")
     scan_repo(repo, repo_language, git_repo_url, git_sha_branch_short)
 
     run_command(f"{git_dir} branch --list --remote origin/master")
@@ -706,19 +705,19 @@ def run_semgrep_pr(repo):
         git_sha_master = git_sha_master.stdout.decode("utf-8").strip()
 
     git_sha_master_short = git_sha_master[:7]
-    print(f"[+] Master SHA: {git_sha_master}")
+    logging.info(f"Master SHA: {git_sha_master}")
 
     if git == "ghc":
         os.environ[artifact_dir_env] = RESULTS_DIR
-        print(f"[+] Artifacts dir is: {os.environ[artifact_dir_env]}")
+        logging.info(f"Artifacts dir is: {os.environ[artifact_dir_env]}")
 
     if git_sha_branch == git_sha_master:
-        print("[-] Master and HEAD are equal. Need to compare against two different SHAs! We won't scan.")
+        logging.error("Master and HEAD are equal. Need to compare against two different SHAs! We won't scan.")
         sys.exit(0)
 
     cmd = f"{git_dir} checkout -f {git_sha_master}"
     process = run_command(cmd)
-    print(f"[+] Master Checkout: {process.stdout.decode('utf-8')}")
+    logging.info(f"Master Checkout: {process.stdout.decode('utf-8')}")
     scan_repo(repo, repo_language, git_repo_url, git_sha_master_short)
 
     prefix = f"{RESULTS_DIR}{repo_language}-{repo}-"
@@ -739,7 +738,7 @@ def run_semgrep_pr(repo):
     comparison.remove_false_positives(json_filename, fp_file, parsed_filename)
 
     process = run_command(f"{git_dir} checkout -f {git_sha_branch}")
-    print("[+] Branch Checkout: " + process.stdout.decode("utf-8"))
+    logging.info("Branch Checkout: " + process.stdout.decode("utf-8"))
     add_hash_id(json_filename, 4, 1, "hash_id")
     add_hash_id(parsed_filename, 4, 1, "hash_id")
 
@@ -816,6 +815,7 @@ def run_semgrep_daily():
 
 
 if __name__ == "__main__":
+    logging.config.fileConfig(fname=f"{SNOW_ROOT}/config/logging.ini")
     parser = argparse.ArgumentParser(description="Runs Semgrep, either in daily scan or pull request mode.")
     parser.add_argument("-m", "--mode", help="the mode you wish to run semgrep, daily or pr", required=True)
     parser.add_argument("-r", "--repo", help="the name of the git repo")
@@ -840,13 +840,13 @@ if __name__ == "__main__":
 
     if args.mode == "daily":
         if args.repo:
-            print("[-] Daily mode does not support repo args. Ignoring them.")
+            logging.warning("Daily mode does not support repo args. Ignoring them.")
         run_semgrep_daily()
     elif args.mode == "pr":
         run_semgrep_pr(args.repo)
     elif args.mode == "version":
         exit_code = get_docker_image(args.mode)
-        print(exit_code)
+        logging.info(exit_code)
         sys.exit(exit_code)
     else:
         parser.print_help()
