@@ -691,11 +691,8 @@ def run_semgrep_pr(repo):
     git_sha_branch_short = git_sha_branch[:7]
 
     git_dir = f"git -C {repo_dir}"
-    # Make sure you are on the branch to scan by switching to it.
-    process = run_command(f"{git_dir} checkout -f {git_sha_branch}")
-    logging.info(f"Branch SHA: {git_sha_branch}")
-    scan_repo(repo, repo_language, git_repo_url, git_sha_branch_short)
 
+    # Get the master commit id
     run_command(f"{git_dir} branch --list --remote origin/master")
     if os.environ.get(master_commit_env):
         git_sha_master = os.environ.get(master_commit_env)
@@ -705,8 +702,19 @@ def run_semgrep_pr(repo):
         git_sha_master = git_sha_master.stdout.decode("utf-8").strip()
 
     git_sha_master_short = git_sha_master[:7]
-    logging.info(f"Master SHA: {git_sha_master}")
+    
+    # Make sure you are on the branch to scan by switching to it.
+    process = run_command(f"{git_dir} checkout -f {git_sha_branch}")
+    logging.info(f"Branch SHA: {git_sha_branch}")
 
+    # Make sure we are scanning what the repo would look like after a merge
+    # This prevents issues where a vulnerability is removed in master and the
+    # scan wronly believes that it's introduced by the PR branch because the PR
+    # branch is based on a commit that was before the vulnerability was removed.
+    process = run_command(f"{git_dir} merge {git_sha_master}")
+    scan_repo(repo, repo_language, git_repo_url, git_sha_branch_short)
+
+    logging.info(f"Master SHA: {git_sha_master}")
     if git == "ghc":
         os.environ[artifact_dir_env] = RESULTS_DIR
         logging.info(f"Artifacts dir is: {os.environ[artifact_dir_env]}")
