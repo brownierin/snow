@@ -24,6 +24,7 @@ import comparison
 import aws.upload_to_s3 as s3
 import checkpoint_out as checkpoint
 import ci.jenkins as jenkins
+from exceptions import GitMergeBaseError
 
 SNOW_ROOT = os.path.dirname(os.path.realpath(__file__))
 env = os.getenv("env")
@@ -198,7 +199,7 @@ def pull(repo_path, default_branch):
         run_command(f"git -C {repo_path} pull")
     except Exception as e:
         logging.exception(e)
-    else: 
+    else:
         return True
 
 
@@ -248,10 +249,13 @@ def git_forked_repos(repo, language, git_sha, git_repo_url):
     remote_master_name = symref_process.stdout.decode("utf-8")
 
     # Identify the commit id it was forked from
-    cmd = f"git -C {repo_path} merge-base {git_sha} forked/{remote_master_name}"
-    merge_base_process = run_command(cmd)
-    forked_commit_id = merge_base_process.stdout.decode("utf-8").strip()
-    logging.info(f"Using the commit id {forked_commit_id} as the commit the repo is forked from.")
+    try:
+        forked_commit_id = git_merge_base(repo_path, git_sha, remote_master_name)
+    except GitMergeBaseError as e:
+        message = f"Skipping scanning fork of {repo}. git merge_base failed. {e.message}"
+        logging.error(message)
+        webhooks.send(f"*Error*: {message}")
+        return
 
     """
     In this special case, we haven't pushed any custom code into the forked 
@@ -260,8 +264,8 @@ def git_forked_repos(repo, language, git_sha, git_repo_url):
     """
     if forked_commit_id.startswith(git_sha):
         logging.info(
-            f"[+] We have detected that this repository doesn't contain any custom"
-            f" commits. Returning no findings because of this."
+            "We have detected that this repository doesn't contain any custom commits. "
+            "Returning no findings because of this."
         )
         for suffix in ["", "-fprm"]:
             output = f"{RESULTS_DIR}{repo_language}-{repo}-{forked_commit_id[:7]}{suffix}.json"
@@ -282,6 +286,18 @@ def git_forked_repos(repo, language, git_sha, git_repo_url):
         if os.path.exists(forked_output):
             comparison.compare_to_last_run(forked_output, new_output, new_output)
             os.remove(forked_output)
+
+
+def git_merge_base(repo_path, git_sha, remote_master_name):
+    cmd = f"git -C {repo_path} merge-base {git_sha} forked/{remote_master_name}"
+    try:
+        merge_base_process = run_command(cmd)
+        forked_commit_id = merge_base_process.stdout.decode("utf-8").strip()
+    except subprocess.CalledProcessError:
+        raise GitMergeBaseError
+    else:
+        logging.info(f"Using the commit id {forked_commit_id} as the commit the repo is forked from.")
+        return forked_commit_id
 
 
 def download_repos():
@@ -539,12 +555,14 @@ def process_one_result(result, github_url, repo_name, github_branch):
                 priority = "high"
     return result_builder, high, priority
 
+
 def set_github_full_url(github_url):
     if github_url == github_enterprise_url:
         github_url = f"{github_url}/{ghe_org_name}"
     elif github_url == github_com_url:
         github_url = f"{github_url}/{org_name}"
     return github_url
+
 
 def alert_channel():
     """
@@ -571,9 +589,7 @@ def alert_channel():
             if results:
                 total_vulns = len(results)
                 for result in results:
-                    processed, highs, priority = process_one_result(
-                        result, github_url, repo_name, github_branch
-                    )
+                    processed, highs, priority = process_one_result(result, github_url, repo_name, github_branch)
                     alert_json[repo_name][priority].append(processed)
                     high += highs
             """
@@ -702,7 +718,7 @@ def run_semgrep_pr(repo):
         git_sha_master = git_sha_master.stdout.decode("utf-8").strip()
 
     git_sha_master_short = git_sha_master[:7]
-    
+
     # Make sure you are on the branch to scan by switching to it.
     process = run_command(f"{git_dir} checkout -f {git_sha_branch}")
     logging.info(f"Branch SHA: {git_sha_branch}")
@@ -819,7 +835,8 @@ def run_semgrep_daily():
     elif git == "ghc":
         alert_channel()
     # Upload the results to checkpoint
-    set_exit_code(checkpoint.upload_daily_scan_results_to_checkpoint())
+    if env != "snow-test":
+        set_exit_code(checkpoint.upload_daily_scan_results_to_checkpoint())
 
 
 if __name__ == "__main__":
