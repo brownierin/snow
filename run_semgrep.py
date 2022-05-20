@@ -396,6 +396,7 @@ def process_results(output_file, repo, language, sha):
     """
     selected_paths = list(glob.glob(f"{RESULTS_DIR}{language}-{repo}-*-fprm.json"))
     selected_paths = sorted(selected_paths, key=os.path.getmtime)
+    selected_paths = regex_sha_match(selected_paths, repo, language)
     comparison_result = f"{fp_diff_file_path.split('-fprm')[0]}-comparison.json"
     logging.info(f"Comparison result is stored at: {comparison_result}")
 
@@ -406,6 +407,21 @@ def process_results(output_file, repo, language, sha):
         comparison.compare_to_last_run(old, fp_diff_file_path, comparison_result)
     else:
         logging.warning("[!!] Not enough runs for comparison")
+
+
+def regex_sha_match(selected_paths, repo, language):
+    # in the case where a repo has the same name as the prefix of another repo,
+    # this ensures they won't be in the selected_paths.
+    # e.g., for repos named hello and hello-again, hello won't have hello-again's
+    # results in its selected_paths
+    paths = []
+    for f in selected_paths:
+        sha = re.findall(r"([a-fA-F\d]{7})", f)[0]
+        location = f.find(sha)
+        expected_path = f"{language}-{repo}-{f[location:location+7]}"
+        if expected_path in f:
+            paths.append(f)
+    return paths
 
 
 def build_scan_command(config_lang, output_file, repo):
