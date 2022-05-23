@@ -15,6 +15,9 @@ on:
       SNOW_AWS_SECRET_ACCESS_KEY:
         description: AWS secret key for the snow account
         required: false
+      ACCESS_TOKEN_GITHUB:
+        description: Github personal access token for intra-org access to repos
+        required: true
   workflow_dispatch:
 
 jobs:
@@ -28,21 +31,22 @@ jobs:
       CHECKPOINT_TOKEN: ${{ secrets.CHECKPOINT_TOKEN }}
       SNOW_AWS_ACCESS_KEY_ID: ${{ secrets.SNOW_AWS_ACCESS_KEY_ID }}
       SNOW_AWS_SECRET_ACCESS_KEY: ${{ secrets.SNOW_AWS_SECRET_ACCESS_KEY }}
+      ACCESS_TOKEN_GITHUB: ${{ secrets.ACCESS_TOKEN_GITHUB }}
     steps:
       - name: Clone snow code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
-          repository: 'tinyspeck/snow'
+          repository: tinyspeck/snow
           path: snow
           fetch-depth: 0
+          token: ${{ secrets.ACCESS_TOKEN_GITHUB }}
 
       - name: Check out repository code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: ${{ github.repository }}
           path: snow/repo
           fetch-depth: 0
-          github-token: ${{ github.token }} 
 
       - name: move repository code to correct dir
         run: |
