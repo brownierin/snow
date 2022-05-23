@@ -1,4 +1,4 @@
-name: "SNOW static analysis PR scan"
+name: "Test for PR scan"
 
 on:
   workflow_call:
@@ -39,7 +39,7 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
         with:
-          repository: ${{ github.repository }}
+          repository: tinyspeck/fake-repo
           path: snow/repo
           fetch-depth: 0
           github-token: ${{ github.token }} 
