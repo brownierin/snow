@@ -1,8 +1,8 @@
-webapp
-arugula
-zd_mc_sidebar_app
-zd_ticket_alert_app
-app-teams-calls
-biz
-unreleased
-slack-mirror
+slack-github.com/slack/webapp
+slack-github.com/slack/arugula
+slack-github.com/slack/zd_mc_sidebar_app
+slack-github.com/slack/zd_ticket_alert_app
+slack-github.com/slack/app-teams-calls
+slack-github.com/slack/biz
+slack-github.com/slack/unreleased
+slack-github.com/slack/slack-mirror
