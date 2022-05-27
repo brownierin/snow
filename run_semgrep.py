@@ -10,12 +10,12 @@ import hashlib
 import time
 import argparse
 import sys
-import requests
 import re
 import glob
 import datetime
 import logging.config
 import logging
+import urllib
 from pathlib import Path
 
 import slack
@@ -88,7 +88,7 @@ def clean_results_dir():
         paths.append(RESULTS_DIR + path.name)
     paths = sorted(paths, key=os.path.getmtime)
     repos = get_repo_list()
-    repos = trim_repo_list(repo)
+    repos = trim_repo_list(repos)
     for repo in repos:
         selected_paths = [x for x in paths if f"{repo}" in str(x)]
         if len(selected_paths) > 3:
@@ -115,8 +115,17 @@ def get_repo_list():
             filename = f"{LANGUAGES_DIR}{CONFIG[language]['language']}/{enabled_filename}"
             with open(filename) as f:
                 enabled = f.read().splitlines()
-            repos = repos + [repo for repo in enabled]
+            repos = repos + [remove_scheme_from_url(repo) for repo in enabled]
     return repos
+
+
+def remove_scheme_from_url(url):
+    parsed = urllib.parse.urlparse(url)
+    if parsed.path.endswith(".git"):
+        path = parsed.path.split(".git")[0]
+    else:
+        path = parsed.path
+    return parsed.netloc + path
 
 
 def get_docker_image(mode=None):
@@ -218,6 +227,7 @@ def reset(repo_path, default_branch):
 
 def git_ops(repo):
     url, org, repo = repo.split("/")
+    set_ssh_key(url)
     repo_path = f"{REPOSITORIES_DIR}{repo}"
     git_repo = f"git@{url}:{org}/{repo}.git"
 
@@ -320,6 +330,7 @@ def scan_repos():
     repos = get_repo_list()
     for repo_long in repos:
         url, org, repo = repo_long.split("/")
+        set_ssh_key(url)
         language = find_repo_language(repo_long)
 
         """
@@ -489,7 +500,7 @@ def scan_repo(repo_long, language, git_sha):
         findings = json.load(f)
         results = json.dumps(findings, indent=4)
 
-    if git != "ghc" or print_text == "true":
+    if url == ghe_url or print_text == "true":
         logging.info(f"Semgrep scan results:\n {results}")
     add_metadata(repo_long, language, git_sha, output_file)
     return results, output_file
@@ -689,10 +700,20 @@ def find_repo_language(repo):
     if repo_language == "":
         raise Exception(f"[!!] No language found in snow for repo {repo}. Check in with #triage-prodsec!")
 
+def set_ssh_key(url):
+    if jenkins.get_ci_env() == "jenkins":
+        if url == ghc_url:
+            os.environ["GIT_SSH_COMMAND"] = "ssh -o IdentitiesOnly=yes -i $GHC_PRIVATE_KEY"
+        elif url == ghe_url:
+            os.environ["GET_SSH_COMMAND"] = "ssh -o IdentitiesOnly=yes -i $GHE_PRIVATE_KEY"
+        else:
+            logging.info("Using default ssh key")
+
 
 def run_semgrep_pr(repo_long):
-    clean_workspace() if git == "ghe" else logging.info("Skipping cleanup")
+    repo_long = remove_scheme_from_url(repo_long)
     url, org, repo = repo_long.split("/")
+    clean_workspace() if url == ghe_url else logging.info("Skipping cleanup")
 
     mode = int("775", base=8)
     repo_dir = REPOSITORIES_DIR + repo
@@ -730,7 +751,7 @@ def run_semgrep_pr(repo_long):
     scan_repo(repo_long, repo_language, branch_sha[:7])
 
     logging.info(f"Master SHA: {master_sha}")
-    if git == "ghc":
+    if url == ghc_url:
         os.environ[artifact_dir_env] = RESULTS_DIR
         logging.info(f"Artifacts dir is: {os.environ[artifact_dir_env]}")
 
@@ -769,7 +790,7 @@ def run_semgrep_pr(repo_long):
         data = json.load(fileParsed)
 
     checkpoint.convert(parsed_filename, json_filename, parsed_filename)
-    if git == "ghc":
+    if url == ghc_url:
         exit_code = checkpoint.upload_pr_scan(branch_sha, master_sha)
         set_exit_code(exit_code)
 
@@ -784,7 +805,7 @@ def run_semgrep_pr(repo_long):
         file.write(content)
 
     set_exit_code(0) if not data["results"] else set_exit_code(1)
-    if git == "ghc":
+    if url == ghc_url:
         exit(0)
 
 
@@ -827,11 +848,9 @@ def run_semgrep_daily():
     download_repos()
     scan_repos()
     # Output alerts to Slack
-    if git == "ghe":
-        current_jenkins_job = jenkins.get_job_name().lower()
-        if current_jenkins_job == CONFIG["general"]["jenkins_prod_job"].lower():
-            alert_channel()
-    elif git == "ghc":
+    if jenkins.get_job_name().lower() == CONFIG["general"]["jenkins_prod_job"].lower():
+        alert_channel()
+    elif os.environ.get("GITHUB_ACTION"):
         alert_channel()
     # Upload the results to checkpoint
     if env != "snow-test":
@@ -843,12 +862,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Runs Semgrep, either in daily scan or pull request mode.")
     parser.add_argument("-m", "--mode", help="the mode you wish to run semgrep, daily or pr", required=True)
     parser.add_argument("-r", "--repo", help="the name of the git repo")
-    parser.add_argument(
-        "-g",
-        "--git",
-        help="the github url you wish to scan. Supported options: ghe (github enterprise) and ghc (githib.com)",
-        required=True,
-    )
     parser.add_argument("--s3", help="upload to s3", action="store_true")
     parser.add_argument("--no-cleanup", help="skip cleanup", action="store_true")
 
@@ -856,9 +869,6 @@ if __name__ == "__main__":
 
     if args.s3:
         os.environ["ENABLE_S3"] = True
-    if args.git:
-        global git
-        git = args.git
     global no_cleanup
     no_cleanup = True if args.no_cleanup else False
 
