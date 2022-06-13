@@ -2,4 +2,4 @@
 
 pip3 install -r requirements.txt
 poetry install
-python3 -m pytest tests/unit/
+poetry run python3 -m pytest tests/unit/
