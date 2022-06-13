@@ -76,7 +76,7 @@ def create_upload_fail_msg(post_params):
     repo = post_params["test_run"]["repo"]
     master = post_params["test_run"]["commit_master"]
     branch = post_params["test_run"]["commit_head"]
-    return f"Uploading to checkpoint failed on {repo} for branch commit {branch} and master commit {master}"
+    return f"Uploading to checkpoint failed on {repo} for branch commit {branch[:7]} and master commit {master[:7]}"
 
 
 def uberproxy_curl(url, method, headers={}, content=None):
