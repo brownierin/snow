@@ -13,18 +13,18 @@ import chardet
 import re
 import requests
 import ci.jenkins as jenkins
-import webhooks
+
 
 env = os.getenv("env")
 CONFIG = configparser.ConfigParser()
 dir_path = os.path.dirname(os.path.realpath(__file__))
-if env == "snow-test":
+if env == "test":
     CONFIG.read(f"{dir_path}/config/test.cfg")
 else:
     CONFIG.read(f"{dir_path}/config/prod.cfg")
-CHECKPOINT_API_URL = CONFIG['general']['checkpoint_api_url']
-TSAUTH_TOKEN_ENV = CONFIG['general']['tsauth_token_env']
-RESULTS_DIR = os.getenv('PWD') + CONFIG['general']['results']
+CHECKPOINT_API_URL = CONFIG["general"]["checkpoint_api_url"]
+TSAUTH_TOKEN_ENV = CONFIG["general"]["tsauth_token_env"]
+RESULTS_DIR = os.getenv("PWD") + CONFIG["general"]["results"]
 
 
 def uberproxy_curl_installed():
@@ -59,7 +59,7 @@ def call_checkpoint_api(url, post_params, tsauth_auth_token=None):
             headers["Authorization"] = f"Bearer {tsauth_auth_token}"
 
             r = requests.post(url=url, headers=headers, json=post_params)
-            if os.environ.get('env') == 'snow-test':
+            if os.environ.get("env") == "test":
                 print(r.text)
 
             return r.json()
@@ -68,18 +68,15 @@ def call_checkpoint_api(url, post_params, tsauth_auth_token=None):
         To simplify error handling, we return an object that indicates a failure.
         All the error logic can be handled by the callee of this function.
         """
-        send_webhook(post_params)
-        return {"ok": False, "error": str(e)}
+        msg = create_upload_fail_msg(post_params)
+        return {"ok": False, "error": str(e), "message": msg}
 
 
-def send_webhook(post_params):
+def create_upload_fail_msg(post_params):
     repo = post_params["test_run"]["repo"]
     master = post_params["test_run"]["commit_master"]
     branch = post_params["test_run"]["commit_head"]
-    content = (
-        f"Uploading to checkpoint failed!\nGo check {repo} for branch commit {branch}\nversus master commit {master}"
-    )
-    webhooks.send(content)
+    return f"Uploading to checkpoint failed on {repo} for branch commit {branch} and master commit {master}"
 
 
 def uberproxy_curl(url, method, headers={}, content=None):
@@ -99,7 +96,7 @@ def uberproxy_curl(url, method, headers={}, content=None):
 
 def get_artifact_dir():
     try:
-        cibot_artifact_dir = os.environ['CIBOT_ARTIFACT_DIR']
+        cibot_artifact_dir = os.environ["CIBOT_ARTIFACT_DIR"]
         return cibot_artifact_dir
     except KeyError as e:
         print("[-] CIBOT_ARTIFACT_DIR isn't set!")
@@ -176,8 +173,8 @@ def convert(fp_removed_filename, original_filename, comparison_filename):
                 command_mark_as_fp += f"--location=\"{path_in_project}#{issue['start']['line']}\" "
                 command_mark_as_fp += f"--language={fp_removed_data['metadata']['language']} "
                 command_mark_as_fp += f"--repo_name={fp_removed_data['metadata']['repoName']} "
-                command_mark_as_fp += "--message=\"{}\" ".format(
-                    issue['extra']['message'].replace('\"', '\'').replace('`', '\'').replace('\n', ' ')
+                command_mark_as_fp += '--message="{}" '.format(
+                    issue["extra"]["message"].replace('"', "'").replace("`", "'").replace("\n", " ")
                 )
                 command_mark_as_fp += f"--check_id={issue['check_id']} "
 
@@ -202,8 +199,8 @@ def upload_pr_scan(branch, master):
     for file in glob.glob(f"{RESULTS_DIR}/*.json"):
         modified = re.findall(regex, file)
         if modified:
-            prefix = file.split('-')[0:-1]
-            prefix = '-'.join(prefix)
+            prefix = file.split("-")[0:-1]
+            prefix = "-".join(prefix)
 
             # Only upload files from the master and branch scans
             if branch[:7] in file or master[:7] in file:
@@ -225,7 +222,7 @@ def upload_pr_scan(branch, master):
         is_failure = len(semgrep_content["results"]) > 0
         output_data = json.dumps({"original": semgrep_content, "comparison": semgrep_comparison_content})
 
-        exit_code = upload_test_result_to_checkpoint(
+        exit_code, call_result = upload_test_result_to_checkpoint(
             test_name=f"semgrep-scan-pr",
             output_data=output_data,
             repo=f'ghc/tinyspeck/{semgrep_content["metadata"]["repoName"]}',
@@ -236,7 +233,7 @@ def upload_pr_scan(branch, master):
             commit_master=master,
             is_failure=is_failure,
         )
-    return exit_code
+    return exit_code, call_result
 
 
 def upload_test_result_to_checkpoint(
@@ -285,17 +282,10 @@ def upload_test_result_to_checkpoint(
     call_result = call_checkpoint_api(url_stub, test_results, tsauth_auth_token)
 
     if call_result["ok"] == False:
-        clean_error_results = call_result['error'].replace('\"', '').replace('`', '').replace('$', '')
-        text = """:banger-alert: :snowflake:Daily :block-s: :block-e: :block-m: :block-g: :block-r: :block-e: :block-p: Scan Error:snowflake::banger-alert:\nCheckpoint results upload failed: """
-        cmd = (
-            f"echo \"{text}{clean_error_results}\" | slack"
-            f" --channel={CONFIG['general']['alertchannel']} --cat --user=SNOW "
-        )
-        subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-
+        text = call_result["message"]
         print(f"Error while uploading results to checkpoint: {call_result['error']}")
-        return 1
-    return 0
+        return 1, call_result
+    return 0, call_result
 
 
 def rm_from_set(originals):
@@ -310,12 +300,14 @@ def upload_daily_scan_results_to_checkpoint():
     current_time = int(time.time())
     regex = r"-[a-f,0-9]{7}-"
     originals = set()
+    exit_code = 0
+    call_results = []
 
     for file in glob.glob(f"{RESULTS_DIR}/*.json"):
         modified = re.findall(regex, file)
         if modified:
-            prefix = file.split('-')[0:-1]
-            prefix = '-'.join(prefix)
+            prefix = file.split("-")[0:-1]
+            prefix = "-".join(prefix)
             originals.add(f"{prefix}.json")
 
     originals = rm_from_set(originals)
@@ -334,7 +326,7 @@ def upload_daily_scan_results_to_checkpoint():
         is_failure = len(semgrep_content["results"]) > 0
         output_data = json.dumps({"original": semgrep_content, "comparison": semgrep_comparison_content})
 
-        exit_code = upload_test_result_to_checkpoint(
+        temp_exit_code, call_result = upload_test_result_to_checkpoint(
             test_name=f"semgrep-scan-daily-{jenkins.get_job_enviroment()}",
             output_data=output_data,
             repo=f'ghe/slack/{semgrep_content["metadata"]["repoName"]}',
@@ -345,7 +337,12 @@ def upload_daily_scan_results_to_checkpoint():
             commit_master=semgrep_content["metadata"]["branch"],
             is_failure=is_failure,
         )
-    return exit_code
+
+        if temp_exit_code > 0:
+            exit_code = temp_exit_code
+            call_results.append(call_result["message"])
+
+    return exit_code, call_results
 
 
 if __name__ == "__main__":

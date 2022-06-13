@@ -24,12 +24,14 @@ import comparison
 import aws.upload_to_s3 as s3
 import checkpoint_out as checkpoint
 import ci.jenkins as jenkins
-from exceptions import GitMergeBaseError
+from exceptions import *
+from config.message_text import *
+import error_handling
 
 SNOW_ROOT = os.path.dirname(os.path.realpath(__file__))
 env = os.getenv("env")
 CONFIG = configparser.ConfigParser()
-if env == "snow-test":
+if env == "test":
     CONFIG.read(f"{SNOW_ROOT}/config/test.cfg")
 else:
     CONFIG.read(f"{SNOW_ROOT}/config/prod.cfg")
@@ -52,11 +54,8 @@ ghe_org_name = CONFIG["general"]["ghe_org_name"]
 with open(f"{SNOW_ROOT}/{CONFIG['general']['forked_repos']}") as file:
     FORKED_REPOS = json.load(file)
 print_text = CONFIG["general"]["print_text"]
-high_alert_text = CONFIG["alerts"]["high_alert_text"]
-banner = CONFIG["alerts"]["banner"]
-normal_alert_text = CONFIG["alerts"]["normal_alert_text"]
-no_vulns_text = CONFIG["alerts"]["no_vulns_text"]
-errors_text = CONFIG["alerts"]["errors_text"]
+channel = CONFIG["general"]["channel"]
+err_hndl = error_handling.ErrorHandling(channel=channel)
 
 
 def clean_workspace():
@@ -97,7 +96,7 @@ def clean_results_dir():
                 try:
                     os.remove(file)
                 except FileNotFoundError:
-                    logging.warning(f"[!!] Cannot clean result file. File not found! {file}")
+                    logging.warning(f"Cannot clean result file. File not found! {file}")
                     continue
 
 
@@ -140,7 +139,7 @@ def get_docker_image(mode=None):
             return 0
     else:
         if digest_check_scan != -1:
-            raise Exception("[!!] Digest mismatch!")
+            raise Exception("Digest mismatch!")
         logging.info("Semgrep downloaded and verified")
 
 
@@ -254,7 +253,7 @@ def git_forked_repos(repo, language, git_sha, git_repo_url):
     except GitMergeBaseError as e:
         message = f"Skipping scanning fork of {repo}. git merge_base failed. {e.message}"
         logging.error(message)
-        webhooks.send(f"*Error*: {message}")
+        err_hndl.post_error(message)
         return
 
     """
@@ -293,8 +292,8 @@ def git_merge_base(repo_path, git_sha, remote_master_name):
     try:
         merge_base_process = run_command(cmd)
         forked_commit_id = merge_base_process.stdout.decode("utf-8").strip()
-    except subprocess.CalledProcessError:
-        raise GitMergeBaseError
+    except subprocess.CalledProcessError as e:
+        raise GitMergeBaseError(e)
     else:
         logging.info(f"Using the commit id {forked_commit_id} as the commit the repo is forked from.")
         return forked_commit_id
@@ -554,10 +553,10 @@ def process_one_result(result, github_url, repo_name, github_branch):
     code_url = f"{github_url}/{repo_name}/tree/{github_branch}/{code_path}#L{str(line_start)}"
     priority = "normal"
     result_builder = f"""
-        *Security Vulnerability Detected in {repo_name}*
+        *Finding in {repo_name}*
         :exclamation: *Rule ID:* {check_id}
         :speech_balloon: *Message:* {message}
-        :link:*Link*: [click me]({code_url})
+        :link: *Link*: {code_url}
         :coding_horror: *Code:*```{code_lines}```
     """
 
@@ -586,8 +585,7 @@ def alert_channel():
     It reads the JSON files and outputs alerts to Slack through a webhook.
     """
     semgrep_output_files = os.listdir(RESULTS_DIR)
-    semgrep_errors = False
-    alert_json, error_json = {}, {}
+    alert_json = {}
     high, normal, total_vulns = 0, 0, 0
     comparison_files = [x for x in semgrep_output_files if "-comparison" in str(x)]
 
@@ -596,7 +594,6 @@ def alert_channel():
         with open(RESULTS_DIR + semgrep_output_file) as file:
             data = json.load(file)
             results = data["results"]
-            errors = data["errors"]
             repo_name = data["metadata"]["repoName"]
             alert_json.update({repo_name: {"normal": [], "high": []}})
             github_url = set_github_full_url(data["metadata"]["GitHubRepo"])
@@ -608,60 +605,47 @@ def alert_channel():
                     processed, highs, priority = process_one_result(result, github_url, repo_name, github_branch)
                     alert_json[repo_name][priority].append(processed)
                     high += highs
-            """
-            If semgrep has errors, mark them. This is where we would add additional 
-            logic to output errors into a errors_builder.
-            Currently making errors pretty is out scope.
-            """
 
             logging.info("total vulns " + str(total_vulns))
             logging.info("high vulns " + str(high))
             logging.info("normal vulns " + str(normal))
-            if errors:
-                semgrep_errors = True
-                error_json.update({repo_name: errors})
     normal = total_vulns - high
 
     # Print the Semgrep daily run banner and vulnerability counts
     banner_and_count = f"""
         {banner}
-        ---High: {str(high)}
-        ---Normal: {str(normal)}
+        - High: {str(high)}
+        - Normal: {str(normal)}
         """
     webhook_alerts(banner_and_count)
     if total_vulns > 0:
         if high > 0:
-            webhook_alerts(high_alert_text)
             for repo in alert_json:
                 for vuln in alert_json[repo]["high"]:
                     webhook_alerts(vuln)
                     time.sleep(1)
 
         if normal > 0:
-            webhook_alerts(normal_alert_text)
             for repo in alert_json:
                 for vuln in alert_json[repo]["normal"]:
                     webhook_alerts(vuln)
                     time.sleep(1)
 
-    elif not error_json:
+    elif total_vulns == 0:
         # ALL HAIL THE GLORIOUS NO VULNS BANNER
         webhook_alerts(no_vulns_text)
-    if semgrep_errors:
-        # Right now we're purposely not outputting errors. It's noisy.
-        # TODO: Make a pretty output once cleaned.
-        webhook_alerts(errors_text)
 
 
 def webhook_alerts(data):
     try:
         webhooks.send(data)
     except Exception as e:
-        logging.exception(f"Webhook failed to send: error is {e}")
+        logging.exception(e)
+        raise e
 
 
 def set_enabled_filename():
-    if env == "snow-test":
+    if env == "test":
         return "enabled-test"
     else:
         return "enabled"
@@ -850,9 +834,14 @@ def run_semgrep_daily():
             alert_channel()
     elif git == "ghc":
         alert_channel()
+
+    alert_channel()
     # Upload the results to checkpoint
-    if env != "snow-test":
-        set_exit_code(checkpoint.upload_daily_scan_results_to_checkpoint())
+    if env != "test":
+        exit_code, call_results = checkpoint.upload_daily_scan_results_to_checkpoint()
+        for message in call_results:
+            err_hndl.post_error(message)
+        set_exit_code(exit_code)
 
 
 if __name__ == "__main__":

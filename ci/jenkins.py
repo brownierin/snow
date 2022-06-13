@@ -7,7 +7,7 @@ import configparser
 
 env = os.getenv("env")
 CONFIG = configparser.ConfigParser()
-if env == "snow-test":
+if env == "test":
     CONFIG.read('config/test.cfg')
 else:
     CONFIG.read('config/prod.cfg')

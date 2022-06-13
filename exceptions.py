@@ -9,3 +9,8 @@ class GitMergeBaseError(Exception):
 class WebhookUrlError(Exception):
     def __init__(self):
         self.message = "Webhook URL isn't set!"
+
+
+class WebhookError(Exception):
+    def __init__(self):
+        self.message = "Webhook failed to send!"

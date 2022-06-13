@@ -3,7 +3,7 @@
 import requests
 import os
 import logging
-from exceptions import WebhookUrlError
+from exceptions import WebhookUrlError, WebhookError
 
 logging.getLogger(__name__)
 
@@ -21,7 +21,7 @@ def send(content):
     try:
         r = requests.post(url, headers=headers, json=data)
     except Exception as e:
-        raise e
+        raise WebhookError from e
 
     r.raise_for_status()
     return r
