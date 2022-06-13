@@ -282,7 +282,6 @@ def upload_test_result_to_checkpoint(
     call_result = call_checkpoint_api(url_stub, test_results, tsauth_auth_token)
 
     if call_result["ok"] == False:
-        text = call_result["message"]
         print(f"Error while uploading results to checkpoint: {call_result['error']}")
         return 1, call_result
     return 0, call_result
