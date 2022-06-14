@@ -1,6 +1,7 @@
 import slack_sdk as slack
 import logging
 import os
+import datetime
 
 
 class ErrorHandling:
@@ -14,6 +15,8 @@ class ErrorHandling:
         self.logger.setLevel(logging.INFO)
         self.ts = None
         self.channel = channel
+        self.time = datetime.datetime.now()
+        self.error_message = f"Errors for scan at {self.time.strftime('%Y-%m-%d %H:%M:%S')}"
 
     def post_error(self, error):
         """
@@ -34,7 +37,7 @@ class ErrorHandling:
             # response = self.slack_sdk.conversations_open(channel=self.channel)
             # self.ts = response["channel"]["thread_ts"]
             try:
-                result = self.slack_sdk.chat_postMessage(channel=self.channel, text="Errors")
+                result = self.slack_sdk.chat_postMessage(channel=self.channel, text=self.error_message)
                 self.ts = result["ts"]
             except Exception as e:
                 logging.warning(e)
