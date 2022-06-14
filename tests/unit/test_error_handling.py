@@ -12,7 +12,6 @@ channel = config["general"]["channel"]
 
 def test_create_thread():
     err = ErrorHandling(channel=channel)
-    assert err.token is not None
     assert err.ts is None
     with vcr.use_cassette(f"{SNOW_ROOT}/tests/unit/fixtures/error_handling_create_thread.yaml"):
         err.find_or_create_thread()
