@@ -834,8 +834,6 @@ def run_semgrep_daily():
             alert_channel()
     elif git == "ghc":
         alert_channel()
-
-    alert_channel()
     # Upload the results to checkpoint
     if env != "test":
         exit_code, call_results = checkpoint.upload_daily_scan_results_to_checkpoint()
