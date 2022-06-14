@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       working-directory: snow
-      env: snow-test
+      env: test
       SNOW_ALERT_WEBHOOK: ${{ secrets.SNOW_ALERT_WEBHOOK }}
       CHECKPOINT_TOKEN: ${{ secrets.CHECKPOINT_TOKEN }}
       SNOW_AWS_ACCESS_KEY_ID: ${{ secrets.SNOW_AWS_ACCESS_KEY_ID }}
@@ -79,7 +79,7 @@ jobs:
       - name: Run semgrep
         run: |
           cd ${{ env.working-directory }}
-          env=snow-test poetry run $(pwd)/run_semgrep.py -m daily -g ghc
+          env=test poetry run $(pwd)/run_semgrep.py -m daily -g ghc
 
       - name: Archive scan results
         uses: actions/upload-artifact@v2
