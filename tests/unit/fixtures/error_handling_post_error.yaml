@@ -1,0 +1,83 @@
+interactions:
+- request:
+    body: '{"channel": "C02L3SVA7S7", "text": "test", "thread_ts": "1655233402.895329"}'
+    headers:
+      Connection:
+      - close
+      Content-Length:
+      - '76'
+      Content-Type:
+      - application/json;charset=utf-8
+      Host:
+      - www.slack.com
+      User-Agent:
+      - Python/3.6.15 slackclient/3.17.1 Darwin/21.5.0
+    method: POST
+    uri: https://www.slack.com/api/chat.postMessage
+  response:
+    body:
+      string: '{"ok":true,"channel":"C02L3SVA7S7","ts":"1655233403.211589","message":{"bot_id":"B02GE64EZUK","type":"message","text":"test","user":"U02GB5T71CM","ts":"1655233403.211589","app_id":"A02DV0QQ09M","team":"T5J4Q04QG","bot_profile":{"id":"B02GE64EZUK","app_id":"A02DV0QQ09M","name":"SNOW
+        Alerts","icons":{"image_36":"https://a.slack-edge.com/80588/img/plugins/app/bot_36.png","image_48":"https://a.slack-edge.com/80588/img/plugins/app/bot_48.png","image_72":"https://a.slack-edge.com/80588/img/plugins/app/service_72.png"},"deleted":false,"updated":1633119326,"team_id":"T5J4Q04QG"},"blocks":[{"type":"rich_text","block_id":"QhiW","elements":[{"type":"rich_text_section","elements":[{"type":"text","text":"test"}]}]}],"thread_ts":"1655233402.895329","parent_user_id":"U02GB5T71CM"}}'
+    headers:
+      access-control-allow-headers:
+      - slack-route, x-slack-version-ts, x-b3-traceid, x-b3-spanid, x-b3-parentspanid,
+        x-b3-sampled, x-b3-flags
+      access-control-allow-origin:
+      - '*'
+      access-control-expose-headers:
+      - x-slack-req-id, retry-after
+      cache-control:
+      - private, no-cache, no-store, must-revalidate
+      connection:
+      - close
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Tue, 14 Jun 2022 19:03:23 GMT
+      expires:
+      - Mon, 26 Jul 1997 05:00:00 GMT
+      pragma:
+      - no-cache
+      referrer-policy:
+      - no-referrer
+      server:
+      - Apache
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains; preload
+      transfer-encoding:
+      - chunked
+      vary:
+      - Accept-Encoding
+      via:
+      - envoy-www-iad-ygr5, envoy-edge-pdx-jrtc
+      x-accepted-oauth-scopes:
+      - chat:write
+      x-backend:
+      - main_normal main_bedrock_normal_with_overflow main_canary_with_overflow main_bedrock_canary_with_overflow
+        main_control_with_overflow main_bedrock_control_with_overflow
+      x-content-type-options:
+      - nosniff
+      x-edge-backend:
+      - envoy-www
+      x-envoy-upstream-service-time:
+      - '379'
+      x-oauth-scopes:
+      - incoming-webhook,chat:write,channels:read
+      x-powered-by:
+      - HHVM/4.153.1
+      x-server:
+      - slack-www-hhvm-main-iad-60vw
+      x-slack-backend:
+      - r
+      x-slack-edge-shared-secret-outcome:
+      - no-match
+      x-slack-req-id:
+      - 50505c72b33d1678e1dc75675ede6d97
+      x-slack-shared-secret-outcome:
+      - no-match
+      x-xss-protection:
+      - '0'
+    status:
+      code: 200
+      message: OK
+version: 1
