@@ -976,5 +976,13 @@
         "reason": "The line above is a slice of strings, there's no user input",
         "jira": "",
         "risk": ""
+    },
+    "7536492bbbd79755437049e2af0bcdb6096651e2522c17e506cb2ac94a948ec8": {
+        "message": "A security scan detected use of a potentially unsafe method to execute a command.  If user controlled input is passed to the exec.Command() function, an attacker may be able to inject code that will execute in the underlying server's system shell, resulting in total compromise of the application and possibly other applications running in the same environment.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "cmds/poptart-bootstrap/internal/bootstrap/bootstrap.go#465",
+        "reason": "Use is unavoidable, first parameter is controlled by caller, no shell features used.",
+        "jira": "",
+        "risk": ""
     }
 }
