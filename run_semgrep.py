@@ -235,7 +235,6 @@ def git_ops(repo):
         slack.slack_repo(repo, git_repo, repo_path, REPOSITORIES_DIR)
     elif os.path.isdir(f"{repo_path}"):
         logging.info(f"Updating repo: {repo}")
-
         git_pull_repo(repo_path)
     else:
         logging.info(f"Cloning {repo}")
