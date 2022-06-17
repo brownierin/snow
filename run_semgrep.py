@@ -292,8 +292,8 @@ def git_merge_base(repo_path, git_sha, remote_master_name):
     try:
         merge_base_process = run_command(cmd)
         forked_commit_id = merge_base_process.stdout.decode("utf-8").strip()
-    except subprocess.CalledProcessError as e:
-        raise GitMergeBaseError(e)
+    except subprocess.CalledProcessError:
+        raise GitMergeBaseError
     else:
         logging.info(f"Using the commit id {forked_commit_id} as the commit the repo is forked from.")
         return forked_commit_id
