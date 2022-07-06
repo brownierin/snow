@@ -122,10 +122,10 @@ def get_repo_list():
 def remove_scheme_from_url(url):
     parsed = urllib.parse.urlparse(url)
     if parsed.path.endswith(".git"):
-        path = parsed.path[-4]
+        return parsed.netloc + parsed.path[:-4]
     else:
-        path = parsed.path
-    return parsed.netloc + path
+        return parsed.netloc + parsed.path
+
 
 
 def get_docker_image(mode=None):
