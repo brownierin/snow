@@ -122,7 +122,7 @@ def get_repo_list():
 def remove_scheme_from_url(url):
     parsed = urllib.parse.urlparse(url)
     if parsed.path.endswith(".git"):
-        path = parsed.path.split(".git")[0]
+        path = parsed.path[-4]
     else:
         path = parsed.path
     return parsed.netloc + path
