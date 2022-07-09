@@ -702,9 +702,11 @@ def find_repo_language(repo):
 def set_ssh_key(url):
     if jenkins.get_ci_env() == "jenkins":
         if url == ghc_url:
-            os.environ["GIT_SSH_COMMAND"] = "ssh -o IdentitiesOnly=yes -i $GHC_PRIVATE_KEY"
+            os.environ["GIT_SSH_COMMAND"] = "ssh -o IdentitiesOnly=yes -i $GHC_PRIVATE_KEY -o StrictHostKeyChecking=no"
+            logging.info(f"Using {os.environ['GIT_SSH_COMMAND']}")
         elif url == ghe_url:
-            os.environ["GET_SSH_COMMAND"] = "ssh -o IdentitiesOnly=yes -i $GHE_PRIVATE_KEY"
+            os.environ["GIT_SSH_COMMAND"] = "ssh -o IdentitiesOnly=yes -i $GHE_PRIVATE_KEY -o StrictHostKeyChecking=no"
+            logging.info(f"Using {os.environ['GIT_SSH_COMMAND']}")
         else:
             logging.info("Using default ssh key")
 
