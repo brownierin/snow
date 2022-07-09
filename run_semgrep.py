@@ -10,12 +10,12 @@ import hashlib
 import time
 import argparse
 import sys
-import requests
 import re
 import glob
 import datetime
 import logging.config
 import logging
+import urllib
 from pathlib import Path
 
 import slack
@@ -45,10 +45,6 @@ REPOSITORIES_DIR = SNOW_ROOT + CONFIG["general"]["repositories"]
 commit_head_env = CONFIG["general"]["commit_head"]
 master_commit_env = CONFIG["general"]["master_commit"]
 artifact_dir_env = CONFIG["general"]["artifact_dir"]
-github_enterprise_url = CONFIG["general"]["github_enterprise_url"]
-github_com_url = CONFIG["general"]["github_com_url"]
-org_name = CONFIG["general"]["org_name"]
-ghe_org_name = CONFIG["general"]["ghe_org_name"]
 with open(f"{SNOW_ROOT}/{CONFIG['general']['forked_repos']}") as file:
     FORKED_REPOS = json.load(file)
 print_text = CONFIG["general"]["print_text"]
@@ -57,6 +53,8 @@ banner = CONFIG["alerts"]["banner"]
 normal_alert_text = CONFIG["alerts"]["normal_alert_text"]
 no_vulns_text = CONFIG["alerts"]["no_vulns_text"]
 errors_text = CONFIG["alerts"]["errors_text"]
+ghe_url = CONFIG["general"]["ghe_url"]
+ghc_url = "github.com"
 
 
 def clean_workspace():
@@ -90,6 +88,7 @@ def clean_results_dir():
         paths.append(RESULTS_DIR + path.name)
     paths = sorted(paths, key=os.path.getmtime)
     repos = get_repo_list()
+    repos = trim_repo_list(repos)
     for repo in repos:
         selected_paths = [x for x in paths if f"{repo}" in str(x)]
         if len(selected_paths) > 3:
@@ -99,6 +98,10 @@ def clean_results_dir():
                 except FileNotFoundError:
                     logging.warning(f"[!!] Cannot clean result file. File not found! {file}")
                     continue
+
+
+def trim_repo_list(repos):
+    return [repo.split("/")[-1] for repo in repos]
 
 
 def get_repo_list():
@@ -112,8 +115,17 @@ def get_repo_list():
             filename = f"{LANGUAGES_DIR}{CONFIG[language]['language']}/{enabled_filename}"
             with open(filename) as f:
                 enabled = f.read().splitlines()
-            repos = repos + [repo for repo in enabled]
+            repos = repos + [remove_scheme_from_url(repo) for repo in enabled]
     return repos
+
+
+def remove_scheme_from_url(url):
+    parsed = urllib.parse.urlparse(url)
+    if parsed.path.endswith(".git"):
+        return parsed.netloc + parsed.path[:-4]
+    else:
+        return parsed.netloc + parsed.path
+
 
 
 def get_docker_image(mode=None):
@@ -214,10 +226,10 @@ def reset(repo_path, default_branch):
 
 
 def git_ops(repo):
+    url, org, repo = repo.split("/")
+    set_ssh_key(url)
     repo_path = f"{REPOSITORIES_DIR}{repo}"
-    git_url = set_github_url().split("https://")[1]
-    org = ghe_org_name if git == "ghe" else org_name
-    git_repo = f"git@{git_url}:{org}/{repo}.git"
+    git_repo = f"git@{url}:{org}/{repo}.git"
 
     if slack.is_webapp(repo):
         slack.slack_repo(repo, git_repo, repo_path, REPOSITORIES_DIR)
@@ -304,7 +316,6 @@ def download_repos():
     """
     Download all repos listed in the enabled files
     """
-    git_repo_url = set_github_url()
     repos = get_repo_list()
     for repo in repos:
         git_ops(repo)
@@ -316,8 +327,10 @@ def scan_repos():
     a Semgrep scan.
     """
     repos = get_repo_list()
-    for repo in repos:
-        language = find_repo_language(repo)
+    for repo_long in repos:
+        url, org, repo = repo_long.split("/")
+        set_ssh_key(url)
+        language = find_repo_language(repo_long)
 
         """
         Get the default branch name
@@ -327,12 +340,11 @@ def scan_repos():
         logging.info(f"Default branch name: {default_branch_name.strip()}")
         get_sha_process = run_command(f"git -C {REPOSITORIES_DIR}{repo} rev-parse HEAD")
         git_sha = get_sha_process.stdout.decode("utf-8").rstrip()
-        git_repo_url = set_github_url()
 
         """
         Scan the repo and perform the comparison
         """
-        results, output_file = scan_repo(repo, language, git_repo_url, git_sha)
+        results, output_file = scan_repo(repo_long, language, git_sha)
         process_results(output_file, repo, language, git_sha[:7])
 
         """
@@ -341,13 +353,14 @@ def scan_repos():
         between our current version and the original version it's forked from.
         """
         if repo in FORKED_REPOS:
-            git_forked_repos(repo, language, git_sha, git_repo_url)
+            git_forked_repos(repo, language, git_sha, url)
 
 
-def add_metadata(repo, language, git_repo_url, git_sha, output_file):
+def add_metadata(repo_long, language, git_sha, output_file):
     """
     Adds metadata and finding hash_id to a scan result
     """
+    url, org, repo = repo_long.split("/")
     output_file_path = f"{RESULTS_DIR}{output_file}"
     configlanguage = f"language-{language}"
     logging.info(f"Opening {output_file_path}")
@@ -359,9 +372,10 @@ def add_metadata(repo, language, git_repo_url, git_sha, output_file):
         data = json.load(file)
         metadata = {
             "metadata": {
-                "GitHubRepo": git_repo_url,
+                "git_url": url,
+                "git_org": org,
                 "branch": git_sha,
-                "repoName": repo,
+                "repo_name": repo,
                 "language": language,
                 "timestamp": datetime.datetime.now(tz=datetime.timezone.utc).isoformat(),
             }
@@ -461,7 +475,8 @@ def build_scan_command(config_lang, output_file, repo):
     return cmd
 
 
-def scan_repo(repo, language, git_repo_url, git_sha):
+def scan_repo(repo_long, language, git_sha):
+    url, org, repo = repo_long.split("/")
     """
     Scans the repo with semgrep and adds metadata
     Returns the results and output file path
@@ -484,9 +499,9 @@ def scan_repo(repo, language, git_repo_url, git_sha):
         findings = json.load(f)
         results = json.dumps(findings, indent=4)
 
-    if git != "ghc" or print_text == "true":
+    if url == ghe_url or print_text == "true":
         logging.info(f"Semgrep scan results:\n {results}")
-    add_metadata(repo, language, git_repo_url, git_sha, output_file)
+    add_metadata(repo_long, language, git_sha, output_file)
     return results, output_file
 
 
@@ -572,14 +587,6 @@ def process_one_result(result, github_url, repo_name, github_branch):
     return result_builder, high, priority
 
 
-def set_github_full_url(github_url):
-    if github_url == github_enterprise_url:
-        github_url = f"{github_url}/{ghe_org_name}"
-    elif github_url == github_com_url:
-        github_url = f"{github_url}/{org_name}"
-    return github_url
-
-
 def alert_channel():
     """
     This method iterates through the /results directory.
@@ -599,13 +606,13 @@ def alert_channel():
             errors = data["errors"]
             repo_name = data["metadata"]["repoName"]
             alert_json.update({repo_name: {"normal": [], "high": []}})
-            github_url = set_github_full_url(data["metadata"]["GitHubRepo"])
+            url = data["metadata"]["git_url"]
             github_branch = data["metadata"]["branch"]
 
             if results:
                 total_vulns = len(results)
                 for result in results:
-                    processed, highs, priority = process_one_result(result, github_url, repo_name, github_branch)
+                    processed, highs, priority = process_one_result(result, url, repo_name, github_branch)
                     alert_json[repo_name][priority].append(processed)
                     high += highs
             """
@@ -667,15 +674,6 @@ def set_enabled_filename():
         return "enabled"
 
 
-def set_github_url():
-    if git == "ghe":
-        return github_enterprise_url
-    elif git == "ghc":
-        return f"{github_com_url}/{org_name}"
-    else:
-        raise Exception("No supported git url supplied.")
-
-
 def find_repo_language(repo):
     """
     Every repo in SNOW is tied to a language in the enabled file.
@@ -701,9 +699,22 @@ def find_repo_language(repo):
     if repo_language == "":
         raise Exception(f"[!!] No language found in snow for repo {repo}. Check in with #triage-prodsec!")
 
+def set_ssh_key(url):
+    if jenkins.get_ci_env() == "jenkins":
+        if url == ghc_url:
+            os.environ["GIT_SSH_COMMAND"] = "ssh -o IdentitiesOnly=yes -i $GHC_PRIVATE_KEY -o StrictHostKeyChecking=no"
+            logging.info(f"Using {os.environ['GIT_SSH_COMMAND']}")
+        elif url == ghe_url:
+            os.environ["GIT_SSH_COMMAND"] = "ssh -o IdentitiesOnly=yes -i $GHE_PRIVATE_KEY -o StrictHostKeyChecking=no"
+            logging.info(f"Using {os.environ['GIT_SSH_COMMAND']}")
+        else:
+            logging.info("Using default ssh key")
 
-def run_semgrep_pr(repo):
-    clean_workspace() if git == "ghe" else logging.info("Skipping cleanup")
+
+def run_semgrep_pr(repo_long):
+    repo_long = remove_scheme_from_url(repo_long)
+    url, org, repo = repo_long.split("/")
+    clean_workspace() if url == ghe_url else logging.info("Skipping cleanup")
 
     mode = int("775", base=8)
     repo_dir = REPOSITORIES_DIR + repo
@@ -712,58 +723,52 @@ def run_semgrep_pr(repo):
 
     get_docker_image()
 
-    repo_language = find_repo_language(repo)
-    config_language = f"language-{repo_language}"
-    git_repo_url = set_github_url()
-
-    slack.commit_head(git)
+    repo_language = find_repo_language(repo_long)
+    slack.commit_head(url)
 
     # As HEAD is on the current branch, it will retrieve the branch sha.
-    git_sha_branch = os.environ.get(commit_head_env)
-    git_sha_branch_short = git_sha_branch[:7]
+    branch_sha = os.environ.get(commit_head_env)
 
     git_dir = f"git -C {repo_dir}"
 
     # Get the master commit id
     run_command(f"{git_dir} branch --list --remote origin/master")
     if os.environ.get(master_commit_env):
-        git_sha_master = os.environ.get(master_commit_env)
+        master_sha = os.environ.get(master_commit_env)
     else:
         cmd = f"{git_dir} show -s --format='%H' origin/master"
-        git_sha_master = subprocess.run(cmd, shell=True, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
-        git_sha_master = git_sha_master.stdout.decode("utf-8").strip()
-
-    git_sha_master_short = git_sha_master[:7]
+        master_sha = subprocess.run(cmd, shell=True, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
+        master_sha = master_sha.stdout.decode("utf-8").strip()
 
     # Make sure you are on the branch to scan by switching to it.
-    process = run_command(f"{git_dir} checkout -f {git_sha_branch}")
-    logging.info(f"Branch SHA: {git_sha_branch}")
+    process = run_command(f"{git_dir} checkout -f {branch_sha}")
+    logging.info(f"Branch SHA: {branch_sha}")
 
     # Make sure we are scanning what the repo would look like after a merge
     # This prevents issues where a vulnerability is removed in master and the
     # scan wronly believes that it's introduced by the PR branch because the PR
     # branch is based on a commit that was before the vulnerability was removed.
-    process = run_command(f"{git_dir} merge {git_sha_master}")
-    scan_repo(repo, repo_language, git_repo_url, git_sha_branch_short)
+    process = run_command(f"{git_dir} merge {master_sha}")
+    scan_repo(repo_long, repo_language, branch_sha[:7])
 
-    logging.info(f"Master SHA: {git_sha_master}")
-    if git == "ghc":
+    logging.info(f"Master SHA: {master_sha}")
+    if url == ghc_url:
         os.environ[artifact_dir_env] = RESULTS_DIR
         logging.info(f"Artifacts dir is: {os.environ[artifact_dir_env]}")
 
-    if git_sha_branch == git_sha_master:
+    if branch_sha == master_sha:
         logging.error("Master and HEAD are equal. Need to compare against two different SHAs! We won't scan.")
         sys.exit(0)
 
-    cmd = f"{git_dir} checkout -f {git_sha_master}"
+    cmd = f"{git_dir} checkout -f {master_sha}"
     process = run_command(cmd)
     logging.info(f"Master Checkout: {process.stdout.decode('utf-8')}")
-    scan_repo(repo, repo_language, git_repo_url, git_sha_master_short)
+    scan_repo(repo_long, repo_language, master_sha[:7])
 
     prefix = f"{RESULTS_DIR}{repo_language}-{repo}-"
-    master_out = f"{prefix}{git_sha_master_short}.json"
-    branch_out = f"{prefix}{git_sha_branch_short}.json"
-    comparison_out = f"{prefix}{git_sha_master_short}-{git_sha_branch_short}.json"
+    master_out = f"{prefix}{master_sha[:7]}.json"
+    branch_out = f"{prefix}{branch_sha[:7]}.json"
+    comparison_out = f"{prefix}{master_sha[:7]}-{branch_sha[:7]}.json"
     comparison.compare_to_last_run(master_out, branch_out, comparison_out)
 
     # If there any vulnerabilities detected, remove the false positives.
@@ -771,13 +776,13 @@ def run_semgrep_pr(repo):
     # likely be caught in the above diff check
     # Save as a new filename appending -parsed.json to the end.
     # IE: golang-rains-6466c2e-2e29dd8-parsed.json
-    json_filename = f"{prefix}{git_sha_master_short}-{git_sha_branch_short}.json"
-    parsed_filename = f"{prefix}{git_sha_master_short}-{git_sha_branch_short}-parsed.json"
+    json_filename = f"{prefix}{master_sha[:7]}-{branch_sha[:7]}.json"
+    parsed_filename = f"{prefix}{master_sha[:7]}-{branch_sha[:7]}-parsed.json"
     fp_file = f"{SNOW_ROOT}/languages/{repo_language}/false_positives/{repo}_false_positives.json"
 
     comparison.remove_false_positives(json_filename, fp_file, parsed_filename)
 
-    process = run_command(f"{git_dir} checkout -f {git_sha_branch}")
+    process = run_command(f"{git_dir} checkout -f {branch_sha}")
     logging.info("Branch Checkout: " + process.stdout.decode("utf-8"))
     add_hash_id(json_filename, 4, 1, "hash_id")
     add_hash_id(parsed_filename, 4, 1, "hash_id")
@@ -786,8 +791,8 @@ def run_semgrep_pr(repo):
         data = json.load(fileParsed)
 
     checkpoint.convert(parsed_filename, json_filename, parsed_filename)
-    if git == "ghc":
-        exit_code = checkpoint.upload_pr_scan(git_sha_branch, git_sha_master)
+    if url == ghc_url:
+        exit_code = checkpoint.upload_pr_scan(branch_sha, master_sha)
         set_exit_code(exit_code)
 
     if os.getenv("ENABLE_S3"):
@@ -801,7 +806,7 @@ def run_semgrep_pr(repo):
         file.write(content)
 
     set_exit_code(0) if not data["results"] else set_exit_code(1)
-    if git == "ghc":
+    if url == ghc_url:
         exit(0)
 
 
@@ -844,11 +849,9 @@ def run_semgrep_daily():
     download_repos()
     scan_repos()
     # Output alerts to Slack
-    if git == "ghe":
-        current_jenkins_job = jenkins.get_job_name()
-        if current_jenkins_job.lower() == CONFIG["general"]["jenkins_prod_job"].lower():
-            alert_channel()
-    elif git == "ghc":
+    if jenkins.get_job_name().lower() == CONFIG["general"]["jenkins_prod_job"].lower():
+        alert_channel()
+    elif os.environ.get("GITHUB_ACTION"):
         alert_channel()
     # Upload the results to checkpoint
     if env != "snow-test":
@@ -860,12 +863,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Runs Semgrep, either in daily scan or pull request mode.")
     parser.add_argument("-m", "--mode", help="the mode you wish to run semgrep, daily or pr", required=True)
     parser.add_argument("-r", "--repo", help="the name of the git repo")
-    parser.add_argument(
-        "-g",
-        "--git",
-        help="the github url you wish to scan. Supported options: ghe (github enterprise) and ghc (githib.com)",
-        required=True,
-    )
     parser.add_argument("--s3", help="upload to s3", action="store_true")
     parser.add_argument("--no-cleanup", help="skip cleanup", action="store_true")
 
@@ -873,9 +870,6 @@ if __name__ == "__main__":
 
     if args.s3:
         os.environ["ENABLE_S3"] = True
-    if args.git:
-        global git
-        git = args.git
     global no_cleanup
     no_cleanup = True if args.no_cleanup else False
 

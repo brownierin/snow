@@ -10,6 +10,7 @@ import run_semgrep as runner
 
 logging.getLogger(__name__)
 
+
 def is_webapp(repo):
     return True if repo == "webapp" else False
 
@@ -26,6 +27,6 @@ def slack_repo(repo, git_repo, repo_path, repo_dir):
     process = runner.run_command(command)
 
 
-def commit_head(git):
-    if git == "ghc":
+def commit_head(url):
+    if url == "github.com":
         os.environ["CIBOT_COMMIT_HEAD"] = os.environ.get("GITHUB_SHA")

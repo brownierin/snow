@@ -13,6 +13,15 @@ else:
     CONFIG.read('config/prod.cfg')
 
 
+def get_ci_env():
+    if "JOB_NAME" in os.environ:
+        return "jenkins"
+    elif "GITHUB_ACTION" in os.environ:
+        return "github actions"
+    else:
+        return
+
+
 def get_job_name():
     if "JOB_NAME" in os.environ:
         return os.environ['JOB_NAME']

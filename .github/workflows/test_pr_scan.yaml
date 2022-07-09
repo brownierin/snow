@@ -46,7 +46,7 @@ jobs:
           repository: tinyspeck/fake-repo
           path: snow/repo
           fetch-depth: 0
-          github-token: ${{ secrets.ACCESS_TOKEN_GITHUB }}
+          token: ${{ secrets.ACCESS_TOKEN_GITHUB }}
 
       - name: move repository code to correct dir
         run: |

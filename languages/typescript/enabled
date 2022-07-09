@@ -1,8 +1,8 @@
-app-googlesheets-workflow-steps
-app-onedrive
-app-salesforce
-gmail-addon
-o365-addon
-app-servicenow
-trop
-deno-cloud-sdk
+slack-github.com/slack/app-googlesheets-workflow-steps
+slack-github.com/slack/app-onedrive
+slack-github.com/slack/app-salesforce
+slack-github.com/slack/gmail-addon
+slack-github.com/slack/o365-addon
+slack-github.com/slack/app-servicenow
+slack-github.com/slack/trop
+slack-github.com/slack/deno-cloud-sdk
