@@ -241,6 +241,13 @@ def git_ops(repo):
         clone_command = f"git -C {REPOSITORIES_DIR} clone {git_repo}"
         clone = run_command(clone_command)
 
+        # Git repositories that are pulled from github.com are marked as unsafe and as such
+        # subsequent git command may fail with error saying that the repository is untrusted.
+        # This small fixes ensures that all the commands work on those repositories. We only
+        # need to do this once after the repository is cloned.
+        if url == ghc_url:
+            trust_this_repo_command = f"git config --global --add safe.directory {repo_path}"
+            run_command(trust_this_repo_command)
 
 def git_forked_repos(repo_long, language, git_sha):
     url, org, repo = repo_long.split("/")
