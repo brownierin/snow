@@ -242,7 +242,8 @@ def git_ops(repo):
         clone = run_command(clone_command)
 
 
-def git_forked_repos(repo, language, git_sha, git_repo_url):
+def git_forked_repos(repo_long, language, git_sha):
+    url, org, repo = repo_long.split("/")
     repo_path = f"{REPOSITORIES_DIR}{repo}"
     repo_language = language.replace("language-", "")
 
@@ -287,7 +288,7 @@ def git_forked_repos(repo, language, git_sha, git_repo_url):
                 comparison.compare_to_last_run(output, output, output)
         return
 
-    scan_repo(repo, language, git_repo_url, forked_commit_id)
+    scan_repo(repo_long, language, forked_commit_id)
 
     # Compare the results and overwrite the original result with the comparison result
     for suffix in ["", "-fprm"]:
@@ -353,7 +354,7 @@ def scan_repos():
         between our current version and the original version it's forked from.
         """
         if repo in FORKED_REPOS:
-            git_forked_repos(repo, language, git_sha, url)
+            git_forked_repos(repo_long, language, git_sha)
 
 
 def add_metadata(repo_long, language, git_sha, output_file):

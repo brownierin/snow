@@ -175,7 +175,7 @@ def convert(fp_removed_filename, original_filename, comparison_filename):
                 command_mark_as_fp += f"--hash_id={issue['hash_id']} "
                 command_mark_as_fp += f"--location=\"{path_in_project}#{issue['start']['line']}\" "
                 command_mark_as_fp += f"--language={fp_removed_data['metadata']['language']} "
-                command_mark_as_fp += f"--repo_name={fp_removed_data['metadata']['repoName']} "
+                command_mark_as_fp += f"--repo_name={fp_removed_data['metadata']['repo_name']} "
                 command_mark_as_fp += "--message=\"{}\" ".format(
                     issue['extra']['message'].replace('\"', '\'').replace('`', '\'').replace('\n', ' ')
                 )
@@ -228,7 +228,7 @@ def upload_pr_scan(branch, master):
         exit_code = upload_test_result_to_checkpoint(
             test_name=f"semgrep-scan-pr",
             output_data=output_data,
-            repo=f'ghc/tinyspeck/{semgrep_content["metadata"]["repoName"]}',
+            repo=f'ghc/tinyspeck/{semgrep_content["metadata"]["repo_name"]}',
             date_started=current_time,
             date_finished=current_time,
             branch="master",
@@ -334,15 +334,23 @@ def upload_daily_scan_results_to_checkpoint():
         is_failure = len(semgrep_content["results"]) > 0
         output_data = json.dumps({"original": semgrep_content, "comparison": semgrep_comparison_content})
 
+        metadata = semgrep_content["metadata"]
+        repo_full_url = f'https://{metadata["git_url"]}/{metadata["git_org"]}/{metadata["repo_name"]}'
+
+        # Checkpoint requires repo to be in the format host/owner/repo where host is "ghe"
+        # for repository hosted on slack-github.com and "gh" for repo hosted on github.com
+        checkpoint_repo_host = "ghe" if metadata["git_url"] == "slack-github.com" else "gh"
+        checkpoint_repo_url = f'{checkpoint_repo_host}/{metadata["git_org"]}/{metadata["repo_name"]}'
+
         exit_code = upload_test_result_to_checkpoint(
             test_name=f"semgrep-scan-daily-{jenkins.get_job_enviroment()}",
             output_data=output_data,
-            repo=f'ghe/slack/{semgrep_content["metadata"]["repoName"]}',
+            repo=checkpoint_repo_url,
             date_started=current_time,
             date_finished=current_time,
             branch="master",
-            commit_head=semgrep_content["metadata"]["branch"],
-            commit_master=semgrep_content["metadata"]["branch"],
+            commit_head=metadata["branch"],
+            commit_master=metadata["branch"],
             is_failure=is_failure,
         )
     return exit_code
