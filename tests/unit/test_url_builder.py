@@ -16,7 +16,7 @@ def test_url_builder():
         results = json.load(f)
     result = results["results"][0]
     github_url = "https://slack-github.com/slack"
-    repo_name = results["metadata"]["repoName"]
+    repo_name = results["metadata"]["repo_name"]
     github_branch = "default"
 
     one_result = process_one_result(result, github_url, repo_name, github_branch)

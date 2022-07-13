@@ -612,7 +612,7 @@ def alert_channel():
             data = json.load(file)
             results = data["results"]
             errors = data["errors"]
-            repo_name = data["metadata"]["repoName"]
+            repo_name = data["metadata"]["repo_name"]
             alert_json.update({repo_name: {"normal": [], "high": []}})
             url = data["metadata"]["git_url"]
             github_branch = data["metadata"]["branch"]

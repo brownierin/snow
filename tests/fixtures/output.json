@@ -4,7 +4,7 @@
         "GitHubRepo": "https://slack-github.com",
         "branch": "86ffb74618094b8fca31730f2e3648879dd81492",
         "language": "golang",
-        "repoName": "malware-service",
+        "repo_name": "malware-service",
         "timestamp": "2022-03-10T18:36:00.912136+00:00"
     },
     "results": [
