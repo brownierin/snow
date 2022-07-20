@@ -984,5 +984,13 @@
         "reason": "Use is unavoidable, first parameter is controlled by caller, no shell features used.",
         "jira": "",
         "risk": ""
+    },
+    "7a198a1e77356029eae20319953c366d6a8b7218b73e7a0d75d9651861c4d4d9": {
+        "message": "A security scan detected use of a potentially unsafe method to execute a command.  If user controlled input is passed to the exec.Command() function, an attacker may be able to inject code that will execute in the underlying server's system shell, resulting in total compromise of the application and possibly other applications running in the same environment.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "cmds/poptart-bootstrap/internal/shsnippit/shsnippit.go#32",
+        "reason": "\"All strings sent to exec are embedded in the running executable - no user data\"",
+        "jira": "",
+        "risk": ""
     }
 }
