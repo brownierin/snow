@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# -*- coding: future_fstrings -*-
+
 
 import json
 import csv
@@ -35,7 +35,7 @@ def format_csv(json_files, out_csv):
 
         with open(result_file_path) as result_file:
             result_data = json.load(result_file)
-            project_name = result_data["metadata"]["repoName"]
+            project_name = result_data["metadata"]["repo_name"]
             base_github_url = result_data["metadata"]["GitHubRepo"]
             git_branch = result_data["metadata"]["branch"]
             url_project = f"https://slack-github.com/slack/{project_name}/"

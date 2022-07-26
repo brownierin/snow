@@ -1,6 +1,6 @@
-interop
-JavaBackend
-secor
-kafka
-apache-ranger
-tika-kube
+slack-github.com/slack/interop
+slack-github.com/slack/JavaBackend
+slack-github.com/slack/secor
+slack-github.com/slack/kafka
+slack-github.com/slack/apache-ranger
+slack-github.com/slack/tika-kube

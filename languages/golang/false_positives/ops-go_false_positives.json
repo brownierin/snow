@@ -1,6 +1,5 @@
 {
-    "4dbed5ae264194c0609539d313f443c01d5f47195ae6d807181efa15db286fc2":
-    {
+    "4dbed5ae264194c0609539d313f443c01d5f47195ae6d807181efa15db286fc2": {
         "message": "Rule 'languages.golang.r2c-ci-rules.go.lang.security.audit.crypto.bad_imports.insecure-module-used' triggered.",
         "check_id": "languages.golang.r2c-ci-rules.go.lang.security.audit.crypto.bad_imports.insecure-module-used",
         "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/haproxy-server-state-management/main.go#L180-L180",
@@ -8,8 +7,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "1b7baa9cc2117584972703d3d44e1efaadae3aebd61b4c5912038eef405a7ab4":
-    {
+    "1b7baa9cc2117584972703d3d44e1efaadae3aebd61b4c5912038eef405a7ab4": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/capacity-service-webapp/cs.go#L89-L89",
@@ -17,8 +15,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "ffe676c62dd2dbb757c368ab907c3fdedb87053d3b928753c7d5e491920a618f":
-    {
+    "ffe676c62dd2dbb757c368ab907c3fdedb87053d3b928753c7d5e491920a618f": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L167-L167",
@@ -26,8 +23,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "3effdaa267cd2f1237c20f72ba42251cfbdb5649d3aa79d06c57c3eb5b53e0c0":
-    {
+    "3effdaa267cd2f1237c20f72ba42251cfbdb5649d3aa79d06c57c3eb5b53e0c0": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L181-L181",
@@ -35,8 +31,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "1becb69ab768b51fd3913ce5acfee28b87c3862ed337c06f2e4da5e059b914e1":
-    {
+    "1becb69ab768b51fd3913ce5acfee28b87c3862ed337c06f2e4da5e059b914e1": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L183-L183",
@@ -44,8 +39,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "3087ad75b6ec13157635dcb68ee982b589d1104d65e1d3d3d40771bd54aa8893":
-    {
+    "3087ad75b6ec13157635dcb68ee982b589d1104d65e1d3d3d40771bd54aa8893": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L186-L186",
@@ -53,8 +47,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "f113a1bedee73adf2652241f0ff57743101988fa0196aa79ca5c7776c8a068ea":
-    {
+    "f113a1bedee73adf2652241f0ff57743101988fa0196aa79ca5c7776c8a068ea": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L187-L187",
@@ -62,8 +55,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "5d3a369d50ea2968df91c60a1da05f67a4b3797ee0809ccaac3d3ad25108088d":
-    {
+    "5d3a369d50ea2968df91c60a1da05f67a4b3797ee0809ccaac3d3ad25108088d": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L188-L188",
@@ -71,8 +63,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "44cb242932575b543a67aac526abc16b1c3d0157dd38398949bd19ca09e17b62":
-    {
+    "44cb242932575b543a67aac526abc16b1c3d0157dd38398949bd19ca09e17b62": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L189-L189",
@@ -80,8 +71,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "ff216cfa250220c76022efaf61aaab4c18d6ac0391e454c2ab1571a1672f6932":
-    {
+    "ff216cfa250220c76022efaf61aaab4c18d6ac0391e454c2ab1571a1672f6932": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L190-L190",
@@ -89,8 +79,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "97a3adf4cb25e63a317ec1e16dbb4fbae1ec0e1c320787f5dcb94347a1f521b1":
-    {
+    "97a3adf4cb25e63a317ec1e16dbb4fbae1ec0e1c320787f5dcb94347a1f521b1": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L191-L191",
@@ -98,8 +87,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "88dd3dc7fa54b844dba664530d95e820f703a08373d70a60c537926b4b49ed88":
-    {
+    "88dd3dc7fa54b844dba664530d95e820f703a08373d70a60c537926b4b49ed88": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L192-L192",
@@ -107,8 +95,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "8fa3d053b8d551375eb92576d766c8ff986f366a785b68776b92866239d3fe0a":
-    {
+    "8fa3d053b8d551375eb92576d766c8ff986f366a785b68776b92866239d3fe0a": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L193-L193",
@@ -116,8 +103,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "b5f4afa28296e31f7fd64f72dd01408ec8187c876f1a8813ab3deeefa42f9f40":
-    {
+    "b5f4afa28296e31f7fd64f72dd01408ec8187c876f1a8813ab3deeefa42f9f40": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L194-L194",
@@ -125,8 +111,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "a4cc12f65d5e659ed0bf9fe99428cdd6c5f3f9c4ca5886d5914e2396f5cda8f6":
-    {
+    "a4cc12f65d5e659ed0bf9fe99428cdd6c5f3f9c4ca5886d5914e2396f5cda8f6": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L195-L195",
@@ -134,8 +119,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "de2bd2696f317ce1fa92a8414e641d3daa74df184e98c6338291aa3aca7a17c5":
-    {
+    "de2bd2696f317ce1fa92a8414e641d3daa74df184e98c6338291aa3aca7a17c5": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L196-L196",
@@ -143,8 +127,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "d7b353fe76634c71aec2033cf60f08b8f9209e110632cd804d68692e9e00ea47":
-    {
+    "d7b353fe76634c71aec2033cf60f08b8f9209e110632cd804d68692e9e00ea47": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L197-L197",
@@ -152,8 +135,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "a3c988d02c04d2d8e8aa609b9501364f1f923e56883bd3775a91670f38178127":
-    {
+    "a3c988d02c04d2d8e8aa609b9501364f1f923e56883bd3775a91670f38178127": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/ops-go/blob/master/haproxy/haproxy.go#L199-L199",
@@ -161,8 +143,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "1b6b118b93482e01544f4af5da2d10ffddefe8fbebdc75e9d1982c36da6d9013":
-    {
+    "1b6b118b93482e01544f4af5da2d10ffddefe8fbebdc75e9d1982c36da6d9013": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/prometheus-solr-exporter/exporter.go#L370-L370",
@@ -170,8 +151,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "b20624ac915762c9ffada1d6ae83d2b35bc5da210b2fe05956f5e0268403e950":
-    {
+    "b20624ac915762c9ffada1d6ae83d2b35bc5da210b2fe05956f5e0268403e950": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/prometheus-solr-exporter/main.go#L68-L68",
@@ -179,8 +159,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "995f52b63536d0bb588068a3fc7958a9aff2756b35f84d4a0cd5f2019a3ba48a":
-    {
+    "995f52b63536d0bb588068a3fc7958a9aff2756b35f84d4a0cd5f2019a3ba48a": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/ops-go/blob/master/olib/okta.go#L309-L309",
@@ -188,8 +167,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "a0f0ef719bdb0533d5d6f42dc450fb63615445fd6576a2f2323a3a45eef0b90d":
-    {
+    "a0f0ef719bdb0533d5d6f42dc450fb63615445fd6576a2f2323a3a45eef0b90d": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/ops-go/blob/master/bedrock/client/replicaset.go#L79-L79",
@@ -197,8 +175,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "5e8972e9d3130ff748ef827c77d987e881a2b84a71922948df0eef345fc777ab":
-    {
+    "5e8972e9d3130ff748ef827c77d987e881a2b84a71922948df0eef345fc777ab": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/ops-go/blob/master/bedrock/client/replicaset.go#L82-L82",
@@ -206,8 +183,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "44574a194e8b156d1d2bda878c8bb5e4f02cb35a3aeffba7e85868f45fc88c98":
-    {
+    "44574a194e8b156d1d2bda878c8bb5e4f02cb35a3aeffba7e85868f45fc88c98": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/haproxy-server-state-management/main.go#L49-L49",
@@ -215,8 +191,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "a80d9074c7eb2202a26f909b6637980b92197a580c00c71e3e1c843ed5b6704c":
-    {
+    "a80d9074c7eb2202a26f909b6637980b92197a580c00c71e3e1c843ed5b6704c": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/ops-go/blob/master/emradm/emr/transformer.go#L371-L371",
@@ -224,8 +199,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "82d19701203451c2f096bbd93e965f71cbb84ce5d1947bb20ad611b35af3ac92":
-    {
+    "82d19701203451c2f096bbd93e965f71cbb84ce5d1947bb20ad611b35af3ac92": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/ops-go/blob/master/bedrock/consul_template.go#L135-L135",
@@ -233,8 +207,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "06b9bb19e5a062bf0c219b9e436f1d98b58cc317486f71cfccf5b667c10aaa9a":
-    {
+    "06b9bb19e5a062bf0c219b9e436f1d98b58cc317486f71cfccf5b667c10aaa9a": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/bedrock/twistlock.go#L88-L88",
@@ -242,8 +215,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "2bdfbab164a7a63c29f77671bc6015edc8c56fa1dff1095207f8dc150865e411":
-    {
+    "2bdfbab164a7a63c29f77671bc6015edc8c56fa1dff1095207f8dc150865e411": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/master/fma/fma.go#L26-L26",
@@ -251,8 +223,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "633d0c45f2a16c752c0bb60d5ac8d83b967ccac770cad3212bdf47260d884a05":
-    {
+    "633d0c45f2a16c752c0bb60d5ac8d83b967ccac770cad3212bdf47260d884a05": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/sgs2tf/main.go#L220-L220",
@@ -260,8 +231,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "ecb0d1777639ad498235d819244195b27348ccc7be9892fdd441c9599f590071":
-    {
+    "ecb0d1777639ad498235d819244195b27348ccc7be9892fdd441c9599f590071": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/slack-emergency/cmd/confabulator.go#L42-L42",
@@ -269,8 +239,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "5419b5cc873e5307fb324976b3e79770075408f82f4889dca9d0b7c00ddfcee3":
-    {
+    "5419b5cc873e5307fb324976b3e79770075408f82f4889dca9d0b7c00ddfcee3": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/fma-assume-role/fma-assume-role.go#L279-L279",
@@ -278,8 +247,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "6402f49283e119ae41c050d691231c853bd0a17cef158c298c649df94ffe42be":
-    {
+    "6402f49283e119ae41c050d691231c853bd0a17cef158c298c649df94ffe42be": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/consul-rpc-throttle/main.go#L180-L180",
@@ -287,8 +255,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "15aa002aec28c2db8b603864884120721a40516fd359f8efa5554777f210b59e":
-    {
+    "15aa002aec28c2db8b603864884120721a40516fd359f8efa5554777f210b59e": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/consul-rpc-throttle/main.go#L206-L206",
@@ -296,8 +263,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "b54c94454ddf04a12d8f251c27709b96e79d21bdcd092c25d699869bbc646d0f":
-    {
+    "b54c94454ddf04a12d8f251c27709b96e79d21bdcd092c25d699869bbc646d0f": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/capacity-service-webapp/main.go#L126-L126",
@@ -305,8 +271,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "2615cef363406e83998348a7c897331881f94d400be16261f43763145a6d1223":
-    {
+    "2615cef363406e83998348a7c897331881f94d400be16261f43763145a6d1223": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/gnife/gnife.go#L82-L82",
@@ -314,8 +279,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "646c38502d000009b48c44d4bbbfe3caca2679e420b75ea4e301858078f24b1c":
-    {
+    "646c38502d000009b48c44d4bbbfe3caca2679e420b75ea4e301858078f24b1c": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/tf-smart-plan/interaction.go#L32-L32",
@@ -323,8 +287,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "cbfe7b595990181af8b245c9ac95503511734d20e403112ffadb9bbda8705034":
-    {
+    "cbfe7b595990181af8b245c9ac95503511734d20e403112ffadb9bbda8705034": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/kube-test-cluster/terminate_node.go#L192-L192",
@@ -332,8 +295,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "f088aca9e75ee750450419d492d52cd1e74da3ca71ac67b060b6c65a5ae8466f":
-    {
+    "f088aca9e75ee750450419d492d52cd1e74da3ca71ac67b060b6c65a5ae8466f": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/kube-test-cluster/terminate_node.go#L200-L200",
@@ -341,8 +303,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "f3d649b55af2bcaf23032915051b1b6d3dff000d8bc51ee6d05ba075b485803c":
-    {
+    "f3d649b55af2bcaf23032915051b1b6d3dff000d8bc51ee6d05ba075b485803c": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/bedrock/cmd_launch.go#L271-L271",
@@ -350,8 +311,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "a07232857b4246fc51f816d188c5e16a12f3c025ec73619d27a88bafa0ffd985":
-    {
+    "a07232857b4246fc51f816d188c5e16a12f3c025ec73619d27a88bafa0ffd985": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/bedrock/cmd_launch.go#L273-L273",
@@ -359,8 +319,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "8cdb240eef0d7d85fcd841ad7c357ccadc92c77f624c4be08a5ccf75d7cdd1ec":
-    {
+    "8cdb240eef0d7d85fcd841ad7c357ccadc92c77f624c4be08a5ccf75d7cdd1ec": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/bedrock/cmd_launch.go#L497-L497",
@@ -368,8 +327,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "06dfc4ebba531b96151fe2eb124bf8075dc508ae2afc34401248ff72d34b4460":
-    {
+    "06dfc4ebba531b96151fe2eb124bf8075dc508ae2afc34401248ff72d34b4460": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/bedrock/cmd_launch_task.go#L261-L266",
@@ -377,8 +335,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "cd33343f93721643135d23458ad8f5291aa236434a9d831c712f52b702a11432":
-    {
+    "cd33343f93721643135d23458ad8f5291aa236434a9d831c712f52b702a11432": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/tf-smart-plan/check_merge.go#L74-L74",
@@ -386,8 +343,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "f96e817a121880be9134d624804184af4ecc4cbd785f826d25c7c8a09af6715a":
-    {
+    "f96e817a121880be9134d624804184af4ecc4cbd785f826d25c7c8a09af6715a": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/kube-test-cluster/cmd_run.go#L170-L170",
@@ -395,8 +351,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "75731df4d3a44f620c37fbccac373ac26f700afb9411640fef0676131a5a9244":
-    {
+    "75731df4d3a44f620c37fbccac373ac26f700afb9411640fef0676131a5a9244": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/gitchen/kitchen_cli.go#L35-L35",
@@ -404,8 +359,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "68d27241168af9540216337b33c95f6e472364adef487de7b171c94791ebccf1":
-    {
+    "68d27241168af9540216337b33c95f6e472364adef487de7b171c94791ebccf1": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/chef/node.go#L506-L506",
@@ -413,8 +367,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "52a6790dc684e5a2f874600b585125f541dafb45996e59d4743b1dee6eac7ba5":
-    {
+    "52a6790dc684e5a2f874600b585125f541dafb45996e59d4743b1dee6eac7ba5": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/git/git.go#L256-L256",
@@ -422,8 +375,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "9d57c9aa24493bfb54dc23bf7dea01a76b5f6ca1575166c877021ce4eb2e835a":
-    {
+    "9d57c9aa24493bfb54dc23bf7dea01a76b5f6ca1575166c877021ce4eb2e835a": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/git/git.go#L283-L283",
@@ -431,8 +383,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "0a81a3df1e3fa0725c206b45211170d1b892f22b9edaf07801d331815b482ebf":
-    {
+    "0a81a3df1e3fa0725c206b45211170d1b892f22b9edaf07801d331815b482ebf": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/update-ami12/main.go#L465-L465",
@@ -440,8 +391,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "7c8c92ece9bcc96f670a308cf9e571f303d83dcd90a0f6bf68ccf16dfe1002a8":
-    {
+    "7c8c92ece9bcc96f670a308cf9e571f303d83dcd90a0f6bf68ccf16dfe1002a8": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/update-ami12/main.go#L650-L650",
@@ -449,8 +399,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "0a2aaded7a2a1907c08396d1e6bcd771c21699b8a8f391fd696f4378f4517b07":
-    {
+    "0a2aaded7a2a1907c08396d1e6bcd771c21699b8a8f391fd696f4378f4517b07": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/update-ami12/main.go#L678-L678",
@@ -458,8 +407,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "f99cd961ca3f830cac3c7b3367db279728321b9ebce81627e3be29516e13b8a7":
-    {
+    "f99cd961ca3f830cac3c7b3367db279728321b9ebce81627e3be29516e13b8a7": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/update-ami12/main.go#L708-L708",
@@ -467,8 +415,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "0ef06aba219f5effe4225847192e857a16494ae7d7cb97be94dba8110bbd5100":
-    {
+    "0ef06aba219f5effe4225847192e857a16494ae7d7cb97be94dba8110bbd5100": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/core-extractor/main.go#L54-L54",
@@ -476,8 +423,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "e087022c12fb08c31eab4b5a363d8ff0c96514aff8de7e651a88f772dff0004c":
-    {
+    "e087022c12fb08c31eab4b5a363d8ff0c96514aff8de7e651a88f772dff0004c": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/core-extractor/main.go#L56-L56",
@@ -485,15 +431,13 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "078fc1fdd75dd3b18cd9e161cfafa6a5f4ad2a3ab356eacbded07f6bd76ce428":
-    {
+    "078fc1fdd75dd3b18cd9e161cfafa6a5f4ad2a3ab356eacbded07f6bd76ce428": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/orchestrated-deploy/main.go#L64-L64",
         "reason": "Command is a static string or only the argument are dynamic."
     },
-    "e9d34329a92826d22940fc15c49625b8396fbd072e2fd2002fd3b907d83ed116":
-    {
+    "e9d34329a92826d22940fc15c49625b8396fbd072e2fd2002fd3b907d83ed116": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/orchestrated-deploy/main.go#L181-L181",
@@ -501,8 +445,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "4337dc9dac91b6771f736157c0de4151b3286730dae54474b7d8ee5f8f113a7e":
-    {
+    "4337dc9dac91b6771f736157c0de4151b3286730dae54474b7d8ee5f8f113a7e": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/gitchen/chef.go#L28-L28",
@@ -510,8 +453,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "8595981e545c1831014fa1675d08d69faa29174697f68465a17760e9671b22ac":
-    {
+    "8595981e545c1831014fa1675d08d69faa29174697f68465a17760e9671b22ac": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/bedrock/cmd_build.go#L398-L398",
@@ -519,15 +461,13 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "013f608a6fe932a277520990590886916bfde50127b3e2001d9ec808a64f774a":
-    {
+    "013f608a6fe932a277520990590886916bfde50127b3e2001d9ec808a64f774a": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/bedrock/cmd_build.go#L400-L400",
         "reason": "Part of the Bedrock build process. It runs pre actions that need to run before Bedrock builds the image."
     },
-    "e6fd856386504649ada010921c0b5845399d505b4a512433351b7dda40eb9a1a":
-    {
+    "e6fd856386504649ada010921c0b5845399d505b4a512433351b7dda40eb9a1a": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/bedrock/cmd_build.go#L502-L502",
@@ -535,8 +475,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "9a075d214f35beabc51fd57dc2ab2ac7d690749c07c92554dfc9e5253d67d2d2":
-    {
+    "9a075d214f35beabc51fd57dc2ab2ac7d690749c07c92554dfc9e5253d67d2d2": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/bedrock/cmd_build.go#L625-L625",
@@ -544,15 +483,13 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "f980e1c65c037112a6622c9cd7f293a352e3ed61040c052f52123c00b0ab8d3b":
-    {
+    "f980e1c65c037112a6622c9cd7f293a352e3ed61040c052f52123c00b0ab8d3b": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/bedrock/cmd_build.go#L635-L635",
         "reason": "Part of the Bedrock build process. It runs pre actions that need to run before Bedrock builds the image."
     },
-    "aa4f0c801ad82fdf4a046608d2233a5934df6df35576f35f700695e26e762c48":
-    {
+    "aa4f0c801ad82fdf4a046608d2233a5934df6df35576f35f700695e26e762c48": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/bedrock/cmd_build.go#L644-L644",
@@ -560,8 +497,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "189cb3658b25352f86e566eff5db2347161f6ccaeea21f91c725b48a9f29bc56":
-    {
+    "189cb3658b25352f86e566eff5db2347161f6ccaeea21f91c725b48a9f29bc56": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/bedrock/cmd_build.go#L781-L781",
@@ -569,8 +505,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "0c3f9a199a149a906d8ca1219f23fe16251a3c59d0eac40d3f7b4a4ef8511246":
-    {
+    "0c3f9a199a149a906d8ca1219f23fe16251a3c59d0eac40d3f7b4a4ef8511246": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/kube-test-cluster/terminate_node.go#L180-L180",
@@ -578,8 +513,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "4d988cfec2f2d6db2d7f601b2d141579208b381479a6d4c484b9ff70ebadc754":
-    {
+    "4d988cfec2f2d6db2d7f601b2d141579208b381479a6d4c484b9ff70ebadc754": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/emradm/dataset/handler.go#L107-L107",
@@ -587,8 +521,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "cad4cc8e6ceafb323209de803e4959bc3d6972069c315980a197ae5885677071":
-    {
+    "cad4cc8e6ceafb323209de803e4959bc3d6972069c315980a197ae5885677071": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/emradm/emr/cluster.go#L246-L246",
@@ -596,8 +529,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "dbaa150494219d90c2c2c5cb9f87a43ff97b01a47cc20e46b3dba686e9f8566d":
-    {
+    "dbaa150494219d90c2c2c5cb9f87a43ff97b01a47cc20e46b3dba686e9f8566d": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/emradm/emr/cluster.go#L393-L393",
@@ -605,8 +537,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "4cfc4a5caceb0606401eedd2094654515590c5fedef98575ee45dafd6ef5247c":
-    {
+    "4cfc4a5caceb0606401eedd2094654515590c5fedef98575ee45dafd6ef5247c": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/kube-test-cluster/find_node.go#L119-L119",
@@ -614,8 +545,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "33f64a0b1bd3eb2dd98f35d282e676e9d8ac735f5a8de5aae095abde26695068":
-    {
+    "33f64a0b1bd3eb2dd98f35d282e676e9d8ac735f5a8de5aae095abde26695068": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/gaz/kaz_pod.go#L627-L627",
@@ -623,8 +553,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "40384cf4367af20e786eed9218ceb3f18363ac299bc384fb92a571870b2bace8":
-    {
+    "40384cf4367af20e786eed9218ceb3f18363ac299bc384fb92a571870b2bace8": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/gaz/kaz_pod.go#L635-L635",
@@ -632,8 +561,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "0d0f5f9b57bd50497fe8a41a92bfaaf4530be9cb95b1bbce666b883490b93ea5":
-    {
+    "0d0f5f9b57bd50497fe8a41a92bfaaf4530be9cb95b1bbce666b883490b93ea5": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/tf-smart-plan/flag_num_parallel.go#L17-L17",
@@ -641,8 +569,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "234640b841f88dd5bf691dd093bd1065520827c8e4bdeba75b090ff30bd22917":
-    {
+    "234640b841f88dd5bf691dd093bd1065520827c8e4bdeba75b090ff30bd22917": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/bedrock/metrics.go#L160-L160",
@@ -650,8 +577,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "405e243391ae67813f90c0d5144c2722aa477ba4808d9a6f8592c81184c9fd5b":
-    {
+    "405e243391ae67813f90c0d5144c2722aa477ba4808d9a6f8592c81184c9fd5b": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com//slack/ops-go/blob/2a7b0b36789ba5251af3996cf2aa2ec326b84eff/cmds/orchestrated-deploy/main.go#L77-L77",
@@ -659,8 +585,7 @@
         "jira": "PRODSEC-3158",
         "risk": "Informational"
     },
-    "32192c026323014878d7722af663fd0698262d5a245f440ff44511700fe60563":
-    {
+    "32192c026323014878d7722af663fd0698262d5a245f440ff44511700fe60563": {
         "message": "Rule Triggered - pprof-debug-exposure",
         "check_id": "pprof-debug-exposure",
         "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/prometheus-solr-exporter/main.go#L84-L84",
@@ -668,8 +593,7 @@
         "jira": "PRODSEC-3143",
         "risk": "Informational"
     },
-    "7e406234a6d06b2849d5e2e5967db23e77d2cf38a9ad35180567ecd9fdedc503":
-    {
+    "7e406234a6d06b2849d5e2e5967db23e77d2cf38a9ad35180567ecd9fdedc503": {
         "message": "Rule Triggered - potential-code-execution",
         "check_id": "potential-code-execution",
         "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/bedrock/cmd_launch.go#L272-L272",
@@ -677,8 +601,7 @@
         "jira": "PRODSEC-3143",
         "risk": "Informational"
     },
-    "edddbdc7a59ff71846b08c1bd07823a9e2ace355ea86754edf643d4f4037aa99":
-    {
+    "edddbdc7a59ff71846b08c1bd07823a9e2ace355ea86754edf643d4f4037aa99": {
         "message": "Rule Triggered - potential-code-execution",
         "check_id": "potential-code-execution",
         "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/bedrock/cmd_launch.go#L270-L270",
@@ -686,8 +609,7 @@
         "jira": "PRODSEC-3143",
         "risk": "Informational"
     },
-    "1e793a809ce199219edf98fce62524fc263e92ed5cb9f40fe572333961a6dbcb":
-    {
+    "1e793a809ce199219edf98fce62524fc263e92ed5cb9f40fe572333961a6dbcb": {
         "message": "Rule Triggered - potential-code-execution",
         "check_id": "potential-code-execution",
         "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/bedrock/cmd_build.go#L390-L390",
@@ -695,8 +617,7 @@
         "jira": "PRODSEC-3143",
         "risk": "Informational"
     },
-    "b8b8dd25aeeaaf97e2d43815f4b08a5a06da08b37c84093c0a81c3d7460f7e39":
-    {
+    "b8b8dd25aeeaaf97e2d43815f4b08a5a06da08b37c84093c0a81c3d7460f7e39": {
         "message": "Rule Triggered - bad_imports.insecure-module-used",
         "check_id": "checidhere",
         "location": "https://slack-github.com/slack/ops-go/blob/master/cmds/sshkey/users_json.go#L255-L255",
@@ -704,8 +625,7 @@
         "jira": "PRODSEC-3143",
         "risk": "Informational"
     },
-    "9d49a6938447d798a2f50f6f0bd3686bda3a1c3d49611d07a644a8ae41d1f2df":
-    {
+    "9d49a6938447d798a2f50f6f0bd3686bda3a1c3d49611d07a644a8ae41d1f2df": {
         "message": "Rule Triggered - bad_imports.insecure-module-used",
         "check_id": "bad_imports.insecure-module-used",
         "location": "https://slack-github.com/slack/ops-go/blob/master/orchestrated-deploy/hash.go#L21-L21",
@@ -713,8 +633,7 @@
         "jira": "PRODSEC-3143",
         "risk": "Informational"
     },
-    "ab3af7446a97b4e46925f9199b9164c8c74dcafda3878b76a01c3a4598153e66":
-    {
+    "ab3af7446a97b4e46925f9199b9164c8c74dcafda3878b76a01c3a4598153e66": {
         "message": "Rule Triggered - bad-tmp-file-creation",
         "check_id": "bad-tmp-file-creation",
         "location": "https://slack-github.com/slack/ops-go/blob/master/lambdas/whitecastle_watcher/lambda.go#L358-L358",
@@ -722,8 +641,7 @@
         "jira": "PRODSEC-3143",
         "risk": "Informational"
     },
-    "818727b0730df3ffedfeb0c60210242e78bb8da86df67911080d9f2d1f5a008a":
-    {
+    "818727b0730df3ffedfeb0c60210242e78bb8da86df67911080d9f2d1f5a008a": {
         "message": "The profiling 'pprof' endpoint is automatically exposed on /debug/pprof. This could leak information about the server. Instead, use 'import 'net/http/pprof''. See https://www.farsightsecurity.com/blog/txt-record/go-remote-profiling-20161028/ for more information and mitigation. ",
         "check_id": "languages.golang.r2c-ci-rules.go.lang.security.audit.net.pprof.pprof-debug-exposure",
         "location": "cmds/gaz/main.go#200",
@@ -731,8 +649,7 @@
         "jira": "CLOUDC-1046",
         "risk": "Low"
     },
-    "fb0ff13bce11026bf5a72b4dec407081164437d618ac89ed997a6ca94f22f8ff":
-    {
+    "fb0ff13bce11026bf5a72b4dec407081164437d618ac89ed997a6ca94f22f8ff": {
         "message": "A security scan detected use of a potentially unsafe method to execute a command.  If user controlled input is passed to the exec.Command() function, an attacker may be able to inject code that will execute in the underlying server's system shell, resulting in total compromise of the application and possibly other applications running in the same environment.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "cmds/userman/shell.go#55",
@@ -740,8 +657,7 @@
         "jira": "",
         "risk": ""
     },
-    "59fe04b13bd0f7930566bd3cde8d7ae7f6e96508f939a7d8dc165e256ce0adcb":
-    {
+    "59fe04b13bd0f7930566bd3cde8d7ae7f6e96508f939a7d8dc165e256ce0adcb": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/tf-smart-plan/gov_creds.go#L25-L25",
@@ -749,8 +665,7 @@
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
-    "f5d6afe1ef998896aa5163e9c65c6697ec69dc541ab657260ccb23e546811521":
-    {
+    "f5d6afe1ef998896aa5163e9c65c6697ec69dc541ab657260ccb23e546811521": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/term/prompt.go#L32-L32",
@@ -758,8 +673,7 @@
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
-    "ef33b10430cb587b7d175cea001cd85ddc74262e590f4e0ee74f2bb3c5059def":
-    {
+    "ef33b10430cb587b7d175cea001cd85ddc74262e590f4e0ee74f2bb3c5059def": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/bedrock-pipeline/kubectl.go#L21-L21",
@@ -767,8 +681,7 @@
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
-    "7fbbc170fdc72d7a550426a1dbcdc5caadb774252f9febb35e26d6be25c96df1":
-    {
+    "7fbbc170fdc72d7a550426a1dbcdc5caadb774252f9febb35e26d6be25c96df1": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/gitchen/kitchen_cli.go#L38-L38",
@@ -776,8 +689,7 @@
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
-    "42702cad63d7ef0849cf117d35f36b66a00b0339b5d2fae09a73e63aa6e34c6b":
-    {
+    "42702cad63d7ef0849cf117d35f36b66a00b0339b5d2fae09a73e63aa6e34c6b": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/bedrock/docker.go#L36-L36",
@@ -785,8 +697,7 @@
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
-    "90f19176615ba9e0dd2cc3f9aa41c7b2dc4b57771f9f9d889a08a001ffee9256":
-    {
+    "90f19176615ba9e0dd2cc3f9aa41c7b2dc4b57771f9f9d889a08a001ffee9256": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/bedrock/docker.go#L49-L49",
@@ -794,8 +705,7 @@
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
-    "19aaab306de3be39c25a8c69275d1c19351bfcfa2f98949c44dde4811f67a611":
-    {
+    "19aaab306de3be39c25a8c69275d1c19351bfcfa2f98949c44dde4811f67a611": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/bedrock/docker.go#L87-L87",
@@ -803,8 +713,7 @@
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
-    "147d68f309bb498a378da2ca705cb0f5586c097c3c24d6ba98c892e0d4bdc3d6":
-    {
+    "147d68f309bb498a378da2ca705cb0f5586c097c3c24d6ba98c892e0d4bdc3d6": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/bedrock/docker.go#L98-L98",
@@ -812,8 +721,7 @@
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
-    "7d736279f4e8c9c4279ab62fd9e80ea2d60773ee21181e8536173ec398482f1a":
-    {
+    "7d736279f4e8c9c4279ab62fd9e80ea2d60773ee21181e8536173ec398482f1a": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/bedrock/docker.go#L109-L109",
@@ -821,8 +729,7 @@
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
-    "290b7d74e3239c1c1c1be05efaa88e3f157b40067362a11b1d05b22498d69403":
-    {
+    "290b7d74e3239c1c1c1be05efaa88e3f157b40067362a11b1d05b22498d69403": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/bedrock/cmd_launch_task.go#L414-L419",
@@ -830,8 +737,7 @@
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
-    "e3162b3a30a20a90699c9e77708c52e60c43d01c462d7f9c21f7f1719ee24dc9":
-    {
+    "e3162b3a30a20a90699c9e77708c52e60c43d01c462d7f9c21f7f1719ee24dc9": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/bedrock/cmd_launch.go#L522-L522",
@@ -839,8 +745,7 @@
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
-    "ab86497795b0198795cbed12664876b1cbb0bfafc714ccd74cba9b8228d3838f":
-    {
+    "ab86497795b0198795cbed12664876b1cbb0bfafc714ccd74cba9b8228d3838f": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/bedrock/cmd_build.go#L815-L815",
@@ -848,8 +753,7 @@
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
-    "a184a4929f5f62e3a7070081f09451965731c0c5442ada93b4142501b1f54e32":
-    {
+    "a184a4929f5f62e3a7070081f09451965731c0c5442ada93b4142501b1f54e32": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/bedrock/cmd_build.go#L826-L826",
@@ -857,8 +761,7 @@
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
-    "a0853b4e111aaa6a9a29d35514f26a4f5216f8075b23e5869125414ffa1123dd":
-    {
+    "a0853b4e111aaa6a9a29d35514f26a4f5216f8075b23e5869125414ffa1123dd": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/bedrock/cmd_build.go#L835-L835",
@@ -866,8 +769,7 @@
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
-    "3b8f154f76584c5aae01650e2e65ca4ec6ff0b3d0ca874c2e165eb9807d97878":
-    {
+    "3b8f154f76584c5aae01650e2e65ca4ec6ff0b3d0ca874c2e165eb9807d97878": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/bedrock/cmd_sync.go#L917-L917",
@@ -875,8 +777,7 @@
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
-    "44405a3f0775e6f7fcaba66d52184fc033b0b665c205661c820b3fc6946e6abd":
-    {
+    "44405a3f0775e6f7fcaba66d52184fc033b0b665c205661c820b3fc6946e6abd": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/bedrock/cmd_build.go#L947-L947",
@@ -884,8 +785,7 @@
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
-    "f3113a405be74822dd73607769f4bd50f239b0d56fa14c71cbd469d4968a3b3a":
-    {
+    "f3113a405be74822dd73607769f4bd50f239b0d56fa14c71cbd469d4968a3b3a": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/kube-test-cluster/roll.go#L248-L248",
@@ -893,8 +793,7 @@
         "jira": "PRODSEC-3390",
         "risk": "informational"
     },
-    "515f188aa82c76796bf5a98e56b83165d6af363cb36f7951da22bdc3d975eb75":
-    {
+    "515f188aa82c76796bf5a98e56b83165d6af363cb36f7951da22bdc3d975eb75": {
         "message": "Rule 'languages.golang.slack.potential-code-execution-1' triggered.",
         "check_id": "languages.golang.slack.potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/tsauth/login.go#L60-L66",
@@ -902,8 +801,7 @@
         "jira": "PRODSEC-3390",
         "risk": "low"
     },
-    "7a34023b5b9e545cffa745f80755f3d4236ce57a951f89d598432a0a8a85be7a":
-    {
+    "7a34023b5b9e545cffa745f80755f3d4236ce57a951f89d598432a0a8a85be7a": {
         "message": "Rule 'languages.golang.r2c.go.lang.security.bad-tmp-file-creation' triggered.",
         "check_id": "languages.golang.r2c.go.lang.security.bad-tmp-file-creation",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/lambdas/whitecastle_watcher/lambda.go#L358-L358",
@@ -911,8 +809,7 @@
         "jira": "PRODSEC-3390",
         "risk": "low"
     },
-    "4147942c8078e38647a6d32004e92d9695e1d4842c73598270bc3119b7930b2f":
-    {
+    "4147942c8078e38647a6d32004e92d9695e1d4842c73598270bc3119b7930b2f": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/dev-beach/main.go#L54-L54",
@@ -920,8 +817,7 @@
         "jira": "PRODSEC-3391",
         "risk": "low"
     },
-    "c477ec638e5a0f5e1dc6abc6e64342e2f1044a77d5622024eda9f6ddc1ea129e":
-    {
+    "c477ec638e5a0f5e1dc6abc6e64342e2f1044a77d5622024eda9f6ddc1ea129e": {
         "message": "Rule 'languages.golang.slack.potential-integer-overflow' triggered.",
         "check_id": "languages.golang.slack.potential-integer-overflow",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/srv/capacity/cs.go#L89-L89",
@@ -929,8 +825,7 @@
         "jira": "PRODSEC-3391",
         "risk": "low"
     },
-    "1536c15fd1098bce14780e747b9dbc58055f44e2fa4145fdd9260141f2de6ec7":
-    {
+    "1536c15fd1098bce14780e747b9dbc58055f44e2fa4145fdd9260141f2de6ec7": {
         "message": "Rule 'languages.golang.r2c-ci-rules.go.lang.security.audit.net.dynamic-httptrace-clienttrace.dynamic-httptrace-clienttrace' triggered.",
         "check_id": "languages.golang.r2c-ci-rules.go.lang.security.audit.net.dynamic-httptrace-clienttrace.dynamic-httptrace-clienttrace",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/foodcourt/client.go#L46-L46",
@@ -938,8 +833,7 @@
         "jira": "PRODSEC-3391",
         "risk": "low"
     },
-    "0710d4226ab755edae0f50c9e89d62640f3515276f88f639990df8d8c930d347":
-    {
+    "0710d4226ab755edae0f50c9e89d62640f3515276f88f639990df8d8c930d347": {
         "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.unescaped-data-in-url' triggered.",
         "check_id": "languages.golang.r2c.go.lang.security.audit.net.unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/gaz/show_node.go#L51-L51",
@@ -947,8 +841,7 @@
         "jira": "PRODSEC-3396",
         "risk": "low"
     },
-    "019252186d3d36cdad1201a639cc7159c23596c148d1d9780566974b21f5274d":
-    {
+    "019252186d3d36cdad1201a639cc7159c23596c148d1d9780566974b21f5274d": {
         "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.unescaped-data-in-url' triggered.",
         "check_id": "languages.golang.r2c.go.lang.security.audit.net.unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/gaz/kaz_template_helpers.go#L132-L133",
@@ -956,8 +849,7 @@
         "jira": "PRODSEC-3396",
         "risk": "low"
     },
-    "985d03d9cc63d5d2684b992be99ed1f53000c1b203908f6d672d84e8501758c5":
-    {
+    "985d03d9cc63d5d2684b992be99ed1f53000c1b203908f6d672d84e8501758c5": {
         "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.unescaped-data-in-url' triggered.",
         "check_id": "languages.golang.r2c.go.lang.security.audit.net.unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/gaz/kaz_template_helpers.go#L156-L157",
@@ -965,8 +857,7 @@
         "jira": "PRODSEC-3396",
         "risk": "low"
     },
-    "df44278004910c5d8c6f6220c64fc94085e106912215c0165458d5c108fd3e82":
-    {
+    "df44278004910c5d8c6f6220c64fc94085e106912215c0165458d5c108fd3e82": {
         "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.unescaped-data-in-url' triggered.",
         "check_id": "languages.golang.r2c.go.lang.security.audit.net.unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/gaz/kaz_template_helpers.go#L199-L200",
@@ -974,8 +865,7 @@
         "jira": "PRODSEC-3396",
         "risk": "low"
     },
-    "b59ec89805f25b4556ca1d2aaa4c16b148ade53fd84f8c3257ba0b1e6c7e7f38":
-    {
+    "b59ec89805f25b4556ca1d2aaa4c16b148ade53fd84f8c3257ba0b1e6c7e7f38": {
         "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.unescaped-data-in-url' triggered.",
         "check_id": "languages.golang.r2c.go.lang.security.audit.net.unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/gaz/kaz_template_helpers.go#L205-L206",
@@ -983,8 +873,7 @@
         "jira": "PRODSEC-3396",
         "risk": "low"
     },
-    "387d6aa0c81c41aeed85a634a2231dd93431d149cecb971a4a504056936a26eb":
-    {
+    "387d6aa0c81c41aeed85a634a2231dd93431d149cecb971a4a504056936a26eb": {
         "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.unescaped-data-in-url' triggered.",
         "check_id": "languages.golang.r2c.go.lang.security.audit.net.unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/gaz/kaz_template_helpers.go#L246-L247",
@@ -992,8 +881,7 @@
         "jira": "PRODSEC-3396",
         "risk": "low"
     },
-    "dd22ca8e10ce2228271a1e465e5af606bc1bf12ca11aa8152f3f860d272bc098":
-    {
+    "dd22ca8e10ce2228271a1e465e5af606bc1bf12ca11aa8152f3f860d272bc098": {
         "message": "Rule 'languages.golang.r2c.go.lang.security.audit.net.unescaped-data-in-url' triggered.",
         "check_id": "languages.golang.r2c.go.lang.security.audit.net.unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/23c0ad28f4ee05d4f6646e6752bc2f67af5a7dbb/cmds/gaz/kaz_template_helpers.go#L275-L276",
@@ -1001,7 +889,7 @@
         "jira": "PRODSEC-3396",
         "risk": "low"
     },
-            "d3ee63965249e8e9c0e3f3e3f962e4dd1451e846e172e3a3f37309f63f38725b": {
+    "d3ee63965249e8e9c0e3f3e3f962e4dd1451e846e172e3a3f37309f63f38725b": {
         "message": "Rule 'unescaped-data-in-url' triggered.",
         "check_id": "unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/0b84b6228c0fe4a0500ca3a1f171467efb54763b/cmds/gaz/kaz_template_helpers.go#L133-L135",
@@ -1009,7 +897,7 @@
         "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
-        "183490c3e08acecd84e451d762220462c1cf115fccf4873edb31f12edcc63246": {
+    "183490c3e08acecd84e451d762220462c1cf115fccf4873edb31f12edcc63246": {
         "message": "Rule 'unescaped-data-in-url' triggered.",
         "check_id": "unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/0b84b6228c0fe4a0500ca3a1f171467efb54763b/cmds/gaz/kaz_template_helpers.go#L158-L160",
@@ -1017,7 +905,7 @@
         "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
-        "16c6eeb03718ea997febdebc066d5d94aba58ea92811ae14b932605839c50cf4": {
+    "16c6eeb03718ea997febdebc066d5d94aba58ea92811ae14b932605839c50cf4": {
         "message": "Rule 'unescaped-data-in-url' triggered.",
         "check_id": "unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/0b84b6228c0fe4a0500ca3a1f171467efb54763b/cmds/gaz/kaz_template_helpers.go#L202-L203",
@@ -1025,7 +913,7 @@
         "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
-        "4f99e29ce8a7edcfa80f676289a621bad82cda36dd4c8307222af2dfc38e5914": {
+    "4f99e29ce8a7edcfa80f676289a621bad82cda36dd4c8307222af2dfc38e5914": {
         "message": "Rule 'unescaped-data-in-url' triggered.",
         "check_id": "unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/0b84b6228c0fe4a0500ca3a1f171467efb54763b/cmds/gaz/kaz_template_helpers.go#L209-L211",
@@ -1033,7 +921,7 @@
         "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
-        "f48c456d3a8dd430cad97560b9166a745e1cd3759c56fcc71a1fb967e2e51a5d": {
+    "f48c456d3a8dd430cad97560b9166a745e1cd3759c56fcc71a1fb967e2e51a5d": {
         "message": "Rule 'unescaped-data-in-url' triggered.",
         "check_id": "unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/0b84b6228c0fe4a0500ca3a1f171467efb54763b/cmds/gaz/kaz_template_helpers.go#L214-L217",
@@ -1041,7 +929,7 @@
         "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
-        "c6d9c885ae4b0b153ab7014301995a30314fb2ce47b386b81af80c10f656855d": {
+    "c6d9c885ae4b0b153ab7014301995a30314fb2ce47b386b81af80c10f656855d": {
         "message": "Rule 'unescaped-data-in-url' triggered.",
         "check_id": "unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/0b84b6228c0fe4a0500ca3a1f171467efb54763b/cmds/gaz/kaz_template_helpers.go#L257-L258",
@@ -1049,7 +937,7 @@
         "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
-        "c581fbfd3e604aa65beea9d08311af02eb1b823d03ed636facfbbaa7ee367725": {
+    "c581fbfd3e604aa65beea9d08311af02eb1b823d03ed636facfbbaa7ee367725": {
         "message": "Rule 'unescaped-data-in-url' triggered.",
         "check_id": "unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/0b84b6228c0fe4a0500ca3a1f171467efb54763b/cmds/gaz/kaz_template_helpers.go#L286-L287",
@@ -1057,7 +945,7 @@
         "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
-        "371238c93e53856c31a68404e703d5ad0d1058bd49a60a7b701a9cc915ae69a6": {
+    "371238c93e53856c31a68404e703d5ad0d1058bd49a60a7b701a9cc915ae69a6": {
         "message": "Rule 'unescaped-data-in-url' triggered.",
         "check_id": "unescaped-data-in-url",
         "location": "https://slack-github.com/slack/ops-go/blob/0b84b6228c0fe4a0500ca3a1f171467efb54763b/cmds/gaz/show_node.go#L52-L52",
@@ -1065,7 +953,7 @@
         "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
-        "d59fae65f64f49aea8b9350e47524387529d35352cdb259ef650b015ba804c6f": {
+    "d59fae65f64f49aea8b9350e47524387529d35352cdb259ef650b015ba804c6f": {
         "message": "Rule 'potential-code-execution-1' triggered.",
         "check_id": "potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/0b84b6228c0fe4a0500ca3a1f171467efb54763b/cmds/gitchen/kitchen_cli.go#L61-L61",
@@ -1073,12 +961,36 @@
         "jira": "PRODSEC-3421",
         "Risk": "informational"
     },
-        "8440f1c3311e7aad6b06b6df74808cefda41861de5eefca74da8429bf3403eff": {
+    "8440f1c3311e7aad6b06b6df74808cefda41861de5eefca74da8429bf3403eff": {
         "message": "Rule 'potential-code-execution-1' triggered.",
         "check_id": "potential-code-execution-1",
         "location": "https://slack-github.com/slack/ops-go/blob/cfec4c582ecbb8c5b0ac66d829b3f77fb1195ae8/cmds/tf-smart-plan/run_module_copier.go#L23-L23",
         "reason": "Code is internal infrastructure code that is not input by end user",
         "jira": "PRODSEC-3421",
         "Risk": "informational"
+    },
+    "377075e7475776472910a30c577b867c7727d2588f764d3e1bb473021c53e78b": {
+        "message": "A security scan detected use of a potentially unsafe method to execute a command.  If user controlled input is passed to the exec.Command() function, an attacker may be able to inject code that will execute in the underlying server's system shell, resulting in total compromise of the application and possibly other applications running in the same environment.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "tf/run_plans.go#148",
+        "reason": "The line above is a slice of strings, there's no user input",
+        "jira": "",
+        "risk": ""
+    },
+    "7536492bbbd79755437049e2af0bcdb6096651e2522c17e506cb2ac94a948ec8": {
+        "message": "A security scan detected use of a potentially unsafe method to execute a command.  If user controlled input is passed to the exec.Command() function, an attacker may be able to inject code that will execute in the underlying server's system shell, resulting in total compromise of the application and possibly other applications running in the same environment.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "cmds/poptart-bootstrap/internal/bootstrap/bootstrap.go#465",
+        "reason": "Use is unavoidable, first parameter is controlled by caller, no shell features used.",
+        "jira": "",
+        "risk": ""
+    },
+    "7a198a1e77356029eae20319953c366d6a8b7218b73e7a0d75d9651861c4d4d9": {
+        "message": "A security scan detected use of a potentially unsafe method to execute a command.  If user controlled input is passed to the exec.Command() function, an attacker may be able to inject code that will execute in the underlying server's system shell, resulting in total compromise of the application and possibly other applications running in the same environment.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "cmds/poptart-bootstrap/internal/shsnippit/shsnippit.go#32",
+        "reason": "\"All strings sent to exec are embedded in the running executable - no user data\"",
+        "jira": "",
+        "risk": ""
     }
 }

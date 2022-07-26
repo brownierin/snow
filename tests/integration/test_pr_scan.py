@@ -1,4 +1,4 @@
-# -*- coding: future_fstrings -*-
+
 
 import os
 import shutil
@@ -47,7 +47,7 @@ def setup_test_case(test_name, language, false_postive={}):
 
     # Make the temp project "enabled"
     with open(f"{SNOW_ROOT}/languages/{language}/enabled", "a") as f:
-        f.write(test_name + "\n")
+        f.write(f"slack-github.com/slack/{test_name}\n")
 
     # Create the false positives file of the temp project
     with open(f"{SNOW_ROOT}/languages/{language}/false_positives/{test_name}_false_positives.json", "w") as f:
@@ -64,7 +64,7 @@ def take_down_case(test_name, language):
     # Remove the temp project from enabled file
     with open(f"{SNOW_ROOT}/languages/{language}/enabled", "r") as f:
         content = f.read()
-        content = content.replace(test_name + "\n", "")
+        content = content.replace(f"slack-github.com/slack/{test_name} \n", "")
 
     with open(f"{SNOW_ROOT}/languages/{language}/enabled", "w") as f:
         f.write(content)

@@ -1,18 +1,22 @@
 #!/usr/bin/env python3
-# -*- coding: future_fstrings -*-
 
 import requests
 import os
+import logging
+from exceptions import WebhookUrlError
+
+logging.getLogger(__name__)
 
 
 def send(content):
     headers = {"Content-Type": "application/json"}
     data = {"text": content}
 
-    try: 
+    try:
         url = os.environ["SNOW_ALERT_WEBHOOK"]
-    except Exception as e:
-        print(f"[-] Webhook URL isn't set! Error is: {e}")
+    except KeyError as e:
+        logging.exception(f"Webhook URL isn't set! Error is: {e}")
+        raise WebhookUrlError
 
     try:
         r = requests.post(url, headers=headers, json=data)

@@ -413,39 +413,39 @@
         "jira": "PRODSEC-3142",
         "risk": "Informational"
     },
-      "6411babed8949fe3bddc8c7b104289b62fe90210f1f564a9bf0c76a9fc7b80eb": {
-          "message": "Rule Triggered - bad_imports.insecure-module-used",
-          "check_id": "bad_imports.insecure-module-used",
-          "location": "https://slack-github.com/slack/goslackgo/blob/master/imgproxy/miata/miata.go#L266-L266",
-          "reason": "We output a string of the hash but dont do anything with it. Its for debug and print to console",
-          "jira": "PRODSEC-3142",
-          "risk": "Informational"
-      },
-      "536b6d14455b0dced15b81f5798c4fc588e9b8ce981d0e7733644e684067816a": {
-          "message": "Rule Triggered - bad_imports.insecure-module-used",
-          "check_id": "bad_imports.insecure-module-used",
-          "location": "https://slack-github.com/slack/goslackgo/blob/master/service_proxy/grpc_proxy/client_proxy.go#L134-L134",
-          "reason": "SHA 1 used for debug, no crypto uses. ",
-          "jira": "PRODSEC-3142",
-          "risk": "Informational"
-      },
-      "8c3c2f9a235c682d5a9da0799cff6d602c419ca33c42a4381fc49efe310e8edb": {
-          "message": "Rule Triggered - bad_imports.insecure-module-used",
-          "check_id": "bad_imports.insecure-module-used",
-          "location": "https://slack-github.com/slack/goslackgo/blob/master/ekm/cmd/ekm/decrypt_handler.go#L569-L569",
-          "reason": "MD5, is used as idenfier for encryptionn keys. I don't think this is an issue, but I dont like this so closely related to crypto. ",
-          "jira": "PRODSEC-3142",
-          "risk": "Informational"
-        },
-      "9c8f0c339387b7473a69911e01c662613fc8bb93bec1820ac34c12e0f57f8692": {
-          "message": "Rule Triggered - bad_imports.insecure-module-used",
-          "check_id": "bad_imports.insecure-module-used",
-          "location": "https://slack-github.com/slack/goslackgo/blob/master/mayfly/registry/registry.go#L270-L270",
-          "reason": "This checks if a file changes and reloads it if it ever does. If you caused a collision here, it would NOT load the file. Cant see this being exploitable. ",
-          "jira": "PRODSEC-3142",
-          "risk": "Informational"
-        },
-                "a68d41a3cdac205f1bd35cea5b6c5d934b19cade63f128524e3b74986da59b13": {
+    "6411babed8949fe3bddc8c7b104289b62fe90210f1f564a9bf0c76a9fc7b80eb": {
+        "message": "Rule Triggered - bad_imports.insecure-module-used",
+        "check_id": "bad_imports.insecure-module-used",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/imgproxy/miata/miata.go#L266-L266",
+        "reason": "We output a string of the hash but dont do anything with it. Its for debug and print to console",
+        "jira": "PRODSEC-3142",
+        "risk": "Informational"
+    },
+    "536b6d14455b0dced15b81f5798c4fc588e9b8ce981d0e7733644e684067816a": {
+        "message": "Rule Triggered - bad_imports.insecure-module-used",
+        "check_id": "bad_imports.insecure-module-used",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/service_proxy/grpc_proxy/client_proxy.go#L134-L134",
+        "reason": "SHA 1 used for debug, no crypto uses. ",
+        "jira": "PRODSEC-3142",
+        "risk": "Informational"
+    },
+    "8c3c2f9a235c682d5a9da0799cff6d602c419ca33c42a4381fc49efe310e8edb": {
+        "message": "Rule Triggered - bad_imports.insecure-module-used",
+        "check_id": "bad_imports.insecure-module-used",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/ekm/cmd/ekm/decrypt_handler.go#L569-L569",
+        "reason": "MD5, is used as idenfier for encryptionn keys. I don't think this is an issue, but I dont like this so closely related to crypto. ",
+        "jira": "PRODSEC-3142",
+        "risk": "Informational"
+    },
+    "9c8f0c339387b7473a69911e01c662613fc8bb93bec1820ac34c12e0f57f8692": {
+        "message": "Rule Triggered - bad_imports.insecure-module-used",
+        "check_id": "bad_imports.insecure-module-used",
+        "location": "https://slack-github.com/slack/goslackgo/blob/master/mayfly/registry/registry.go#L270-L270",
+        "reason": "This checks if a file changes and reloads it if it ever does. If you caused a collision here, it would NOT load the file. Cant see this being exploitable. ",
+        "jira": "PRODSEC-3142",
+        "risk": "Informational"
+    },
+    "a68d41a3cdac205f1bd35cea5b6c5d934b19cade63f128524e3b74986da59b13": {
         "message": "Rule 'potential-integer-overflow' triggered.",
         "check_id": "potential-integer-overflow",
         "location": "https://slack-github.com/slack/goslackgo/blob/5a455654bd4d3f1ca863b1533a60c0e07c863cb0/common/client/grpc/resolver/resolver.go#L83-L83",
@@ -453,7 +453,7 @@
         "jira": "PRODSEC-3421",
         "Risk": "low"
     },
-        "f116fae527d2f21bf47c6efa4bb825cceee6d29889f03dce1db4d85d1d71fd74": {
+    "f116fae527d2f21bf47c6efa4bb825cceee6d29889f03dce1db4d85d1d71fd74": {
         "message": "Rule 'potential-integer-overflow' triggered.",
         "check_id": "potential-integer-overflow",
         "location": "https://slack-github.com/slack/goslackgo/blob/5a455654bd4d3f1ca863b1533a60c0e07c863cb0/common/client/grpc/resolver/resolver.go#L88-L88",
@@ -461,7 +461,7 @@
         "jira": "PRODSEC-3421",
         "Risk": "low"
     },
-        "3145b26c89bcffb800fb599a88c3d0a7e08f5e9a3d6d7bea57905d46afa64f8f": {
+    "3145b26c89bcffb800fb599a88c3d0a7e08f5e9a3d6d7bea57905d46afa64f8f": {
         "message": "Rule 'potential-integer-overflow' triggered.",
         "check_id": "potential-integer-overflow",
         "location": "https://slack-github.com/slack/goslackgo/blob/5a455654bd4d3f1ca863b1533a60c0e07c863cb0/mayfly/accelerator/redis_to_sqs_task.go#L278-L278",
@@ -469,7 +469,7 @@
         "jira": "PRODSEC-3421",
         "Risk": "low"
     },
-        "89985d4df3a2801af2226ac8e60d632e97cf151b303af327ce69f1ac51a51674": {
+    "89985d4df3a2801af2226ac8e60d632e97cf151b303af327ce69f1ac51a51674": {
         "message": "Rule 'potential-integer-overflow' triggered.",
         "check_id": "potential-integer-overflow",
         "location": "https://slack-github.com/slack/goslackgo/blob/5a455654bd4d3f1ca863b1533a60c0e07c863cb0/mayfly/accelerator/redis_to_sqs_task.go#L283-L283",
@@ -477,7 +477,7 @@
         "jira": "PRODSEC-3421",
         "Risk": "low"
     },
-        "bd86914a62ed1fe17fa890944593df55d8f3a549fc6180db85c0c4efe3cd708c": {
+    "bd86914a62ed1fe17fa890944593df55d8f3a549fc6180db85c0c4efe3cd708c": {
         "message": "Rule 'potential-integer-overflow' triggered.",
         "check_id": "potential-integer-overflow",
         "location": "https://slack-github.com/slack/goslackgo/blob/5a455654bd4d3f1ca863b1533a60c0e07c863cb0/mayfly/router/prommetrics/metrics.go#L335-L335",
@@ -485,7 +485,7 @@
         "jira": "PRODSEC-3421",
         "Risk": "low"
     },
-        "d8c5a8452559bc6e5297726a47b8ed5c5d554b5d8a68a3b72f36ea50f7513db8": {
+    "d8c5a8452559bc6e5297726a47b8ed5c5d554b5d8a68a3b72f36ea50f7513db8": {
         "message": "Rule 'potential-integer-overflow' triggered.",
         "check_id": "potential-integer-overflow",
         "location": "https://slack-github.com/slack/goslackgo/blob/5a455654bd4d3f1ca863b1533a60c0e07c863cb0/mayfly/router/prommetrics/metrics.go#L340-L340",
@@ -493,7 +493,7 @@
         "jira": "PRODSEC-3421",
         "Risk": "low"
     },
-        "fc2bac5cfa30b3a102f66955aa0aa9c7c13e7595081fe60befb5aa6de508944b": {
+    "fc2bac5cfa30b3a102f66955aa0aa9c7c13e7595081fe60befb5aa6de508944b": {
         "message": "Rule 'potential-integer-overflow' triggered.",
         "check_id": "potential-integer-overflow",
         "location": "potential-integer-overflow://slack-github.com/slack/goslackgo/blob/5a455654bd4d3f1ca863b1533a60c0e07c863cb0/mayfly/router/server/router_task.go#L391-L391",
@@ -501,12 +501,20 @@
         "jira": "PRODSEC-3421",
         "Risk": "low"
     },
-        "3604b7af6b39e92a6a7aa4b33c73b01f922b28f13b9a494358c62f4c23bca43b": {
+    "3604b7af6b39e92a6a7aa4b33c73b01f922b28f13b9a494358c62f4c23bca43b": {
         "message": "Rule 'go.lang.security.audit.crypto.bad_imports.insecure-module-used' triggered.",
         "check_id": "go.lang.security.audit.crypto.bad_imports.insecure-module-used",
         "location": "https://slack-github.com/slack/goslackgo/blob/5a455654bd4d3f1ca863b1533a60c0e07c863cb0/mayfly/registry/registry.go#L270-L270",
         "reason": "Hash Change. This checks if a file changes and reloads it if it ever does. If you caused a collision here, it would NOT load the file. Cant see this being exploitable.",
         "jira": "PRODSEC-3421",
         "Risk": "low"
+    },
+    "c9df07cc02c8c3a0086bed43b13b34c6e150bf34cb8dbef14de71a8cd105e9cb": {
+        "message": "Rule 'go.lang.security.audit.crypto.bad_imports.insecure-module-used' triggered.",
+        "check_id": "go.lang.security.audit.crypto.bad_imports.insecure-module-used",
+        "location": "https://slack-github.com/slack/goslackgo/blob/ecd0d7eba85e92141288da79a3cc399dd5da6efc/mayfly/registry/registry.go#L270-L270",
+        "reason": "False positive. This one uses MD5 for non security usage. It's simply there to check if a file on disk has new content.",
+        "jira": "PRODSEC-3524",
+        "Risk": "informational"
     }
 }

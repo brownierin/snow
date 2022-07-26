@@ -1,9 +1,0 @@
-tokenize-rt
-boto3
-botocore
-future-fstrings
-pyyaml
-pytest
-requests
-chardet
-progress
