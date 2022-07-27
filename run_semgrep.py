@@ -257,7 +257,6 @@ def git_ops(repo):
 def git_forked_repos(repo_long, language, git_sha):
     url, org, repo = repo_long.split("/")
     repo_path = f"{REPOSITORIES_DIR}{repo}"
-    repo_language = language.replace("language-", "")
 
     # Setup the upstream repo as a remote
     forked_repo = FORKED_REPOS[repo]
@@ -300,11 +299,11 @@ def git_forked_repos(repo_long, language, git_sha):
                 comparison.compare_to_last_run(output, output, output)
         return
 
-    scan_repo(repo_long, language, forked_commit_id)
+    scan_repo(repo_long, [language], forked_commit_id)
 
     # Compare the results and overwrite the original result with the comparison result
     for suffix in ["", "-fprm"]:
-        file_prefix = f"{RESULTS_DIR}{repo_language}-{repo}-"
+        file_prefix = f"{RESULTS_DIR}{language}-{repo}-"
         forked_output = f"{forked_commit_id[:7]}{suffix}.json"
         new_output = f"{file_prefix}{git_sha[:7]}{suffix}.json"
 
@@ -358,7 +357,7 @@ def scan_repos():
         Scan the repo and perform the comparison
         """
 
-        results, output_file = scan_repo(repo, languages, git_sha)
+        results, output_file = scan_repo(repo_long, languages, git_sha)
         process_results(output_file, repo, languages, git_sha[:7])
 
         """
@@ -366,8 +365,9 @@ def scan_repos():
         For those repos, the results that we must consider for the scan are the diff
         between our current version and the original version it's forked from.
         """
-        if repo in FORKED_REPOS:
-            git_forked_repos(repo_long, languages, git_sha)
+        for lang in languages:
+            if repo in FORKED_REPOS:
+                git_forked_repos(repo_long, lang, git_sha)
 
 
 def add_metadata(repo_long, language, git_sha, output_file):
@@ -426,7 +426,7 @@ def process_results(output_file, repo, languages, sha):
     """
     selected_paths = list(glob.glob(f"{RESULTS_DIR}{lang_str}-{repo}-*-fprm.json"))
     selected_paths = sorted(selected_paths, key=os.path.getmtime)
-    selected_paths = regex_sha_match(selected_paths, repo, language)
+    selected_paths = regex_sha_match(selected_paths, repo, languages)
     comparison_result = f"{fp_diff_file_path.split('-fprm')[0]}-comparison.json"
     logging.info(f"Comparison result is stored at: {comparison_result}")
 
@@ -439,7 +439,7 @@ def process_results(output_file, repo, languages, sha):
         logging.warning("[!!] Not enough runs for comparison")
 
 
-def regex_sha_match(selected_paths, repo, language):
+def regex_sha_match(selected_paths, repo, languages):
     # in the case where a repo has the same name as the prefix of another repo,
     # this ensures they won't be in the selected_paths.
     # e.g., for repos named hello and hello-again, hello won't have hello-again's
@@ -448,7 +448,7 @@ def regex_sha_match(selected_paths, repo, language):
     for f in selected_paths:
         sha = re.findall(r"([a-fA-F\d]{7})", f)[0]
         location = f.find(sha)
-        expected_path = f"{language}-{repo}-{f[location:location+7]}"
+        expected_path = f"{languages}-{repo}-{f[location:location+7]}"
         if expected_path in f:
             paths.append(f)
     return paths
@@ -523,11 +523,14 @@ def scan_repo(repo_long, languages, git_sha):
     spinner = Spinner(message="Elapsed time: %(elapsed_td)s ", suffix="\n")
     x = threading.Thread(target=run_docker, args=(semgrep_command,))
     x.start()
+    start_time = time.time()
     time.sleep(4)
     while x.is_alive():
         time.sleep(1)
         spinner.next()
     results = x.join()
+    elapsed_time = time.time()-start_time
+    logging.info(f"\nScanning {repo} took {int(elapsed_time)} seconds\n")
 
     with open(output_file_path) as f:
         findings = json.load(f)
@@ -725,11 +728,10 @@ def find_repo_language(repo):
                 content = f.read().splitlines()
                 for line in content:
                     if line == repo:
-                        logging.info(f"{repo} is written in {language}")
                         repo_languages.append(language)
     if not repo_languages:
-        raise Exception(f"[!!] No language found in snow for repo {repo}. " "Check in with #triage-prodsec!")
-    logging.info(f"[+] repo languages are: {', '.join(repo_language)}")
+        raise Exception(f"[!!] No language found in snow for repo {repo}. Check in with #triage-prodsec!")
+    logging.info(f"{repo} is written in: {', '.join(repo_languages)}")
     return repo_languages
 
 
