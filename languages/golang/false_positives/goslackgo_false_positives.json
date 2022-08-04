@@ -516,5 +516,13 @@
         "reason": "False positive. This one uses MD5 for non security usage. It's simply there to check if a file on disk has new content.",
         "jira": "PRODSEC-3524",
         "Risk": "informational"
+    },
+    "26b09f1dc0865d40aba57bbe53adf24bd1d4658453450e9ad3a6bc5c708a2d54": {
+        "message": "A security scan detected use of a potentially unsafe method to execute a command.  If user controlled input is passed to the exec.Command() function, an attacker may be able to inject code that will execute in the underlying server's system shell, resulting in total compromise of the application and possibly other applications running in the same environment.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "consul_sidecar/cmd/entrypoint/main.go#168",
+        "reason": "The first param to exec is not user supplied. As well as this, this code needs to call out to the consul binary to start it",
+        "jira": "",
+        "risk": ""
     }
 }
