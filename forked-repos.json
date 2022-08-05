@@ -7,5 +7,6 @@
     "fbthrift": "https://github.com/facebook/fbthrift.git",
     "kafka": "https://github.com/apache/kafka.git",
     "vitess": "https://github.com/vitessio/vitess.git",
-    "trop": "https://github.com/electron/trop.git"
+    "trop": "https://github.com/electron/trop.git",
+    "consul": "https://github.com/hashicorp/consul"
 }
