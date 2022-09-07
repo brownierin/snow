@@ -16,10 +16,11 @@ def test_url_builder():
         results = json.load(f)
     result = results["results"][0]
     github_url = "https://slack-github.com/slack"
+    git_org = results["metadata"]["git_org"]
     repo_name = results["metadata"]["repo_name"]
     github_branch = "default"
 
-    one_result = process_one_result(result, github_url, repo_name, github_branch)
+    one_result = process_one_result(result, github_url, git_org, repo_name, github_branch)
     expected_url = "https://slack-github.com/slack/malware-service/tree/default/malware/filetypes.go#L99"
     assert expected_url in one_result[0]
     assert 1 == one_result[1]
