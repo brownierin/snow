@@ -559,7 +559,7 @@ def add_hash_id(jsonFile, start_line, end_line, name):
         file.write(json.dumps(data))
 
 
-def process_one_result(result, github_url, repo_name, github_branch):
+def process_one_result(result, github_url, git_org, repo_name, github_branch):
     check_id = result["check_id"]
     line_start = result["start"]["line"]
     message = result["extra"]["message"]
@@ -574,7 +574,7 @@ def process_one_result(result, github_url, repo_name, github_branch):
     code_lines = result["extra"]["lines"][:300]
     high_priority_rules_check_id = CONFIG["high-priority"]["high_priority_rules_check_id"].split("\n")
     high_priority_rules_message = CONFIG["high-priority"]["high_priority_rules_message"].split("\n")
-    code_url = f"{github_url}/{repo_name}/tree/{github_branch}/{code_path}#L{str(line_start)}"
+    code_url = f"{github_url}/{git_org}/{repo_name}/tree/{github_branch}/{code_path}#L{str(line_start)}"
     priority = "normal"
     result_builder = f"""
         *Security Vulnerability Detected in {repo_name}*
@@ -613,6 +613,7 @@ def alert_channel():
             results = data["results"]
             errors = data["errors"]
             repo_name = data["metadata"]["repo_name"]
+            git_org = data["metadata"]["git_org"]
             alert_json.update({repo_name: {"normal": [], "high": []}})
             url = data["metadata"]["git_url"]
             github_branch = data["metadata"]["branch"]
@@ -620,7 +621,7 @@ def alert_channel():
             if results:
                 total_vulns = len(results)
                 for result in results:
-                    processed, highs, priority = process_one_result(result, url, repo_name, github_branch)
+                    processed, highs, priority = process_one_result(result, url, git_org, repo_name, github_branch)
                     alert_json[repo_name][priority].append(processed)
                     high += highs
             """
