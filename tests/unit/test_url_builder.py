@@ -22,6 +22,7 @@ def test_url_builder():
 
     one_result = process_one_result(result, github_url, git_org, repo_name, github_branch)
     expected_url = "https://slack-github.com/slack/malware-service/tree/default/malware/filetypes.go#L99"
+    logging.info(f"{one_result[0]}")
     assert expected_url in one_result[0]
     assert 1 == one_result[1]
 
