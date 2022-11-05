@@ -127,7 +127,6 @@ def remove_scheme_from_url(url):
         return parsed.netloc + parsed.path
 
 
-
 def get_docker_image(mode=None):
     """
     Downloads docker images and compares the digests
@@ -154,6 +153,8 @@ def get_docker_image(mode=None):
         if digest_check_scan != -1:
             raise Exception("[!!] Digest mismatch!")
         logging.info("Semgrep downloaded and verified")
+        logging.info("Building container")
+        build_container()
 
 
 def download_semgrep(version):
@@ -248,6 +249,7 @@ def git_ops(repo):
         if url == ghc_url:
             trust_this_repo_command = f"git config --global --add safe.directory {repo_path}"
             run_command(trust_this_repo_command)
+
 
 def git_forked_repos(repo_long, language, git_sha):
     url, org, repo = repo_long.split("/")
@@ -446,18 +448,27 @@ def regex_sha_match(selected_paths, repo, language):
     return paths
 
 
+def build_dockerfile():
+    version = CONFIG["general"]["version"]
+    dockerfile = f"FROM returntocorp/semgrep:{version}"
+    with open("Dockerfile", "w") as f:
+        f.write(dockerfile)
+
+
+def build_container():
+    build_dockerfile()
+    run_command(f"docker build -t slack/semgrep .")
+
+
 def build_scan_command(config_lang, output_file, repo):
-    user_id = run_command("id -u").stdout.decode("utf-8").strip()
-    group_id = run_command("id -g").stdout.decode("utf-8").strip()
     cmd = [
         "docker",
         "run",
         "--rm",
-        "--user",
-        f"{user_id}:{group_id}",
         "-v",
         f"{SNOW_ROOT}:/src",
-        f"returntocorp/semgrep:{CONFIG['general']['version']}",
+        f"slack/semgrep:latest",
+        "semgrep",
         f"{CONFIG[config_lang]['config']}",
     ]
     for x in f"{CONFIG[config_lang]['exclude']}".split(" "):
@@ -502,7 +513,7 @@ def scan_repo(repo_long, language, git_sha):
     with subprocess.Popen(semgrep_command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, bufsize=1) as process:
         logging.info(f'{process.stdout.read().decode("ascii")}\n')
 
-    output_file_path = f"{RESULTS_DIR}/{output_file}"
+    output_file_path = f"{RESULTS_DIR}{output_file}"
     with open(output_file_path) as f:
         findings = json.load(f)
         results = json.dumps(findings, indent=4)
@@ -708,6 +719,7 @@ def find_repo_language(repo):
     if repo_language == "":
         raise Exception(f"[!!] No language found in snow for repo {repo}. Check in with #triage-prodsec!")
 
+
 def set_ssh_key(url):
     if jenkins.get_ci_env() == "jenkins":
         if url == ghc_url:
@@ -879,6 +891,7 @@ if __name__ == "__main__":
 
     if args.s3:
         os.environ["ENABLE_S3"] = True
+
     global no_cleanup
     no_cleanup = True if args.no_cleanup else False
 
