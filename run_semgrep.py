@@ -24,7 +24,7 @@ import comparison
 import aws.upload_to_s3 as s3
 import checkpoint_out as checkpoint
 import ci.jenkins as jenkins
-from exceptions import GitMergeBaseError
+from exceptions import GitMergeBaseError, FilePermissionsError
 
 SNOW_ROOT = os.path.dirname(os.path.realpath(__file__))
 env = os.getenv("env")
@@ -355,6 +355,12 @@ def scan_repos():
         Scan the repo and perform the comparison
         """
         results, output_file = scan_repo(repo_long, language, git_sha)
+        """
+        Required with the jump to semgrep version 0.120.0. The semgrep dockerfile now
+        creates a non-root user different from the host's user, so we need to give the
+        user outside of the container permissions to read the results folder
+        """
+        change_file_permissions(RESULTS_DIR)
         process_results(output_file, repo, language, git_sha[:7])
 
         """
@@ -364,6 +370,13 @@ def scan_repos():
         """
         if repo in FORKED_REPOS:
             git_forked_repos(repo_long, language, git_sha)
+
+
+def change_file_permissions(path):
+    try:
+        output = run_command(f"chmod a+rwx {path}").stdout.decode("utf-8")
+    except:
+        raise FilePermissionsError(path, output)
 
 
 def add_metadata(repo_long, language, git_sha, output_file):
@@ -408,9 +421,6 @@ def process_results(output_file, repo, language, sha):
     fp_diff_file_path = RESULTS_DIR + fp_diff_outfile
     fp_file = f"{SNOW_ROOT}/languages/{language}/false_positives/{repo}_false_positives.json"
 
-    """
-    Remove false positives from the results
-    """
     if os.path.exists(output_file_path):
         comparison.remove_false_positives(output_file_path, fp_file, fp_diff_file_path)
 
