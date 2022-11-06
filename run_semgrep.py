@@ -553,6 +553,7 @@ def add_hash_id(jsonFile, start_line, end_line, name):
     The hash is the sha256 value of : check_id + path + 3 line of codes
     NOTE: We don't hash the line number. Code addition could change the line number
     """
+    change_file_permissions(jsonFile)
 
     with open(jsonFile, "r") as file:
         data = json.load(file)
