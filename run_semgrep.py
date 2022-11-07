@@ -374,7 +374,7 @@ def scan_repos():
 
 def change_file_permissions(path):
     try:
-        output = run_command(f"chmod a+rwx {path}").stdout.decode("utf-8")
+        output = run_command(f"chmod a+rw {path}").stdout.decode("utf-8")
     except:
         raise FilePermissionsError(path, output)
 
@@ -386,8 +386,9 @@ def add_metadata(repo_long, language, git_sha, output_file):
     url, org, repo = repo_long.split("/")
     output_file_path = f"{RESULTS_DIR}{output_file}"
     configlanguage = f"language-{language}"
-    logging.info(f"Opening {output_file_path}")
+    logging.info(f"Adding metadata to {output_file_path}")
 
+    change_file_permissions(output_file)
     with open(output_file_path, "r") as file:
         """
         Update the metadata on the scan result
