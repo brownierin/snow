@@ -373,11 +373,14 @@ def scan_repos():
 
 
 def change_file_permissions(path):
-    perms = run_command(f"ls -al {path}").stdout.decode('utf-8')
-    logging.info(f"perms on file or folder {perms}")
-    output = run_command(f"chmod a+rw {path}")
-    if output.returncode != 0:
-        raise FilePermissionsError(path, output.stdout.decode("utf-8"))
+    cmd = f"ls -al {path}"
+    perms = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    perms_stdout = perms.stdout.decode("utf-8")
+    logging.info(f"perms on file or folder {perms_stdout}")
+    cmd = f"chmod a+rw {path}"
+    chmod = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    if chmod.returncode != 0:
+        raise FilePermissionsError(path, chmod.stdout.decode("utf-8"))
 
 
 def add_metadata(repo_long, language, git_sha, output_file):
