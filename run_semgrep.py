@@ -360,7 +360,7 @@ def scan_repos():
         creates a non-root user different from the host's user, so we need to give the
         user outside of the container permissions to read the results folder
         """
-        change_file_permissions(RESULTS_DIR)
+        # change_file_permissions(RESULTS_DIR)
         process_results(output_file, repo, language, git_sha[:7])
 
         """
@@ -392,7 +392,7 @@ def add_metadata(repo_long, language, git_sha, output_file):
     configlanguage = f"language-{language}"
     logging.info(f"Adding metadata to {output_file_path}")
 
-    change_file_permissions(output_file_path)
+    # change_file_permissions(output_file_path)
     with open(output_file_path, "r") as file:
         """
         Update the metadata on the scan result
@@ -476,10 +476,14 @@ def build_container():
 
 
 def build_scan_command(config_lang, output_file, repo):
+    user_id = run_command("id -u").stdout.decode("utf-8").strip()
+    group_id = run_command("id -g").stdout.decode("utf-8").strip()
     cmd = [
         "docker",
         "run",
         "--rm",
+        "--user",
+        f"{user_id}:{group_id}",
         "-v",
         f"{SNOW_ROOT}:/src",
         f"slack/semgrep:latest",
@@ -559,7 +563,7 @@ def add_hash_id(jsonFile, start_line, end_line, name):
     NOTE: We don't hash the line number. Code addition could change the line number
     """
     logging.info(f"Adding hash_id to {jsonFile}")
-    change_file_permissions(jsonFile)
+    # change_file_permissions(jsonFile)
 
     with open(jsonFile, "r") as file:
         data = json.load(file)
