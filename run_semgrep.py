@@ -373,9 +373,11 @@ def scan_repos():
 
 
 def change_file_permissions(path):
-    output = run_command(f"chmod a+rw {path}").stdout.decode("utf-8")
+    perms = run_command(f"ls -al {path}").stdout.decode('utf-8')
+    logging.info(f"perms on file or folder {perms}")
+    output = run_command(f"chmod a+rw {path}")
     if output.returncode != 0:
-        raise FilePermissionsError(path, output)
+        raise FilePermissionsError(path, output.stdout.decode("utf-8"))
 
 
 def add_metadata(repo_long, language, git_sha, output_file):
@@ -387,7 +389,7 @@ def add_metadata(repo_long, language, git_sha, output_file):
     configlanguage = f"language-{language}"
     logging.info(f"Adding metadata to {output_file_path}")
 
-    change_file_permissions(output_file)
+    change_file_permissions(output_file_path)
     with open(output_file_path, "r") as file:
         """
         Update the metadata on the scan result
@@ -553,9 +555,8 @@ def add_hash_id(jsonFile, start_line, end_line, name):
     The hash is the sha256 value of : check_id + path + 3 line of codes
     NOTE: We don't hash the line number. Code addition could change the line number
     """
+    logging.info(f"Adding hash_id to {jsonFile}")
     change_file_permissions(jsonFile)
-    perms = run_command(f"ls -al {jsonFile}")
-    logging.info(f"perms on output file {perms.stdout.decode('utf-8')}")
 
     with open(jsonFile, "r") as file:
         data = json.load(file)
