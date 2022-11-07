@@ -373,9 +373,8 @@ def scan_repos():
 
 
 def change_file_permissions(path):
-    try:
-        output = run_command(f"chmod a+rw {path}").stdout.decode("utf-8")
-    except:
+    output = run_command(f"chmod a+rw {path}").stdout.decode("utf-8")
+    if output.returncode != 0:
         raise FilePermissionsError(path, output)
 
 
