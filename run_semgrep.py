@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import pprint
+import shlex
 import subprocess
 import configparser
 import os
@@ -360,7 +361,6 @@ def scan_repos():
         creates a non-root user different from the host's user, so we need to give the
         user outside of the container permissions to read the results folder
         """
-        # change_file_permissions(RESULTS_DIR)
         process_results(output_file, repo, language, git_sha[:7])
 
         """
@@ -372,17 +372,6 @@ def scan_repos():
             git_forked_repos(repo_long, language, git_sha)
 
 
-def change_file_permissions(path):
-    cmd = f"ls -al {path}"
-    perms = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    perms_stdout = perms.stdout.decode("utf-8")
-    logging.info(f"perms on file or folder {perms_stdout}")
-    cmd = f"chmod a+rw {path}"
-    chmod = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    if chmod.returncode != 0:
-        raise FilePermissionsError(path, chmod.stdout.decode("utf-8"))
-
-
 def add_metadata(repo_long, language, git_sha, output_file):
     """
     Adds metadata and finding hash_id to a scan result
@@ -392,7 +381,6 @@ def add_metadata(repo_long, language, git_sha, output_file):
     configlanguage = f"language-{language}"
     logging.info(f"Adding metadata to {output_file_path}")
 
-    # change_file_permissions(output_file_path)
     with open(output_file_path, "r") as file:
         """
         Update the metadata on the scan result
@@ -475,24 +463,14 @@ def build_container():
     run_command(f"docker build -t slack/semgrep .")
 
 
-def build_scan_command(config_lang, output_file, repo):
-    user_id = run_command("id -u").stdout.decode("utf-8").strip()
-    group_id = run_command("id -g").stdout.decode("utf-8").strip()
-    cmd = [
-        "docker",
-        "run",
-        "--rm",
-        "--user",
-        f"{user_id}:{group_id}",
-        "-v",
-        f"{SNOW_ROOT}:/src",
-        f"slack/semgrep:latest",
-        "semgrep",
-        f"{CONFIG[config_lang]['config']}",
-    ]
+def build_scan_command(config_lang, output_file, repo, container):
+    cmd = shlex.split(f"docker exec -it {container}")
+    cmd = cmd + ["semgrep", f"{CONFIG[config_lang]['config']}"]
+
     for x in f"{CONFIG[config_lang]['exclude']}".split(" "):
         if x:
             cmd.append(x)
+
     remainder = [
         "--json",
         "--metrics",
@@ -503,6 +481,7 @@ def build_scan_command(config_lang, output_file, repo):
     ]
     for remains in remainder:
         cmd.append(remains)
+
     if slack.is_webapp(repo):
         for item in cmd:
             if "--config=/src/languages/hacklang" in item:
@@ -523,7 +502,12 @@ def scan_repo(repo_long, language, git_sha):
     config_lang = f"language-{language}"
     output_file = f"{language}-{repo}-{git_sha[:7]}.json"
 
-    semgrep_command = build_scan_command(config_lang, output_file, repo)
+    # create the docker container
+    mount = f"{SNOW_ROOT}:/src"
+    container = run_command(f"docker run -t -d -v {mount} slack/semgrep").stdout.decode("utf-8")
+
+    semgrep_command = build_scan_command(config_lang, output_file, repo, container)
+
     logging.info(f"Docker scan command:\n {' '.join(semgrep_command)}")
     logging.info(f"Running Semgrep")
 
@@ -531,6 +515,12 @@ def scan_repo(repo_long, language, git_sha):
     # Using Popen to avoid buffer errors with Docker child processes
     with subprocess.Popen(semgrep_command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, bufsize=1) as process:
         logging.info(f'{process.stdout.read().decode("ascii")}\n')
+    
+    # change file permissions since semgrep runs with user opam (higher priv)
+    run_command(f"docker exec --it {container} chmod a+rw results/")
+
+    # stop container
+    run_command(f"docker rm -f {container}")
 
     output_file_path = f"{RESULTS_DIR}{output_file}"
     with open(output_file_path) as f:
@@ -563,7 +553,6 @@ def add_hash_id(jsonFile, start_line, end_line, name):
     NOTE: We don't hash the line number. Code addition could change the line number
     """
     logging.info(f"Adding hash_id to {jsonFile}")
-    # change_file_permissions(jsonFile)
 
     with open(jsonFile, "r") as file:
         data = json.load(file)
