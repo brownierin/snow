@@ -554,6 +554,8 @@ def add_hash_id(jsonFile, start_line, end_line, name):
     NOTE: We don't hash the line number. Code addition could change the line number
     """
     change_file_permissions(jsonFile)
+    perms = run_command(f"ls -al {jsonFile}")
+    logging.info(f"perms on output file {perms.stdout.decode('utf-8')}")
 
     with open(jsonFile, "r") as file:
         data = json.load(file)
