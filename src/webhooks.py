@@ -3,7 +3,7 @@
 import requests
 import os
 import logging
-from exceptions import WebhookUrlError
+from src.exceptions import WebhookUrlError
 
 logging.getLogger(__name__)
 
