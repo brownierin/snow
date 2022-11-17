@@ -70,7 +70,7 @@ jobs:
         id: run-semgrep
         run: |
           cd ${{ env.working-directory }}
-          env=snow-test poetry run $(pwd)/run_semgrep.py -m pr -r ${{ github.event.repository.name }}
+          env=snow-test poetry run $(pwd)/run_semgrep.py -m pr -r ${{ github.server_url }}/${{ github.repository }}
           cat_results=$(cat results/results_blob.txt | python3 -c 'import json; import sys; print(json.dumps(sys.stdin.read()))')
           echo "RESULTS=${cat_results}" >> $GITHUB_ENV
 
