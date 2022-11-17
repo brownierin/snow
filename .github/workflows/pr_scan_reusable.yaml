@@ -7,7 +7,7 @@ on:
 
 jobs:
   static_analysis:
-    uses: tinyspeck/snow/.github/workflows/pr_scan.yaml@master
+    uses: tinyspeck/snow/.github/workflows/pr_scan.yaml@actions_pr_scan
     secrets:       
       SNOW_ALERT_WEBHOOK: ${{ secrets.SNOW_ALERT_WEBHOOK }}
       CHECKPOINT_TOKEN: ${{ secrets.CHECKPOINT_TOKEN }}
