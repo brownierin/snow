@@ -30,7 +30,7 @@ def run_long_command(command):
     while True:
         output = process.stdout.readline()
         if output:
-            print(output.decode("utf-8").strip("\n"))
+            print(output.decode("utf-8"))
             # for line in output:
                 # print(line.decode("utf-8").split("\n")[0])
         if process.poll() is not None:
