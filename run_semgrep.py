@@ -700,6 +700,7 @@ def find_repo_language(repo):
             with open(filename) as f:
                 content = f.read().splitlines()
                 for line in content:
+                    logging.info(line)
                     if line == repo:
                         logging.info(f"{repo} is written in {language}")
                         repo_language = language
