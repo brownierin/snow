@@ -9,8 +9,10 @@ import glob
 import yaml
 from pathlib import Path
 
+
 def make_csv_link(url, text):
     return f'=HYPERLINK("{url}","{text}")'
+
 
 def get_nice_checkid(language, check_id):
     for yaml_file in glob.glob(f"languages/{language}/**/*.yaml", recursive=True):
@@ -24,6 +26,7 @@ def get_nice_checkid(language, check_id):
 
     return check_id
 
+
 def format_csv(json_files, out_csv):
     all_results = []
 
@@ -31,7 +34,7 @@ def format_csv(json_files, out_csv):
         # Here we expect the filename to have the following format
         # language-project-name-hash.json OR
         # language-project-name-hash-type.json
-        filename  =  os.path.basename(result_file_path)
+        filename = os.path.basename(result_file_path)
         language, rest = filename.split("-", 1)
 
         with open(result_file_path) as result_file:
@@ -57,34 +60,39 @@ def format_csv(json_files, out_csv):
                 # hash_id is only available in "fprm" result file. We need to handle when it's missing
                 hash_id = finding["hash_id"]
 
-                all_results.append({
-                    "Rule and Remediation Guidance" : get_nice_checkid(language, checkid),
-                    "ProjectName" : make_csv_link(url_project, repo_name),
-                    "Language" : language,
-                    "Path" : f"{git_url}/{git_org}/{repo_name}/blob/{git_branch}/{path}#L{start_line}-L{end_line}",
-                    "HashId" : hash_id
-                })
-    
-    with open(out_csv, "w") as csvwrite:       
-        writer = csv.DictWriter(csvwrite, fieldnames=[
-            "Rule and Remediation Guidance",
-            "ProjectName",
-            "Language",
-            "Initial Assessment",
-            "Dev Contact",
-            "Dev Assessment",
-            "Dev Notes on Assesment Decision",
-            "Final Assessment",
-            "JIRA Ticket",
-            "Security Notes",
-            "Path",
-            "HashId"
-        ])
+                all_results.append(
+                    {
+                        "Rule and Remediation Guidance": get_nice_checkid(language, checkid),
+                        "ProjectName": make_csv_link(url_project, repo_name),
+                        "Language": language,
+                        "Path": f"{git_url}/{git_org}/{repo_name}/blob/{git_branch}/{path}#L{start_line}-L{end_line}",
+                        "HashId": hash_id,
+                    }
+                )
+
+    with open(out_csv, "w") as csvwrite:
+        writer = csv.DictWriter(
+            csvwrite,
+            fieldnames=[
+                "Rule and Remediation Guidance",
+                "ProjectName",
+                "Language",
+                "Initial Assessment",
+                "Dev Contact",
+                "Dev Assessment",
+                "Dev Notes on Assesment Decision",
+                "Final Assessment",
+                "JIRA Ticket",
+                "Security Notes",
+                "Path",
+                "HashId",
+            ],
+        )
         writer.writeheader()
         writer.writerows(all_results)
 
 
-def list_of_comparison_files(dir = "results"):
+def list_of_comparison_files(dir="results"):
     paths = []
     for path in Path(dir).iterdir():
         paths.append(f"{dir}/{path.name}")
@@ -92,9 +100,7 @@ def list_of_comparison_files(dir = "results"):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description="Converts a result JSON file to CSV"
-    )
+    parser = argparse.ArgumentParser(description="Converts a result JSON file to CSV")
     parser.add_argument(
         "json_files",
         nargs="*",
@@ -105,15 +111,10 @@ if __name__ == "__main__":
         "--out_filename",
         help="Output CSV file",
     )
-    parser.add_argument(
-        "--dir",
-        "-d",
-        help="takes a directory. grabs all files ending with -comparison"
-    )
+    parser.add_argument("--dir", "-d", help="takes a directory. grabs all files ending with -comparison")
     args = parser.parse_args()
     if args.json_files:
         format_csv(args.json_files, args.out_filename)
     if args.dir:
         files = list_of_comparison_files(args.dir)
         format_csv(files, args.out_filename)
-
