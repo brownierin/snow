@@ -329,6 +329,13 @@ def download_repos():
         git_ops(repo)
 
 
+def get_hash_id(date, repo):
+    # Date format should be 2022-09-14
+    repodir = f"{REPOSITORIES_DIR}{repo}"
+    cmd = run_command(f"""git -C {repodir} log --before={date} -1 --pretty=format:"%H" """)
+    return cmd.stdout.decode("utf-8")
+
+
 def scan_repos():
     """
     Iterates over all repos in the enabled files and performs
@@ -849,7 +856,26 @@ def prettyprint(result):
     return content
 
 
-def run_semgrep_daily():
+def scan_specific_date(date):
+    repos = get_repo_list()
+    for repo_long in repos:
+        url, org, repo = repo_long.split("/")
+        set_ssh_key(url)
+        language = find_repo_language(repo_long)
+        hash = get_hash_id(date, repo)
+        logging.info(f"Scanning repo {repo} at {hash} from {date}")
+
+        cmd = run_command(f"git -C {REPOSITORIES_DIR}{repo} checkout {hash}")
+        logging.info(cmd.stdout.decode("utf-8"))
+
+        """
+        Scan the repo and perform the comparison
+        """
+        results, output_file = scan_repo(repo_long, language, hash[:7])
+        process_results(output_file, repo, language, hash[:7])
+
+
+def run_semgrep_daily(date=None):
     # Delete all directories that would have old repos, or results from the last run as the build boxes may persist from previous runs.
     clean_workspace()
     # Get Semgrep Docker image, check against a known good hash
@@ -857,6 +883,8 @@ def run_semgrep_daily():
     # Download the repos in the language enabled list and run
     download_repos()
     scan_repos()
+    if date != None:
+        scan_specific_date(date)
     # Output alerts to Slack
     if jenkins.get_job_name().lower() == CONFIG["general"]["jenkins_prod_job"].lower():
         alert_channel()
@@ -874,6 +902,7 @@ if __name__ == "__main__":
     parser.add_argument("-r", "--repo", help="the name of the git repo")
     parser.add_argument("--s3", help="upload to s3", action="store_true")
     parser.add_argument("--no-cleanup", help="skip cleanup", action="store_true")
+    parser.add_argument("--date", "-d", help="Used to scan and diff a specific date for the daily scan")
 
     args = parser.parse_args()
 
@@ -885,7 +914,7 @@ if __name__ == "__main__":
     if args.mode == "daily":
         if args.repo:
             logging.warning("Daily mode does not support repo args. Ignoring them.")
-        run_semgrep_daily()
+        run_semgrep_daily(args.date)
     elif args.mode == "pr":
         run_semgrep_pr(args.repo)
     elif args.mode == "version":
