@@ -92,7 +92,7 @@ def format_csv(json_files, out_csv):
         writer.writerows(all_results)
 
 
-def list_of_comparison_files(dir="results"):
+def list_of_comparison_files(dir):
     paths = []
     for path in Path(dir).iterdir():
         paths.append(f"{dir}/{path.name}")
