@@ -329,7 +329,14 @@ def download_repos():
         git_ops(repo)
 
 
-def scan_repos():
+def get_commit_id_at_date(date, repo):
+    # Date format should be 2022-09-14
+    repodir = f"{REPOSITORIES_DIR}{repo}"
+    cmd = run_command(f"""git -C {repodir} log --before={date} -1 --pretty=format:"%H" """)
+    return cmd.stdout.decode("utf-8")
+
+
+def scan_repos(no_compare=False):
     """
     Iterates over all repos in the enabled files and performs
     a Semgrep scan.
@@ -339,13 +346,6 @@ def scan_repos():
         url, org, repo = repo_long.split("/")
         set_ssh_key(url)
         language = find_repo_language(repo_long)
-
-        """
-        Get the default branch name
-        """
-        cmd = "git remote show origin | grep 'HEAD branch' | sed 's/.*: //'"
-        default_branch_name = run_command(cmd).stdout.decode("utf-8")
-        logging.info(f"Default branch name: {default_branch_name.strip()}")
         get_sha_process = run_command(f"git -C {REPOSITORIES_DIR}{repo} rev-parse HEAD")
         git_sha = get_sha_process.stdout.decode("utf-8").rstrip()
 
@@ -353,7 +353,11 @@ def scan_repos():
         Scan the repo and perform the comparison
         """
         results, output_file = scan_repo(repo_long, language, git_sha)
-        process_results(output_file, repo, language, git_sha[:7])
+        if not no_compare:
+            process_results(output_file, repo, language, git_sha[:7])
+        else:
+            # We still need the fprm file for the comparison, so generate just it
+            remove_false_positives(output_file, repo, language, git_sha[:7])
 
         """
         Special repos are repos that are forked from open-source libraries or projects.
@@ -397,6 +401,23 @@ def add_metadata(repo_long, language, git_sha, output_file):
         add_hash_id(output_file_path, 4, 1, "hash_id")
 
 
+def remove_false_positives(output_file, repo, language, sha):
+    output_file_path = f"{RESULTS_DIR}{output_file}"
+    """
+    Note: "fprm" stands for false positives removed
+    """
+    fp_diff_outfile = f"{language}-{repo}-{sha}-fprm.json"
+    fp_diff_file_path = RESULTS_DIR + fp_diff_outfile
+    fp_file = f"{SNOW_ROOT}/languages/{language}/false_positives/{repo}_false_positives.json"
+
+    """
+    Remove false positives from the results
+    """
+    if os.path.exists(output_file_path):
+        comparison.remove_false_positives(output_file_path, fp_file, fp_diff_file_path)
+
+
+
 def process_results(output_file, repo, language, sha):
     output_file_path = f"{RESULTS_DIR}{output_file}"
     """
@@ -428,7 +449,7 @@ def process_results(output_file, repo, language, sha):
         logging.info(f"Comparing {old} and {fp_diff_outfile}")
         comparison.compare_to_last_run(old, fp_diff_file_path, comparison_result)
     else:
-        logging.warning("[!!] Not enough runs for comparison")
+        logging.warning(f"[!!] Not enough runs for comparison for {repo}")
 
 
 def regex_sha_match(selected_paths, repo, language):
@@ -849,14 +870,49 @@ def prettyprint(result):
     return content
 
 
-def run_semgrep_daily():
+def get_default_branch(repo):
+    cmd = f"git -C {REPOSITORIES_DIR}{repo} remote show origin | grep 'HEAD branch' | sed 's/.*: //'"
+    default_branch = run_command(cmd).stdout.decode("utf-8")
+    logging.info(f"Default branch name: {default_branch.strip()}")
+    return default_branch
+
+
+def scan_specific_date(date):
+    repos = get_repo_list()
+    for repo_long in repos:
+        url, org, repo = repo_long.split("/")
+        set_ssh_key(url)
+
+        language = find_repo_language(repo_long)
+        cmd = run_command(f"git -C {REPOSITORIES_DIR}{repo} rev-parse HEAD")
+        git_sha_master = cmd.stdout.decode("utf-8").rstrip()
+        git_sha = get_commit_id_at_date(date, repo)
+        run_command(f"git -C {REPOSITORIES_DIR}{repo} checkout {git_sha}")
+
+        if git_sha == git_sha_master:
+            logging.info(f"Skipping scanning for {date}; the commit id is the same as master")
+            return
+
+        logging.info(f"Scanning repo {repo} at {git_sha[:7]} from {date}")
+        scan_repo(repo_long, language, git_sha[:7])
+
+        # Use current master results as primary for comparison
+        output_file = f"{language}-{repo}-{git_sha_master[:7]}.json"
+        process_results(output_file, repo, language, git_sha[:7])
+
+
+def run_semgrep_daily(date=None):
     # Delete all directories that would have old repos, or results from the last run as the build boxes may persist from previous runs.
     clean_workspace()
     # Get Semgrep Docker image, check against a known good hash
     get_docker_image()
     # Download the repos in the language enabled list and run
     download_repos()
-    scan_repos()
+    if date != None:
+        scan_repos(no_compare=True)
+        scan_specific_date(date)
+    else:
+        scan_repos()
     # Output alerts to Slack
     if jenkins.get_job_name().lower() == CONFIG["general"]["jenkins_prod_job"].lower():
         alert_channel()
@@ -874,6 +930,7 @@ if __name__ == "__main__":
     parser.add_argument("-r", "--repo", help="the name of the git repo")
     parser.add_argument("--s3", help="upload to s3", action="store_true")
     parser.add_argument("--no-cleanup", help="skip cleanup", action="store_true")
+    parser.add_argument("--date", "-d", help="Used to scan and diff a specific date for the daily scan")
 
     args = parser.parse_args()
 
@@ -885,7 +942,7 @@ if __name__ == "__main__":
     if args.mode == "daily":
         if args.repo:
             logging.warning("Daily mode does not support repo args. Ignoring them.")
-        run_semgrep_daily()
+        run_semgrep_daily(args.date)
     elif args.mode == "pr":
         run_semgrep_pr(args.repo)
     elif args.mode == "version":
