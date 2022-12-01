@@ -93,10 +93,7 @@ def format_csv(json_files, out_csv):
 
 
 def list_of_comparison_files(dir):
-    paths = []
-    for path in Path(dir).iterdir():
-        paths.append(f"{dir}/{path.name}")
-    return [path for path in paths if "-comparison" in path]
+    return [path for path in glob.glob(f"{dir}/*-comparison.json")]
 
 
 if __name__ == "__main__":
