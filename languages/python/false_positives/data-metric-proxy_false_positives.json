@@ -1,10 +1,18 @@
 {
-      "7b71c5537e7772149cdd349f00f1861edc6458e2a2b9c9260cd4623ecd12c209": {
+    "7b71c5537e7772149cdd349f00f1861edc6458e2a2b9c9260cd4623ecd12c209": {
         "message": "Rule 'insecure-hash-algorithm-md5' triggered.",
         "check_id": "insecure-hash-algorithm-md5",
         "location": "https://slack-github.com//slack/data-metric-proxy/blob/39217fa0f4e708a4191685778cf85702308e25d6/tasks/import_from_tsdb.py#L515-L515",
         "reason": "MD5 is not used for crypto purposes.",
         "jira": "PRODSEC-3279",
         "risk": "False Positive"
+    },
+    "5926982a0e726a86313d89f52f2fc1c499d7d50844e8672265c0596bc15422cb": {
+        "message": "Detected direct use of jinja2. If not done properly, this may bypass HTML escaping which opens up the application to cross-site scripting (XSS) vulnerabilities. Prefer using the Flask method 'render_template()' and templates with a '.html' extension in order to prevent XSS. ",
+        "check_id": "languages.python.r2c.python.flask.security.xss.audit.direct-use-of-jinja2",
+        "location": "src/source_systems/merlin_wide_table/dao.py#23",
+        "reason": "In addition, the security issue seems to be associated with a cross-site scripting issue when jinja is instantiated directly for the purpose of rendering HTML. In this case, we're not even rendering HTML. Additionally, semgrep is assuming this is a flask application but it's a fastapi application, and with fastapi this is the correct way of using Jinja2",
+        "jira": "",
+        "risk": ""
     }
 }
