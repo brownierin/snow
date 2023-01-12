@@ -15,11 +15,11 @@
         "jira": "",
         "risk": ""
     },
-    "f10a0ecd7380880cbe7f5cb5252da54156e5871e62d77b7909cf4011d99a5a02": {
+    "e3a8e7d73819d28a9c942920f0789d57d790a18f322351fdbb6b948e95912684": {
         "message": "Detected direct use of jinja2. If not done properly, this may bypass HTML escaping which opens up the application to cross-site scripting (XSS) vulnerabilities. Prefer using the Flask method 'render_template()' and templates with a '.html' extension in order to prevent XSS. ",
         "check_id": "languages.python.r2c.python.flask.security.xss.audit.direct-use-of-jinja2",
-        "location": "src/source_systems/merlin_wide_table/dao.py#18",
-        "reason": "the security issue seems to be associated with a cross-site scripting issue when jinja is instantiated directly for the purpose of rendering HTML. In this case, we're not even rendering HTML. Additionally, semgrep is assuming this is a flask application but it's a fastapi application, and with fastapi this is the correct way of using Jinja\",",
+        "location": "src/source_systems/merlin_wide_table/dao.py#20",
+        "reason": "the security issue seems to be associated with a cross-site scripting issue when jinja is instantiated directly for the purpose of rendering HTML. In this case, we're not even rendering HTML. Additionally, semgrep is assuming this is a flask application but it's a fastapi application, and with fastapi this is the correct way of using Jinja",
         "jira": "",
         "risk": ""
     }
