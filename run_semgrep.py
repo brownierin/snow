@@ -169,6 +169,7 @@ def check_digest(digest, version):
 
 def run_command(command):
     process = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    process.stdout = process.stdout + process.stderr
     if process.returncode != 0:
         error_msg = f"""
             The following command failed with return code {process.returncode}.
