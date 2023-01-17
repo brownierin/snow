@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import pprint
+import textwrap
 import subprocess
 import configparser
 import os
@@ -168,8 +168,16 @@ def check_digest(digest, version):
 
 
 def run_command(command):
-    return subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-
+    process = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    if process.returncode != 0:
+        error_msg = f"""
+            The following command failed with return code {process.returncode}.
+            Command: {process.args}
+            Error: {process.stderr.decode("utf-8")}
+            """
+        logging.info(textwrap.dedent(error_msg))
+        raise subprocess.CalledProcessError(returncode=process.returncode, cmd=process.args)
+    return process
 
 def git_pull_repo(repo_path):
     """
