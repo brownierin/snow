@@ -9,3 +9,8 @@ class GitMergeBaseError(Exception):
 class WebhookUrlError(Exception):
     def __init__(self):
         self.message = "Webhook URL isn't set!"
+
+
+class invalidSha1Error(Exception):
+    def __init__(self):
+        self.message = "SHA1 isn't valid!"
