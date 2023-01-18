@@ -780,6 +780,7 @@ def run_semgrep_pr(repo_long):
         master_sha = master_sha.stdout.decode("utf-8").strip()
 
     # Make sure you are on the branch to scan by switching to it.
+    process = run_command(f"{git_dir} fetch origin {branch_sha}")
     process = run_command(f"{git_dir} checkout -f {branch_sha}")
     logging.info(f"Branch SHA: {branch_sha}")
 
