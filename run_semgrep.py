@@ -23,7 +23,7 @@ import comparison
 import aws.upload_to_s3 as s3
 import checkpoint_out as checkpoint
 import ci.jenkins as jenkins
-from exceptions import GitMergeBaseError
+from exceptions import GitMergeBaseError, invalidSha1Error
 import src.util as util
 from src.util import run_command
 
@@ -766,6 +766,9 @@ def run_semgrep_pr(repo_long):
         cmd = f"{git_dir} show -s --format='%H' origin/master"
         master_sha = subprocess.run(cmd, shell=True, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
         master_sha = master_sha.stdout.decode("utf-8").strip()
+    logging.info(f"Master sha: {master_sha}")
+    if not util.sha1_verify(master_sha):
+        raise invalidSha1Error
 
     # Make sure you are on the branch to scan by switching to it.
     command = f"{git_dir} checkout -f {branch_sha}"
@@ -773,7 +776,7 @@ def run_semgrep_pr(repo_long):
     if process.returncode != 0:
         # Make sure there is an origin if the checkout fails, then run fetch
         util.check_for_origin(repo_long, repo_dir)
-        process = run_command(f"{git_dir} fetch")
+        process = run_command(f"{git_dir} fetch origin {branch_sha}")
         logging.info(process.stdout.decode("utf-8"))
         process = run_command(command)
         logging.info(process.stdout.decode("utf-8"))

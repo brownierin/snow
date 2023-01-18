@@ -25,6 +25,12 @@ def create_ssh_url(repo_long):
     return git_ssh_url
 
 
+def sha1_verify(sha1: str):
+    if len(sha1) == 40:
+        return True
+    return False
+
+
 def check_for_origin(repo_long, repo_dir):
     git_dir = f"git -C {repo_dir}"
     git_ssh_origin = create_ssh_url(repo_long)
