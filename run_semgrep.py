@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import textwrap
 import subprocess
 import configparser
 import os
@@ -25,6 +24,8 @@ import aws.upload_to_s3 as s3
 import checkpoint_out as checkpoint
 import ci.jenkins as jenkins
 from exceptions import GitMergeBaseError
+import src.util as util
+from src.util import run_command
 
 SNOW_ROOT = os.path.dirname(os.path.realpath(__file__))
 env = os.getenv("env")
@@ -127,7 +128,6 @@ def remove_scheme_from_url(url):
         return parsed.netloc + parsed.path
 
 
-
 def get_docker_image(mode=None):
     """
     Downloads docker images and compares the digests
@@ -166,19 +166,6 @@ def check_digest(digest, version):
     process = run_command(command)
     return digest.find((process.stdout).decode("utf-8"))
 
-
-def run_command(command):
-    process = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    process.stdout = process.stdout + process.stderr
-    if process.returncode != 0:
-        error_msg = f"""
-            The following command failed with return code {process.returncode}.
-            Command: {process.args}
-            Error: {process.stderr.decode("utf-8")}
-            """
-        logging.info(textwrap.dedent(error_msg))
-        raise subprocess.CalledProcessError(returncode=process.returncode, cmd=process.args)
-    return process
 
 def git_pull_repo(repo_path):
     """
@@ -257,6 +244,7 @@ def git_ops(repo):
         if url == ghc_url:
             trust_this_repo_command = f"git config --global --add safe.directory {repo_path}"
             run_command(trust_this_repo_command)
+
 
 def git_forked_repos(repo_long, language, git_sha):
     url, org, repo = repo_long.split("/")
@@ -424,7 +412,6 @@ def remove_false_positives(output_file, repo, language, sha):
     """
     if os.path.exists(output_file_path):
         comparison.remove_false_positives(output_file_path, fp_file, fp_diff_file_path)
-
 
 
 def process_results(output_file, repo, language, sha):
@@ -738,6 +725,7 @@ def find_repo_language(repo):
     if repo_language == "":
         raise Exception(f"[!!] No language found in snow for repo {repo}. Check in with #triage-prodsec!")
 
+
 def set_ssh_key(url):
     if jenkins.get_ci_env() == "jenkins":
         if url == ghc_url:
@@ -779,10 +767,11 @@ def run_semgrep_pr(repo_long):
         master_sha = subprocess.run(cmd, shell=True, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
         master_sha = master_sha.stdout.decode("utf-8").strip()
 
+    # Make sure there is an origin so we can ensure we have the latest code
+    util.check_for_origin(repo_long, repo_dir)
+    process = run_command(f"{git_dir} fetch")
+
     # Make sure you are on the branch to scan by switching to it.
-    process = run_command(f"{git_dir} remote -v")
-    logging.info(f"remotes are: \n{process.stdout.decode('utf-8')}")
-    process = run_command(f"{git_dir} fetch origin {branch_sha}")
     process = run_command(f"{git_dir} checkout -f {branch_sha}")
     logging.info(f"Branch SHA: {branch_sha}")
 
