@@ -767,12 +767,17 @@ def run_semgrep_pr(repo_long):
         master_sha = subprocess.run(cmd, shell=True, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
         master_sha = master_sha.stdout.decode("utf-8").strip()
 
-    # Make sure there is an origin so we can ensure we have the latest code
-    util.check_for_origin(repo_long, repo_dir)
-    process = run_command(f"{git_dir} fetch")
-
     # Make sure you are on the branch to scan by switching to it.
-    process = run_command(f"{git_dir} checkout -f {branch_sha}")
+    command = f"{git_dir} checkout -f {branch_sha}"
+    process = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    if process.returncode != 0:
+        # Make sure there is an origin if the checkout fails, then run fetch
+        util.check_for_origin(repo_long, repo_dir)
+        process = run_command(f"{git_dir} fetch")
+        logging.info(process.stdout.decode("utf-8"))
+        process = run_command(command)
+        logging.info(process.stdout.decode("utf-8"))
+
     logging.info(f"Branch SHA: {branch_sha}")
 
     # Make sure we are scanning what the repo would look like after a merge
