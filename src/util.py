@@ -1,4 +1,3 @@
-# from run_semgrep import run_command
 import logging
 import subprocess
 import textwrap
