@@ -3,10 +3,10 @@ import subprocess
 import textwrap
 
 
-def run_command(command):
+def run_command(command: str, throw_error: bool = True):
     process = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     process.stdout = process.stdout + process.stderr
-    if process.returncode != 0:
+    if ((process.returncode != 0) and throw_error):
         error_msg = f"""
             The following command failed with return code {process.returncode}.
             Command: {process.args}
@@ -19,7 +19,7 @@ def run_command(command):
 
 def create_ssh_url(repo_long):
     # slack-github.com/ebrowning/bapi2
-    # ghe git@slack-github.com:slack/bapi2.git
+    # git@slack-github.com:slack/bapi2.git
     loc = repo_long.find("/")
     git_ssh_url = f"git@{repo_long[:loc]}:{repo_long[loc+1:]}.git"
     return git_ssh_url

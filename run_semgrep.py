@@ -769,7 +769,7 @@ def run_semgrep_pr(repo_long):
 
     # Make sure you are on the branch to scan by switching to it.
     command = f"{git_dir} checkout -f {branch_sha}"
-    process = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    process = run_command(command, throw_error=False)
     if process.returncode != 0:
         # Make sure there is an origin if the checkout fails, then run fetch
         util.check_for_origin(repo_long, repo_dir)
