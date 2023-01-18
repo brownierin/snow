@@ -34,4 +34,6 @@ def check_for_origin(repo_long, repo_dir):
     process = run_command(f"{git_dir} remote -v | wc -l")
     if int(process.stdout.decode("utf-8")) < 2:
         process = run_command(f"{git_dir} remote add origin {git_ssh_origin}")
-        logging.info(f"added origin: {process.stdout.decode('utf-8')}")
+        logging.info(f"added origin: {git_ssh_origin}")
+        process = process = run_command(f"{git_dir} remote -v")
+        logging.info(f"remotes are now: \n{process.stdout.decode('utf-8')}")
