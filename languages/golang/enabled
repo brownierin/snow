@@ -39,3 +39,6 @@ slack-github.com/slack/coredumper
 slack-github.com/slack/ext-auth
 slack-github.com/slack/bapi2
 slack-github.com/slack/crypto-sidecar
+slack-github.com/slack/beagle
+slack-github.com/slack/beagle-fetch
+slack-github.com/slack/envoy-quota-adapter
