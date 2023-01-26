@@ -42,10 +42,5 @@ slack-github.com/slack/crypto-sidecar
 slack-github.com/slack/beagle
 slack-github.com/slack/beagle-fetch
 slack-github.com/slack/desktop-build-bot
-slack-github.com/slack/jqrelay
-slack-github.com/slack/kafkagate
 slack-github.com/slack/quarry
-slack-github.com/slack/ssh-ca
-slack-github.com/slack/bedrock-capacity-metrics
-slack-github.com/slack/envoy-ddos-rules
 slack-github.com/slack/envoy-quota-adapter
