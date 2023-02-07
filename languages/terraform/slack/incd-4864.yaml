@@ -1,0 +1,17 @@
+rules:
+  - id: splat-principal-no-condition
+    patterns:
+      - pattern: |
+          statement { ... principals { ... identifiers = ["*"] ... } ... }
+      - pattern-not: |
+          statement { ... condition { ... } ... }
+      - pattern-not: |
+          statement { ... effect="Deny" ... }
+    languages:
+      - hcl
+    paths:
+      include:
+      - '*.tf'
+    message: |
+      Allowing other users to assume full access to a role can lead to vulnerabilities such as privilege escalation and data exfiltration. Always limit who can assume a role by either using conditions for assumption or limiting the assumption to specific accounts.
+    severity: WARNING
