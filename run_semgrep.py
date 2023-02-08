@@ -139,21 +139,20 @@ def get_docker_image(mode=None):
 
     download_semgrep(version)
     logging.info("Verifying Semgrep")
-    digest_check_scan = check_digest(digest, version)
+    digest_match = check_digest(digest, version)
 
     if mode == "version":
         download_semgrep("latest")
-        digest_check_update = check_digest(digest, "latest")
-        if digest_check_update == -1:
-            logging.info("[!!] A new version of semgrep is available.")
+        digest_match = check_digest(digest, "latest")
+        if digest_match == False:
+            logging.info("A new version of semgrep is available.")
             return 1
         else:
             logging.info("Semgrep is up to date.")
             return 0
-    else:
-        if digest_check_scan != -1:
-            raise Exception("[!!] Digest mismatch!")
-        logging.info("Semgrep downloaded and verified")
+    if digest_match == False:
+        raise Exception("The downloaded container's digest does not match the config value.")
+    logging.info("Semgrep downloaded and verified")
 
 
 def download_semgrep(version):
@@ -162,9 +161,11 @@ def download_semgrep(version):
 
 
 def check_digest(digest, version):
-    command = f"docker inspect --format='{{.RepoDigests}}' returntocorp/semgrep:{version}"
+    command = f"docker inspect --format='{{{{.RepoDigests}}}}' returntocorp/semgrep:{version}"
     process = run_command(command)
-    return digest.find((process.stdout).decode("utf-8"))
+    container_digest = process.stdout.decode("utf-8")
+    find = container_digest.find(digest)
+    return True if find != -1 else False
 
 
 def git_pull_repo(repo_path):
