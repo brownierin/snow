@@ -518,7 +518,7 @@ def scan_repo(repo_long, language, git_sha):
     # Not using run_command here because we want to ignore the exit code of semgrep.
     # Using Popen to avoid buffer errors with Docker child processes
     with subprocess.Popen(semgrep_command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, bufsize=1) as process:
-        logging.info(f'{process.stdout.read().decode("ascii")}\n')
+        logging.info(f'{process.stdout.read().decode("utf-8")}\n')
 
     output_file_path = f"{RESULTS_DIR}/{output_file}"
     with open(output_file_path) as f:
