@@ -54,7 +54,7 @@ jobs:
           mv repo/.[!.]* repositories/${{ github.event.repository.name }}
 
       - name: Install python3
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: '3.10'
 
@@ -74,7 +74,7 @@ jobs:
           echo "RESULTS=${cat_results}" >> $GITHUB_ENV
 
       - name: Archive scan results
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
             name: results_folder
             path: ${{ env.working-directory}}/results/*
