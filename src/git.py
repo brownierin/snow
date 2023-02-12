@@ -229,3 +229,10 @@ def git_ops_pr_scan(repo_long):
         json.dump(repo_info, file, sort_keys=True, indent=4)
 
     merge(repo_dir, master_sha)
+
+
+def get_commit_id_at_date(date, repo):
+    # Date format should be 2022-09-14
+    repodir = f"{REPOSITORIES_DIR}{repo}"
+    cmd = run_command(f"""git -C {repodir} log --before={date} -1 --pretty=format:"%H" """)
+    return cmd.stdout.decode("utf-8")

@@ -28,3 +28,8 @@ class FilePermissionsError(Exception):
             Error from cmd: {self.stdout}
         """
         return dedent(str)
+
+
+class invalidSha1Error(Exception):
+    def __init__(self):
+        self.message = "SHA1 isn't valid!"

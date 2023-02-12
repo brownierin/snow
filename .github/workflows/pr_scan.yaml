@@ -26,7 +26,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       working-directory: snow
-      env: snow-test
       SNOW_ALERT_WEBHOOK: ${{ secrets.SNOW_ALERT_WEBHOOK }}
       CHECKPOINT_TOKEN: ${{ secrets.CHECKPOINT_TOKEN }}
       SNOW_AWS_ACCESS_KEY_ID: ${{ secrets.SNOW_AWS_ACCESS_KEY_ID }}
@@ -55,9 +54,9 @@ jobs:
           mv repo/.[!.]* repositories/${{ github.event.repository.name }}
 
       - name: Install python3
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
-          python-version: 3.9.9
+          python-version: '3.10'
 
       - name: install requirements
         run: |
@@ -70,12 +69,12 @@ jobs:
         id: run-semgrep
         run: |
           cd ${{ env.working-directory }}
-          env=snow-test poetry run $(pwd)/run_semgrep.py -m pr -g ghc -r ${{ github.event.repository.name }}
+          poetry run $(pwd)/run_semgrep.py -m pr -r ${{ github.server_url }}/${{ github.repository }}
           cat_results=$(cat results/results_blob.txt | python3 -c 'import json; import sys; print(json.dumps(sys.stdin.read()))')
           echo "RESULTS=${cat_results}" >> $GITHUB_ENV
 
       - name: Archive scan results
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
             name: results_folder
             path: ${{ env.working-directory}}/results/*

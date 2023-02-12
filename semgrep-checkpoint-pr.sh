@@ -6,12 +6,12 @@
 
 # Use the CIBOT_REPO to retrive the repo name. IE from: https://slack-github.com/tfaraci/rains.git
 # Format is https://slack-github.com/slack/checkpoint.git
-REPO_NAME=`echo $CIBOT_REPO | awk -F[/.] '{print tolower($6)}'`
+REPO_NAME=`echo $CIBOT_REPO | awk -F[/.] '{print $6}'`
 
 # If in staging, grab, change the awk grab for the repo. 
 SUB='staging.slack-github'
 if [[ "$CIBOT_REPO" == *"$SUB"* ]]; then
-  REPO_NAME=`echo $CIBOT_REPO | awk -F[/.] '{print tolower($7)}'`
+  REPO_NAME=`echo $CIBOT_REPO | awk -F[/.] '{print $7}'`
 fi
 
 echo CIBOT_REPO $CIBOT_REPO

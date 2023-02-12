@@ -8,6 +8,7 @@ slack-github.com/slack/multipass
 slack-github.com/slack/binlog-crawler
 slack-github.com/slack/ops-go
 slack-github.com/slack/nebula
+slack-github.com/slack/nebula-build
 slack-github.com/slack/nebula-ca-client
 slack-github.com/slack/nebula-ca
 slack-github.com/slack/nebula-helper-cni
@@ -35,3 +36,9 @@ slack-github.com/slack/consul
 slack-github.com/slack/envoy-ddos-rules
 slack-github.com/slack/data-sqooper
 slack-github.com/slack/coredumper
+slack-github.com/slack/ext-auth
+slack-github.com/slack/bapi2
+slack-github.com/slack/crypto-sidecar
+slack-github.com/slack/beagle
+slack-github.com/slack/beagle-fetch
+slack-github.com/slack/envoy-quota-adapter
