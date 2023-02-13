@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 
-import pprint
 import shlex
 import subprocess
-
 import os
 import json
 import hashlib
@@ -13,8 +11,8 @@ import sys
 import re
 import glob
 import datetime
-import logging.config
 import logging
+import logging.config
 from pathlib import Path
 
 
@@ -31,6 +29,12 @@ from src.git import *
 from src.repos import *
 
 
+def set_exit_code(code):
+    global global_exit_code
+    if code > 0:
+        global_exit_code = code
+
+
 def clean_workspace():
     """
     If results are persisted between runs, this method
@@ -45,12 +49,6 @@ def clean_workspace():
     clean_results_dir()
     os.makedirs(REPOSITORIES_DIR, mode=mode, exist_ok=True)
     logging.info("End workspace cleanup")
-
-
-def set_exit_code(code):
-    global global_exit_code
-    if code > 0:
-        global_exit_code = code
 
 
 def clean_results_dir():
@@ -83,8 +81,8 @@ def scan_repos(no_compare=False):
     repolist_data = read_json(f"{RESULTS_DIR}repo_info.json")
     for repo_long in repos:
         language = find_repo_language(repo_long)
-        get_sha_process = run_command(f"git -C {REPOSITORIES_DIR}{repo} rev-parse HEAD")
-        git_sha = get_sha_process.stdout.decode("utf-8").rstrip()
+        repo = repo_long.split("/")[-1]
+        git_sha = repolist_data[repo_long]["git_sha"]
 
         """
         Scan the repo and perform the comparison
@@ -111,7 +109,6 @@ def add_metadata(repo_long, language, git_sha, output_file):
     """
     url, org, repo = repo_long.split("/")
     output_file_path = f"{RESULTS_DIR}{output_file}"
-    configlanguage = f"language-{language}"
     logging.info(f"Adding metadata to {output_file_path}")
 
     with open(output_file_path, "r") as file:
@@ -156,9 +153,6 @@ def remove_false_positives(output_file, repo, language, sha):
 
 def process_results(output_file, repo, language, sha):
     output_file_path = f"{RESULTS_DIR}{output_file}"
-    """
-    Note: "fprm" stands for false positives removed
-    """
     fp_diff_outfile = f"{language}-{repo}-{sha}-fprm.json"
     fp_diff_file_path = RESULTS_DIR + fp_diff_outfile
     fp_file = f"{SNOW_ROOT}/languages/{language}/false_positives/{repo}_false_positives.json"
@@ -182,7 +176,7 @@ def process_results(output_file, repo, language, sha):
         logging.info(f"Comparing {old} and {fp_diff_outfile}")
         comparison.compare_to_last_run(old, fp_diff_file_path, comparison_result)
     else:
-        logging.warning(f"[!!] Not enough runs for comparison for {repo}")
+        logging.warning(f"Not enough runs for comparison for {repo}")
 
 
 def regex_sha_match(selected_paths, repo, language):
@@ -240,23 +234,11 @@ def scan_repo(repo_long, language, git_sha):
 
     # create the commands to run in the container
     semgrep_command = build_scan_command(config_lang, output_file, repo)
-
-    # with open("container.sh", 'w') as f:
-    #     f.write("set +x")
-    #     f.write(semgrep_command)
-    #     # change file permissions since semgrep runs with user opam (higher priv)
-    #     # this prevents some users (like the jenkins user) from opening result files
-    #     f.write("chmod a+rw /src/results/")
-
-    # container_cmd = f"docker run -td -v {SNOW_ROOT}:/src slack/semgrep /bin/sh container.sh"
-
-    # logging.info(f"Docker command:\n {container_cmd}")
     logging.info(f"Semgrep command:\n {semgrep_command}")
     logging.info(f"Running Semgrep")
 
     # Using Popen to avoid buffer errors with Docker child processes
-    with subprocess.Popen(shlex.split(semgrep_command), stdout=subprocess.PIPE, stderr=subprocess.STDOUT, bufsize=1) as process:
-        logging.info(f'{process.stdout.read().decode("ascii")}\n')
+    run_long_command(semgrep_command)
 
     output_file_path = f"{RESULTS_DIR}{output_file}"
     with open(output_file_path) as f:
@@ -593,8 +575,6 @@ def scan_specific_date(date):
 def run_semgrep_daily(date=None):
     # Delete all directories that would have old repos, or results from the last run as the build boxes may persist from previous runs.
     clean_workspace()
-    # Download the repos in the language enabled list and run
-    download_repos()
     if date != None:
         scan_repos(no_compare=True)
         scan_specific_date(date)

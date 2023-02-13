@@ -1,5 +1,6 @@
 import sys
-from re import L
+
+
 from src.config import *
 from src.util import *
 from src.exceptions import *
@@ -77,7 +78,8 @@ def git_pull_repo(repo_path):
 def pull(repo_path, default_branch):
     try:
         run_command(f"git -C {repo_path} checkout {default_branch}")
-        run_command(f"git -C {repo_path} pull")
+        cmd = run_command(f"git -C {repo_path} pull")
+        logging.info({cmd.stdout.decode("utf-8")})
     except Exception as e:
         logging.exception(e)
     else:
