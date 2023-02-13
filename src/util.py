@@ -5,6 +5,10 @@ import urllib
 import os
 import shutil
 import json
+import logging
+import subprocess
+import textwrap
+
 
 import src.jenkins as jenkins
 from config import *
@@ -25,14 +29,12 @@ def run_command(command):
 def run_long_command(command):
     command = shlex.split(command)
     logging.info(f"Shlex intepretation of command: {command}")
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, bufsize=1)
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
     while True:
         output = process.stdout.readline()
         if output:
-            print(output.decode("utf-8"))
-            # for line in output:
-                # print(line.decode("utf-8").split("\n")[0])
+            print(output.decode("utf-8").rstrip())
         if process.poll() is not None:
             break
     return process
@@ -49,6 +51,7 @@ def set_ssh_key(url):
         else:
             logging.info("Using default ssh key")
 
+
 def rm_dir(repo_path):
     shutil.rmtree(repo_path)
 
@@ -58,15 +61,12 @@ def read_json(file):
     with open(file, "r") as f:
         data = json.load(f)
     return data
-import logging
-import subprocess
-import textwrap
 
 
 def run_command(command: str, throw_error: bool = True):
     process = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     process.stdout = process.stdout + process.stderr
-    if ((process.returncode != 0) and throw_error):
+    if (process.returncode != 0) and throw_error:
         error_msg = f"""
             The following command failed with return code {process.returncode}.
             Command: {process.args}
