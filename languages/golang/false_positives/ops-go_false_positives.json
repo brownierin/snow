@@ -992,5 +992,13 @@
         "reason": "\"All strings sent to exec are embedded in the running executable - no user data\"",
         "jira": "",
         "risk": ""
+    },
+    "bef1525048428d65360157eabf94df092856df213db9732d1501a2bcd94e59bc": {
+        "message": "A security scan detected use of a potentially unsafe method to execute a command.  If user controlled input is passed to the exec.Command() function, an attacker may be able to inject code that will execute in the underlying server's system shell, resulting in total compromise of the application and possibly other applications running in the same environment.",
+        "check_id": "languages.golang.slack.potential-code-execution-1",
+        "location": "tf/run_plans.go#204",
+        "reason": "We very carefully control the string passed into the exec, its not mutable by the user",
+        "jira": "",
+        "risk": ""
     }
 }
