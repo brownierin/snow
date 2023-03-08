@@ -1,0 +1,38 @@
+{
+    "83432e3b8bdddc472a2189da81a1cd0d3d444063f90f643cd5c2bc1b8b7ccedd":
+    {
+        "message": "Found dynamic content used for the external process. This is dangerous if arbitrary data can reach this function call because it allows a malicious actor to execute commands. Use `Seq(...)` for dynamically generated commands.",
+        "check_id": "languages.scala.lang.security.audit.scala-dangerous-process-run",
+        "location": "https://slack-github.com/slack/troops-platform/blob/30cd901e037c98abbe9bbd4a7343dab45c16ebe3/troops-be/project/BuildInfo.scala#L14-L14",
+        "reason": "Part of the build itself, uses hardcoded values for the database so not injectable",
+        "jira": "N/A",
+        "risk": "None"
+    },
+    "f2dfaf4212d5d1a330d78374a88f6d506cdb4e973809b8d6397a01af8a52f0b2":
+    {
+        "message": "Flags the use of a predictable random value from `scala.util.Random`. This can lead to vulnerabilities when used in security contexts, such as in a CSRF token, password reset token, or any other secret value. To fix this, use java.security.SecureRandom instead.",
+        "check_id": "languages.scala.lang.security.audit.insecure-rando",
+        "location": "https://slack-github.com/slack/troops-platform/blob/30cd901e037c98abbe9bbd4a7343dab45c16ebe3/troops-be/core/src/main/scala/com/gettroops/core/service/UserIdentifierGifService.scala#L15-L15",
+        "reason": "used to select a gif from giphy, not security relevant",
+        "jira": "N/A",
+        "risk": "None"
+    },
+    "7166d4e20d6d3f9ccb566c56e30a073d7563b024d42c7433423af60d84a03e59":
+    {
+        "message": "Flags the use of a predictable random value from `scala.util.Random`. This can lead to vulnerabilities when used in security contexts, such as in a CSRF token, password reset token, or any other secret value. To fix this, use java.security.SecureRandom instead.",
+        "check_id": "languages.scala.lang.security.audit.insecure-rando",
+        "location": "https://slack-github.com/slack/troops-platform/blob/30cd901e037c98abbe9bbd4a7343dab45c16ebe3/troops-be/core/src/main/scala/com/gettroops/core/service/slackalert/SendAlertContentService.scala#L20-L20",
+        "reason": "used to randomize emoji display, not security relevant",
+        "jira": "N/A",
+        "risk": "None"
+    },
+    "b1a2ec1e955f96fddbaa61881805352df30c03e5908945726c954069032fc0db":
+    {
+        "message": "Flags the use of a predictable random value from `scala.util.Random`. This can lead to vulnerabilities when used in security contexts, such as in a CSRF token, password reset token, or any other secret value. To fix this, use java.security.SecureRandom instead.",
+        "check_id": "languages.scala.lang.security.audit.insecure-rando",
+        "location": "https://slack-github.com/slack/troops-platform/blob/30cd901e037c98abbe9bbd4a7343dab45c16ebe3/troops-be/msi-runner/src/main/scala/com/gettroops/msi/runner/scheduler/logic/SchemaSyncScheduleLogic.scala#L15-L15",
+        "reason": "used to randomize emoji display, not security relevant",
+        "jira": "N/A",
+        "risk": "None"
+    }
+}
