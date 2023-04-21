@@ -19,7 +19,7 @@ from pathlib import Path
 import src.comparison as comparison
 import src.slack as slack
 import src.webhooks as webhooks
-import aws.upload_to_s3 as s3
+import src.aws_s3 as s3
 import src.checkpoint as checkpoint
 import src.jenkins as jenkins
 from src.exceptions import GitMergeBaseError, invalidSha1Error
