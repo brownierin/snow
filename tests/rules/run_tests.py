@@ -1,20 +1,16 @@
 #!/usr/bin/env python3
 
-import sys, os
-
-SNOW_ROOT = os.path.realpath(os.path.dirname(os.path.realpath(__file__)) + "/../../")
-sys.path.append(SNOW_ROOT)
-
+import sys
 import subprocess
-import configparser
 import glob
 import json
 import argparse
 from concurrent.futures import ThreadPoolExecutor
-from checkpoint_out import create_checkpoint_results_json
 
-CONFIG = configparser.ConfigParser()
-CONFIG.read('config/prod.cfg')
+from src.checkpoint import create_checkpoint_results_json
+from src.config import *
+
+sys.path.append(SNOW_ROOT)
 
 def scan_folder(folder, configlanguage, output_file):
     semgrep_command =  "docker run --user \"$(id -u):$(id -g)\" --rm "

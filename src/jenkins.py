@@ -2,15 +2,7 @@
 
 
 import os
-import configparser
-
-
-env = os.getenv("env")
-CONFIG = configparser.ConfigParser()
-if env == "snow-test":
-    CONFIG.read('config/test.cfg')
-else:
-    CONFIG.read('config/prod.cfg')
+from src.config import *
 
 
 def get_ci_env():
@@ -24,7 +16,7 @@ def get_ci_env():
 
 def get_job_name():
     if "JOB_NAME" in os.environ:
-        return os.environ['JOB_NAME']
+        return os.environ["JOB_NAME"]
     return "local"
 
 
@@ -36,7 +28,7 @@ def get_job_enviroment():
         return "dev"
 
     # This case happens when we are running on the production job on Jenkins
-    if job_name.lower() == CONFIG['general']['jenkins_prod_job'].lower():
+    if job_name.lower() == CONFIG["general"]["jenkins_prod_job"].lower():
         return "prod"
 
     # This case happens when we are running a job on Jenkins, but it it's the

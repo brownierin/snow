@@ -1,16 +1,11 @@
-import os
-import json
 import sys
 import logging
-import pytest
 
-logger = logging.getLogger(__name__)
-
-SNOW_ROOT = os.path.realpath(os.path.dirname(os.path.realpath(__file__)) + "/../../")
-
-sys.path.insert(0, SNOW_ROOT)
+from src.config import *
 from run_semgrep import regex_sha_match
 
+logger = logging.getLogger(__name__)
+sys.path.insert(0, SNOW_ROOT)
 
 def test_selected_paths():
     repo = "hello"

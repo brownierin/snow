@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import subprocess
-import configparser
 import os
 import shutil
 import json
@@ -17,45 +16,16 @@ import logging
 import urllib
 from pathlib import Path
 
-import slack
-import webhooks
-import comparison
+import src.comparison as comparison
+import src.slack as slack
+import src.webhooks as webhooks
 import aws.upload_to_s3 as s3
-import checkpoint_out as checkpoint
-import ci.jenkins as jenkins
-from exceptions import GitMergeBaseError, invalidSha1Error
+import src.checkpoint as checkpoint
+import src.jenkins as jenkins
+from src.exceptions import GitMergeBaseError, invalidSha1Error
 import src.util as util
 from src.util import run_command
-
-SNOW_ROOT = os.path.dirname(os.path.realpath(__file__))
-env = os.getenv("env")
-CONFIG = configparser.ConfigParser()
-if env == "snow-test":
-    CONFIG.read(f"{SNOW_ROOT}/config/test.cfg")
-else:
-    CONFIG.read(f"{SNOW_ROOT}/config/prod.cfg")
-
-
-# Global Variables
-global_exit_code = 0
-if CONFIG["general"]["run_local_semgrep"] != "False":
-    SNOW_ROOT = CONFIG["general"]["run_local_semgrep"]
-LANGUAGES_DIR = SNOW_ROOT + CONFIG["general"]["languages_dir"]
-RESULTS_DIR = SNOW_ROOT + CONFIG["general"]["results"]
-REPOSITORIES_DIR = SNOW_ROOT + CONFIG["general"]["repositories"]
-commit_head_env = CONFIG["general"]["commit_head"]
-master_commit_env = CONFIG["general"]["master_commit"]
-artifact_dir_env = CONFIG["general"]["artifact_dir"]
-with open(f"{SNOW_ROOT}/{CONFIG['general']['forked_repos']}") as file:
-    FORKED_REPOS = json.load(file)
-print_text = CONFIG["general"]["print_text"]
-high_alert_text = CONFIG["alerts"]["high_alert_text"]
-banner = CONFIG["alerts"]["banner"]
-normal_alert_text = CONFIG["alerts"]["normal_alert_text"]
-no_vulns_text = CONFIG["alerts"]["no_vulns_text"]
-errors_text = CONFIG["alerts"]["errors_text"]
-ghe_url = CONFIG["general"]["ghe_url"]
-ghc_url = "github.com"
+from src.config import *
 
 
 def clean_workspace():
