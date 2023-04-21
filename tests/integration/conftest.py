@@ -1,6 +1,5 @@
 import pytest
 
-# Allow the importation of SNOW top python script
 from src.config import *
 from src.checkpoint import create_checkpoint_results_json
 

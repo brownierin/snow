@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
 
 import sys
+import os
 import subprocess
 import glob
 import json
 import argparse
 from concurrent.futures import ThreadPoolExecutor
 
-from src.checkpoint import create_checkpoint_results_json
-from src.config import *
+SNOW_ROOT = os.getcwd()
+sys.path.insert(0, SNOW_ROOT)
 
-sys.path.append(SNOW_ROOT)
+from src.config import *
+from src.checkpoint import create_checkpoint_results_json
+
 
 def scan_folder(folder, configlanguage, output_file):
     semgrep_command =  "docker run --user \"$(id -u):$(id -g)\" --rm "
