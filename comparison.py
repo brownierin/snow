@@ -13,6 +13,8 @@ This script has two purposes:
 import json
 import argparse
 import os
+from collections import Counter
+import logging
 
 
 def open_json(filename):
@@ -63,13 +65,6 @@ def remove_false_positives(json_filename, fp_filename, parsed_filename):
     return parsed
 
 
-def get_hash_ids(data):
-    hash_ids = {}
-    for issue in data["results"]:
-        hash_ids[issue["hash_id"]] = issue
-    return hash_ids
-
-
 def compare_to_last_run(old_output, new_output, output_filename):
     """
     This compares two scan runs to each other.
@@ -78,15 +73,51 @@ def compare_to_last_run(old_output, new_output, output_filename):
     """
     old = open_json(old_output)
     new = open_json(new_output)
-    old_hashes = get_hash_ids(old)
-    new_hashes = get_hash_ids(new)
+    old_hashes = old["results"].copy()
+    new_hashes = new["results"].copy()
+    compare_number_of_same_hash_ids(old["results"], new["results"])
 
-    for new_issue_hash in new_hashes:
-        if new_issue_hash in old_hashes:
-            new["results"].remove(new_hashes[new_issue_hash])
+    # We're iterating this way to ensure we remove duplicated hash_ids, which
+    # can occur when code is copy-pasted within the same file.
+    # There's still an edge case when one scan result contains 1 finding and the
+    # next scan result contains 2 findings with the same hash_id
+    # This method will remove whichever finding comes first, which may not be the
+    # same as the new finding, but this is an improvement.
+    for finding in new_hashes:
+        for old_finding in old_hashes:
+            if finding["hash_id"] == old_finding["hash_id"]:
+                del old_hashes[old_hashes.index(old_finding)]
+                del new["results"][new["results"].index(finding)]
+                break
 
     write_json(output_filename, new)
     return new
+
+
+def check_hash_id_uniqueness(results):
+    counts = Counter(result["hash_id"] for result in results)
+    for k, v in counts.items():
+        if v > 1:
+            logging.warning(f"{k} has {v} results")
+    return {k: v for k, v in counts.items() if v > 1}
+
+
+def compare_number_of_same_hash_ids(old, new):
+    old_counter = check_hash_id_uniqueness(old)
+    new_counter = check_hash_id_uniqueness(new)
+    if new_counter != old_counter:
+        for k, v in new_counter.items():
+            try:
+                old_counter[k]
+            except KeyError:
+                continue
+            else:
+                if new_counter[k] != old_counter[k]:
+                    logging.warning(
+                        f"hash_id {k} has {v} instances in the new result but {old_counter[k]} in the old results. Watch for mismatches in the comparison process"
+                    )
+    else:
+        logging.warning(f"New and old counts of hash_ids are the same")
 
 
 if __name__ == "__main__":
