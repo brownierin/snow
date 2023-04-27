@@ -63,6 +63,16 @@ def remove_false_positives(json_filename, fp_filename, parsed_filename):
     return parsed
 
 
+def get_hash_ids(results: list) -> dict:
+    new_data_struct = {}
+    for result in results:
+        try:
+            new_data_struct[result["hash_id"]].append(result)
+        except KeyError:
+            new_data_struct[result["hash_id"]] = [result]
+    return new_data_struct
+
+
 def compare_to_last_run(old_output, new_output, output_filename):
     """
     This compares two scan runs to each other.
@@ -71,8 +81,8 @@ def compare_to_last_run(old_output, new_output, output_filename):
     """
     old = open_json(old_output)
     new = open_json(new_output)
-    old_hashes = old["results"].copy()
-    new_hashes = new["results"].copy()
+    old_hashes = get_hash_ids(old["results"])
+    new_hashes = get_hash_ids(new["results"])
     compare_number_of_same_hash_ids(old["results"], new["results"])
 
     # We're iterating this way to ensure we remove duplicated hash_ids, which
@@ -82,11 +92,10 @@ def compare_to_last_run(old_output, new_output, output_filename):
     # This method will remove whichever finding comes first, which may not be the
     # same as the new finding, but this is an improvement.
     for finding in new_hashes:
-        for old_finding in old_hashes:
-            if finding["hash_id"] == old_finding["hash_id"]:
-                del old_hashes[old_hashes.index(old_finding)]
-                del new["results"][new["results"].index(finding)]
-                break
+        duplicate_hash_count = len(new_hashes[finding])
+        if finding in old_hashes:
+            for result in range(0, duplicate_hash_count):
+                new["results"].remove(new_hashes[finding][result])
 
     write_json(output_filename, new)
     return new
@@ -106,14 +115,12 @@ def compare_number_of_same_hash_ids(old, new):
     if new_counter != old_counter:
         for k, v in new_counter.items():
             try:
-                old_counter[k]
-            except KeyError:
-                continue
-            else:
                 if new_counter[k] != old_counter[k]:
                     logging.warning(
                         f"hash_id {k} has {v} instances in the new result but {old_counter[k]} in the old results. Watch for mismatches in the comparison process"
                     )
+            except KeyError:
+                continue
 
 
 if __name__ == "__main__":
