@@ -21,7 +21,6 @@ def open_json(filename):
     data = {}
     with open(filename, "r") as file:
         data = json.load(file)
-        file.close()
     return data
 
 
@@ -98,7 +97,7 @@ def check_hash_id_uniqueness(results):
     counts = Counter(result["hash_id"] for result in results)
     for k, v in counts.items():
         if v > 1:
-            logging.warning(f"{k} has {v} results")
+            logging.info(f"{k} has {v} results")
     return {k: v for k, v in counts.items() if v > 1}
 
 
@@ -116,8 +115,6 @@ def compare_number_of_same_hash_ids(old, new):
                     logging.warning(
                         f"hash_id {k} has {v} instances in the new result but {old_counter[k]} in the old results. Watch for mismatches in the comparison process"
                     )
-    else:
-        logging.warning(f"New and old counts of hash_ids are the same")
 
 
 if __name__ == "__main__":
