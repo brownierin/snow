@@ -1,4 +1,3 @@
-from array import array
 import os
 import sys
 import json
@@ -29,7 +28,7 @@ def create_result(hash_id: str) -> dict:
     return result
 
 
-def generate_results(hash_ids: array) -> dict:
+def generate_results(hash_ids: list) -> dict:
     results = [create_result(hash_id) for hash_id in hash_ids]
 
     return {"errors": [], "metadata": {}, "results": results}
