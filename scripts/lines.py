@@ -5,12 +5,6 @@ from src.util import run_command
 repos_full = get_repo_list()
 repos = trim_repo_list(repos_full)
 
-def starts_with_period(text):
-    if text.startswith("."):
-        return True
-    else:
-        return False
-
 def basename(path):
     return path.split("/")[-1]
 
@@ -24,7 +18,7 @@ for repo in repos:
 
     with open(f"{repo}.txt", 'w') as outfile:
         for fname in prepended_files:
-            if not starts_with_period(basename(fname)):
+            if not basename(fname).startswith("."):
                 if basename(fname) != "":
                     try:
                         with open(fname) as infile:
