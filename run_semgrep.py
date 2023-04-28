@@ -628,21 +628,21 @@ def alert_channel():
 
     # Print the Semgrep daily run banner and vulnerability counts
     banner_and_count = f"""
-        {banner}
+        {BANNER}
         ---High: {str(high)}
         ---Normal: {str(normal)}
         """
     webhook_alerts(banner_and_count)
     if total_vulns > 0:
         if high > 0:
-            webhook_alerts(high_alert_text)
+            webhook_alerts(HIGH_ALERT_TEXT)
             for repo in alert_json:
                 for vuln in alert_json[repo]["high"]:
                     webhook_alerts(vuln)
                     time.sleep(1)
 
         if normal > 0:
-            webhook_alerts(normal_alert_text)
+            webhook_alerts(NORMAL_ALERT_TEXT)
             for repo in alert_json:
                 for vuln in alert_json[repo]["normal"]:
                     webhook_alerts(vuln)
@@ -650,11 +650,11 @@ def alert_channel():
 
     elif not error_json:
         # ALL HAIL THE GLORIOUS NO VULNS BANNER
-        webhook_alerts(no_vulns_text)
+        webhook_alerts(NO_VULNS_TEXT)
     if semgrep_errors:
         # Right now we're purposely not outputting errors. It's noisy.
         # TODO: Make a pretty output once cleaned.
-        webhook_alerts(errors_text)
+        webhook_alerts(ERRORS_TEXT)
 
 
 def webhook_alerts(data):

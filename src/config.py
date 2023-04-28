@@ -13,7 +13,6 @@ else:
     CONFIG.read(f"{SNOW_ROOT}/config/prod.cfg")
 
 
-global_exit_code = 0
 if CONFIG["general"]["run_local_semgrep"] != "False":
     SNOW_ROOT = CONFIG["general"]["run_local_semgrep"]
 LANGUAGES_DIR = SNOW_ROOT + CONFIG["general"]["languages_dir"]
@@ -30,17 +29,19 @@ TSAUTH_TOKEN_ENV = CONFIG["general"]["tsauth_token_env"]
 
 logging.config.fileConfig(fname=f"{SNOW_ROOT}/config/logging.ini")
 
+HIGH_ALERT_TEXT = CONFIG["alerts"]["high_alert_text"]
+BANNER = CONFIG["alerts"]["banner"]
+NORMAL_ALERT_TEXT = CONFIG["alerts"]["normal_alert_text"]
+NO_VULNS_TEXT = CONFIG["alerts"]["no_vulns_text"]
+ERRORS_TEXT = CONFIG["alerts"]["errors_text"]
+
 commit_head_env = CONFIG["general"]["commit_head"]
 master_commit_env = CONFIG["general"]["master_commit"]
 artifact_dir_env = CONFIG["general"]["artifact_dir"]
 print_text = CONFIG["general"]["print_text"]
-high_alert_text = CONFIG["alerts"]["high_alert_text"]
-banner = CONFIG["alerts"]["banner"]
-normal_alert_text = CONFIG["alerts"]["normal_alert_text"]
-no_vulns_text = CONFIG["alerts"]["no_vulns_text"]
-errors_text = CONFIG["alerts"]["errors_text"]
 ghe_url = CONFIG["general"]["ghe_url"]
 ghc_url = "github.com"
+global_exit_code = 0
 
 
 def set_enabled_filename():
