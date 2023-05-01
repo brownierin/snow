@@ -16,6 +16,8 @@ import os
 from collections import Counter, defaultdict
 import logging
 
+from exceptions import FalsePositiveFileDoesNotExist
+
 
 def open_json(filename):
     data = {}
@@ -35,10 +37,7 @@ def open_false_positives(filename):
 
     # When the false positive file doesn't exists we throw an error as this should never occur.
     if not os.path.exists(filename):
-        raise Exception(
-            "The false positive file '{}' doesn't exists. Verify that the project isn't"
-            " missing its false_positives.json file.".format(filename)
-        )
+        raise FalsePositiveFileDoesNotExist(filename)
 
     data = open_json(filename)
     for fp in data:
@@ -82,27 +81,47 @@ def compare_to_last_run(old_output, new_output, output_filename):
     new_hashes = get_hash_ids(new["results"])
     compare_number_of_same_hash_ids(old["results"], new["results"])
 
-    # We're iterating this way to ensure we remove duplicated hash_ids, which
-    # can occur when code is copy-pasted within the same file.
-    # There's still an edge case when one scan result contains 1 finding and the
-    # next scan result contains 2 findings with the same hash_id
-    # This method will remove whichever finding comes first, which may not be the
-    # same as the new finding, but this is an improvement.
+    """
+    We're iterating this way to ensure we remove duplicated hash_ids, which
+    can occur when code is copy-pasted within the same file.
+    There's still an edge case when one scan result contains 1 finding and the
+    next scan result contains 2 findings with the same hash_id
+    This method will remove whichever finding comes first, which may not be the
+    same as the new finding, but this is an improvement.
+    """
     for finding in new_hashes:
-        duplicate_hash_count = len(new_hashes[finding])
         if finding in old_hashes:
-            for result in range(0, duplicate_hash_count):
+            removal_number = get_num_of_findings_to_remove(old_hashes[finding], new_hashes[finding])
+            for result in range(0, removal_number):
                 new["results"].remove(new_hashes[finding][result])
 
     write_json(output_filename, new)
     return new
 
 
+def get_num_of_findings_to_remove(old, new):
+    """
+    case: old findings have more
+    old = 3
+    new = 2
+    we want to remove 2 from new (use new len)
+
+    case: new findings have more
+    old = 3
+    new = 4
+    we want to remove 3 from new (use old len)
+
+    each time is the minimum, so minimum works
+    """
+    return min(len(new), len(old))
+
+
+
 def check_hash_id_uniqueness(results):
     counts = Counter(result["hash_id"] for result in results)
     for k, v in counts.items():
         if v > 1:
-            logging.info(f"{k} has {v} results")
+            logging.warning(f"{k} has {v} results")
     return {k: v for k, v in counts.items() if v > 1}
 
 
@@ -111,13 +130,11 @@ def compare_number_of_same_hash_ids(old, new):
     new_counter = check_hash_id_uniqueness(new)
     if new_counter != old_counter:
         for k, v in new_counter.items():
-            try:
+            if k in old_counter.keys():
                 if new_counter[k] != old_counter[k]:
                     logging.warning(
                         f"hash_id {k} has {v} instances in the new result but {old_counter[k]} in the old results. Watch for mismatches in the comparison process"
                     )
-            except KeyError:
-                continue
 
 
 if __name__ == "__main__":

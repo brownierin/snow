@@ -61,8 +61,8 @@ def test_compare_to_last_run_repeated_results():
     old_hash = "ff65191189bc92514ee9c4fbf64988f3f3e88565b4e29e418840b99b593b7e56"
     new_hash = "ab65191189bc92514ee9c4fbf64988f3f3e88565b4e29e418840b99b593b7123"
     output_filename = "output.json"
-    old_results = json.dumps(generate_results([old_hash]))
-    new_results = json.dumps(generate_results([new_hash]))
+    old_results = json.dumps(generate_results([old_hash, new_hash]))
+    new_results = json.dumps(generate_results([new_hash, new_hash]))
 
     with patch("builtins.open", side_effect=[StringIO(old_results), StringIO(new_results), StringIO("")]):
         # We're not using the output file from the comparison, we're using the return value of the function
