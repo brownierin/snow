@@ -13,7 +13,7 @@ This script has two purposes:
 import json
 import argparse
 import os
-from collections import Counter
+from collections import Counter, defaultdict
 import logging
 
 
@@ -64,12 +64,9 @@ def remove_false_positives(json_filename, fp_filename, parsed_filename):
 
 
 def get_hash_ids(results: list) -> dict:
-    new_data_struct = {}
+    new_data_struct = defaultdict(list)
     for result in results:
-        try:
-            new_data_struct[result["hash_id"]].append(result)
-        except KeyError:
-            new_data_struct[result["hash_id"]] = [result]
+        new_data_struct[result["hash_id"]].append(result)
     return new_data_struct
 
 
