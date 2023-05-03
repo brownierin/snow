@@ -8,7 +8,7 @@ from io import StringIO
 SNOW_ROOT = os.path.realpath(os.path.dirname(os.path.realpath(__file__)) + "/../../")
 sys.path.insert(0, SNOW_ROOT)
 
-from comparison import compare_to_last_run, open_json
+import src.comparison as comparison
 
 
 def create_result(hash_id: str) -> dict:
@@ -44,8 +44,8 @@ def test_compare_to_last_run_diff_results():
     with patch("builtins.open", side_effect=[StringIO(old_results), StringIO(new_results), StringIO("")]):
         # We're not using the output file from the comparison, we're using the return value of the function
         # So it's fine to stub it out for these tests
-        with patch("comparison.open_json", side_effect=[json.loads(old_results), json.loads(new_results)]) as mock_open_json:
-            output = compare_to_last_run('old.json', 'new.json', output_filename)
+        with patch("src.comparison.open_json", side_effect=[json.loads(old_results), json.loads(new_results)]) as mock_open_json:
+            output = comparison.compare_to_last_run('old.json', 'new.json', output_filename)
             mock_open_json.assert_any_call('old.json')
             mock_open_json.assert_any_call('new.json')
 
@@ -67,8 +67,8 @@ def test_compare_to_last_run_repeated_results():
     with patch("builtins.open", side_effect=[StringIO(old_results), StringIO(new_results), StringIO("")]):
         # We're not using the output file from the comparison, we're using the return value of the function
         # So it's fine to stub it out for these tests
-        with patch("comparison.open_json", side_effect=[json.loads(old_results), json.loads(new_results)]) as mock_open_json:
-            output = compare_to_last_run('old.json', 'new.json', output_filename)
+        with patch("src.comparison.open_json", side_effect=[json.loads(old_results), json.loads(new_results)]) as mock_open_json:
+            output = comparison.compare_to_last_run('old.json', 'new.json', output_filename)
             mock_open_json.assert_any_call('old.json')
             mock_open_json.assert_any_call('new.json')
 
@@ -89,8 +89,8 @@ def test_compare_to_last_run_duplicated_results():
     with patch("builtins.open", side_effect=[StringIO(old_results), StringIO(new_results), StringIO("")]):
         # We're not using the output file from the comparison, we're using the return value of the function
         # So it's fine to stub it out for these tests
-        with patch("comparison.open_json", side_effect=[json.loads(old_results), json.loads(new_results)]) as mock_open_json:
-            output = compare_to_last_run('old.json', 'new.json', output_filename)
+        with patch("src.comparison.open_json", side_effect=[json.loads(old_results), json.loads(new_results)]) as mock_open_json:
+            output = comparison.compare_to_last_run('old.json', 'new.json', output_filename)
             mock_open_json.assert_any_call('old.json')
             mock_open_json.assert_any_call('new.json')
 
