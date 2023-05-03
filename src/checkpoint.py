@@ -1,30 +1,22 @@
 #!/usr/bin/env python3
 
-
 import json
 import argparse
 import os
 import shutil
-import configparser
 import time
 import glob
 import subprocess
 import chardet
 import re
 import requests
-import ci.jenkins as jenkins
-import webhooks
 
-env = os.getenv("env")
-CONFIG = configparser.ConfigParser()
+import src.jenkins as jenkins
+import src.webhooks as webhooks
+from src.config import *
+
+
 dir_path = os.path.dirname(os.path.realpath(__file__))
-if env == "snow-test":
-    CONFIG.read(f"{dir_path}/config/test.cfg")
-else:
-    CONFIG.read(f"{dir_path}/config/prod.cfg")
-CHECKPOINT_API_URL = CONFIG['general']['checkpoint_api_url']
-TSAUTH_TOKEN_ENV = CONFIG['general']['tsauth_token_env']
-RESULTS_DIR = os.getenv('PWD') + CONFIG['general']['results']
 
 
 def uberproxy_curl_installed():
@@ -59,7 +51,7 @@ def call_checkpoint_api(url, post_params, tsauth_auth_token=None):
             headers["Authorization"] = f"Bearer {tsauth_auth_token}"
 
             r = requests.post(url=url, headers=headers, json=post_params)
-            if os.environ.get('env') == 'snow-test':
+            if os.environ.get("env") == "snow-test":
                 print(r.text)
 
             return r.json()
@@ -99,7 +91,7 @@ def uberproxy_curl(url, method, headers={}, content=None):
 
 def get_artifact_dir():
     try:
-        cibot_artifact_dir = os.environ['CIBOT_ARTIFACT_DIR']
+        cibot_artifact_dir = os.environ["CIBOT_ARTIFACT_DIR"]
         return cibot_artifact_dir
     except KeyError as e:
         print("[-] CIBOT_ARTIFACT_DIR isn't set!")
@@ -176,8 +168,8 @@ def convert(fp_removed_filename, original_filename, comparison_filename):
                 command_mark_as_fp += f"--location=\"{path_in_project}#{issue['start']['line']}\" "
                 command_mark_as_fp += f"--language={fp_removed_data['metadata']['language']} "
                 command_mark_as_fp += f"--repo_name={fp_removed_data['metadata']['repo_name']} "
-                command_mark_as_fp += "--message=\"{}\" ".format(
-                    issue['extra']['message'].replace('\"', '\'').replace('`', '\'').replace('\n', ' ')
+                command_mark_as_fp += '--message="{}" '.format(
+                    issue["extra"]["message"].replace('"', "'").replace("`", "'").replace("\n", " ")
                 )
                 command_mark_as_fp += f"--check_id={issue['check_id']} "
 
@@ -202,8 +194,8 @@ def upload_pr_scan(branch, master):
     for file in glob.glob(f"{RESULTS_DIR}/*.json"):
         modified = re.findall(regex, file)
         if modified:
-            prefix = file.split('-')[0:-1]
-            prefix = '-'.join(prefix)
+            prefix = file.split("-")[0:-1]
+            prefix = "-".join(prefix)
 
             # Only upload files from the master and branch scans
             if branch[:7] in file or master[:7] in file:
@@ -285,10 +277,10 @@ def upload_test_result_to_checkpoint(
     call_result = call_checkpoint_api(url_stub, test_results, tsauth_auth_token)
 
     if call_result["ok"] == False:
-        clean_error_results = call_result['error'].replace('\"', '').replace('`', '').replace('$', '')
+        clean_error_results = call_result["error"].replace('"', "").replace("`", "").replace("$", "")
         text = """:banger-alert: :snowflake:Daily :block-s: :block-e: :block-m: :block-g: :block-r: :block-e: :block-p: Scan Error:snowflake::banger-alert:\nCheckpoint results upload failed: """
         cmd = (
-            f"echo \"{text}{clean_error_results}\" | slack"
+            f'echo "{text}{clean_error_results}" | slack'
             f" --channel={CONFIG['general']['alertchannel']} --cat --user=SNOW "
         )
         subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -314,8 +306,8 @@ def upload_daily_scan_results_to_checkpoint():
     for file in glob.glob(f"{RESULTS_DIR}/*.json"):
         modified = re.findall(regex, file)
         if modified:
-            prefix = file.split('-')[0:-1]
-            prefix = '-'.join(prefix)
+            prefix = file.split("-")[0:-1]
+            prefix = "-".join(prefix)
             originals.add(f"{prefix}.json")
 
     originals = rm_from_set(originals)

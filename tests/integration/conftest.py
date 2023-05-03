@@ -1,10 +1,7 @@
 import pytest
 
-# Allow the importation of SNOW top python script
-import sys, os
-sys.path.append(os.getcwd() + '/../..')
-
-from checkpoint_out import create_checkpoint_results_json
+from src.config import *
+from src.checkpoint import create_checkpoint_results_json
 
 def pytest_sessionstart(session):
     session.results = dict()

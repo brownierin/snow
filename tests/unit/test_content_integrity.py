@@ -3,10 +3,11 @@ import glob
 import json
 import sys
 
-SNOW_ROOT = os.path.realpath(os.path.dirname(os.path.realpath(__file__)) + "/../../")
-
-sys.path.insert(0, SNOW_ROOT)
+from src.config import *
 from run_semgrep import get_repo_list, find_repo_language
+
+logger = logging.getLogger(__name__)
+sys.path.insert(0, SNOW_ROOT)
 
 # Checks that all false positive file are valid
 def test_valid_false_positives_file():

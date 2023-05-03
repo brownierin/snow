@@ -3,7 +3,6 @@
 
 import csv
 import argparse
-import sys
 import json
 import yaml
 import os.path
