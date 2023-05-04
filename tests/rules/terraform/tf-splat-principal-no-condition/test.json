@@ -1,0 +1,4 @@
+{
+    "expected-result-count" : 1,
+    "expected-match" : ["languages.terraform.slack.splat-principal-no-condition"]
+}

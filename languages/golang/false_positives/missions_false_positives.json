@@ -87,20 +87,36 @@
         "jira": "PRODSEC-3139",
         "risk": "Informational"
     },
-      "cf9bc75820b781584613f89eb1c7456c1b89697667eefe62ecc4d2677016c56b": {
+    "cf9bc75820b781584613f89eb1c7456c1b89697667eefe62ecc4d2677016c56b": {
         "message": "Rule Triggered - string-formatted-query",
         "check_id": "string-formatted-query",
         "location": "https://slack-github.com/slack/missions/blob/master/shared/dbutils/mysql.go#L54-L54",
         "reason": "it won't ever resolve user input other than empty or notraffic",
         "jira": "PRODSEC-3139",
         "risk": "Informational"
-      },
-        "0aca683fd5b0222e8c1c33f01e4725cf55281a6919cc079e4584dea311e064ad": {
+    },
+    "0aca683fd5b0222e8c1c33f01e4725cf55281a6919cc079e4584dea311e064ad": {
         "message": "Rule 'string-formatted-query' triggered.",
         "check_id": "string-formatted-query",
         "location": "https://slack-github.com/slack/missions/blob/d50d499e8052f13a8f2ed55c7bae0b5c041daa2d/api/cmd/migrator/migrations/008-force-one-workflow-per-app.go#L91-L91",
         "reason": "This is internal tooling used to migrate missions data that runs on the CLI",
         "jira": "PRODSEC-3421",
         "Risk": "Informational"
+    },
+    "4f1b961c5a059a57dbfd07300421dc1c46e0ce5c516bb950e7e23ac5eb3db492": {
+        "message": "String-formatted SQL query detected. This could lead to SQL injection if the string is not sanitized properly. Audit this call to ensure the SQL is not manipulatable by external data.  Avoid string-formatting SQL queries when possible.  If the noted SQL query concatenates any potentially user-controlled data into the query string, use a parameterized query or prepared statement to protect against SQL injection.  In golang, the Prepare() (https://golang.org/pkg/database/sql/#DB.Prepare) and Query() (https://golang.org/pkg/database/sql/#DB.Query) functions with parameters supplied as separate arguments to the function are considered safe implementations of prepared statements and parameterized queries. ",
+        "check_id": "languages.golang.r2c.go.lang.security.audit.database.string-formatted-query",
+        "location": "api/internal/store/app.go#400",
+        "reason": "The query is parameterized, it doesn't look that way due to the way we build it so I think that is why this was triggered.",
+        "jira": "",
+        "risk": ""
+    },
+    "7147be861edf93d272b58f0ca9ee67d101020031f0c961adb37b6ae501beddec": {
+        "message": "String-formatted SQL query detected. This could lead to SQL injection if the string is not sanitized properly. Audit this call to ensure the SQL is not manipulatable by external data.  Avoid string-formatting SQL queries when possible.  If the noted SQL query concatenates any potentially user-controlled data into the query string, use a parameterized query or prepared statement to protect against SQL injection.  In golang, the Prepare() (https://golang.org/pkg/database/sql/#DB.Prepare) and Query() (https://golang.org/pkg/database/sql/#DB.Query) functions with parameters supplied as separate arguments to the function are considered safe implementations of prepared statements and parameterized queries. ",
+        "check_id": "languages.golang.r2c.go.lang.security.audit.database.string-formatted-query",
+        "location": "api/internal/store/app.go#400",
+        "reason": "false positive, user input is parameterized",
+        "jira": "",
+        "risk": ""
     }
 }

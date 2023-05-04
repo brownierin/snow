@@ -1,17 +1,14 @@
-
-
 import os
 import shutil
 import json
 import tempfile
 import subprocess
 
+from src.config import *
 
 """
 TEST SETUP UTILITY - START
 """
-
-SNOW_ROOT = os.path.realpath(os.path.dirname(os.path.realpath(__file__)) + "/../../")
 TEST_FOLDER = os.path.dirname(os.path.realpath(__file__))
 
 

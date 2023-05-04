@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
-import pprint
 import subprocess
-import configparser
 import os
 import shutil
 import json
@@ -18,43 +16,16 @@ import logging
 import urllib
 from pathlib import Path
 
-import slack
-import webhooks
-import comparison
-import aws.upload_to_s3 as s3
-import checkpoint_out as checkpoint
-import ci.jenkins as jenkins
-from exceptions import GitMergeBaseError
-
-SNOW_ROOT = os.path.dirname(os.path.realpath(__file__))
-env = os.getenv("env")
-CONFIG = configparser.ConfigParser()
-if env == "snow-test":
-    CONFIG.read(f"{SNOW_ROOT}/config/test.cfg")
-else:
-    CONFIG.read(f"{SNOW_ROOT}/config/prod.cfg")
-
-
-# Global Variables
-global_exit_code = 0
-if CONFIG["general"]["run_local_semgrep"] != "False":
-    SNOW_ROOT = CONFIG["general"]["run_local_semgrep"]
-LANGUAGES_DIR = SNOW_ROOT + CONFIG["general"]["languages_dir"]
-RESULTS_DIR = SNOW_ROOT + CONFIG["general"]["results"]
-REPOSITORIES_DIR = SNOW_ROOT + CONFIG["general"]["repositories"]
-commit_head_env = CONFIG["general"]["commit_head"]
-master_commit_env = CONFIG["general"]["master_commit"]
-artifact_dir_env = CONFIG["general"]["artifact_dir"]
-with open(f"{SNOW_ROOT}/{CONFIG['general']['forked_repos']}") as file:
-    FORKED_REPOS = json.load(file)
-print_text = CONFIG["general"]["print_text"]
-high_alert_text = CONFIG["alerts"]["high_alert_text"]
-banner = CONFIG["alerts"]["banner"]
-normal_alert_text = CONFIG["alerts"]["normal_alert_text"]
-no_vulns_text = CONFIG["alerts"]["no_vulns_text"]
-errors_text = CONFIG["alerts"]["errors_text"]
-ghe_url = CONFIG["general"]["ghe_url"]
-ghc_url = "github.com"
+import src.comparison as comparison
+import src.slack as slack
+import src.webhooks as webhooks
+import src.aws_s3 as s3
+import src.checkpoint as checkpoint
+import src.jenkins as jenkins
+from src.exceptions import GitMergeBaseError, invalidSha1Error
+import src.util as util
+from src.util import run_command
+from src.config import *
 
 
 def clean_workspace():
@@ -127,7 +98,6 @@ def remove_scheme_from_url(url):
         return parsed.netloc + parsed.path
 
 
-
 def get_docker_image(mode=None):
     """
     Downloads docker images and compares the digests
@@ -139,21 +109,20 @@ def get_docker_image(mode=None):
 
     download_semgrep(version)
     logging.info("Verifying Semgrep")
-    digest_check_scan = check_digest(digest, version)
+    digest_match = check_digest(digest, version)
 
     if mode == "version":
         download_semgrep("latest")
-        digest_check_update = check_digest(digest, "latest")
-        if digest_check_update == -1:
-            logging.info("[!!] A new version of semgrep is available.")
+        digest_match = check_digest(digest, "latest")
+        if digest_match == False:
+            logging.info("A new version of semgrep is available.")
             return 1
         else:
             logging.info("Semgrep is up to date.")
             return 0
-    else:
-        if digest_check_scan != -1:
-            raise Exception("[!!] Digest mismatch!")
-        logging.info("Semgrep downloaded and verified")
+    if digest_match == False:
+        raise Exception("The downloaded container's digest does not match the config value.")
+    logging.info("Semgrep downloaded and verified")
 
 
 def download_semgrep(version):
@@ -162,13 +131,11 @@ def download_semgrep(version):
 
 
 def check_digest(digest, version):
-    command = f"docker inspect --format='{{.RepoDigests}}' returntocorp/semgrep:{version}"
+    command = f"docker inspect --format='{{{{.RepoDigests}}}}' returntocorp/semgrep:{version}"
     process = run_command(command)
-    return digest.find((process.stdout).decode("utf-8"))
-
-
-def run_command(command):
-    return subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    container_digest = process.stdout.decode("utf-8")
+    find = container_digest.find(digest)
+    return True if find != -1 else False
 
 
 def git_pull_repo(repo_path):
@@ -248,6 +215,7 @@ def git_ops(repo):
         if url == ghc_url:
             trust_this_repo_command = f"git config --global --add safe.directory {repo_path}"
             run_command(trust_this_repo_command)
+
 
 def git_forked_repos(repo_long, language, git_sha):
     url, org, repo = repo_long.split("/")
@@ -329,7 +297,14 @@ def download_repos():
         git_ops(repo)
 
 
-def scan_repos():
+def get_commit_id_at_date(date, repo):
+    # Date format should be 2022-09-14
+    repodir = f"{REPOSITORIES_DIR}{repo}"
+    cmd = run_command(f"""git -C {repodir} log --before={date} -1 --pretty=format:"%H" """)
+    return cmd.stdout.decode("utf-8")
+
+
+def scan_repos(no_compare=False):
     """
     Iterates over all repos in the enabled files and performs
     a Semgrep scan.
@@ -339,13 +314,6 @@ def scan_repos():
         url, org, repo = repo_long.split("/")
         set_ssh_key(url)
         language = find_repo_language(repo_long)
-
-        """
-        Get the default branch name
-        """
-        cmd = "git remote show origin | grep 'HEAD branch' | sed 's/.*: //'"
-        default_branch_name = run_command(cmd).stdout.decode("utf-8")
-        logging.info(f"Default branch name: {default_branch_name.strip()}")
         get_sha_process = run_command(f"git -C {REPOSITORIES_DIR}{repo} rev-parse HEAD")
         git_sha = get_sha_process.stdout.decode("utf-8").rstrip()
 
@@ -353,7 +321,11 @@ def scan_repos():
         Scan the repo and perform the comparison
         """
         results, output_file = scan_repo(repo_long, language, git_sha)
-        process_results(output_file, repo, language, git_sha[:7])
+        if not no_compare:
+            process_results(output_file, repo, language, git_sha[:7])
+        else:
+            # We still need the fprm file for the comparison, so generate just it
+            remove_false_positives(output_file, repo, language, git_sha[:7])
 
         """
         Special repos are repos that are forked from open-source libraries or projects.
@@ -397,6 +369,22 @@ def add_metadata(repo_long, language, git_sha, output_file):
         add_hash_id(output_file_path, 4, 1, "hash_id")
 
 
+def remove_false_positives(output_file, repo, language, sha):
+    output_file_path = f"{RESULTS_DIR}{output_file}"
+    """
+    Note: "fprm" stands for false positives removed
+    """
+    fp_diff_outfile = f"{language}-{repo}-{sha}-fprm.json"
+    fp_diff_file_path = RESULTS_DIR + fp_diff_outfile
+    fp_file = f"{SNOW_ROOT}/languages/{language}/false_positives/{repo}_false_positives.json"
+
+    """
+    Remove false positives from the results
+    """
+    if os.path.exists(output_file_path):
+        comparison.remove_false_positives(output_file_path, fp_file, fp_diff_file_path)
+
+
 def process_results(output_file, repo, language, sha):
     output_file_path = f"{RESULTS_DIR}{output_file}"
     """
@@ -428,7 +416,7 @@ def process_results(output_file, repo, language, sha):
         logging.info(f"Comparing {old} and {fp_diff_outfile}")
         comparison.compare_to_last_run(old, fp_diff_file_path, comparison_result)
     else:
-        logging.warning("[!!] Not enough runs for comparison")
+        logging.warning(f"[!!] Not enough runs for comparison for {repo}")
 
 
 def regex_sha_match(selected_paths, repo, language):
@@ -500,7 +488,7 @@ def scan_repo(repo_long, language, git_sha):
     # Not using run_command here because we want to ignore the exit code of semgrep.
     # Using Popen to avoid buffer errors with Docker child processes
     with subprocess.Popen(semgrep_command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, bufsize=1) as process:
-        logging.info(f'{process.stdout.read().decode("ascii")}\n')
+        logging.info(f'{process.stdout.read().decode("utf-8")}\n')
 
     output_file_path = f"{RESULTS_DIR}/{output_file}"
     with open(output_file_path) as f:
@@ -640,21 +628,21 @@ def alert_channel():
 
     # Print the Semgrep daily run banner and vulnerability counts
     banner_and_count = f"""
-        {banner}
+        {BANNER}
         ---High: {str(high)}
         ---Normal: {str(normal)}
         """
     webhook_alerts(banner_and_count)
     if total_vulns > 0:
         if high > 0:
-            webhook_alerts(high_alert_text)
+            webhook_alerts(HIGH_ALERT_TEXT)
             for repo in alert_json:
                 for vuln in alert_json[repo]["high"]:
                     webhook_alerts(vuln)
                     time.sleep(1)
 
         if normal > 0:
-            webhook_alerts(normal_alert_text)
+            webhook_alerts(NORMAL_ALERT_TEXT)
             for repo in alert_json:
                 for vuln in alert_json[repo]["normal"]:
                     webhook_alerts(vuln)
@@ -662,11 +650,11 @@ def alert_channel():
 
     elif not error_json:
         # ALL HAIL THE GLORIOUS NO VULNS BANNER
-        webhook_alerts(no_vulns_text)
+        webhook_alerts(NO_VULNS_TEXT)
     if semgrep_errors:
         # Right now we're purposely not outputting errors. It's noisy.
         # TODO: Make a pretty output once cleaned.
-        webhook_alerts(errors_text)
+        webhook_alerts(ERRORS_TEXT)
 
 
 def webhook_alerts(data):
@@ -708,6 +696,7 @@ def find_repo_language(repo):
     if repo_language == "":
         raise Exception(f"[!!] No language found in snow for repo {repo}. Check in with #triage-prodsec!")
 
+
 def set_ssh_key(url):
     if jenkins.get_ci_env() == "jenkins":
         if url == ghc_url:
@@ -748,9 +737,21 @@ def run_semgrep_pr(repo_long):
         cmd = f"{git_dir} show -s --format='%H' origin/master"
         master_sha = subprocess.run(cmd, shell=True, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
         master_sha = master_sha.stdout.decode("utf-8").strip()
+    logging.info(f"Master sha: {master_sha}")
+    if not util.sha1_verify(master_sha):
+        raise invalidSha1Error
 
     # Make sure you are on the branch to scan by switching to it.
-    process = run_command(f"{git_dir} checkout -f {branch_sha}")
+    command = f"{git_dir} checkout -f {branch_sha}"
+    process = run_command(command, throw_error=False)
+    if process.returncode != 0:
+        # Make sure there is an origin if the checkout fails, then run fetch
+        util.check_for_origin(repo_long, repo_dir)
+        process = run_command(f"{git_dir} fetch origin {branch_sha}")
+        logging.info(process.stdout.decode("utf-8"))
+        process = run_command(command)
+        logging.info(process.stdout.decode("utf-8"))
+
     logging.info(f"Branch SHA: {branch_sha}")
 
     # Make sure we are scanning what the repo would look like after a merge
@@ -849,14 +850,49 @@ def prettyprint(result):
     return content
 
 
-def run_semgrep_daily():
+def get_default_branch(repo):
+    cmd = f"git -C {REPOSITORIES_DIR}{repo} remote show origin | grep 'HEAD branch' | sed 's/.*: //'"
+    default_branch = run_command(cmd).stdout.decode("utf-8")
+    logging.info(f"Default branch name: {default_branch.strip()}")
+    return default_branch
+
+
+def scan_specific_date(date):
+    repos = get_repo_list()
+    for repo_long in repos:
+        url, org, repo = repo_long.split("/")
+        set_ssh_key(url)
+
+        language = find_repo_language(repo_long)
+        cmd = run_command(f"git -C {REPOSITORIES_DIR}{repo} rev-parse HEAD")
+        git_sha_master = cmd.stdout.decode("utf-8").rstrip()
+        git_sha = get_commit_id_at_date(date, repo)
+        run_command(f"git -C {REPOSITORIES_DIR}{repo} checkout {git_sha}")
+
+        if git_sha == git_sha_master:
+            logging.info(f"Skipping scanning for {date}; the commit id is the same as master")
+            return
+
+        logging.info(f"Scanning repo {repo} at {git_sha[:7]} from {date}")
+        scan_repo(repo_long, language, git_sha[:7])
+
+        # Use current master results as primary for comparison
+        output_file = f"{language}-{repo}-{git_sha_master[:7]}.json"
+        process_results(output_file, repo, language, git_sha[:7])
+
+
+def run_semgrep_daily(date=None):
     # Delete all directories that would have old repos, or results from the last run as the build boxes may persist from previous runs.
     clean_workspace()
     # Get Semgrep Docker image, check against a known good hash
     get_docker_image()
     # Download the repos in the language enabled list and run
     download_repos()
-    scan_repos()
+    if date != None:
+        scan_repos(no_compare=True)
+        scan_specific_date(date)
+    else:
+        scan_repos()
     # Output alerts to Slack
     if jenkins.get_job_name().lower() == CONFIG["general"]["jenkins_prod_job"].lower():
         alert_channel()
@@ -874,6 +910,7 @@ if __name__ == "__main__":
     parser.add_argument("-r", "--repo", help="the name of the git repo")
     parser.add_argument("--s3", help="upload to s3", action="store_true")
     parser.add_argument("--no-cleanup", help="skip cleanup", action="store_true")
+    parser.add_argument("--date", "-d", help="Used to scan and diff a specific date for the daily scan")
 
     args = parser.parse_args()
 
@@ -885,7 +922,7 @@ if __name__ == "__main__":
     if args.mode == "daily":
         if args.repo:
             logging.warning("Daily mode does not support repo args. Ignoring them.")
-        run_semgrep_daily()
+        run_semgrep_daily(args.date)
     elif args.mode == "pr":
         run_semgrep_pr(args.repo)
     elif args.mode == "version":

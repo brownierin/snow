@@ -1,15 +1,13 @@
-import os
 import json
 import sys
 import logging
-import pytest
+
+from run_semgrep import process_one_result, remove_scheme_from_url
+from src.config import *
 
 logger = logging.getLogger(__name__)
-
-SNOW_ROOT = os.path.realpath(os.path.dirname(os.path.realpath(__file__)) + "/../../")
-
 sys.path.insert(0,SNOW_ROOT)
-from run_semgrep import process_one_result, remove_scheme_from_url
+
 
 def test_url_builder():
     with open(f"{SNOW_ROOT}/tests/fixtures/output.json") as f:

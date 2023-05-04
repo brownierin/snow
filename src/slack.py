@@ -3,10 +3,9 @@
 
 import os
 import sys
-import subprocess
 import logging
 
-import run_semgrep as runner
+import src.util as util
 
 logging.getLogger(__name__)
 
@@ -24,7 +23,7 @@ def slack_repo(repo, git_repo, repo_path, repo_dir):
         )
     logging.info(f"Updating repo: {repo}")
     command = f"git -C {repo_path} fetch --tags --force --progress -- {git_repo} +refs/heads/*:refs/remotes/origin1/*"
-    process = runner.run_command(command)
+    process = util.run_command(command)
 
 
 def commit_head(url):

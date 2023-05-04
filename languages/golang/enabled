@@ -25,7 +25,6 @@ slack-github.com/slack/orc-deploy-lite
 slack-github.com/slack/data-etl
 slack-github.com/slack/bach
 slack-github.com/slack/bedrock-admission-webhook
-slack-github.com/slack/bedrock-observability-sidecar
 slack-github.com/slack/jqrelay
 slack-github.com/slack/kafkagate
 slack-github.com/slack/ssh-ca
@@ -37,3 +36,10 @@ slack-github.com/slack/envoy-ddos-rules
 slack-github.com/slack/data-sqooper
 slack-github.com/slack/coredumper
 slack-github.com/slack/ext-auth
+slack-github.com/slack/bapi2
+slack-github.com/slack/crypto-sidecar
+slack-github.com/slack/beagle
+slack-github.com/slack/beagle-fetch
+slack-github.com/slack/envoy-quota-adapter
+slack-github.com/slack/configsponge
+slack-github.com/slack/bedrock-cli
