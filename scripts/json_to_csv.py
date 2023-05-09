@@ -3,6 +3,7 @@ import csv
 import argparse
 import collections
 
+
 def open_json(filename):
     with open(filename, "r") as file:
         data = json.load(file)
@@ -16,9 +17,8 @@ def convert_json_to_csv(fp_filename, csv_filename):
     column_headers = collections.deque(fp_json[value].keys())
     column_headers.appendleft("hash_id")
 
-    with open(csv_filename, 'w', newline='') as csvfile:
-        csvwriter = csv.writer(csvfile, delimiter=',',
-                                quotechar='"', quoting=csv.QUOTE_MINIMAL)
+    with open(csv_filename, "w", newline="") as csvfile:
+        csvwriter = csv.writer(csvfile, delimiter=",", quotechar='"', quoting=csv.QUOTE_MINIMAL)
         csvwriter.writerow(column_headers)
         for fp in fp_json:
             value_list = collections.deque([value for key, value in fp_json[fp].items()])
@@ -28,9 +28,7 @@ def convert_json_to_csv(fp_filename, csv_filename):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description="Converts a JSON file in format \"key: {values}\" to CSV"
-    )
+    parser = argparse.ArgumentParser(description='Converts a JSON file in format "key: {values}" to CSV')
     parser.add_argument(
         "-fp",
         "--fp_filename",

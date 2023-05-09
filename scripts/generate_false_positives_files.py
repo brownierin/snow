@@ -8,6 +8,7 @@ import yaml
 import os.path
 import glob
 
+
 def get_long_rule_id(check_id):
     for yaml_file in glob.glob(f"languages/{language}/**/*.yaml", recursive=True):
         with open(yaml_file, "r") as f:
@@ -19,9 +20,8 @@ def get_long_rule_id(check_id):
 
     raise Exception(f"Unknown check id : {check_id}")
 
-parser = argparse.ArgumentParser(
-    description="Generates the false positives files."
-)
+
+parser = argparse.ArgumentParser(description="Generates the false positives files.")
 
 parser.add_argument(
     "-f",
@@ -48,11 +48,19 @@ with open(args.file, "r", encoding="utf-8") as csvfile:
         hash_id = finding["HashId"].strip()
 
         if finding["Security Notes"].strip() == "":
-            print("[WARNING] Line {} is marked as a false positive, but doesn't contain a note explaining the reason the finding is marked as a false positive. Can't add this false positives !".format(line))
+            print(
+                "[WARNING] Line {} is marked as a false positive, but doesn't contain a note explaining the reason the finding is marked as a false positive. Can't add this false positives !".format(
+                    line
+                )
+            )
             continue
 
         if hash_id == "":
-            print("[WARNING] Line {} is marked as a false positive, but doesn't contain a hash id. Can't add this false positives !".format(line))
+            print(
+                "[WARNING] Line {} is marked as a false positive, but doesn't contain a hash id. Can't add this false positives !".format(
+                    line
+                )
+            )
             continue
 
         language = finding["Language"]
@@ -72,10 +80,10 @@ with open(args.file, "r", encoding="utf-8") as csvfile:
             continue
 
         existing_data[hash_id] = {
-            "message" : "Rule '{}' triggered.".format(finding["Rule and Remediation Guidance"]),
-            "check_id" : get_long_rule_id(finding["Rule and Remediation Guidance"]),
-            "location" : finding["Path"],
-            "reason" : finding["Security Notes"]
+            "message": "Rule '{}' triggered.".format(finding["Rule and Remediation Guidance"]),
+            "check_id": get_long_rule_id(finding["Rule and Remediation Guidance"]),
+            "location": finding["Path"],
+            "reason": finding["Security Notes"],
         }
 
         with open(path_false_positive_file, "w") as f:

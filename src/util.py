@@ -6,7 +6,7 @@ import textwrap
 def run_command(command: str, throw_error: bool = True):
     process = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     process.stdout = process.stdout + process.stderr
-    if ((process.returncode != 0) and throw_error):
+    if (process.returncode != 0) and throw_error:
         error_msg = f"""
             The following command failed with return code {process.returncode}.
             Command: {process.args}

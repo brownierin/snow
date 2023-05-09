@@ -5,7 +5,7 @@ import csv
 import argparse
 import sys
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Runs the difference between two sets of scan results to get the new findings only."
     )
@@ -22,7 +22,10 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    writer = csv.DictWriter(sys.stdout, fieldnames=["Rule", "ProjectName", "Language", "Path", "Checked", "Status", "Jira", "Notes", "HashId"])
+    writer = csv.DictWriter(
+        sys.stdout,
+        fieldnames=["Rule", "ProjectName", "Language", "Path", "Checked", "Status", "Jira", "Notes", "HashId"],
+    )
     writer.writeheader()
 
     old_findings = {}

@@ -16,18 +16,19 @@ from src.checkpoint import create_checkpoint_results_json
 
 
 def scan_folder(folder, configlanguage, output_file):
-    semgrep_command =  "docker run --user \"$(id -u):$(id -g)\" --rm "
+    semgrep_command = 'docker run --user "$(id -u):$(id -g)" --rm '
     semgrep_command += "-v " + SNOW_ROOT + ":/src "
-    semgrep_command += "returntocorp/semgrep:" + CONFIG['general']['version'] + " "
-    semgrep_command += CONFIG[configlanguage]['config'] + " "
-    semgrep_command += CONFIG[configlanguage]['exclude']
+    semgrep_command += "returntocorp/semgrep:" + CONFIG["general"]["version"] + " "
+    semgrep_command += CONFIG[configlanguage]["config"] + " "
+    semgrep_command += CONFIG[configlanguage]["exclude"]
     semgrep_command += " --json"
-    semgrep_command += " -o /src" + CONFIG['general']['results'] + output_file
+    semgrep_command += " -o /src" + CONFIG["general"]["results"] + output_file
     semgrep_command += " --error "
-    semgrep_command += CONFIG['general']['tests_repositories'][1:] + folder
+    semgrep_command += CONFIG["general"]["tests_repositories"][1:] + folder
     semgrep_command += " --dangerously-allow-arbitrary-code-execution-from-rules"
 
     subprocess.run(semgrep_command, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
 
 def do_test(test_case_name, language, test_config_path):
     try:
@@ -51,7 +52,11 @@ def do_test(test_case_name, language, test_config_path):
         result_count = len(scan_result["results"])
         expected_count = test_config["expected-result-count"]
         if not result_count == expected_count:
-            print("[WARN] Expected {} results from test case '{}', but got {}.".format(expected_count, test_case_name, result_count))
+            print(
+                "[WARN] Expected {} results from test case '{}', but got {}.".format(
+                    expected_count, test_case_name, result_count
+                )
+            )
 
         # Check if the correct rule got triggered
         expected_rule_match = test_config["expected-match"]
@@ -75,15 +80,22 @@ def do_test(test_case_name, language, test_config_path):
 
     return is_success
 
-parser = argparse.ArgumentParser(description='Test runner for the semgrep rules.')
-parser.add_argument('--lang', required=False)
-parser.add_argument('--test', required=False)
-parser.add_argument('--worker', default=1, required=False)
-parser.add_argument('--generate_checkpoint_artifact', default=False, dest='generate_checkpoint_artifact', action='store_true', required=False)
+
+parser = argparse.ArgumentParser(description="Test runner for the semgrep rules.")
+parser.add_argument("--lang", required=False)
+parser.add_argument("--test", required=False)
+parser.add_argument("--worker", default=1, required=False)
+parser.add_argument(
+    "--generate_checkpoint_artifact",
+    default=False,
+    dest="generate_checkpoint_artifact",
+    action="store_true",
+    required=False,
+)
 args = parser.parse_args()
 
-local_test_directory = SNOW_ROOT + CONFIG['general']['tests_repositories']
-local_results_directory = SNOW_ROOT + CONFIG['general']['results']
+local_test_directory = SNOW_ROOT + CONFIG["general"]["tests_repositories"]
+local_results_directory = SNOW_ROOT + CONFIG["general"]["results"]
 
 is_all_test_success = True
 test_ran, test_ran_success, test_ran_fail = 0, 0, 0
@@ -104,7 +116,7 @@ with ThreadPoolExecutor(max_workers=int(args.worker)) as executor:
             continue
 
         future = executor.submit(do_test, test_case_name, language, test_config_path)
-        pending_test_results.append({ "future" : future, "test_case_name" : test_case_name })
+        pending_test_results.append({"future": future, "test_case_name": test_case_name})
 
 for result in pending_test_results:
     test_ran += 1
@@ -113,19 +125,11 @@ for result in pending_test_results:
     if is_success:
         print("[OK] %s" % (result["test_case_name"]))
         test_ran_success += 1
-        test_results.append({
-            "level" : "pass",
-            "case" : "semgrep-rule-" + result["test_case_name"],
-            "output" : ""
-        })
+        test_results.append({"level": "pass", "case": "semgrep-rule-" + result["test_case_name"], "output": ""})
     else:
         is_all_test_success = False
         test_ran_fail += 1
-        test_results.append({
-            "level" : "failure",
-            "case" : "semgrep-rule-" + result["test_case_name"],
-            "output" : ""
-        })        
+        test_results.append({"level": "failure", "case": "semgrep-rule-" + result["test_case_name"], "output": ""})
 
 print("[INFO] {} test executed. Passed :  {} Fail : {}.".format(test_ran, test_ran_success, test_ran_fail))
 

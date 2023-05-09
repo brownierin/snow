@@ -9,8 +9,9 @@ from run_semgrep import get_repo_list, find_repo_language
 logger = logging.getLogger(__name__)
 sys.path.insert(0, SNOW_ROOT)
 
-# Checks that all false positive file are valid
+
 def test_valid_false_positives_file():
+    # Checks that all false positive file are valid
     all_fp_files = list(glob.glob(f"{SNOW_ROOT}/languages/*/false_positives/*_false_positives.json"))
 
     assert len(all_fp_files) > 0
@@ -20,8 +21,9 @@ def test_valid_false_positives_file():
             data = json.load(f)
             assert isinstance(data, dict)
 
-# Checks that a false positive file exists for all enabled repo
+
 def test_no_missing_false_positive_file():
+    # Checks that a false positive file exists for all enabled repo
     repos = get_repo_list()
 
     for repo_long in repos:

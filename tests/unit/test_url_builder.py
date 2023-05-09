@@ -6,7 +6,7 @@ from run_semgrep import process_one_result, remove_scheme_from_url
 from src.config import *
 
 logger = logging.getLogger(__name__)
-sys.path.insert(0,SNOW_ROOT)
+sys.path.insert(0, SNOW_ROOT)
 
 
 def test_url_builder():

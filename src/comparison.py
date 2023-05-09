@@ -116,7 +116,6 @@ def get_num_of_findings_to_remove(old, new):
     return min(len(new), len(old))
 
 
-
 def check_hash_id_uniqueness(results):
     counts = Counter(result["hash_id"] for result in results)
     for k, v in counts.items():
