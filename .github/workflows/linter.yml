@@ -27,7 +27,7 @@ jobs:
           fetch-depth: 0
 
       - name: Lint Code Base
-        uses: slack/super-linter@v5
+        uses: synced-actions/super-linter@v5
         env:
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: master
