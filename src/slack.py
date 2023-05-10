@@ -3,11 +3,9 @@
 
 import os
 import sys
-import logging
 
 import src.util as util
-
-logging.getLogger(__name__)
+from src.config import logger
 
 
 def is_webapp(repo):

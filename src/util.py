@@ -1,6 +1,7 @@
-import logging
 import subprocess
 import textwrap
+
+from src.config import logger
 
 
 def run_command(command: str, throw_error: bool = True):

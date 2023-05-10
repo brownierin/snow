@@ -2,7 +2,8 @@
 
 
 import os
-from src.config import *
+from src.config import JENKINS_PROD_JOB
+from src.config import logger
 
 
 def get_ci_env():
@@ -28,7 +29,7 @@ def get_job_enviroment():
         return "dev"
 
     # This case happens when we are running on the production job on Jenkins
-    if job_name.lower() == CONFIG["general"]["jenkins_prod_job"].lower():
+    if job_name.lower() == config.JENKINS_PROD_JOB.lower():
         return "prod"
 
     # This case happens when we are running a job on Jenkins, but it it's the

@@ -4,6 +4,7 @@ import json
 import logging.config
 import logging
 
+
 SNOW_ROOT = os.getcwd()
 env = os.getenv("env")
 CONFIG = configparser.ConfigParser()
@@ -12,6 +13,8 @@ if env == "snow-test":
 else:
     CONFIG.read(f"{SNOW_ROOT}/config/prod.cfg")
 
+logging.config.fileConfig(fname=f"{SNOW_ROOT}/config/logging.ini")
+logger = logging
 
 if CONFIG["general"]["run_local_semgrep"] != "False":
     SNOW_ROOT = CONFIG["general"]["run_local_semgrep"]
@@ -27,14 +30,13 @@ DIGEST = CONFIG["general"]["digest"]
 CHECKPOINT_API_URL = CONFIG["general"]["checkpoint_api_url"]
 TSAUTH_TOKEN_ENV = CONFIG["general"]["tsauth_token_env"]
 
-logging.config.fileConfig(fname=f"{SNOW_ROOT}/config/logging.ini")
-
 HIGH_ALERT_TEXT = CONFIG["alerts"]["high_alert_text"]
 BANNER = CONFIG["alerts"]["banner"]
 NORMAL_ALERT_TEXT = CONFIG["alerts"]["normal_alert_text"]
 NO_VULNS_TEXT = CONFIG["alerts"]["no_vulns_text"]
 ERRORS_TEXT = CONFIG["alerts"]["errors_text"]
 
+JENKINS_PROD_JOB = CONFIG["general"]["jenkins_prod_job"]
 commit_head_env = CONFIG["general"]["commit_head"]
 master_commit_env = CONFIG["general"]["master_commit"]
 artifact_dir_env = CONFIG["general"]["artifact_dir"]

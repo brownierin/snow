@@ -4,8 +4,7 @@ import requests
 import os
 import logging
 from src.exceptions import WebhookUrlError
-
-logging.getLogger(__name__)
+from src.config import logger
 
 
 def send(content):

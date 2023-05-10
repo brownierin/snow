@@ -14,6 +14,7 @@ import requests
 import src.jenkins as jenkins
 import src.webhooks as webhooks
 from src.config import *
+from src.config import logger
 
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -52,7 +53,7 @@ def call_checkpoint_api(url, post_params, tsauth_auth_token=None):
 
             r = requests.post(url=url, headers=headers, json=post_params)
             if os.environ.get("env") == "snow-test":
-                print(r.text)
+                logging.info(r.text)
 
             return r.json()
     except Exception as e:
@@ -94,7 +95,7 @@ def get_artifact_dir():
         cibot_artifact_dir = os.environ["CIBOT_ARTIFACT_DIR"]
         return cibot_artifact_dir
     except KeyError as e:
-        print("[-] CIBOT_ARTIFACT_DIR isn't set!")
+        logging.error("CIBOT_ARTIFACT_DIR isn't set!")
 
 
 def set_filenames():
@@ -131,7 +132,7 @@ def create_checkpoint_results_json(results):
 
 def convert(fp_removed_filename, original_filename, comparison_filename):
     set_filenames()
-    print(f"[+] Checkpoint artifacts dir: {cibot_artifact_dir}")
+    logging.info(f"Checkpoint artifacts dir: {cibot_artifact_dir}")
     fp_removed_data = open_json(fp_removed_filename)
     comparison_data = open_json(comparison_filename)
     original_data = open_json(original_filename)
@@ -240,7 +241,7 @@ def upload_test_result_to_checkpoint(
         text = """:banger-alert: :snowflake:Daily :block-s: :block-e: :block-m: :block-g: :block-r: :block-e: :block-p: Scan Error:snowflake::banger-alert:\nTSAuth token couldn't be found. We can't upload results to checkpoint !"""
         cmd = f"echo \"{text}\" | slack --channel={CONFIG['general']['alertchannel']} --cat --user=SNOW "
         subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        print(
+        logging.info(
             "No TSAuth token found. The results of this scan won't be uploaded to"
             " checkpoint. Please reach out to #triage-prodsec if you see this error"
             " message."
@@ -285,7 +286,7 @@ def upload_test_result_to_checkpoint(
         )
         subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
-        print(f"Error while uploading results to checkpoint: {call_result['error']}")
+        logging.error(f"Error while uploading results to checkpoint: {call_result['error']}")
         return 1
     return 0
 
