@@ -13,8 +13,8 @@ if env == "snow-test":
 else:
     CONFIG.read(f"{SNOW_ROOT}/config/prod.cfg")
 
-logging.config.fileConfig(fname=f"{SNOW_ROOT}/config/logging.ini")
 logger = logging
+logger.config.fileConfig(fname=f"{SNOW_ROOT}/config/logging.ini")
 
 if CONFIG["general"]["run_local_semgrep"] != "False":
     SNOW_ROOT = CONFIG["general"]["run_local_semgrep"]

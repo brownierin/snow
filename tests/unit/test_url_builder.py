@@ -1,12 +1,9 @@
 import json
-import sys
 import logging
 
 from run_semgrep import process_one_result, remove_scheme_from_url
-from src.config import *
-
-logger = logging.getLogger(__name__)
-sys.path.insert(0, SNOW_ROOT)
+from src.config import SNOW_ROOT
+from src.config import logger
 
 
 def test_url_builder():

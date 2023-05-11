@@ -1,13 +1,10 @@
-import os
-import sys
 import json
 import logging
-from unittest.mock import patch, mock_open
+from unittest.mock import patch
 from io import StringIO
 
-SNOW_ROOT = os.path.realpath(os.path.dirname(os.path.realpath(__file__)) + "/../../")
-sys.path.insert(0, SNOW_ROOT)
-
+from src.config import logger
+from src.config import SNOW_ROOT
 import src.comparison as comparison
 
 

@@ -10,9 +10,11 @@ import subprocess
 import chardet
 import re
 import requests
+import logging
 
 import src.jenkins as jenkins
 import src.webhooks as webhooks
+from src.exceptions import InvalidResultsDirError
 from src.config import *
 from src.config import logger
 
@@ -91,11 +93,11 @@ def uberproxy_curl(url, method, headers={}, content=None):
 
 
 def get_artifact_dir():
-    try:
-        cibot_artifact_dir = os.environ["CIBOT_ARTIFACT_DIR"]
-        return cibot_artifact_dir
-    except KeyError as e:
+    cibot_artifact_dir = os.environ.get("CIBOT_ARTIFACT_DIR")
+    if cibot_artifact_dir is None:
         logging.error("CIBOT_ARTIFACT_DIR isn't set!")
+        raise InvalidResultsDirError
+    return cibot_artifact_dir
 
 
 def set_filenames():

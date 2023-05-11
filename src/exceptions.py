@@ -19,6 +19,14 @@ class invalidSha1Error(Exception):
         return self.message
 
 
+class InvalidResultsDirError(Exception):
+    def __init__(self):
+        self.message = "CIBOT_ARTIFACT_DIR is not set"
+
+    def __str__(self):
+        return self.message
+
+
 class FalsePositiveFileDoesNotExist(Exception):
     def __init__(self, filepath):
         self.filepath = filepath

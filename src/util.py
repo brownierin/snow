@@ -1,5 +1,6 @@
 import subprocess
 import textwrap
+import logging
 
 from src.config import logger
 

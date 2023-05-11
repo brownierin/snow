@@ -1,11 +1,8 @@
-import sys
 import logging
 
-from src.config import *
+from src.config import SNOW_ROOT
+from src.config import logger
 from run_semgrep import regex_sha_match
-
-logger = logging.getLogger(__name__)
-sys.path.insert(0, SNOW_ROOT)
 
 
 def test_selected_paths():

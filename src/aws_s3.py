@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 
-import os
 import logging
 
 import boto3
 
-from config import logger
+from src.config import logger
 
 
 def upload_file(filename, bucket):

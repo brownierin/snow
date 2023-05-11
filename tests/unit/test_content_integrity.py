@@ -1,13 +1,10 @@
 import os
 import glob
 import json
-import sys
 
-from src.config import *
+from src.config import SNOW_ROOT
+from src.config import logger
 from run_semgrep import get_repo_list, find_repo_language
-
-logger = logging.getLogger(__name__)
-sys.path.insert(0, SNOW_ROOT)
 
 
 def test_valid_false_positives_file():

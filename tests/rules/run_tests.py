@@ -6,12 +6,15 @@ import subprocess
 import glob
 import json
 import argparse
+import logging
 from concurrent.futures import ThreadPoolExecutor
 
 SNOW_ROOT = os.getcwd()
 sys.path.insert(0, SNOW_ROOT)
 
 from src.config import *
+from src.config import logger
+
 from src.checkpoint import create_checkpoint_results_json
 
 
@@ -52,7 +55,7 @@ def do_test(test_case_name, language, test_config_path):
         result_count = len(scan_result["results"])
         expected_count = test_config["expected-result-count"]
         if not result_count == expected_count:
-            print(
+            logging.warning(
                 "[WARN] Expected {} results from test case '{}', but got {}.".format(
                     expected_count, test_case_name, result_count
                 )
@@ -63,7 +66,7 @@ def do_test(test_case_name, language, test_config_path):
         found_rule = []
         for item in scan_result["results"]:
             if not item["check_id"] in expected_rule_match:
-                print("[ERR] Test returned an unexpected rule match '{}'.".format(item["check_id"]))
+                logging.error("[ERR] Test returned an unexpected rule match '{}'.".format(item["check_id"]))
                 is_success = False
             else:
                 found_rule.append(item["check_id"])
@@ -71,11 +74,11 @@ def do_test(test_case_name, language, test_config_path):
         # Check if all the rule got matched
         for rule in expected_rule_match:
             if not rule in found_rule:
-                print("[ERR] The rule '{}' was not matched.".format(rule))
+                logging.error("[ERR] The rule '{}' was not matched.".format(rule))
                 is_success = False
 
     except Exception as e:
-        print("[ERR] An unexpected error occured while running the test case '{}' ({}).".format(test_case_name, str(e)))
+        logging.error("[ERR] An unexpected error occured while running the test case '{}' ({}).".format(test_case_name, str(e)))
         is_success = False
 
     return is_success
@@ -123,7 +126,7 @@ for result in pending_test_results:
     is_success = result["future"].result()
 
     if is_success:
-        print("[OK] %s" % (result["test_case_name"]))
+        logging.info("[OK] %s" % (result["test_case_name"]))
         test_ran_success += 1
         test_results.append({"level": "pass", "case": "semgrep-rule-" + result["test_case_name"], "output": ""})
     else:
@@ -131,13 +134,13 @@ for result in pending_test_results:
         test_ran_fail += 1
         test_results.append({"level": "failure", "case": "semgrep-rule-" + result["test_case_name"], "output": ""})
 
-print("[INFO] {} test executed. Passed :  {} Fail : {}.".format(test_ran, test_ran_success, test_ran_fail))
+logging.info("[INFO] {} test executed. Passed :  {} Fail : {}.".format(test_ran, test_ran_success, test_ran_fail))
 
 if args.generate_checkpoint_artifact:
     create_checkpoint_results_json(test_results)
 
 if is_all_test_success:
-    print("[OK] All test passed !")
+    logging.info("[OK] All test passed !")
 else:
-    print("[ERR] Some test failed. See the logs for more information.")
+    logging.error("[ERR] Some test failed. See the logs for more information.")
     sys.exit(1)

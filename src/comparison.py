@@ -17,6 +17,7 @@ from collections import Counter, defaultdict
 import logging
 
 from src.exceptions import FalsePositiveFileDoesNotExist
+from src.config import logger
 
 
 def open_json(filename):
